@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B53D96F7224883C50092BDE3 /* CMPageTitleConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = B53D96F6224883C50092BDE3 /* CMPageTitleConfig.m */; };
+		B5B8ACF62249CA2D00ABF82B /* UIView+CMCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8ACF52249CA2D00ABF82B /* UIView+CMCommon.m */; };
+		B5B8AD07224A0E0000ABF82B /* NSString+CMCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8AD06224A0E0000ABF82B /* NSString+CMCommon.m */; };
 		B5EBC99C21215A31000403B8 /* CMPageTitleViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC99B21215A31000403B8 /* CMPageTitleViewTests.m */; };
 		B5EBC9A721215A31000403B8 /* CMPageTitleViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9A621215A31000403B8 /* CMPageTitleViewUITests.m */; };
 		B5EBC9C821215A72000403B8 /* CMPageTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9B921215A72000403B8 /* CMPageTitleView.m */; };
@@ -20,7 +23,6 @@
 		B5EBC9D021215A72000403B8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9C521215A72000403B8 /* AppDelegate.m */; };
 		B5EBC9D121215A72000403B8 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5EBC9C621215A72000403B8 /* Info.plist */; };
 		B5EBC9D621215C0B000403B8 /* CMFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9D321215C0B000403B8 /* CMFlowLayout.m */; };
-		B5EBC9D721215C0B000403B8 /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9D521215C0B000403B8 /* UIView+Frame.m */; };
 		B5EBC9DA21215C5F000403B8 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9D921215C5F000403B8 /* UIColor+Hex.m */; };
 		B5EBC9DE21215CB3000403B8 /* CMDisplayTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9DD21215CB3000403B8 /* CMDisplayTitleLabel.m */; };
 /* End PBXBuildFile section */
@@ -43,6 +45,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B53D96F5224883C50092BDE3 /* CMPageTitleConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMPageTitleConfig.h; sourceTree = "<group>"; };
+		B53D96F6224883C50092BDE3 /* CMPageTitleConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMPageTitleConfig.m; sourceTree = "<group>"; };
+		B5B8ACF42249CA2D00ABF82B /* UIView+CMCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CMCommon.h"; sourceTree = "<group>"; };
+		B5B8ACF52249CA2D00ABF82B /* UIView+CMCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CMCommon.m"; sourceTree = "<group>"; };
+		B5B8AD05224A0E0000ABF82B /* NSString+CMCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+CMCommon.h"; sourceTree = "<group>"; };
+		B5B8AD06224A0E0000ABF82B /* NSString+CMCommon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+CMCommon.m"; sourceTree = "<group>"; };
 		B5EBC97F21215A2F000403B8 /* CMPageTitleView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CMPageTitleView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5EBC99721215A31000403B8 /* CMPageTitleViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CMPageTitleViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5EBC99B21215A31000403B8 /* CMPageTitleViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMPageTitleViewTests.m; sourceTree = "<group>"; };
@@ -67,8 +75,6 @@
 		B5EBC9C721215A72000403B8 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		B5EBC9D221215C0A000403B8 /* CMFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMFlowLayout.h; sourceTree = "<group>"; };
 		B5EBC9D321215C0B000403B8 /* CMFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMFlowLayout.m; sourceTree = "<group>"; };
-		B5EBC9D421215C0B000403B8 /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
-		B5EBC9D521215C0B000403B8 /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
 		B5EBC9D821215C5F000403B8 /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		B5EBC9D921215C5F000403B8 /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
 		B5EBC9DB21215CB3000403B8 /* CMParameterSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMParameterSetting.h; sourceTree = "<group>"; };
@@ -163,20 +169,24 @@
 			isa = PBXGroup;
 			children = (
 				B5EBC9DF21215D17000403B8 /* Config */,
+				B5B8ACF42249CA2D00ABF82B /* UIView+CMCommon.h */,
+				B5B8ACF52249CA2D00ABF82B /* UIView+CMCommon.m */,
+				B5B8AD05224A0E0000ABF82B /* NSString+CMCommon.h */,
+				B5B8AD06224A0E0000ABF82B /* NSString+CMCommon.m */,
 				B5EBC9DC21215CB3000403B8 /* CMDisplayTitleLabel.h */,
 				B5EBC9DD21215CB3000403B8 /* CMDisplayTitleLabel.m */,
 				B5EBC9D821215C5F000403B8 /* UIColor+Hex.h */,
 				B5EBC9D921215C5F000403B8 /* UIColor+Hex.m */,
 				B5EBC9D221215C0A000403B8 /* CMFlowLayout.h */,
 				B5EBC9D321215C0B000403B8 /* CMFlowLayout.m */,
-				B5EBC9D421215C0B000403B8 /* UIView+Frame.h */,
-				B5EBC9D521215C0B000403B8 /* UIView+Frame.m */,
 				B5EBC9B721215A72000403B8 /* CMPageContentView.h */,
 				B5EBC9BA21215A72000403B8 /* CMPageContentView.m */,
 				B5EBC9B821215A72000403B8 /* CMPageView.h */,
 				B5EBC9BB21215A72000403B8 /* CMPageView.m */,
 				B5EBC9B621215A72000403B8 /* CMPageTitleView.h */,
 				B5EBC9B921215A72000403B8 /* CMPageTitleView.m */,
+				B53D96F5224883C50092BDE3 /* CMPageTitleConfig.h */,
+				B53D96F6224883C50092BDE3 /* CMPageTitleConfig.m */,
 			);
 			path = CMPageView;
 			sourceTree = "<group>";
@@ -339,8 +349,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5B8ACF62249CA2D00ABF82B /* UIView+CMCommon.m in Sources */,
+				B53D96F7224883C50092BDE3 /* CMPageTitleConfig.m in Sources */,
 				B5EBC9DE21215CB3000403B8 /* CMDisplayTitleLabel.m in Sources */,
-				B5EBC9D721215C0B000403B8 /* UIView+Frame.m in Sources */,
 				B5EBC9CF21215A72000403B8 /* main.m in Sources */,
 				B5EBC9C821215A72000403B8 /* CMPageTitleView.m in Sources */,
 				B5EBC9D021215A72000403B8 /* AppDelegate.m in Sources */,
@@ -348,6 +359,7 @@
 				B5EBC9CA21215A72000403B8 /* CMPageView.m in Sources */,
 				B5EBC9D621215C0B000403B8 /* CMFlowLayout.m in Sources */,
 				B5EBC9CC21215A72000403B8 /* ViewController.m in Sources */,
+				B5B8AD07224A0E0000ABF82B /* NSString+CMCommon.m in Sources */,
 				B5EBC9C921215A72000403B8 /* CMPageContentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

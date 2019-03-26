@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "CMPageTitleConfig.h"
 @protocol CMPageContentViewDelegate <NSObject>
 
 - (void)contentViewDidScroll:(UIScrollView *)scrollView;
@@ -17,13 +17,13 @@
 
 
 
-@interface CMPageContentView : UIView
+@interface CMPageContentView : UICollectionView
 
-
+/**配置*/
+@property (nonatomic,strong) CMPageTitleConfig *cm_config;
 /**代理*/
-@property (nonatomic,assign) id <CMPageContentViewDelegate> delegate;
-
-
+//@property (nonatomic,assign) id <CMPageContentViewDelegate> delegate;
+- (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout Config:(CMPageTitleConfig *)config;
 
 - (instancetype)initWithFrame:(CGRect)frame ChildViewControllers:(NSArray *)childControllers ParentController:(UIViewController *)parentController;
 

@@ -11,5 +11,6 @@
 
 #import "CMParameterSetting.h"
 #import "UIColor+Hex.h"
-#import "UIView+Frame.h"
+#import "UIView+CMCommon.h"
+#import "NSString+CMCommon.h"
 #endif /* CMHeader_h */
