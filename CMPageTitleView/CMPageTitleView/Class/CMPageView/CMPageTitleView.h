@@ -18,7 +18,7 @@
 #import "CMPageTitleConfig.h"
 @protocol CMPageTitleViewDelegate <NSObject>
 
-- (void)titleDidClick:(NSUInteger)index;
+- (void)cm_pageTitleViewClickWithIndex:(NSUInteger)index Repeat:(BOOL)repeat;
 
 
 @end
@@ -29,10 +29,19 @@
 
 @interface CMPageTitleView : UIScrollView
 
+/**选中的标题*/
+@property (nonatomic,assign) NSInteger cm_selectedIndex;
+
+
 /**点击daili*/
-@property (nonatomic,weak) id <CMPageTitleViewDelegate> delegate;
+@property (nonatomic,weak) id <CMPageTitleViewDelegate> cm_delegate;
 
 - (instancetype)initWithConfig:(CMPageTitleConfig *)config;
 
+
+/**
+ 
+ */
+- (void)cm_pageTitleViewDidScroll:(UIScrollView *)scrollView;
 
 @end

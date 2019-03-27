@@ -82,6 +82,13 @@
         _titleCover = titleCover;
     }
     return self.config.cm_showCover?_titleCover:nil;
+}
+
+- (void)setCm_selectedIndex:(NSInteger)cm_selectedIndex {
+    
+    _cm_selectedIndex = cm_selectedIndex;
+    
+    [self selectLabel:self.titleLabels[cm_selectedIndex]];
     
 }
 
@@ -166,18 +173,63 @@
         
         [self selectLabel:self.titleLabels.firstObject];
    
-    
     } else {
         
         //设置默认选择
         [self selectLabel:self.titleLabels.firstObject];
-        
         
     }
     
     
     [self setUnderLineWithLabel:self.titleLabels.firstObject];
     [self setTitleCoverWithLabel:self.titleLabels.firstObject];
+    
+}
+
+
+- (void)cm_pageTitleViewDidScroll:(UIScrollView *)scrollView {
+    
+        //获取偏移量
+        CGFloat offSetX = scrollView.contentOffset.x;
+    
+        //获取左边角标
+        NSInteger leftIndex = offSetX / self.cm_width;
+    
+        //左边按钮
+        UILabel *leftLabel = self.titleLabels[leftIndex];
+    
+        //右边角标
+        NSInteger rightIndex = leftIndex + 1;
+        //右边角标
+        UILabel *rightLabel = nil;
+    
+        if (rightIndex < self.titleLabels.count) {
+            rightLabel = self.titleLabels[rightIndex];
+        }
+    
+    
+        //字体放大
+        [self setUpTitleScaleWithOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
+    
+        //设置遮罩偏移
+        [self setUpCoverOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
+    
+        //设置标题渐变
+        [self setUpTitleColorGradientWithOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
+    
+    //    if (_isDelayScroll == NO) { // 延迟滚动，不需要移动下标
+    
+        [self setUpUnderLineOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
+    //    }
+        //记录上一次的偏移量
+    //    _lastOffsetX = offSetX;
+    
+    
+    
+      //  [self.titleView selectLabelWithIndex:offSetX /CMSCREEN_W ];
+    
+        self.lastOffsetX = scrollView.contentOffset.x;
+
     
 }
 
@@ -254,9 +306,8 @@
     CMDisplayTitleLabel *label = (CMDisplayTitleLabel *)tap.view;
     
     //每次点击都需走代理方法，便于网络请求
-    if (self.delegate) {
-        [self.delegate titleDidClick:[self.titleLabels indexOfObject:label]];
-
+    if (self.cm_delegate) {
+        [self.cm_delegate cm_pageTitleViewClickWithIndex:[self.titleLabels indexOfObject:label] Repeat:label == self.selectedLabel];
     }
     
     //二次点击 界面无需变化
@@ -276,18 +327,6 @@
     
 }
 
-
-- (void)selectLabelWithIndex:(NSUInteger)index {
-    
-    
-    [self selectLabel:self.titleLabels[index]];
-    
-    
-    //渐变效果
-    
-    
-    
-}
 
 /**
  选中标题Label的设置

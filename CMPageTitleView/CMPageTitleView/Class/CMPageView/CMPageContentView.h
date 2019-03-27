@@ -8,26 +8,26 @@
 
 #import <UIKit/UIKit.h>
 #import "CMPageTitleConfig.h"
+
+
+@class CMPageContentView;
 @protocol CMPageContentViewDelegate <NSObject>
 
-- (void)contentViewDidScroll:(UIScrollView *)scrollView;
+- (void)cm_pageContentViewDidEndDeceleratingWithIndex:(NSInteger)index;
 
-- (void)contentViewDidEndDecelerating:(NSUInteger )index;
+- (void)cm_pageContentViewDidScroll:(UIScrollView *)scrollView;
+
+
 @end
-
 
 
 @interface CMPageContentView : UICollectionView
 
-/**配置*/
-@property (nonatomic,strong) CMPageTitleConfig *cm_config;
-/**代理*/
-//@property (nonatomic,assign) id <CMPageContentViewDelegate> delegate;
+/**delegate*/
+@property (nonatomic,weak) id <CMPageContentViewDelegate> cm_delegate;
+
 - (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout Config:(CMPageTitleConfig *)config;
-
-- (instancetype)initWithFrame:(CGRect)frame ChildViewControllers:(NSArray *)childControllers ParentController:(UIViewController *)parentController;
-
-- (void)setContentOffset:(CGPoint)offset;
 
 
 @end
+

@@ -8,21 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "CMPageTitleConfig.h"
-@protocol CMPageViewDelegate  <NSObject>
 
-- (void)pageViewTitleChangedAtIndex:(NSUInteger)index;
+@protocol CMPageViewDelegate <NSObject>
+
+- (void)cm_pageViewClickWithIndex:(NSInteger)index Repeat:(BOOL)repeat;
 
 @end
 
-
-@interface CMPageView : UIView <CMPageViewDelegate>
-
+@interface CMPageView : UIView
 
 /**代理*/
-@property (nonatomic,weak) id<CMPageViewDelegate> delegate;
+@property (nonatomic,assign) id <CMPageViewDelegate> delegate;
 
 /**配置*/
 @property (nonatomic,strong) CMPageTitleConfig *cm_config;
-
 
 @end

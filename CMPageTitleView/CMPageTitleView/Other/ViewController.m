@@ -51,7 +51,11 @@
     CMPageView *pageView = [[CMPageView alloc] initWithFrame:CGRectMake(0, CMNavBarH, CMScreenW, CMScreenH - CMNavBarH)];
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = childCOntrollers;
+    config.cm_seperateLineHeight = 2;
+    config.cm_showUnderLine = YES;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     pageView.cm_config = config;
+    
     [self.view addSubview:pageView];
     
 }

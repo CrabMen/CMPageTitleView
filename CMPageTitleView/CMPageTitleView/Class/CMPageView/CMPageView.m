@@ -10,7 +10,7 @@
 #import "CMPageTitleView.h"
 #import "CMPageContentView.h"
 #import "CMFlowLayout.h"
-@interface CMPageView() <CMPageTitleViewDelegate,CMPageContentViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface CMPageView() <CMPageTitleViewDelegate,CMPageContentViewDelegate>
 
 /**标题视图*/
 @property (nonatomic,strong) CMPageTitleView *titleView;
@@ -34,9 +34,8 @@
 - (CMPageTitleView *)titleView {
     
     if (!_titleView) {
-
         _titleView = [[CMPageTitleView alloc] initWithConfig:self.cm_config];
-        _titleView.delegate = self;
+        _titleView.cm_delegate = self;
     }
     return _titleView;
 }
@@ -45,18 +44,11 @@
 - (CMPageContentView *)contentView {
     if (!_contentView) {
         CMFlowLayout *layout = [CMFlowLayout new];
-        CGRect rect = CGRectMake(0, self.cm_config.cm_titleHeight, self.cm_width, self.cm_height - self.cm_config.cm_titleHeight - self.cm_config.cm_seperateLineHeight);
-//        layout.itemSize = rect.size;
+        CGRect rect = CGRectMake(0, self.cm_config.cm_titleHeight + self.cm_config.cm_seperateLineHeight, self.cm_width, self.cm_height - self.cm_config.cm_titleHeight - self.cm_config.cm_seperateLineHeight);
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        _contentView = [[CMPageContentView alloc] initWithFrame:rect collectionViewLayout:layout];
-        _contentView.cm_config = self.cm_config;
-        [_contentView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell" ];
-        _contentView.pagingEnabled = YES;
-        _contentView.showsHorizontalScrollIndicator = NO;
-        _contentView.showsVerticalScrollIndicator = NO;
-        _contentView.bounces = NO;
-        _contentView.delegate = self;
-        _contentView.dataSource = self;
+        _contentView = [[CMPageContentView alloc] initWithFrame:rect collectionViewLayout:layout Config:self.cm_config];
+        _contentView.cm_delegate = self;
+       
     }
     return _contentView;
 }
@@ -80,106 +72,34 @@
     
 }
 
-#pragma mark --- UICollectionViewDataSource
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    
-    return 1;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    
-    return self.cm_config.cm_childControllers.count;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    cell.contentView.backgroundColor = [UIColor whiteColor];
-    //移除之前的子控件
-    // [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
-    //添加控制器
-    //    UIViewController *VC = self.config.cm_childControllers[indexPath.row];
-    //    VC.view.frame = CGRectMake(0, 0, self.cm_width, self.cm_height);
-    //
-    //    [cell.contentView addSubview:VC.view];
-    UILabel *label = [UILabel new];
-    label.text = [self.cm_config.cm_childControllers[indexPath.row] title];
-    [label sizeToFit];
-    label.textColor = [UIColor blackColor];
-    
-    [cell.contentView addSubview:label];
-    
-    return cell;
-    
-    
-}
-
-
 #pragma mark --- CMPageTitleViewDelegate
 
+- (void)cm_pageTitleViewClickWithIndex:(NSUInteger)index Repeat:(BOOL)repeat {
+    
+    if (repeat) {
+        //获取子视图控制器，刷新数据
+        
+    } else {
+        //获取子视图控制器 切换
+        [self.contentView setContentOffset:CGPointMake(index * CMScreenW, 0)];
+    }
 
-- (void)titleDidClick:(NSUInteger)index {
-    
-    NSLog(@"当前点击的是第%ld个",index);
-    
-    [self.contentView setContentOffset:CGPointMake(index * CMSCREEN_W , 0)];
-    
 }
+
 
 #pragma mark --- CMPageContentViewDelegate
 
-- (void)contentViewDidEndDecelerating:(NSUInteger)index {
+- (void)cm_pageContentViewDidEndDeceleratingWithIndex:(NSInteger)index {
     
-    
-//    [self.titleView selectLabelWithIndex:index];
-    
-}
-
--(void)contentViewDidScroll:(UIScrollView *)scrollView {
-//
-//    //获取偏移量
-//    CGFloat offSetX = scrollView.contentOffset.x;
-//
-//    //获取左边角标
-//    NSInteger leftIndex = offSetX / CMSCREEN_W;
-//
-//    //左边按钮
-//    UILabel *leftLabel = self.titleView.titleLabels[leftIndex];
-//
-//    //右边角标
-//    NSInteger rightIndex = leftIndex + 1;
-//    //右边角标
-//    UILabel *rightLabel = nil;
-//
-//    if (rightIndex < self.titleView.titleLabels.count) {
-//        rightLabel = self.titleView.titleLabels[rightIndex];
-//    }
-//
-//
-//    //字体放大
-//    [self.titleView setUpTitleScaleWithOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
-//
-//    //设置遮罩偏移
-//    [self.titleView setUpCoverOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
-//
-//    //设置标题渐变
-//    [self.titleView setUpTitleColorGradientWithOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
-//
-////    if (_isDelayScroll == NO) { // 延迟滚动，不需要移动下标
-//
-//        [self.titleView setUpUnderLineOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
-////    }
-//    //记录上一次的偏移量
-////    _lastOffsetX = offSetX;
-//
-//
-//
-//  //  [self.titleView selectLabelWithIndex:offSetX /CMSCREEN_W ];
-//
-//    self.titleView.lastOffsetX = scrollView.contentOffset.x;
+    self.titleView.cm_selectedIndex = index;
     
 }
 
 
+- (void)cm_pageContentViewDidScroll:(UIScrollView *)scrollView {
+    
+    [self.titleView cm_pageTitleViewDidScroll:scrollView];
+    
+}
 
 @end
