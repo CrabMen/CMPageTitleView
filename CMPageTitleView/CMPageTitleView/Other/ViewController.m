@@ -27,13 +27,13 @@
     UIViewController *vc6 = [UIViewController new];
     UIViewController *vc7 = [UIViewController new];
    
-    vc0.title = @"测试标题00";
-    vc1.title = @"测试标题01";
+    vc0.title = @"0000";
+    vc1.title = @"测标题01";
     vc2.title = @"测试标题02";
-    vc3.title = @"测试标题03";
-    vc4.title = @"测试标题04";
-    vc5.title = @"测试标题05";
-    vc6.title = @"测试标题06";
+    vc3.title = @"测试03";
+    vc4.title = @"标题04";
+    vc5.title = @"05";
+    vc6.title = @"标题06";
     vc7.title = @"测试标题07";
 
     vc0.view.backgroundColor = [UIColor purpleColor];
@@ -53,7 +53,10 @@
     config.cm_childControllers = childCOntrollers;
     config.cm_seperateLineHeight = 2;
     config.cm_showUnderLine = YES;
-    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
+//    config.cm_underLineW = 4;
+    config.cm_underLineBorder = YES;
+    config.cm_underLineHeight = 4;
     pageView.cm_config = config;
     
     [self.view addSubview:pageView];

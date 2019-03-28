@@ -18,15 +18,6 @@
 /**内容视图*/
 @property (nonatomic,strong) CMPageContentView *contentView;
 
-
-/**标题数组*/
-@property (nonatomic,strong) NSArray *titles;
-/**子视图控制器*/
-@property (nonatomic,strong) NSArray *childControllers;
-/**父视图控制器*/
-@property (nonatomic,strong) UIViewController *parentController;
-
-
 @end
 
 @implementation CMPageView

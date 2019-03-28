@@ -12,7 +12,6 @@
 @protocol CMPageViewDelegate <NSObject>
 
 - (void)cm_pageViewClickWithIndex:(NSInteger)index Repeat:(BOOL)repeat;
-
 @end
 
 @interface CMPageView : UIView

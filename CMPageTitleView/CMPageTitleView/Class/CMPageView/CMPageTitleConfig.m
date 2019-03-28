@@ -37,6 +37,12 @@
     
 }
 
+- (CGFloat)cm_underLineHeight {
+    
+    return _cm_underLineHeight ?: CMUnderLineH;
+    
+}
+
 - (NSArray *)cm_titles {
     
     NSArray *titles = [self.cm_childControllers valueForKey:@"title"];

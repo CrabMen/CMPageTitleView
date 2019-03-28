@@ -37,7 +37,6 @@
 @property (nonatomic,assign) CGFloat lastOffsetX;
 
 
-
 @end
 
 
@@ -56,7 +55,8 @@
     if (!_underLine) {
         UIView *underLineView = [UIView new];
         underLineView.backgroundColor = self.config.cm_underLineColor ?: [UIColor redColor];
-        
+        underLineView.layer.cornerRadius = self.config.cm_underLineBorder ? self.config.cm_underLineHeight * 0.5 : 0;
+        underLineView.layer.masksToBounds = YES;
         [self addSubview:underLineView];
         
         _underLine = underLineView;
@@ -73,9 +73,8 @@
         
         UIView *titleCover = [UIView new];
         
-        titleCover.backgroundColor = self.config.cm_coverColor ?: [UIColor blueColor];
+        titleCover.backgroundColor = self.config.cm_coverColor ?: [UIColor colorWithWhite:0 alpha:0.3];
         
-        titleCover.layer.cornerRadius = self.config.cm_coverRadius ?: CMCoverCornerRadius;
         
         [self insertSubview:titleCover atIndex:0
          ];
@@ -222,11 +221,10 @@
         [self setUpUnderLineOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
     //    }
         //记录上一次的偏移量
-    //    _lastOffsetX = offSetX;
     
     
+       // [self.titleView selectLabelWithIndex:offSetX /CMSCREEN_W ];
     
-      //  [self.titleView selectLabelWithIndex:offSetX /CMSCREEN_W ];
     
         self.lastOffsetX = scrollView.contentOffset.x;
 
@@ -238,10 +236,10 @@
 - (void)setUnderLineWithLabel:(UILabel *)label {
     //根据标题的宽度获得下划线的宽度
     NSUInteger index = [self.titleLabels indexOfObject:label];
-    CGFloat underLineWidth = [self.config.cm_titleWidths[index] floatValue];
+    CGFloat underLineWidth = self.config.cm_underLineW ?: [self.config.cm_titleWidths[index] floatValue];
     
     // 获取文字尺寸
-    CGFloat underLineH = self.config.cm_underLineHeight ?: CMUnderLineH;
+    CGFloat underLineH = self.config.cm_underLineHeight;
         self.underLine.cm_y = label.cm_height - underLineH;
         self.underLine.cm_height = underLineH;
     
@@ -249,8 +247,7 @@
         if (self.underLine.cm_x == 0) {
             
             self.underLine.cm_width = underLineWidth;
-            self.underLine.cm_x = label.cm_x;
-
+            self.underLine.cm_centerX = label.cm_centerX;
             
         } else {
             
@@ -258,7 +255,7 @@
             [UIView animateWithDuration:0.25 animations:^{
                 
                 self.underLine.cm_width = underLineWidth;
-                self.underLine.cm_x = label.cm_x;
+                self.underLine.cm_centerX = label.cm_centerX;
                 
             }];
         }
@@ -277,7 +274,10 @@
         
         self.titleCover.cm_y = (label.cm_height - coverH) * 0.5;
         self.titleCover.cm_height = coverH;
-        
+    
+    self.titleCover.layer.cornerRadius =          self.config.cm_coverRadius ?: coverH * 0.5;
+
+    
         //最开始的时候不需要动画(即x等于0的时候)
         if (self.titleCover.cm_x ) {
             self.titleCover.cm_width = coverW;
@@ -293,7 +293,6 @@
         }
     
 }
-
 
 
 /**label点击事件*/
@@ -338,30 +337,21 @@
     _selectedLabel.transform = CGAffineTransformIdentity;
     _selectedLabel.textColor = self.config.cm_normalColor;
     _selectedLabel.fillColor = self.config.cm_selectedColor;
-    //_selectedLabel.progress = 1;
-    label.textColor = self.config.cm_selectedColor;
+    _selectedLabel.progress = 0;
+   label.textColor = self.config.cm_selectedColor;
 
-    // 标题缩放
   if (self.config.cm_showScale) {
         label.transform = CGAffineTransformMakeScale(self.config.cm_scale, self.config.cm_scale);
     }
     
-    
-    
-    // 设置标题居中
     [self setLabelTitleCenter:label];
     
-//    //设置遮罩
     [self setTitleCoverWithLabel:label];
-//
-//    //设置下标位置
+   
     [self setUnderLineWithLabel:label];
-//
     
     _selectedLabel = (CMDisplayTitleLabel *)label;
     
-    //并设置选中的index
-//    _cm_defaultIndex = [self.titleLabels indexOfObject:_selectedLabel];
 }
 
 
@@ -369,12 +359,7 @@
 /**
  让选中的按钮居中显示
  */
-- (void)setLabelTitleCenter:(UILabel *)label
-{
-
-    
-    
-    
+- (void)setLabelTitleCenter:(UILabel *)label {
     
     // 设置标题滚动区域的偏移量
     CGFloat offsetX = label.center.x - self.bounds.size.width * 0.5;
@@ -420,8 +405,6 @@
     // 获取左边缩放比例
     CGFloat leftScale = 1 - rightScale;
     
-    
-    
     if (self.config.cm_gradientStyle == CMTitleColorGradientStyle_RGB) {
        
         NSArray *endRGBA = CMColorGetRGBA(self.config.cm_selectedColor);
@@ -443,29 +426,14 @@
     // 填充渐变
     if (self.config.cm_gradientStyle == CMTitleColorGradientStyle_Fill) {
     
-        // 获取移动距离
-        CGFloat offsetDelta = offsetX - _lastOffsetX;
+        rightLabel.textColor = self.config.cm_normalColor;
+        rightLabel.fillColor = self.config.cm_selectedColor;
+        rightLabel.progress = rightScale;
         
-        if (offsetDelta > 0) { // 往右边
-            
-            
-            rightLabel.fillColor = self.config.cm_selectedColor;
-            rightLabel.progress = rightScale;
-            
-            leftLabel.fillColor = self.config.cm_normalColor;
-            leftLabel.progress = rightScale;
-            
-        } else if(offsetDelta < 0){ // 往左边
-            
-            rightLabel.textColor = self.config.cm_normalColor;
-            rightLabel.fillColor = self.config.cm_selectedColor;
-            rightLabel.progress = rightScale;
-            
-            leftLabel.textColor = self.config.cm_selectedColor;
-            leftLabel.fillColor = self.config.cm_normalColor;
-            leftLabel.progress = rightScale;
-            
-        }
+        leftLabel.textColor = self.config.cm_selectedColor;
+        leftLabel.fillColor = self.config.cm_normalColor;
+        leftLabel.progress = rightScale;
+
     }
 }
 
@@ -512,9 +480,6 @@
     //标题宽度的差值
     CGFloat deltaWidth = [[self.config.cm_titleWidths objectAtIndex:[self.titleLabels indexOfObject:rightLabel]] floatValue] - [[self.config.cm_titleWidths objectAtIndex:[self.titleLabels indexOfObject:leftLabel]] floatValue];
     
-    
-//    [self setLabelWidthAccordingToTitle:rightLabel.text].size.width - [self setUpLabelWidthAccordingToTitle:leftLabel.text].size.width;
-    
     //移动距离
     CGFloat deltaOffSet = offsetX -_lastOffsetX;
     
@@ -541,7 +506,7 @@
     if (  rightLabel == nil ||  _isClickTitle) return;
     
     //获取两个标题x的距离
-    CGFloat deltaX = rightLabel.cm_x - leftLabel.cm_x;
+    CGFloat deltaX = self.config.cm_underLineW ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (rightLabel.cm_x - leftLabel.cm_x);
     
     //标题宽度的差值
     CGFloat deltaWidth = [[self.config.cm_titleWidths objectAtIndex:[self.titleLabels indexOfObject:rightLabel]] floatValue] - [[self.config.cm_titleWidths objectAtIndex:[self.titleLabels indexOfObject:leftLabel]] floatValue];
@@ -559,10 +524,11 @@
     CGFloat underLineTransformX = deltaOffSet * deltaX / self.bounds.size.width;
     
     // 宽度递增偏移量
-    CGFloat underLineWidth = deltaOffSet * deltaWidth / self.bounds.size.width;
+    CGFloat deltaUnderLineWidth = deltaOffSet * deltaWidth / self.bounds.size.width;
     
-    self.underLine.cm_width += underLineWidth;
-    self.underLine.cm_x += underLineTransformX;
+    self.underLine.cm_width = self.config.cm_underLineW ?: (self.underLine.cm_width + deltaUnderLineWidth);
+    
+    self.underLine.cm_centerX += underLineTransformX;
     
 }
 

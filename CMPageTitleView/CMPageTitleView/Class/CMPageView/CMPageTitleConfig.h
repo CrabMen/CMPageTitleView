@@ -83,6 +83,14 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 @property (nonatomic,assign) BOOL cm_showUnderLine;
 
 
+
+/**
+ 下划线视图是否圆角
+ 默认为NO
+ */
+@property (nonatomic,assign) BOOL cm_underLineBorder;
+
+
 /**下划线高度*/
 @property (nonatomic,assign) CGFloat cm_underLineHeight;
 
@@ -92,10 +100,13 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
  */
 @property (nonatomic,assign) CGFloat cm_underLineW;
 
+
 /**下划线颜色
  默认跟随标题的选中颜色
  */
 @property (nonatomic,strong) UIColor *cm_underLineColor;
+
+
 
 
 #pragma mark --- 遮罩效果
@@ -126,17 +137,11 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 @property (nonatomic,assign) CGFloat lastOffsetX;
 
 
-
-
-
-
-
 /**标题宽度*/
 @property (nonatomic,strong,readonly) NSArray *cm_titleWidths;
 
 /**所有标题的总宽度*/
 @property (nonatomic,assign,readonly) CGFloat cm_totalWidth;
-
 
 
 @end

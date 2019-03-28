@@ -20,11 +20,7 @@
 
 - (void)cm_pageTitleViewClickWithIndex:(NSUInteger)index Repeat:(BOOL)repeat;
 
-
 @end
-
-
-
 
 
 @interface CMPageTitleView : UIScrollView
