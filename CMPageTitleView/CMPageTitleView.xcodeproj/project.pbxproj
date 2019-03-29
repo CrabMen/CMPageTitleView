@@ -23,7 +23,7 @@
 		B5EBC9D021215A72000403B8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9C521215A72000403B8 /* AppDelegate.m */; };
 		B5EBC9D121215A72000403B8 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5EBC9C621215A72000403B8 /* Info.plist */; };
 		B5EBC9D621215C0B000403B8 /* CMFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9D321215C0B000403B8 /* CMFlowLayout.m */; };
-		B5EBC9DA21215C5F000403B8 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9D921215C5F000403B8 /* UIColor+Hex.m */; };
+		B5EBC9DA21215C5F000403B8 /* UIColor+CMCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9D921215C5F000403B8 /* UIColor+CMCommon.m */; };
 		B5EBC9DE21215CB3000403B8 /* CMDisplayTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9DD21215CB3000403B8 /* CMDisplayTitleLabel.m */; };
 /* End PBXBuildFile section */
 
@@ -75,14 +75,11 @@
 		B5EBC9C721215A72000403B8 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		B5EBC9D221215C0A000403B8 /* CMFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMFlowLayout.h; sourceTree = "<group>"; };
 		B5EBC9D321215C0B000403B8 /* CMFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMFlowLayout.m; sourceTree = "<group>"; };
-		B5EBC9D821215C5F000403B8 /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
-		B5EBC9D921215C5F000403B8 /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
-		B5EBC9DB21215CB3000403B8 /* CMParameterSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMParameterSetting.h; sourceTree = "<group>"; };
+		B5EBC9D821215C5F000403B8 /* UIColor+CMCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CMCommon.h"; sourceTree = "<group>"; };
+		B5EBC9D921215C5F000403B8 /* UIColor+CMCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CMCommon.m"; sourceTree = "<group>"; };
 		B5EBC9DC21215CB3000403B8 /* CMDisplayTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDisplayTitleLabel.h; sourceTree = "<group>"; };
 		B5EBC9DD21215CB3000403B8 /* CMDisplayTitleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMDisplayTitleLabel.m; sourceTree = "<group>"; };
-		B5EBC9E021215D26000403B8 /* CMHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMHeader.h; sourceTree = "<group>"; };
-		B5EBC9E121215D3F000403B8 /* CMPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMPrefixHeader.pch; sourceTree = "<group>"; };
-		B5EBC9E221215DC1000403B8 /* CMMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMMacro.h; sourceTree = "<group>"; };
+		B5EBC9E221215DC1000403B8 /* CMPageTitleViewMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMPageTitleViewMacro.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,25 +165,25 @@
 		B5EBC9B521215A72000403B8 /* CMPageView */ = {
 			isa = PBXGroup;
 			children = (
-				B5EBC9DF21215D17000403B8 /* Config */,
+				B5EBC9E221215DC1000403B8 /* CMPageTitleViewMacro.h */,
 				B5B8ACF42249CA2D00ABF82B /* UIView+CMCommon.h */,
 				B5B8ACF52249CA2D00ABF82B /* UIView+CMCommon.m */,
 				B5B8AD05224A0E0000ABF82B /* NSString+CMCommon.h */,
 				B5B8AD06224A0E0000ABF82B /* NSString+CMCommon.m */,
-				B5EBC9DC21215CB3000403B8 /* CMDisplayTitleLabel.h */,
-				B5EBC9DD21215CB3000403B8 /* CMDisplayTitleLabel.m */,
-				B5EBC9D821215C5F000403B8 /* UIColor+Hex.h */,
-				B5EBC9D921215C5F000403B8 /* UIColor+Hex.m */,
+				B5EBC9D821215C5F000403B8 /* UIColor+CMCommon.h */,
+				B5EBC9D921215C5F000403B8 /* UIColor+CMCommon.m */,
 				B5EBC9D221215C0A000403B8 /* CMFlowLayout.h */,
 				B5EBC9D321215C0B000403B8 /* CMFlowLayout.m */,
-				B5EBC9B721215A72000403B8 /* CMPageContentView.h */,
-				B5EBC9BA21215A72000403B8 /* CMPageContentView.m */,
 				B5EBC9B821215A72000403B8 /* CMPageView.h */,
 				B5EBC9BB21215A72000403B8 /* CMPageView.m */,
 				B5EBC9B621215A72000403B8 /* CMPageTitleView.h */,
 				B5EBC9B921215A72000403B8 /* CMPageTitleView.m */,
+				B5EBC9B721215A72000403B8 /* CMPageContentView.h */,
+				B5EBC9BA21215A72000403B8 /* CMPageContentView.m */,
 				B53D96F5224883C50092BDE3 /* CMPageTitleConfig.h */,
 				B53D96F6224883C50092BDE3 /* CMPageTitleConfig.m */,
+				B5EBC9DC21215CB3000403B8 /* CMDisplayTitleLabel.h */,
+				B5EBC9DD21215CB3000403B8 /* CMDisplayTitleLabel.m */,
 			);
 			path = CMPageView;
 			sourceTree = "<group>";
@@ -205,17 +202,6 @@
 				B5EBC9C721215A72000403B8 /* ViewController.h */,
 			);
 			path = Other;
-			sourceTree = "<group>";
-		};
-		B5EBC9DF21215D17000403B8 /* Config */ = {
-			isa = PBXGroup;
-			children = (
-				B5EBC9E021215D26000403B8 /* CMHeader.h */,
-				B5EBC9E121215D3F000403B8 /* CMPrefixHeader.pch */,
-				B5EBC9E221215DC1000403B8 /* CMMacro.h */,
-				B5EBC9DB21215CB3000403B8 /* CMParameterSetting.h */,
-			);
-			path = Config;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -355,7 +341,7 @@
 				B5EBC9CF21215A72000403B8 /* main.m in Sources */,
 				B5EBC9C821215A72000403B8 /* CMPageTitleView.m in Sources */,
 				B5EBC9D021215A72000403B8 /* AppDelegate.m in Sources */,
-				B5EBC9DA21215C5F000403B8 /* UIColor+Hex.m in Sources */,
+				B5EBC9DA21215C5F000403B8 /* UIColor+CMCommon.m in Sources */,
 				B5EBC9CA21215A72000403B8 /* CMPageView.m in Sources */,
 				B5EBC9D621215C0B000403B8 /* CMFlowLayout.m in Sources */,
 				B5EBC9CC21215A72000403B8 /* ViewController.m in Sources */,
@@ -531,7 +517,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HBW48U6989;
-				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Class/CMPageView/Config/CMPrefixHeader.pch";
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/CMPageTitleView/Other/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -549,7 +535,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HBW48U6989;
-				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Class/CMPageView/Config/CMPrefixHeader.pch";
+				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/CMPageTitleView/Other/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

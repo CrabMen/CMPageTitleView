@@ -10,6 +10,7 @@
 #import "CMPageTitleView.h"
 #import "CMPageContentView.h"
 #import "CMFlowLayout.h"
+
 @interface CMPageView() <CMPageTitleViewDelegate,CMPageContentViewDelegate>
 
 /**标题视图*/
@@ -72,7 +73,7 @@
         
     } else {
         //获取子视图控制器 切换
-        [self.contentView setContentOffset:CGPointMake(index * CMScreenW, 0)];
+        [self.contentView setContentOffset:CGPointMake(index * CMSCREEN_W, 0)];
     }
 
 }

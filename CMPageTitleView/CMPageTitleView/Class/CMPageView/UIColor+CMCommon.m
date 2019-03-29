@@ -6,11 +6,11 @@
 //  Copyright © 2016年 CrabMan. All rights reserved.
 //
 
-#import "UIColor+Hex.h"
+#import "UIColor+CMCommon.h"
 
-@implementation UIColor(Hex)
+@implementation UIColor(CMCommon)
 
-+ (UIColor *)colorWithHexString:(NSString *)colorString alpha:(CGFloat)alpha
++ (UIColor *)cm_colorWithHexString:(NSString *)colorString alpha:(CGFloat)alpha
 {
     //删除字符串中的空格
     NSString *cString = [[colorString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
@@ -60,9 +60,9 @@
     return [UIColor colorWithRed:((float)red / 255.f) green:((float)green / 255.f ) blue:((float)blue / 255.f) alpha:alpha];
 }
 
-+ (UIColor *)colorWithHexString:(NSString *)colorString
++ (UIColor *)cm_colorWithHexString:(NSString *)colorString
 {
-    return [self colorWithHexString:colorString alpha:1.0f];
+    return [self cm_colorWithHexString:colorString alpha:1.0f];
 }
 
 

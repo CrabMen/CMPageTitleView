@@ -7,7 +7,6 @@
 //
 
 #import "CMPageTitleConfig.h"
-#import "CMDisplayTitleLabel.h"
 @implementation CMPageTitleConfig
 
 - (CGFloat)cm_titleHeight {
@@ -39,7 +38,7 @@
 
 - (CGFloat)cm_underLineHeight {
     
-    return _cm_underLineHeight ?: CMUnderLineH;
+    return _cm_underLineHeight ?: 2;
     
 }
 
@@ -83,14 +82,14 @@
 
 - (CGFloat)cm_titleMargin {
     
-    if (self.cm_totalWidth  >= CMScreenW) {
-        _cm_titleMargin = _cm_titleMargin ?: titleLabelMargin;
+    if (self.cm_totalWidth  >= CMSCREEN_W) {
+        _cm_titleMargin = _cm_titleMargin ?: 20;
         
     } else {
         
-        CGFloat titleMargin = (CMScreenW - self.cm_totalWidth)/(self.cm_titles.count + 1);
+        CGFloat titleMargin = (CMSCREEN_W - self.cm_totalWidth)/(self.cm_titles.count + 1);
         
-        _cm_titleMargin = titleMargin < titleLabelMargin ? titleLabelMargin : titleMargin;
+        _cm_titleMargin = titleMargin < 20 ? 20 : titleMargin;
         
     }
     
@@ -99,7 +98,7 @@
 
 - (CGFloat)cm_scale {
     
-    return _cm_scale ?: CMTitleTransformScale;
+    return _cm_scale ?: 1.2;
 }
 
 

@@ -13,9 +13,9 @@
 -(void)drawRect:(CGRect)rect {
     [super drawRect: rect];
 
-    [_fillColor set];
+    [_cm_fillColor set];
     
-    rect.size.width = rect.size.width *_progress;
+    rect.size.width = rect.size.width *_cm_progress;
     
     UIRectFillUsingBlendMode(rect, kCGBlendModeSourceIn);
     
@@ -30,8 +30,8 @@
     return self;
 }
 
-- (void)setProgress:(CGFloat)progress {
-    _progress  = progress;
+- (void)setCm_progress:(CGFloat)cm_progress {
+    _cm_progress  = cm_progress;
     
     [self setNeedsDisplay];
 

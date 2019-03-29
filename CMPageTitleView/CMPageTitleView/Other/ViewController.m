@@ -48,7 +48,7 @@
 
     NSArray *childCOntrollers = @[vc0,vc1,vc2,vc3,vc4,vc5,vc6,vc7];
     
-    CMPageView *pageView = [[CMPageView alloc] initWithFrame:CGRectMake(0, CMNavBarH, CMScreenW, CMScreenH - CMNavBarH)];
+    CMPageView *pageView = [[CMPageView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = childCOntrollers;
     config.cm_seperateLineHeight = 2;

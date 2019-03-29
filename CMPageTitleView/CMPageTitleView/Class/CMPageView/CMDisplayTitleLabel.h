@@ -10,8 +10,7 @@
 
 @interface CMDisplayTitleLabel : UILabel
 
-@property (nonatomic,assign) CGFloat progress;
-@property (nonatomic,strong) UIColor *fillColor;
+@property (nonatomic,assign) CGFloat cm_progress;
+@property (nonatomic,strong) UIColor *cm_fillColor;
 
-@property (nonatomic,assign) BOOL isSelected;
 @end

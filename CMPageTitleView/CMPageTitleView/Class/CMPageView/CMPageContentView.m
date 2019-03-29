@@ -7,7 +7,6 @@
 //
 
 #import "CMPageContentView.h"
-#import "CMFlowLayout.h"
 @interface CMPageContentView ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 /**是否动画*/

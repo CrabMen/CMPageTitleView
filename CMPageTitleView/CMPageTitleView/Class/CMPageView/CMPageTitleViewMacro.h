@@ -12,6 +12,8 @@
 //1px
 #define CM_ONE_PX  1.0/[UIScreen mainScreen].scale
 
+#define CM_IPHONE_X ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+
 //导航栏高度
 #define CM_NAVI_BAR_H (CM_IPHONE_X ? 88 : 64)
 

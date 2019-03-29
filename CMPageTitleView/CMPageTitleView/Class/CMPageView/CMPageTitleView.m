@@ -7,9 +7,6 @@
 //
 
 #import "CMPageTitleView.h"
-#import "UIColor+Hex.h"
-
-#import "CMParameterSetting.h"
 #import "CMDisplayTitleLabel.h"
 
 @interface CMPageTitleView ()
@@ -17,6 +14,7 @@
 
 /**配置*/
 @property (nonatomic,strong) CMPageTitleConfig *config;
+
 /**选中的标题*/
 @property (nonatomic,strong) CMDisplayTitleLabel *selectedLabel;
 
@@ -31,7 +29,6 @@
 
 /**label数组*/
 @property (nonatomic,strong) NSMutableArray *titleLabels;
-
 
 /**上一次的偏移量*/
 @property (nonatomic,assign) CGFloat lastOffsetX;
@@ -72,10 +69,7 @@
     if (!_titleCover) {
         
         UIView *titleCover = [UIView new];
-        
         titleCover.backgroundColor = self.config.cm_coverColor ?: [UIColor colorWithWhite:0 alpha:0.3];
-        
-        
         [self insertSubview:titleCover atIndex:0
          ];
         _titleCover = titleCover;
@@ -117,9 +111,8 @@
 
 - (void)initSubViews {
     
-    self.frame = CGRectMake(0, 0, CMScreenW, self.config.cm_titleHeight);
+    self.frame = CGRectMake(0, 0, CMSCREEN_W, self.config.cm_titleHeight);
     self.contentInset = UIEdgeInsetsMake(0, 0, 0, -self.config.cm_titleMargin);
-    
     [self initTitleLabels];
     
 }
@@ -128,7 +121,6 @@
     
     CGFloat labelX = 0;
     CGFloat labelW = 0;
-    //设置所有的labelframe
     
     [self.titleLabels removeAllObjects];
     
@@ -136,25 +128,17 @@
         CMDisplayTitleLabel *label = [CMDisplayTitleLabel new];
         label.textColor = self.config.cm_normalColor;
         label.font = self.config.cm_font;
-
-        //将label的text与视图控制器对应
         label.text = self.config.cm_titles[i];
         label.lineBreakMode = NSLineBreakByWordWrapping;
-
-        //设置按钮的位置(按钮的frame与前一个按钮的frame有关系)
+        
         UILabel *lastLabel = [self.titleLabels lastObject];
         labelX = self.config.cm_titleMargin + CGRectGetMaxX(lastLabel.frame);
-        
-        //设置label 的宽度
         labelW = [self.config.cm_titleWidths[i] floatValue];
-        label.frame = CGRectMake(labelX, 0, labelW, CMTitleScrollViewH);
-        
-        //设置label可以与用户交互
+        label.frame = CGRectMake(labelX, 0, labelW, self.config.cm_titleHeight);
         label.userInteractionEnabled = YES;
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickLabel:)];
         [label addGestureRecognizer:tap];
-        //监听标题的点击事件
         
         [self.titleLabels addObject:label];
         [self addSubview:label];
@@ -169,7 +153,6 @@
      */
     if (self.config.cm_defaultIndex < self.titleLabels.count && self.config.cm_defaultIndex > 0 ) {
         
-        
         [self selectLabel:self.titleLabels.firstObject];
    
     } else {
@@ -179,7 +162,6 @@
         
     }
     
-    
     [self setUnderLineWithLabel:self.titleLabels.firstObject];
     [self setTitleCoverWithLabel:self.titleLabels.firstObject];
     
@@ -188,43 +170,22 @@
 
 - (void)cm_pageTitleViewDidScroll:(UIScrollView *)scrollView {
     
-        //获取偏移量
         CGFloat offSetX = scrollView.contentOffset.x;
-    
-        //获取左边角标
         NSInteger leftIndex = offSetX / self.cm_width;
-    
-        //左边按钮
         UILabel *leftLabel = self.titleLabels[leftIndex];
-    
-        //右边角标
         NSInteger rightIndex = leftIndex + 1;
-        //右边角标
-        UILabel *rightLabel = nil;
+        UILabel *rightLabel = (rightIndex < self.titleLabels.count) ? rightLabel = self.titleLabels[rightIndex] :nil;
     
-        if (rightIndex < self.titleLabels.count) {
-            rightLabel = self.titleLabels[rightIndex];
-        }
-    
-    
-        //字体放大
         [self setUpTitleScaleWithOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
     
-        //设置遮罩偏移
         [self setUpCoverOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
     
-        //设置标题渐变
         [self setUpTitleColorGradientWithOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
     
     //    if (_isDelayScroll == NO) { // 延迟滚动，不需要移动下标
     
         [self setUpUnderLineOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
     //    }
-        //记录上一次的偏移量
-    
-    
-       // [self.titleView selectLabelWithIndex:offSetX /CMSCREEN_W ];
-    
     
         self.lastOffsetX = scrollView.contentOffset.x;
 
@@ -238,12 +199,11 @@
     NSUInteger index = [self.titleLabels indexOfObject:label];
     CGFloat underLineWidth = self.config.cm_underLineW ?: [self.config.cm_titleWidths[index] floatValue];
     
-    // 获取文字尺寸
     CGFloat underLineH = self.config.cm_underLineHeight;
         self.underLine.cm_y = label.cm_height - underLineH;
         self.underLine.cm_height = underLineH;
     
-    // 最开始不需要动画
+#warning TODO : 这个判断可能还有点问题
         if (self.underLine.cm_x == 0) {
             
             self.underLine.cm_width = underLineWidth;
@@ -251,12 +211,9 @@
             
         } else {
             
-    // 点击时候需要动画
             [UIView animateWithDuration:0.25 animations:^{
-                
                 self.underLine.cm_width = underLineWidth;
                 self.underLine.cm_centerX = label.cm_centerX;
-                
             }];
         }
 }
@@ -268,26 +225,22 @@
     NSUInteger index = [self.titleLabels indexOfObject:label];
     CGFloat width = [self.config.cm_titleWidths[index] floatValue];
         
-        CGFloat border = 5;
-        CGFloat coverH = label.font.pointSize + 2 * border;
-        CGFloat coverW = width + 2 * border;
-        
-        self.titleCover.cm_y = (label.cm_height - coverH) * 0.5;
-        self.titleCover.cm_height = coverH;
+    CGFloat border = 5;
+    CGFloat coverH = label.font.pointSize + 2 * border;
+    CGFloat coverW = width + 2 * border;
+    
+    self.titleCover.cm_y = (label.cm_height - coverH) * 0.5;
+    self.titleCover.cm_height = coverH;
     
     self.titleCover.layer.cornerRadius =          self.config.cm_coverRadius ?: coverH * 0.5;
 
-    
-        //最开始的时候不需要动画(即x等于0的时候)
-        if (self.titleCover.cm_x ) {
+#warning TODO : 这个判断可能还有点问题
+    if (self.titleCover.cm_x ) {
             self.titleCover.cm_width = coverW;
-            
             self.titleCover.cm_x = label.cm_x - border;
         } else {
-            
             [UIView animateWithDuration:0.25 animations:^{
                 self.titleCover.cm_width = coverW;
-                
                 self.titleCover.cm_x = label.cm_x - border;
             }];
         }
@@ -304,25 +257,19 @@
     // 获取对应标题label
     CMDisplayTitleLabel *label = (CMDisplayTitleLabel *)tap.view;
     
-    //每次点击都需走代理方法，便于网络请求
     if (self.cm_delegate) {
         [self.cm_delegate cm_pageTitleViewClickWithIndex:[self.titleLabels indexOfObject:label] Repeat:label == self.selectedLabel];
     }
     
-    //二次点击 界面无需变化
-    
     if (label == self.selectedLabel) return;
     
-    // 选中label
     [self selectLabel:label];
     
-//    // 记录上一次偏移量,因为点击的时候不会调用scrollView代理记录，因此需要主动记录
+    // 记录上一次偏移量,因为点击的时候不会调用scrollView代理记录，因此需要主动记录
    _lastOffsetX = [self.titleLabels indexOfObject:label] * self.bounds.size.width;
 
     // 点击事件处理完成
     _isClickTitle = NO;
-    
-    
     
 }
 
@@ -336,8 +283,8 @@
     
     _selectedLabel.transform = CGAffineTransformIdentity;
     _selectedLabel.textColor = self.config.cm_normalColor;
-    _selectedLabel.fillColor = self.config.cm_selectedColor;
-    _selectedLabel.progress = 0;
+    _selectedLabel.cm_fillColor = self.config.cm_selectedColor;
+    _selectedLabel.cm_progress = 0;
    label.textColor = self.config.cm_selectedColor;
 
   if (self.config.cm_showScale) {
@@ -363,23 +310,13 @@
     
     // 设置标题滚动区域的偏移量
     CGFloat offsetX = label.center.x - self.bounds.size.width * 0.5;
-    
-    if (offsetX < 0) {
-        offsetX = 0;
-    }
-    
+    offsetX = offsetX ?: 0;
     // 计算下最大的标题视图滚动区域
     CGFloat maxOffsetX = self.contentSize.width - self.bounds.size.width + self.config.cm_titleMargin;
     
-    if (maxOffsetX < 0) {
-        maxOffsetX = 0;
-    }
+    maxOffsetX = maxOffsetX ?: 0;
+    offsetX = offsetX > maxOffsetX ? maxOffsetX : offsetX;
     
-    if (offsetX > maxOffsetX) {
-        offsetX = maxOffsetX;
-    }
-    
-    // 滚动区域
     [self setContentOffset:CGPointMake(offsetX, 0) animated:YES];
     
 }
@@ -427,12 +364,12 @@
     if (self.config.cm_gradientStyle == CMTitleColorGradientStyle_Fill) {
     
         rightLabel.textColor = self.config.cm_normalColor;
-        rightLabel.fillColor = self.config.cm_selectedColor;
-        rightLabel.progress = rightScale;
+        rightLabel.cm_fillColor = self.config.cm_selectedColor;
+        rightLabel.cm_progress = rightScale;
         
         leftLabel.textColor = self.config.cm_selectedColor;
-        leftLabel.fillColor = self.config.cm_normalColor;
-        leftLabel.progress = rightScale;
+        leftLabel.cm_fillColor = self.config.cm_normalColor;
+        leftLabel.cm_progress = rightScale;
 
     }
 }
@@ -451,14 +388,11 @@
     CGFloat leftScale = 1 - rightScale;
     
     //左右按钮缩放计算
-    CGFloat scaleTransform = self.config.cm_scale ?: CMTitleTransformScale;
+    CGFloat scaleTransform = self.config.cm_scale;
     
     scaleTransform -= 1;
-    //
     leftLabel.transform = CGAffineTransformMakeScale(leftScale * scaleTransform + 1, leftScale * scaleTransform + 1);
-    
     rightLabel.transform = CGAffineTransformMakeScale(rightScale * scaleTransform + 1, rightScale * scaleTransform +1);
-    
     
 }
 
@@ -471,9 +405,8 @@
     
     
     //通过判断isClickTitle的属性来防止二次偏移
-    
     if (_isClickTitle || rightLabel == nil) return;
-    
+
     //获取两个标题x的距离
     CGFloat deltaX = rightLabel.cm_x - leftLabel.cm_x;
     
@@ -482,13 +415,6 @@
     
     //移动距离
     CGFloat deltaOffSet = offsetX -_lastOffsetX;
-    
-    /*计算当前的偏移量
-     deltaOffSet / CMScreen = coverTransformX / deltaX;
-     
-     计算宽度偏增量
-     deltaOffSet / CMScreen = coverWidth / deltaWidth;
-     */
     
     CGFloat coverTransformX = deltaOffSet * deltaX / self.bounds.size.width;
     
@@ -513,13 +439,6 @@
     
     //移动距离
     CGFloat deltaOffSet = offsetX -_lastOffsetX;
-    
-    /*计算当前的偏移量
-     deltaOffSet / CMScreen = underLineTransformX / deltaX;
-     
-     计算宽度偏增量
-     deltaOffSet / CMScreen = underLineWidth / deltaWidth;
-     */
     
     CGFloat underLineTransformX = deltaOffSet * deltaX / self.bounds.size.width;
     

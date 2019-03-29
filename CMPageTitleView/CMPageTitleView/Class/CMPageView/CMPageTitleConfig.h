@@ -6,7 +6,13 @@
 //  Copyright © 2019 CrabMan. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+#import "CMPageTitleViewMacro.h"
+#import "UIColor+CMCommon.h"
+#import "NSString+CMCommon.h"
+#import "UIView+CMCommon.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
