@@ -12,9 +12,9 @@
 		B5B8AD07224A0E0000ABF82B /* NSString+CMCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8AD06224A0E0000ABF82B /* NSString+CMCommon.m */; };
 		B5EBC99C21215A31000403B8 /* CMPageTitleViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC99B21215A31000403B8 /* CMPageTitleViewTests.m */; };
 		B5EBC9A721215A31000403B8 /* CMPageTitleViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9A621215A31000403B8 /* CMPageTitleViewUITests.m */; };
-		B5EBC9C821215A72000403B8 /* CMPageTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9B921215A72000403B8 /* CMPageTitleView.m */; };
+		B5EBC9C821215A72000403B8 /* CMPageTitleContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9B921215A72000403B8 /* CMPageTitleContentView.m */; };
 		B5EBC9C921215A72000403B8 /* CMPageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9BA21215A72000403B8 /* CMPageContentView.m */; };
-		B5EBC9CA21215A72000403B8 /* CMPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9BB21215A72000403B8 /* CMPageView.m */; };
+		B5EBC9CA21215A72000403B8 /* CMPageTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9BB21215A72000403B8 /* CMPageTitleView.m */; };
 		B5EBC9CB21215A72000403B8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5EBC9BE21215A72000403B8 /* Assets.xcassets */; };
 		B5EBC9CC21215A72000403B8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9BF21215A72000403B8 /* ViewController.m */; };
 		B5EBC9CD21215A72000403B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5EBC9C021215A72000403B8 /* LaunchScreen.storyboard */; };
@@ -58,12 +58,12 @@
 		B5EBC9A221215A31000403B8 /* CMPageTitleViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CMPageTitleViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5EBC9A621215A31000403B8 /* CMPageTitleViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMPageTitleViewUITests.m; sourceTree = "<group>"; };
 		B5EBC9A821215A31000403B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B5EBC9B621215A72000403B8 /* CMPageTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPageTitleView.h; sourceTree = "<group>"; };
+		B5EBC9B621215A72000403B8 /* CMPageTitleContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPageTitleContentView.h; sourceTree = "<group>"; };
 		B5EBC9B721215A72000403B8 /* CMPageContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPageContentView.h; sourceTree = "<group>"; };
-		B5EBC9B821215A72000403B8 /* CMPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPageView.h; sourceTree = "<group>"; };
-		B5EBC9B921215A72000403B8 /* CMPageTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPageTitleView.m; sourceTree = "<group>"; };
+		B5EBC9B821215A72000403B8 /* CMPageTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPageTitleView.h; sourceTree = "<group>"; };
+		B5EBC9B921215A72000403B8 /* CMPageTitleContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPageTitleContentView.m; sourceTree = "<group>"; };
 		B5EBC9BA21215A72000403B8 /* CMPageContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPageContentView.m; sourceTree = "<group>"; };
-		B5EBC9BB21215A72000403B8 /* CMPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPageView.m; sourceTree = "<group>"; };
+		B5EBC9BB21215A72000403B8 /* CMPageTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPageTitleView.m; sourceTree = "<group>"; };
 		B5EBC9BD21215A72000403B8 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B5EBC9BE21215A72000403B8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5EBC9BF21215A72000403B8 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
@@ -174,10 +174,10 @@
 				B5EBC9D921215C5F000403B8 /* UIColor+CMCommon.m */,
 				B5EBC9D221215C0A000403B8 /* CMFlowLayout.h */,
 				B5EBC9D321215C0B000403B8 /* CMFlowLayout.m */,
-				B5EBC9B821215A72000403B8 /* CMPageView.h */,
-				B5EBC9BB21215A72000403B8 /* CMPageView.m */,
-				B5EBC9B621215A72000403B8 /* CMPageTitleView.h */,
-				B5EBC9B921215A72000403B8 /* CMPageTitleView.m */,
+				B5EBC9B821215A72000403B8 /* CMPageTitleView.h */,
+				B5EBC9BB21215A72000403B8 /* CMPageTitleView.m */,
+				B5EBC9B621215A72000403B8 /* CMPageTitleContentView.h */,
+				B5EBC9B921215A72000403B8 /* CMPageTitleContentView.m */,
 				B5EBC9B721215A72000403B8 /* CMPageContentView.h */,
 				B5EBC9BA21215A72000403B8 /* CMPageContentView.m */,
 				B53D96F5224883C50092BDE3 /* CMPageTitleConfig.h */,
@@ -339,10 +339,10 @@
 				B53D96F7224883C50092BDE3 /* CMPageTitleConfig.m in Sources */,
 				B5EBC9DE21215CB3000403B8 /* CMDisplayTitleLabel.m in Sources */,
 				B5EBC9CF21215A72000403B8 /* main.m in Sources */,
-				B5EBC9C821215A72000403B8 /* CMPageTitleView.m in Sources */,
+				B5EBC9C821215A72000403B8 /* CMPageTitleContentView.m in Sources */,
 				B5EBC9D021215A72000403B8 /* AppDelegate.m in Sources */,
 				B5EBC9DA21215C5F000403B8 /* UIColor+CMCommon.m in Sources */,
-				B5EBC9CA21215A72000403B8 /* CMPageView.m in Sources */,
+				B5EBC9CA21215A72000403B8 /* CMPageTitleView.m in Sources */,
 				B5EBC9D621215C0B000403B8 /* CMFlowLayout.m in Sources */,
 				B5EBC9CC21215A72000403B8 /* ViewController.m in Sources */,
 				B5B8AD07224A0E0000ABF82B /* NSString+CMCommon.m in Sources */,
@@ -516,14 +516,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HBW48U6989;
+				DEVELOPMENT_TEAM = UNBWR7RUZ2;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/CMPageTitleView/Other/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = CrabMan.CMPageTitleView.github;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudaizhijia.sd;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -534,14 +534,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HBW48U6989;
+				DEVELOPMENT_TEAM = UNBWR7RUZ2;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = "$(SRCROOT)/CMPageTitleView/Other/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = CrabMan.CMPageTitleView.github;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudaizhijia.sd;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
