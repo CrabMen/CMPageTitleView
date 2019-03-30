@@ -96,6 +96,11 @@
     return _cm_titleMargin;
 }
 
+- (NSInteger)cm_defaultIndex {
+    
+    return _cm_defaultIndex < self.cm_titles.count ? _cm_defaultIndex : 0;
+}
+
 - (CGFloat)cm_scale {
     
     return _cm_scale ?: 1.2;

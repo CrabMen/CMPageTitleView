@@ -106,6 +106,10 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
    
+
+    if (!self.selectedLabel) {
+        [self clickLabel:nil];
+    }
     
 }
 
@@ -148,23 +152,7 @@
      //设置scrollView的contentSize
     self.contentSize = CGSizeMake(CGRectGetMaxX([self.titleLabels.lastObject frame]), 0);
     
-    /*如果设置的默认选择index在范围内则使用该index
-     否则则默认选择当前数组的第一个
-     */
-    if (self.config.cm_defaultIndex < self.titleLabels.count && self.config.cm_defaultIndex > 0 ) {
-        
-        [self selectLabel:self.titleLabels.firstObject];
-   
-    } else {
-        
-        //设置默认选择
-        [self selectLabel:self.titleLabels.firstObject];
-        
-    }
-    
-    [self setUnderLineWithLabel:self.titleLabels.firstObject];
-    [self setTitleCoverWithLabel:self.titleLabels.firstObject];
-    
+
 }
 
 
@@ -220,9 +208,9 @@
 
 /**遮罩样式*/
 - (void)setTitleCoverWithLabel:(UILabel *)label {
-    
     //根据标题的宽度获得下划线的宽度
     NSUInteger index = [self.titleLabels indexOfObject:label];
+   
     CGFloat width = [self.config.cm_titleWidths[index] floatValue];
         
     CGFloat border = 5;
@@ -255,19 +243,11 @@
     _isClickTitle = YES;
     
     // 获取对应标题label
-    CMDisplayTitleLabel *label = (CMDisplayTitleLabel *)tap.view;
+    CMDisplayTitleLabel *label = tap ? (CMDisplayTitleLabel *)tap.view : self.titleLabels[self.config.cm_selectedIndex];
     
-    if (self.cm_delegate) {
-        [self.cm_delegate cm_pageTitleContentViewClickWithIndex:[self.titleLabels indexOfObject:label] Repeat:label == self.selectedLabel];
-    }
-    
-    if (label == self.selectedLabel) return;
-    
+   
     [self selectLabel:label];
     
-    // 记录上一次偏移量,因为点击的时候不会调用scrollView代理记录，因此需要主动记录
-   _lastOffsetX = [self.titleLabels indexOfObject:label] * self.bounds.size.width;
-
     // 点击事件处理完成
     _isClickTitle = NO;
     
@@ -278,6 +258,10 @@
  选中标题Label的设置
  */
 - (void)selectLabel:(UILabel *)label {
+    
+    if (self.cm_delegate) {
+        [self.cm_delegate cm_pageTitleContentViewClickWithIndex:[self.titleLabels indexOfObject:label] Repeat:label == self.selectedLabel];
+    }
     
     if (_selectedLabel == label) return;
     
@@ -298,7 +282,8 @@
     [self setUnderLineWithLabel:label];
     
     _selectedLabel = (CMDisplayTitleLabel *)label;
-    
+    _lastOffsetX = [self.titleLabels indexOfObject:label] * self.bounds.size.width;
+
 }
 
 
@@ -433,6 +418,7 @@
  设置下标偏移
  */
 - (void)setUpUnderLineOffset:(CGFloat)offsetX rightLabel:(UILabel *)rightLabel leftLabel:(UILabel *)leftLabel {
+ 
     if (  rightLabel == nil ||  _isClickTitle) return;
     
     //获取两个标题x的距离

@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "CMPageTitleView.h"
-@interface ViewController ()
+@interface ViewController () <CMPageTitleViewDelegate>
 
 @end
 
@@ -49,6 +49,7 @@
     NSArray *childCOntrollers = @[vc0,vc1,vc2,vc3,vc4,vc5,vc6,vc7];
     
     CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = childCOntrollers;
     config.cm_seperateLineHeight = 2;
@@ -63,6 +64,13 @@
     
 }
 
+
+- (void)cm_pageTitleViewClickWithIndex:(NSInteger)index Repeat:(BOOL)repeat {
+    
+    NSLog(@"第%ld个标题被点击；且%@重复点击",index,repeat?@"是":@"没有被");
+    
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
