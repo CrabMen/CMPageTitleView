@@ -29,6 +29,6 @@
 /**
  
  */
-- (void)cm_pageTitleViewDidScroll:(UIScrollView *)scrollView;
+- (void)cm_pageTitleContentViewDidScroll:(UIScrollView *)scrollView;
 
 @end

@@ -89,7 +89,7 @@
 
 - (void)cm_pageContentViewDidScroll:(UIScrollView *)scrollView {
     
-    [self.titleView cm_pageTitleViewDidScroll:scrollView];
+    [self.titleView cm_pageTitleContentViewDidScroll:scrollView];
     
 }
 

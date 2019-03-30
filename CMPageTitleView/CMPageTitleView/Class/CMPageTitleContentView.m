@@ -156,13 +156,13 @@
 }
 
 
-- (void)cm_pageTitleViewDidScroll:(UIScrollView *)scrollView {
+- (void)cm_pageTitleContentViewDidScroll:(UIScrollView *)scrollView {
     
         CGFloat offSetX = scrollView.contentOffset.x;
         NSInteger leftIndex = offSetX / self.cm_width;
-        UILabel *leftLabel = self.titleLabels[leftIndex];
+        CMDisplayTitleLabel *leftLabel = self.titleLabels[leftIndex];
         NSInteger rightIndex = leftIndex + 1;
-        UILabel *rightLabel = (rightIndex < self.titleLabels.count) ? rightLabel = self.titleLabels[rightIndex] :nil;
+        CMDisplayTitleLabel *rightLabel = (rightIndex < self.titleLabels.count) ? rightLabel = self.titleLabels[rightIndex] :nil;
     
         [self setUpTitleScaleWithOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
     
@@ -245,10 +245,8 @@
     // 获取对应标题label
     CMDisplayTitleLabel *label = tap ? (CMDisplayTitleLabel *)tap.view : self.titleLabels[self.config.cm_selectedIndex];
     
-   
     [self selectLabel:label];
     
-    // 点击事件处理完成
     _isClickTitle = NO;
     
 }
@@ -297,14 +295,13 @@
     CGFloat offsetX = label.center.x - CMSCREEN_W * 0.5;
 
     offsetX = offsetX > 0 ? offsetX : 0;
-    // 计算下最大的标题视图滚动区域
+  
     CGFloat maxOffsetX = self.contentSize.width - CMSCREEN_W + self.config.cm_titleMargin;
 
     maxOffsetX = maxOffsetX ?:0;
 
     offsetX = offsetX > maxOffsetX ? maxOffsetX : offsetX;
 
-    // 滚动区域
     [self setContentOffset:CGPointMake(offsetX, 0) animated:YES];
     
     
@@ -320,15 +317,10 @@
  */
 - (void)setUpTitleColorGradientWithOffset:(CGFloat)offsetX rightLabel:(CMDisplayTitleLabel *)rightLabel leftLabel:(CMDisplayTitleLabel *)leftLabel {
     
-   // if (_isShowTitleGradient == NO) return;
-    
     if (_isClickTitle) return;
-    NSLog(@"颜色渐变效果被调用");
     
-    // 获取右边缩放
     CGFloat rightScale = offsetX / self.bounds.size.width - [self.titleLabels indexOfObject:leftLabel];
     
-    // 获取左边缩放比例
     CGFloat leftScale = 1 - rightScale;
     
     if (self.config.cm_gradientStyle == CMTitleColorGradientStyle_RGB) {
@@ -367,16 +359,15 @@
 /**
  标题缩放
  */
-- (void)setUpTitleScaleWithOffset:(CGFloat)offsetX rightLabel:(UILabel *)rightLabel leftLabel:(UILabel *)leftLabel {
+- (void)setUpTitleScaleWithOffset:(CGFloat)offsetX rightLabel:(CMDisplayTitleLabel *)rightLabel leftLabel:(CMDisplayTitleLabel *)leftLabel {
     
     
     if (self.config.cm_showScale == NO || _isClickTitle) return;
-    //获取右边的缩放
+    
     CGFloat rightScale = offsetX / self.bounds.size.width - [self.titleLabels indexOfObject:leftLabel];
     
     CGFloat leftScale = 1 - rightScale;
     
-    //左右按钮缩放计算
     CGFloat scaleTransform = self.config.cm_scale;
     
     scaleTransform -= 1;
@@ -390,24 +381,20 @@
 /**
  设置遮罩偏移即遮罩的x
  */
-- (void)setUpCoverOffset:(CGFloat)offsetX rightLabel:(UILabel *)rightLabel leftLabel:(UILabel *)leftLabel {
+- (void)setUpCoverOffset:(CGFloat)offsetX rightLabel:(CMDisplayTitleLabel *)rightLabel leftLabel:(CMDisplayTitleLabel *)leftLabel {
     
     
     //通过判断isClickTitle的属性来防止二次偏移
     if (_isClickTitle || rightLabel == nil) return;
 
-    //获取两个标题x的距离
     CGFloat deltaX = rightLabel.cm_x - leftLabel.cm_x;
     
-    //标题宽度的差值
     CGFloat deltaWidth = [[self.config.cm_titleWidths objectAtIndex:[self.titleLabels indexOfObject:rightLabel]] floatValue] - [[self.config.cm_titleWidths objectAtIndex:[self.titleLabels indexOfObject:leftLabel]] floatValue];
     
-    //移动距离
     CGFloat deltaOffSet = offsetX -_lastOffsetX;
     
     CGFloat coverTransformX = deltaOffSet * deltaX / self.bounds.size.width;
     
-    // 宽度递增偏移量
     CGFloat coverWidth = deltaOffSet * deltaWidth / self.bounds.size.width;
     
     self.titleCover.cm_width += coverWidth;
@@ -421,18 +408,14 @@
  
     if (  rightLabel == nil ||  _isClickTitle) return;
     
-    //获取两个标题x的距离
     CGFloat deltaX = self.config.cm_underLineW ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (rightLabel.cm_x - leftLabel.cm_x);
     
-    //标题宽度的差值
     CGFloat deltaWidth = [[self.config.cm_titleWidths objectAtIndex:[self.titleLabels indexOfObject:rightLabel]] floatValue] - [[self.config.cm_titleWidths objectAtIndex:[self.titleLabels indexOfObject:leftLabel]] floatValue];
     
-    //移动距离
     CGFloat deltaOffSet = offsetX -_lastOffsetX;
     
     CGFloat underLineTransformX = deltaOffSet * deltaX / self.bounds.size.width;
     
-    // 宽度递增偏移量
     CGFloat deltaUnderLineWidth = deltaOffSet * deltaWidth / self.bounds.size.width;
     
     self.underLine.cm_width = self.config.cm_underLineW ?: (self.underLine.cm_width + deltaUnderLineWidth);
