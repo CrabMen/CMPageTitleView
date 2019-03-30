@@ -157,14 +157,6 @@
 		B5EBC9B421215A72000403B8 /* Class */ = {
 			isa = PBXGroup;
 			children = (
-				B5EBC9B521215A72000403B8 /* CMPageView */,
-			);
-			path = Class;
-			sourceTree = "<group>";
-		};
-		B5EBC9B521215A72000403B8 /* CMPageView */ = {
-			isa = PBXGroup;
-			children = (
 				B5EBC9E221215DC1000403B8 /* CMPageTitleViewMacro.h */,
 				B5B8ACF42249CA2D00ABF82B /* UIView+CMCommon.h */,
 				B5B8ACF52249CA2D00ABF82B /* UIView+CMCommon.m */,
@@ -185,7 +177,7 @@
 				B5EBC9DC21215CB3000403B8 /* CMDisplayTitleLabel.h */,
 				B5EBC9DD21215CB3000403B8 /* CMDisplayTitleLabel.m */,
 			);
-			path = CMPageView;
+			path = Class;
 			sourceTree = "<group>";
 		};
 		B5EBC9BC21215A72000403B8 /* Other */ = {
