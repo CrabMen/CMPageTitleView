@@ -74,6 +74,20 @@
 
 
 #pragma --- UIScrollViewDelegate
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+    
+//        NSInteger index = scrollView.contentOffset.x / CMSCREEN_W;
+//
+//        //选中标题
+//        if (self.cm_delegate) {
+//
+//            [self.cm_delegate cm_pageContentViewDidEndDeceleratingWithIndex:index];
+//
+//        }
+    
+    
+    
+}
 
 /**
  scrollView减速完成
@@ -101,7 +115,7 @@
     
     //选中标题
     if (self.cm_delegate) {
-    
+
         [self.cm_delegate cm_pageContentViewDidEndDeceleratingWithIndex:index];
 
     }
@@ -121,9 +135,6 @@
     if (self.cm_delegate) {
         [self.cm_delegate cm_pageContentViewDidScroll:scrollView];
     }
-
-
-
 
 }
 

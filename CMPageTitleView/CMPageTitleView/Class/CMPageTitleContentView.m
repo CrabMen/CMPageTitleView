@@ -175,6 +175,10 @@
         [self setUpUnderLineOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
     //    }
     
+        NSInteger centerIndex = floor(offSetX / self.cm_width);
+    
+        [self setLabelTitleCenter:self.titleLabels[centerIndex]];
+    
         self.lastOffsetX = scrollView.contentOffset.x;
 
     
