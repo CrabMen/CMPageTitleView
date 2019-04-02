@@ -102,7 +102,6 @@
 }
 
 
-
 - (void)layoutSubviews {
     [super layoutSubviews];
    
@@ -116,6 +115,8 @@
 - (void)initSubViews {
     
     self.frame = CGRectMake(0, 0, CMSCREEN_W, self.config.cm_titleHeight);
+    self.showsVerticalScrollIndicator = NO;
+    self.showsHorizontalScrollIndicator = NO;
     self.contentInset = UIEdgeInsetsMake(0, 0, 0, -self.config.cm_titleMargin);
     [self initTitleLabels];
     
