@@ -10,8 +10,6 @@
 		B53D96F7224883C50092BDE3 /* CMPageTitleConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = B53D96F6224883C50092BDE3 /* CMPageTitleConfig.m */; };
 		B5B8ACF62249CA2D00ABF82B /* UIView+CMCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8ACF52249CA2D00ABF82B /* UIView+CMCommon.m */; };
 		B5B8AD07224A0E0000ABF82B /* NSString+CMCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8AD06224A0E0000ABF82B /* NSString+CMCommon.m */; };
-		B5EBC99C21215A31000403B8 /* CMPageTitleViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC99B21215A31000403B8 /* CMPageTitleViewTests.m */; };
-		B5EBC9A721215A31000403B8 /* CMPageTitleViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9A621215A31000403B8 /* CMPageTitleViewUITests.m */; };
 		B5EBC9C821215A72000403B8 /* CMPageTitleContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9B921215A72000403B8 /* CMPageTitleContentView.m */; };
 		B5EBC9C921215A72000403B8 /* CMPageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9BA21215A72000403B8 /* CMPageContentView.m */; };
 		B5EBC9CA21215A72000403B8 /* CMPageTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9BB21215A72000403B8 /* CMPageTitleView.m */; };
@@ -53,11 +51,7 @@
 		B5B8AD06224A0E0000ABF82B /* NSString+CMCommon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+CMCommon.m"; sourceTree = "<group>"; };
 		B5EBC97F21215A2F000403B8 /* CMPageTitleView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CMPageTitleView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5EBC99721215A31000403B8 /* CMPageTitleViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CMPageTitleViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B5EBC99B21215A31000403B8 /* CMPageTitleViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMPageTitleViewTests.m; sourceTree = "<group>"; };
-		B5EBC99D21215A31000403B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5EBC9A221215A31000403B8 /* CMPageTitleViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CMPageTitleViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B5EBC9A621215A31000403B8 /* CMPageTitleViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMPageTitleViewUITests.m; sourceTree = "<group>"; };
-		B5EBC9A821215A31000403B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5EBC9B621215A72000403B8 /* CMPageTitleContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPageTitleContentView.h; sourceTree = "<group>"; };
 		B5EBC9B721215A72000403B8 /* CMPageContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPageContentView.h; sourceTree = "<group>"; };
 		B5EBC9B821215A72000403B8 /* CMPageTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPageTitleView.h; sourceTree = "<group>"; };
@@ -111,8 +105,6 @@
 			isa = PBXGroup;
 			children = (
 				B5EBC98121215A2F000403B8 /* CMPageTitleView */,
-				B5EBC99A21215A31000403B8 /* CMPageTitleViewTests */,
-				B5EBC9A521215A31000403B8 /* CMPageTitleViewUITests */,
 				B5EBC98021215A2F000403B8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -134,24 +126,6 @@
 				B5EBC9BC21215A72000403B8 /* Other */,
 			);
 			path = CMPageTitleView;
-			sourceTree = "<group>";
-		};
-		B5EBC99A21215A31000403B8 /* CMPageTitleViewTests */ = {
-			isa = PBXGroup;
-			children = (
-				B5EBC99B21215A31000403B8 /* CMPageTitleViewTests.m */,
-				B5EBC99D21215A31000403B8 /* Info.plist */,
-			);
-			path = CMPageTitleViewTests;
-			sourceTree = "<group>";
-		};
-		B5EBC9A521215A31000403B8 /* CMPageTitleViewUITests */ = {
-			isa = PBXGroup;
-			children = (
-				B5EBC9A621215A31000403B8 /* CMPageTitleViewUITests.m */,
-				B5EBC9A821215A31000403B8 /* Info.plist */,
-			);
-			path = CMPageTitleViewUITests;
 			sourceTree = "<group>";
 		};
 		B5EBC9B421215A72000403B8 /* Class */ = {
@@ -346,7 +320,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5EBC99C21215A31000403B8 /* CMPageTitleViewTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,7 +327,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5EBC9A721215A31000403B8 /* CMPageTitleViewUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

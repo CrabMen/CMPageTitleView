@@ -80,6 +80,12 @@
 
 #pragma mark --- CMPageContentViewDelegate
 
+- (void)cm_pageContentViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    
+    [self.titleView cm_pageTitleContentViewAdjustPosition:scrollView];
+    
+}
+
 - (void)cm_pageContentViewDidEndDeceleratingWithIndex:(NSInteger)index {
     
     self.titleView.cm_selectedIndex = index;

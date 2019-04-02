@@ -52,7 +52,9 @@
  */
 - (void)cm_drawDashLineLength:(int)lineLength lineSpacing:(int)lineSpacing lineColor:(UIColor *)lineColor;
 
-/**警告抖动动画（输入框为空或内容非法时）*/
+/**
+ 警告抖动动画（输入框为空或内容非法时）
+ */
 - (void)cm_warnningShakeAnimation;
 
 @end

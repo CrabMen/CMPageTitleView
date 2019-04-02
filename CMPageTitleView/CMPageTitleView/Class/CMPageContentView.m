@@ -74,19 +74,13 @@
 
 
 #pragma --- UIScrollViewDelegate
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
-    
-//        NSInteger index = scrollView.contentOffset.x / CMSCREEN_W;
-//
-//        //选中标题
-//        if (self.cm_delegate) {
-//
-//            [self.cm_delegate cm_pageContentViewDidEndDeceleratingWithIndex:index];
-//
-//        }
-    
-    
-    
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+
+    if (self.cm_delegate) {
+        [self.cm_delegate cm_pageContentViewDidEndDragging:scrollView willDecelerate:decelerate];
+    }
+ 
 }
 
 /**
@@ -130,7 +124,6 @@
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (_isAniming || self.config.cm_childControllers.count == 0) return;
-
 
     if (self.cm_delegate) {
         [self.cm_delegate cm_pageContentViewDidScroll:scrollView];

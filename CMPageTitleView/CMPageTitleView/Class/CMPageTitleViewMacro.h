@@ -1,6 +1,6 @@
 //
 //  CMMacro.h
-//  CMPageTitleView
+//  CMPageTitleView个z
 //
 //  Created by 智借iOS on 2018/8/13.
 //  Copyright © 2018年 CrabMan. All rights reserved.
@@ -12,16 +12,17 @@
 //1px
 #define CM_ONE_PX  1.0/[UIScreen mainScreen].scale
 
-#define CM_IPHONE_X ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+//是否是刘海屏
+#define CM_NOTCH_SCREEN @available(iOS 11.0, *) && UIApplication.sharedApplication.keyWindow.safeAreaInsets.bottom > 0.0
 
 //导航栏高度
-#define CM_NAVI_BAR_H (CM_IPHONE_X ? 88 : 64)
+#define CM_NAVI_BAR_H (CM_NOTCH_SCREEN ? 88 : 64)
 
 //电池条高度
-#define CM_STATUE_BAR_H (CM_IPHONE_X ? 44 : 20)
+#define CM_STATUE_BAR_H (CM_NOTCH_SCREEN ? 44 : 20)
 
 //tabbar高度
-#define CM_TAB_BAR_H (CM_IPHONE_X?83.0f:49.0)
+#define CM_TAB_BAR_H (CM_NOTCH_SCREEN ? 83.0f: 49.0)
 
 //selfWeak 防止block循环引用，参数为weak的对象
 #define CMWEAK_OBJ(obj) @autoreleasepool{} __weak typeof(obj) obj##Weak = obj;

@@ -60,17 +60,25 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 @property (nonatomic,assign) CMTitleColorGradientStyle cm_gradientStyle;
 
 
-/**标题之间的间隔*/
+/**
+ 标题之间的间隔
+ */
 @property (nonatomic,assign) CGFloat cm_titleMargin;
 
-/**默认选择的index*/
+/**
+ 默认选择的index
+ */
 @property (nonatomic,assign,getter=cm_selectedIndex) NSInteger cm_defaultIndex;
 
 
-/**标题栏下方分割线的颜色*/
+/**
+ 标题栏下方分割线的颜色
+ */
 @property (nonatomic,strong) UIColor *cm_seperaterLineColor;
 
-/**标题分割线的高度*/
+/**
+ 标题分割线的高度
+ */
 @property (nonatomic,assign) CGFloat cm_seperateLineHeight;
 
 /**标题数组
@@ -85,9 +93,10 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 
 #pragma mark --- 下划线效果
 
-/**是否显示下划线*/
+/**
+ 是否显示下划线
+ */
 @property (nonatomic,assign) BOOL cm_showUnderLine;
-
 
 
 /**
@@ -97,7 +106,9 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 @property (nonatomic,assign) BOOL cm_underLineBorder;
 
 
-/**下划线高度*/
+/**
+ 下划线高度
+ */
 @property (nonatomic,assign) CGFloat cm_underLineHeight;
 
 /**
@@ -107,7 +118,8 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 @property (nonatomic,assign) CGFloat cm_underLineW;
 
 
-/**下划线颜色
+/**
+ 下划线颜色
  默认跟随标题的选中颜色
  */
 @property (nonatomic,strong) UIColor *cm_underLineColor;
@@ -117,13 +129,18 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 
 #pragma mark --- 遮罩效果
 
-/**是否显示遮罩*/
+/**
+ 是否显示遮罩
+ */
 @property (nonatomic,assign) BOOL cm_showCover;
 
-/**遮罩颜色*/
+/**
+ 遮罩颜色
+ */
 @property (nonatomic,strong) UIColor *cm_coverColor;
 
-/**遮罩圆角半径
+/**
+ 遮罩圆角半径
  默认为 cover高度的一半
  */
 @property (nonatomic,assign) CGFloat cm_coverRadius;
@@ -131,22 +148,32 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 
 #pragma mark --- 缩放效果
 
-/**是否显示字体缩放*/
+/**
+ 是否显示字体缩放
+ */
 @property (nonatomic,assign) BOOL cm_showScale;
 
 
-/**标题的缩放等级*/
+/**
+ 标题的缩放等级
+ */
 @property (nonatomic,assign) CGFloat cm_scale;
 
 
-/**标题的偏移量*/
+/**
+ 标题的偏移量
+ */
 @property (nonatomic,assign) CGFloat lastOffsetX;
 
 
-/**标题宽度*/
+/**
+ 标题宽度
+ */
 @property (nonatomic,strong,readonly) NSArray *cm_titleWidths;
 
-/**所有标题的总宽度*/
+/**
+ 所有标题的总宽度
+ */
 @property (nonatomic,assign,readonly) CGFloat cm_totalWidth;
 
 

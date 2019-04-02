@@ -175,7 +175,7 @@
     
     UIViewController *vc = self.cm_currentController;
     
-    vc.navigationController.interactivePopGestureRecognizer.enabled = NO;
+ vc.navigationController.interactivePopGestureRecognizer.enabled = NO;
     return vc.navigationController;
     
 }
