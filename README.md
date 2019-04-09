@@ -15,7 +15,7 @@
 
 ## <a id="installation"></a>Installation 
 
-## CocoaPods:
+### CocoaPods:
 
 * For iOS8+: 
 
@@ -34,7 +34,7 @@ target '<Your Target Name>' do
 end
 ```
 
-## Manually:
+### Manually:
 * Drag all files under `CMPageTitleView` folder into your project. 
 
 
@@ -45,6 +45,6 @@ end
 ## <a id="support"></a>Support this repo
 * [**★Star**](#) this repo 
 
-# License
+## License
 CMPageTitleView is available under the MIT license. See the LICENSE file for more info.
 
