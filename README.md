@@ -27,14 +27,6 @@ target '<Your Target Name>' do
 end
 ```
 
-* For iOS7+:
-
-```ruby
-target '<Your Target Name>' do
-	pod 'CMPageTitleView'
-end
-```
-
 ### Manually:
 * Drag all files under `CMPageTitleView/CMPageTitleView/Class` folder into your project. 
 
