@@ -36,7 +36,7 @@ end
 ```
 
 ### Manually:
-* Drag all files under `CMPageTitleView` folder into your project. 
+* Drag all files under `CMPageTitleView/CMPageTitleView/Class` folder into your project. 
 
 
 
