@@ -173,7 +173,7 @@
         NSInteger leftIndex = offSetX / self.cm_width;
         CMDisplayTitleLabel *leftLabel = self.titleLabels[leftIndex];
         NSInteger rightIndex = leftIndex + 1;
-        CMDisplayTitleLabel *rightLabel = (rightIndex < self.titleLabels.count) ? rightLabel = self.titleLabels[rightIndex] :nil;
+        CMDisplayTitleLabel *rightLabel = (rightIndex < self.titleLabels.count) ? self.titleLabels[rightIndex] :nil;
     
         [self setUpTitleScaleWithOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
     
@@ -194,6 +194,9 @@
 
 #pragma mark --- 样式视图
 - (void)setUnderLineWithLabel:(UILabel *)label {
+    
+    if (!self.config.cm_showUnderLine) return;
+
     //根据标题的宽度获得下划线的宽度
     NSUInteger index = [self.titleLabels indexOfObject:label];
     CGFloat underLineWidth = self.config.cm_underLineW ?: [self.config.cm_titleWidths[index] floatValue];
@@ -202,7 +205,6 @@
         self.underLine.cm_y = label.cm_height - underLineH;
         self.underLine.cm_height = underLineH;
     
-#warning TODO : 这个判断可能还有点问题
         if (self.underLine.cm_x == 0) {
             
             self.underLine.cm_width = underLineWidth;
@@ -219,6 +221,9 @@
 
 /**遮罩样式*/
 - (void)setTitleCoverWithLabel:(UILabel *)label {
+    
+    if (!self.config.cm_showCover) return;
+    
     //根据标题的宽度获得下划线的宽度
     NSUInteger index = [self.titleLabels indexOfObject:label];
    
@@ -226,24 +231,23 @@
         
     CGFloat border = 5;
     CGFloat coverH = label.font.pointSize + 2 * border;
-    CGFloat coverW = width + 2 * border;
+    CGFloat coverW = width + 2.8 * border;
     
     self.titleCover.cm_y = (label.cm_height - coverH) * 0.5;
     self.titleCover.cm_height = coverH;
     
-    self.titleCover.layer.cornerRadius =          self.config.cm_coverRadius ?: coverH * 0.5;
+    self.titleCover.layer.cornerRadius = self.config.cm_coverRadius ?: coverH * 0.5;
 
-#warning TODO : 这个判断可能还有点问题
-    if (self.titleCover.cm_x ) {
+    if (self.titleCover.cm_x == 0) {
             self.titleCover.cm_width = coverW;
-            self.titleCover.cm_x = label.cm_x - border;
+            self.titleCover.cm_centerX = label.cm_centerX;
         } else {
             [UIView animateWithDuration:0.25 animations:^{
                 self.titleCover.cm_width = coverW;
-                self.titleCover.cm_x = label.cm_x - border;
+                self.titleCover.cm_centerX = label.cm_centerX;
             }];
         }
-    
+
 }
 
 
@@ -274,17 +278,9 @@
     
     if (_selectedLabel == label) return;
     
-    _selectedLabel.transform = CGAffineTransformIdentity;
-    _selectedLabel.textColor = self.config.cm_normalColor;
-    _selectedLabel.cm_fillColor = self.config.cm_selectedColor;
-    _selectedLabel.cm_progress = 0;
-   label.textColor = self.config.cm_selectedColor;
-
-  if (self.config.cm_showScale) {
-        label.transform = CGAffineTransformMakeScale(self.config.cm_scale, self.config.cm_scale);
-    }
-    
     [self setLabelTitleCenter:label];
+
+    [self setTitleScaleCenter:label];
     
     [self setTitleCoverWithLabel:label];
    
@@ -295,7 +291,19 @@
 
 }
 
+- (void)setTitleScaleCenter:(UILabel *)label {
+    
+    if (!self.config.cm_showScale) return;
 
+    _selectedLabel.transform = CGAffineTransformIdentity;
+    _selectedLabel.textColor = self.config.cm_normalColor;
+    _selectedLabel.cm_fillColor = self.config.cm_selectedColor;
+    _selectedLabel.cm_progress = 0;
+    label.textColor = self.config.cm_selectedColor;
+    
+    label.transform = CGAffineTransformMakeScale(self.config.cm_scale, self.config.cm_scale);
+
+}
 
 /**
  让选中的按钮居中显示
@@ -396,7 +404,7 @@
     
     
     //通过判断isClickTitle的属性来防止二次偏移
-    if (_isClickTitle || rightLabel == nil) return;
+    if (self.config.cm_showCover == NO || _isClickTitle || rightLabel == nil) return;
 
     CGFloat deltaX = rightLabel.cm_x - leftLabel.cm_x;
     
@@ -417,7 +425,7 @@
  */
 - (void)setUpUnderLineOffset:(CGFloat)offsetX rightLabel:(UILabel *)rightLabel leftLabel:(UILabel *)leftLabel {
  
-    if (  rightLabel == nil ||  _isClickTitle) return;
+    if (self.config.cm_showUnderLine == NO || rightLabel == nil ||  _isClickTitle) return;
     
     CGFloat deltaX = self.config.cm_underLineW ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (rightLabel.cm_x - leftLabel.cm_x);
     

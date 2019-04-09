@@ -103,7 +103,7 @@
 
 - (CGFloat)cm_scale {
     
-    return _cm_scale ?: 1.2;
+    return _cm_scale ?: 1.1;
 }
 
 

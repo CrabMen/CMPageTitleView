@@ -52,10 +52,8 @@
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = childCOntrollers;
-    config.cm_showUnderLine = YES;
-    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     config.cm_showScale = YES;
-    config.cm_underLineBorder = YES;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     pageView.cm_config = config;
     
     [self.view addSubview:pageView];
