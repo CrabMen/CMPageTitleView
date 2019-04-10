@@ -21,7 +21,6 @@
 		B5EBC9CE21215A72000403B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5EBC9C221215A72000403B8 /* Main.storyboard */; };
 		B5EBC9CF21215A72000403B8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9C421215A72000403B8 /* main.m */; };
 		B5EBC9D021215A72000403B8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9C521215A72000403B8 /* AppDelegate.m */; };
-		B5EBC9D121215A72000403B8 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5EBC9C621215A72000403B8 /* Info.plist */; };
 		B5EBC9D621215C0B000403B8 /* CMFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9D321215C0B000403B8 /* CMFlowLayout.m */; };
 		B5EBC9DA21215C5F000403B8 /* UIColor+CMCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9D921215C5F000403B8 /* UIColor+CMCommon.m */; };
 		B5EBC9DE21215CB3000403B8 /* CMDisplayTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9DD21215CB3000403B8 /* CMDisplayTitleLabel.m */; };
@@ -250,7 +249,7 @@
 		B5EBC97721215A2E000403B8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = CrabMan;
 				TargetAttributes = {
 					B5EBC97E21215A2F000403B8 = {
@@ -291,7 +290,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5EBC9D121215A72000403B8 /* Info.plist in Resources */,
 				B5EBC9CE21215A72000403B8 /* Main.storyboard in Resources */,
 				B5EBC9CB21215A72000403B8 /* Assets.xcassets in Resources */,
 				B5EBC9CD21215A72000403B8 /* LaunchScreen.storyboard in Resources */,

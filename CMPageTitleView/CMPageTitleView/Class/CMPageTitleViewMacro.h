@@ -13,7 +13,12 @@
 #define CM_ONE_PX  1.0/[UIScreen mainScreen].scale
 
 //是否是刘海屏
-#define CM_NOTCH_SCREEN @available(iOS 11.0, *) && UIApplication.sharedApplication.keyWindow.safeAreaInsets.bottom > 0.0
+#define CM_NOTCH_SCREEN \
+({BOOL isPhoneX = NO;\
+if (@available(iOS 11.0, *)) {\
+isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom > 0.0;\
+}\
+(isPhoneX);})
 
 //导航栏高度
 #define CM_NAVI_BAR_H (CM_NOTCH_SCREEN ? 88 : 64)
