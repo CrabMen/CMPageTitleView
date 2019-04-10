@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "CMMainTableController.h"
 @interface AppDelegate ()
 
 @end
@@ -17,6 +17,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    
+    _window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[CMMainTableController new]];
+    [_window makeKeyAndVisible];
     return YES;
 }
 

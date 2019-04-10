@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B51FABE0225DD15C004117BD /* CMMainTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = B51FABDF225DD15C004117BD /* CMMainTableController.m */; };
+		B51FABE3225DD2E7004117BD /* CMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B51FABE2225DD2E7004117BD /* CMViewController.m */; };
 		B53D96F7224883C50092BDE3 /* CMPageTitleConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = B53D96F6224883C50092BDE3 /* CMPageTitleConfig.m */; };
 		B5B8ACF62249CA2D00ABF82B /* UIView+CMCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8ACF52249CA2D00ABF82B /* UIView+CMCommon.m */; };
 		B5B8AD07224A0E0000ABF82B /* NSString+CMCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8AD06224A0E0000ABF82B /* NSString+CMCommon.m */; };
@@ -43,6 +45,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B51FABDE225DD15C004117BD /* CMMainTableController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMMainTableController.h; sourceTree = "<group>"; };
+		B51FABDF225DD15C004117BD /* CMMainTableController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMMainTableController.m; sourceTree = "<group>"; };
+		B51FABE1225DD2E7004117BD /* CMViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMViewController.h; sourceTree = "<group>"; };
+		B51FABE2225DD2E7004117BD /* CMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMViewController.m; sourceTree = "<group>"; };
 		B53D96F5224883C50092BDE3 /* CMPageTitleConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMPageTitleConfig.h; sourceTree = "<group>"; };
 		B53D96F6224883C50092BDE3 /* CMPageTitleConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMPageTitleConfig.m; sourceTree = "<group>"; };
 		B5B8ACF42249CA2D00ABF82B /* UIView+CMCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CMCommon.h"; sourceTree = "<group>"; };
@@ -101,6 +107,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B51FABDD225DD0E1004117BD /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				B51FABDE225DD15C004117BD /* CMMainTableController.h */,
+				B51FABDF225DD15C004117BD /* CMMainTableController.m */,
+				B51FABE1225DD2E7004117BD /* CMViewController.h */,
+				B51FABE2225DD2E7004117BD /* CMViewController.m */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
 		B5EBC97621215A2E000403B8 = {
 			isa = PBXGroup;
 			children = (
@@ -123,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				B5EBC9B421215A72000403B8 /* Class */,
+				B51FABDD225DD0E1004117BD /* Demo */,
 				B5EBC9BC21215A72000403B8 /* Other */,
 			);
 			path = CMPageTitleView;
@@ -307,7 +325,9 @@
 				B5EBC9CF21215A72000403B8 /* main.m in Sources */,
 				B5EBC9C821215A72000403B8 /* CMPageTitleContentView.m in Sources */,
 				B5EBC9D021215A72000403B8 /* AppDelegate.m in Sources */,
+				B51FABE3225DD2E7004117BD /* CMViewController.m in Sources */,
 				B5EBC9DA21215C5F000403B8 /* UIColor+CMCommon.m in Sources */,
+				B51FABE0225DD15C004117BD /* CMMainTableController.m in Sources */,
 				B5EBC9CA21215A72000403B8 /* CMPageTitleView.m in Sources */,
 				B5EBC9D621215C0B000403B8 /* CMFlowLayout.m in Sources */,
 				B5EBC9CC21215A72000403B8 /* ViewController.m in Sources */,
