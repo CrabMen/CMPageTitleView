@@ -45,9 +45,9 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 #define DYNAMIC_FONT(x) (CM_IPHONE_PLUS ? 1.5*x : x/2)
 
 //16进制纯色
-#define CM_HEXCOLOR(s) [UIColor colorWithHexString:s]
+#define CM_HEXCOLOR(s) [UIColor cm_colorWithHexString:s]
 
 //16进制颜色+alpha
-#define CM_HEXCOLOR_ALPHA(s,a) [UIColor colorWithHexString:s alpha:a]
+#define CM_HEXCOLOR_ALPHA(s,a) [UIColor cm_colorWithHexString:s alpha:a]
 
 #endif /* CMMacro_h */

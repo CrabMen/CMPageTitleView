@@ -57,6 +57,12 @@
     return _childControllers;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -72,9 +78,9 @@
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
-    
+    config.cm_normalColor = CM_HEXCOLOR(@"222222");
+   
     pageView.cm_config = config;
-    
     [self.view addSubview:pageView];
     
 }

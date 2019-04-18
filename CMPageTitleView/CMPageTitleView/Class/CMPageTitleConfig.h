@@ -68,7 +68,6 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 
 
 
-
 /**颜色渐变样式
  默认为 CMTitleColorGradientStyle_RGB
  */
