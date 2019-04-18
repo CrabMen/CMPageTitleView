@@ -128,7 +128,7 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 下划线宽度
 默认跟随文字宽度
  */
-@property (nonatomic,assign) CGFloat cm_underLineW;
+@property (nonatomic,assign) CGFloat cm_underLineWidth;
 
 
 /**
@@ -136,6 +136,11 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
  默认跟随标题的选中颜色
  */
 @property (nonatomic,strong) UIColor *cm_underLineColor;
+
+
+
+/**是否延长*/
+@property (nonatomic,assign) BOOL cm_underlineStretch;
 
 
 

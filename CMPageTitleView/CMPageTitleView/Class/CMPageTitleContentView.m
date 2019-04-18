@@ -196,15 +196,14 @@
 #pragma mark --- 样式视图
 - (void)setUnderLineWithLabel:(UILabel *)label {
     
-    if (!(self.config.cm_switchMode&CMPageTitleSwitchMode_Underline)) return;
+    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline)) return;
 
     //根据标题的宽度获得下划线的宽度
     NSUInteger index = [self.titleLabels indexOfObject:label];
-    CGFloat underLineWidth = self.config.cm_underLineW ?: [self.config.cm_titleWidths[index] floatValue];
+    CGFloat underLineWidth = self.config.cm_underLineWidth ?: [self.config.cm_titleWidths[index] floatValue];
     
-    CGFloat underLineH = self.config.cm_underLineHeight;
-        self.underLine.cm_y = label.cm_height - underLineH;
-        self.underLine.cm_height = underLineH;
+        self.underLine.cm_y = label.cm_height - self.config.cm_underLineHeight;
+        self.underLine.cm_height = self.config.cm_underLineHeight;
     
         if (self.underLine.cm_x == 0) {
             
@@ -289,7 +288,7 @@
     [self setUnderLineWithLabel:label];
     
     _selectedLabel = (CMDisplayTitleLabel *)label;
-    _lastOffsetX = [self.titleLabels indexOfObject:label] * self.bounds.size.width;
+    _lastOffsetX = [self.titleLabels indexOfObject:label] * self.cm_width;
 
 }
 
@@ -388,7 +387,7 @@
     
     if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Scale) || _isClickTitle) return;
     
-    CGFloat rightScale = offsetX / self.bounds.size.width - [self.titleLabels indexOfObject:leftLabel];
+    CGFloat rightScale = offsetX / self.cm_width - [self.titleLabels indexOfObject:leftLabel];
     
     CGFloat leftScale = 1 - rightScale;
     
@@ -417,9 +416,9 @@
     
     CGFloat deltaOffSet = offsetX -_lastOffsetX;
     
-    CGFloat coverTransformX = deltaOffSet * deltaX / self.bounds.size.width;
+    CGFloat coverTransformX = deltaOffSet * deltaX / self.cm_width;
     
-    CGFloat coverWidth = deltaOffSet * deltaWidth / self.bounds.size.width;
+    CGFloat coverWidth = deltaOffSet * deltaWidth / self.cm_width;
     
     self.titleCover.cm_width += coverWidth;
     self.titleCover.cm_x += coverTransformX;
@@ -432,17 +431,17 @@
  
     if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline) || rightLabel == nil ||  _isClickTitle) return;
     
-    CGFloat deltaX = self.config.cm_underLineW ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (rightLabel.cm_x - leftLabel.cm_x);
+    CGFloat deltaX = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (rightLabel.cm_x - leftLabel.cm_x);
     
     CGFloat deltaWidth = [[self.config.cm_titleWidths objectAtIndex:[self.titleLabels indexOfObject:rightLabel]] floatValue] - [[self.config.cm_titleWidths objectAtIndex:[self.titleLabels indexOfObject:leftLabel]] floatValue];
     
     CGFloat deltaOffSet = offsetX -_lastOffsetX;
     
-    CGFloat underLineTransformX = deltaOffSet * deltaX / self.bounds.size.width;
+    CGFloat underLineTransformX = deltaOffSet * deltaX / self.cm_width;
     
-    CGFloat deltaUnderLineWidth = deltaOffSet * deltaWidth / self.bounds.size.width;
+    CGFloat deltaUnderLineWidth = deltaOffSet * deltaWidth / self.cm_width;
     
-    self.underLine.cm_width = self.config.cm_underLineW ?: (self.underLine.cm_width + deltaUnderLineWidth);
+    self.underLine.cm_width = self.config.cm_underLineWidth ?: (self.underLine.cm_width + deltaUnderLineWidth);
     
     self.underLine.cm_centerX += underLineTransformX;
     
