@@ -16,6 +16,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger,CMPageTitleSwitchMode) {
+    
+    /**字体放大*/
+    CMPageTitleSwitchMode_Scale,
+    
+    /**下划线样式*/
+    CMPageTitleSwitchMode_Underline,
+    
+    /**遮罩样式*/
+    CMPageTitleSwitchMode_Cover
+
+};
+
 typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
     /**rgb颜色渐变*/
     CMTitleColorGradientStyle_RGB = 0,
@@ -54,10 +67,17 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 @property (nonatomic,assign) CGFloat cm_titleHeight;
 
 
+
+
 /**颜色渐变样式
  默认为 CMTitleColorGradientStyle_RGB
  */
 @property (nonatomic,assign) CMTitleColorGradientStyle cm_gradientStyle;
+
+
+/**标题切换样式*/
+@property (nonatomic,assign) CMPageTitleSwitchMode cm_switchMode;
+
 
 
 /**
@@ -94,12 +114,6 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 #pragma mark --- 下划线效果
 
 /**
- 是否显示下划线
- */
-@property (nonatomic,assign) BOOL cm_showUnderLine;
-
-
-/**
  下划线视图是否圆角
  默认为NO
  */
@@ -130,11 +144,6 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 #pragma mark --- 遮罩效果
 
 /**
- 是否显示遮罩
- */
-@property (nonatomic,assign) BOOL cm_showCover;
-
-/**
  遮罩颜色
  */
 @property (nonatomic,strong) UIColor *cm_coverColor;
@@ -147,12 +156,6 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 
 
 #pragma mark --- 缩放效果
-
-/**
- 是否显示字体缩放
- */
-@property (nonatomic,assign) BOOL cm_showScale;
-
 
 /**
  标题的缩放等级

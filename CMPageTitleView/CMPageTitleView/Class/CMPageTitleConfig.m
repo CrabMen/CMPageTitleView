@@ -16,7 +16,7 @@
 
 - (UIFont *)cm_font {
     
-    return _cm_font ?: [UIFont systemFontOfSize:12];
+    return _cm_font ?[UIFont systemFontOfSize:_cm_font.pointSize]: [UIFont systemFontOfSize:15];
     
 }
 
@@ -104,7 +104,7 @@
 
 - (CGFloat)cm_scale {
     
-    return _cm_scale ?: 1.1;
+    return _cm_scale ?: 1.05;
 }
 
 

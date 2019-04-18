@@ -74,7 +74,7 @@
                 CMViewController *vc0 = [CMViewController new];
                 vc0.title = self.styleArray[indexPath.row];
 
-                [vc0 style0];
+                [vc0 style1];
                 [self.navigationController pushViewController:vc0 animated:YES];
             }
             break;
@@ -85,7 +85,7 @@
                 CMViewController *vc0 = [CMViewController new];
                 vc0.title = self.styleArray[indexPath.row];
 
-                [vc0 style0];
+                [vc0 style2];
                 [self.navigationController pushViewController:vc0 animated:YES];
             }
            
@@ -96,7 +96,7 @@
                 CMViewController *vc0 = [CMViewController new];
                 vc0.title = self.styleArray[indexPath.row];
 
-                [vc0 style0];
+                [vc0 style3];
                 [self.navigationController pushViewController:vc0 animated:YES];
             }
             break;

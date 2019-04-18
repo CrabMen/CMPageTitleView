@@ -13,8 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CMViewController : UIViewController
 
 - (void)style0;
-
-
+- (void)style1;
+- (void)style2;
+- (void)style3;
 @end
 
 NS_ASSUME_NONNULL_END

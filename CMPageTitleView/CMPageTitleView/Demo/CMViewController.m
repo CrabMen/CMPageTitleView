@@ -30,14 +30,14 @@
         UIViewController *vc6 = [UIViewController new];
         UIViewController *vc7 = [UIViewController new];
         
-        vc0.title = @"0000";
-        vc1.title = @"测标题01";
-        vc2.title = @"测试标题02";
-        vc3.title = @"测试03";
-        vc4.title = @"标题04";
-        vc5.title = @"05";
-        vc6.title = @"标题06";
-        vc7.title = @"测试标题07";
+        vc0.title = @"推荐";
+        vc1.title = @"小视频";
+        vc2.title = @"视频";
+        vc3.title = @"热点";
+        vc4.title = @"北京";
+        vc5.title = @"娱乐";
+        vc6.title = @"图片";
+        vc7.title = @"懂车帝";
         
         
         vc0.view.backgroundColor = [UIColor purpleColor];
@@ -66,18 +66,63 @@
 
 - (void)style0 {
     
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    pageView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    config.cm_childControllers = self.childControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Scale;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
+    pageView.cm_config = config;
+    
+    [self.view addSubview:pageView];
+    
+}
+
+- (void)style1 {
     
     CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
-    config.cm_showScale = YES;
+    config.cm_switchMode = CMPageTitleSwitchMode_Underline;
+    
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    
     pageView.cm_config = config;
     
     [self.view addSubview:pageView];
     
+}
+
+- (void)style2 {
+    
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    pageView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    config.cm_childControllers = self.childControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Underline;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    config.cm_underLineW = 6;
+    pageView.cm_config = config;
+    
+    [self.view addSubview:pageView];
+    
+}
+
+
+- (void)style3 {
+    
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    pageView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    config.cm_childControllers = self.childControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Cover;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    
+    pageView.cm_config = config;
+    
+    [self.view addSubview:pageView];
     
 }
 

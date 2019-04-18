@@ -59,7 +59,7 @@
         _underLine = underLineView;
     }
     
-    return self.config.cm_showUnderLine ? _underLine : nil;
+    return _underLine ;
 
 }
 
@@ -74,7 +74,7 @@
          ];
         _titleCover = titleCover;
     }
-    return self.config.cm_showCover?_titleCover:nil;
+    return _titleCover ;
 }
 
 - (void)setCm_selectedIndex:(NSInteger)cm_selectedIndex {
@@ -185,6 +185,7 @@
     
         [self setUpUnderLineOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
     //    }
+
     
         self.lastOffsetX = scrollView.contentOffset.x;
 
@@ -195,7 +196,7 @@
 #pragma mark --- 样式视图
 - (void)setUnderLineWithLabel:(UILabel *)label {
     
-    if (!self.config.cm_showUnderLine) return;
+    if (self.config.cm_switchMode != CMPageTitleSwitchMode_Underline) return;
 
     //根据标题的宽度获得下划线的宽度
     NSUInteger index = [self.titleLabels indexOfObject:label];
@@ -222,7 +223,7 @@
 /**遮罩样式*/
 - (void)setTitleCoverWithLabel:(UILabel *)label {
     
-    if (!self.config.cm_showCover) return;
+    if (self.config.cm_switchMode != CMPageTitleSwitchMode_Cover) return;
     
     //根据标题的宽度获得下划线的宽度
     NSUInteger index = [self.titleLabels indexOfObject:label];
@@ -279,7 +280,8 @@
     if (_selectedLabel == label) return;
     
     [self setLabelTitleCenter:label];
-
+     
+    
     [self setTitleScaleCenter:label];
     
     [self setTitleCoverWithLabel:label];
@@ -291,9 +293,10 @@
 
 }
 
+
 - (void)setTitleScaleCenter:(UILabel *)label {
     
-    if (!self.config.cm_showScale) return;
+    if (self.config.cm_switchMode != CMPageTitleSwitchMode_Scale) return;
 
     _selectedLabel.transform = CGAffineTransformIdentity;
     _selectedLabel.textColor = self.config.cm_normalColor;
@@ -338,7 +341,7 @@
     
     if (_isClickTitle) return;
     
-    CGFloat rightScale = offsetX / self.bounds.size.width - [self.titleLabels indexOfObject:leftLabel];
+    CGFloat rightScale = offsetX / self.cm_width - [self.titleLabels indexOfObject:leftLabel];
     
     CGFloat leftScale = 1 - rightScale;
     
@@ -350,10 +353,12 @@
         CGFloat deltaR = [endRGBA[0] floatValue] - [startRGBA[0] floatValue];
         CGFloat deltaG = [endRGBA[1] floatValue] - [startRGBA[1] floatValue];
         CGFloat deltaB = [endRGBA[2] floatValue] - [startRGBA[2] floatValue];
+        CGFloat deltaA = [endRGBA[3] floatValue] - [startRGBA[3] floatValue];
+
         
-        UIColor *rightColor = [UIColor colorWithRed:[startRGBA[0] floatValue] + rightScale *deltaR green:[startRGBA[1] floatValue] + rightScale *deltaG blue:[startRGBA[2] floatValue] + rightScale *deltaB alpha:1.0];
+        UIColor *rightColor = [UIColor colorWithRed:[startRGBA[0] floatValue] + rightScale *deltaR green:[startRGBA[1] floatValue] + rightScale *deltaG blue:[startRGBA[2] floatValue] + rightScale *deltaB alpha:[startRGBA[3] floatValue] + rightScale *deltaA];
         
-        UIColor *leftColor = [UIColor colorWithRed:[startRGBA[0] floatValue] + leftScale * deltaR green:[startRGBA[1] floatValue] + leftScale *deltaG blue:[startRGBA[2] floatValue] + leftScale *deltaB alpha:1.0];
+        UIColor *leftColor = [UIColor colorWithRed:[startRGBA[0] floatValue] + leftScale * deltaR green:[startRGBA[1] floatValue] + leftScale *deltaG blue:[startRGBA[2] floatValue] + leftScale *deltaB alpha:[startRGBA[3] floatValue] + leftScale *deltaA];
         
         rightLabel.textColor = rightColor;
         leftLabel.textColor = leftColor;
@@ -381,7 +386,7 @@
 - (void)setUpTitleScaleWithOffset:(CGFloat)offsetX rightLabel:(CMDisplayTitleLabel *)rightLabel leftLabel:(CMDisplayTitleLabel *)leftLabel {
     
     
-    if (self.config.cm_showScale == NO || _isClickTitle) return;
+    if (self.config.cm_switchMode != CMPageTitleSwitchMode_Scale || _isClickTitle) return;
     
     CGFloat rightScale = offsetX / self.bounds.size.width - [self.titleLabels indexOfObject:leftLabel];
     
@@ -404,7 +409,7 @@
     
     
     //通过判断isClickTitle的属性来防止二次偏移
-    if (self.config.cm_showCover == NO || _isClickTitle || rightLabel == nil) return;
+    if ((self.config.cm_switchMode != CMPageTitleSwitchMode_Cover) || _isClickTitle || rightLabel == nil) return;
 
     CGFloat deltaX = rightLabel.cm_x - leftLabel.cm_x;
     
@@ -425,7 +430,7 @@
  */
 - (void)setUpUnderLineOffset:(CGFloat)offsetX rightLabel:(UILabel *)rightLabel leftLabel:(UILabel *)leftLabel {
  
-    if (self.config.cm_showUnderLine == NO || rightLabel == nil ||  _isClickTitle) return;
+    if (self.config.cm_switchMode != CMPageTitleSwitchMode_Underline  || rightLabel == nil ||  _isClickTitle) return;
     
     CGFloat deltaX = self.config.cm_underLineW ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (rightLabel.cm_x - leftLabel.cm_x);
     
