@@ -16,16 +16,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSUInteger,CMPageTitleSwitchMode) {
+typedef NS_OPTIONS(NSUInteger,CMPageTitleSwitchModeOptions) {
     
     /**字体放大*/
-    CMPageTitleSwitchMode_Scale,
+    CMPageTitleSwitchMode_Scale = 1 << 0,
     
     /**下划线样式*/
-    CMPageTitleSwitchMode_Underline,
+    CMPageTitleSwitchMode_Underline = 1 << 1,
     
     /**遮罩样式*/
-    CMPageTitleSwitchMode_Cover
+    CMPageTitleSwitchMode_Cover = 1 << 2
 
 };
 
@@ -76,7 +76,7 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 
 
 /**标题切换样式*/
-@property (nonatomic,assign) CMPageTitleSwitchMode cm_switchMode;
+@property (nonatomic,assign) CMPageTitleSwitchModeOptions cm_switchMode;
 
 
 

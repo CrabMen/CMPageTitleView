@@ -196,7 +196,7 @@
 #pragma mark --- 样式视图
 - (void)setUnderLineWithLabel:(UILabel *)label {
     
-    if (self.config.cm_switchMode != CMPageTitleSwitchMode_Underline) return;
+    if (!(self.config.cm_switchMode&CMPageTitleSwitchMode_Underline)) return;
 
     //根据标题的宽度获得下划线的宽度
     NSUInteger index = [self.titleLabels indexOfObject:label];
@@ -223,7 +223,7 @@
 /**遮罩样式*/
 - (void)setTitleCoverWithLabel:(UILabel *)label {
     
-    if (self.config.cm_switchMode != CMPageTitleSwitchMode_Cover) return;
+    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Cover)) return;
     
     //根据标题的宽度获得下划线的宽度
     NSUInteger index = [self.titleLabels indexOfObject:label];
@@ -296,7 +296,7 @@
 
 - (void)setTitleScaleCenter:(UILabel *)label {
     
-    if (self.config.cm_switchMode != CMPageTitleSwitchMode_Scale) return;
+    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Scale)) return;
 
     _selectedLabel.transform = CGAffineTransformIdentity;
     _selectedLabel.textColor = self.config.cm_normalColor;
@@ -386,7 +386,7 @@
 - (void)setUpTitleScaleWithOffset:(CGFloat)offsetX rightLabel:(CMDisplayTitleLabel *)rightLabel leftLabel:(CMDisplayTitleLabel *)leftLabel {
     
     
-    if (self.config.cm_switchMode != CMPageTitleSwitchMode_Scale || _isClickTitle) return;
+    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Scale) || _isClickTitle) return;
     
     CGFloat rightScale = offsetX / self.bounds.size.width - [self.titleLabels indexOfObject:leftLabel];
     
@@ -409,7 +409,7 @@
     
     
     //通过判断isClickTitle的属性来防止二次偏移
-    if ((self.config.cm_switchMode != CMPageTitleSwitchMode_Cover) || _isClickTitle || rightLabel == nil) return;
+    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Cover) || _isClickTitle || rightLabel == nil) return;
 
     CGFloat deltaX = rightLabel.cm_x - leftLabel.cm_x;
     
@@ -430,7 +430,7 @@
  */
 - (void)setUpUnderLineOffset:(CGFloat)offsetX rightLabel:(UILabel *)rightLabel leftLabel:(UILabel *)leftLabel {
  
-    if (self.config.cm_switchMode != CMPageTitleSwitchMode_Underline  || rightLabel == nil ||  _isClickTitle) return;
+    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline) || rightLabel == nil ||  _isClickTitle) return;
     
     CGFloat deltaX = self.config.cm_underLineW ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (rightLabel.cm_x - leftLabel.cm_x);
     

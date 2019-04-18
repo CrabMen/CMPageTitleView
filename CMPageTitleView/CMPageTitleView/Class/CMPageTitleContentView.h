@@ -31,6 +31,12 @@
 @property (nonatomic,weak) id <CMPageTitleContentViewDelegate> cm_delegate;
 
 
+/**
+ 初始化方法
+
+ @param config 配置对象
+ @return CMPageTitleContentView对象
+ */
 - (instancetype)initWithConfig:(CMPageTitleConfig *)config;
 
 
@@ -38,7 +44,6 @@
 /**
  根据CMPageContentView对象的滚动情况，
  操作CMPageTitleContentView对象的界面显示
- 
  @param scrollView CMPageContentView对象
  */
 - (void)cm_pageTitleContentViewDidScroll:(UIScrollView *)scrollView;
