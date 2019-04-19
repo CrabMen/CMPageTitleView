@@ -435,11 +435,9 @@
         
         CGFloat deltaOffSet = offsetX -_lastOffsetX;
         
-        NSLog(@"当前的偏移量：%lf ,上次的偏移量:%lf",offsetX,_lastOffsetX);
-        
         //小于一半宽度变长
         if (offsetX - floorf(offsetX/self.cm_width)*self.cm_width < 0.5 * self.cm_width) {
-            CGFloat width = rightLabel.cm_right - leftLabel.cm_right;
+            CGFloat width = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (rightLabel.cm_right - leftLabel.cm_right);
             
             CGFloat deltaWidth = deltaOffSet * width / (self.cm_width * 0.5);
             
@@ -447,7 +445,7 @@
             
         } else {
             
-            CGFloat width = rightLabel.cm_left - leftLabel.cm_left;
+            CGFloat width = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX): (rightLabel.cm_left - leftLabel.cm_left);
             
             CGFloat deltaWidth = deltaOffSet * width / (self.cm_width * 0.5);
             

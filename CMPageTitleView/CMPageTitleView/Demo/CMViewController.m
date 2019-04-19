@@ -93,7 +93,8 @@
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
-    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    config.cm_underLineWidth = 10;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     config.cm_underLineHeight = 4;
     config.cm_underLineBorder = YES;
     pageView.cm_config = config;
