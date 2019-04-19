@@ -441,7 +441,11 @@
             
             CGFloat deltaWidth = deltaOffSet * width / (self.cm_width * 0.5);
             
-            self.underLine.cm_width = self.underLine.cm_width + deltaWidth;
+            CGFloat newWidth = self.underLine.cm_width + deltaWidth;
+            
+//            newWidth = self.config.cm_underLineWidth && newWidth <= self.config.cm_underLineWidth ? self.config.cm_underLineWidth : newWidth;
+            
+            self.underLine.cm_width = newWidth;
             
         } else {
             
@@ -449,7 +453,11 @@
             
             CGFloat deltaWidth = deltaOffSet * width / (self.cm_width * 0.5);
             
-            self.underLine.cm_fixedRightWidth = self.underLine.cm_width - deltaWidth;
+            CGFloat newWidth = self.underLine.cm_width - deltaWidth;
+            
+//            newWidth = self.config.cm_underLineWidth && newWidth <= self.config.cm_underLineWidth ? self.config.cm_underLineWidth : newWidth;
+            
+            self.underLine.cm_fixedRightWidth =  newWidth;
             
         }
         
