@@ -431,6 +431,33 @@
  
     if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline) || rightLabel == nil ||  _isClickTitle) return;
     
+    if (self.config.cm_underlineStretch) {
+        
+        CGFloat deltaOffSet = offsetX -_lastOffsetX;
+        
+        NSLog(@"当前的偏移量：%lf ,上次的偏移量:%lf",offsetX,_lastOffsetX);
+        
+        //小于一半宽度变长
+        if (offsetX - floorf(offsetX/self.cm_width)*self.cm_width < 0.5 * self.cm_width) {
+            CGFloat width = rightLabel.cm_right - leftLabel.cm_right;
+            
+            CGFloat deltaWidth = deltaOffSet * width / (self.cm_width * 0.5);
+            
+            self.underLine.cm_width = self.underLine.cm_width + deltaWidth;
+            
+        } else {
+            
+            CGFloat width = rightLabel.cm_left - leftLabel.cm_left;
+            
+            CGFloat deltaWidth = deltaOffSet * width / (self.cm_width * 0.5);
+            
+            self.underLine.cm_fixedRightWidth = self.underLine.cm_width - deltaWidth;
+            
+        }
+        
+        
+    } else {
+    
     CGFloat deltaX = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (rightLabel.cm_x - leftLabel.cm_x);
     
     CGFloat deltaWidth = [[self.config.cm_titleWidths objectAtIndex:[self.titleLabels indexOfObject:rightLabel]] floatValue] - [[self.config.cm_titleWidths objectAtIndex:[self.titleLabels indexOfObject:leftLabel]] floatValue];
@@ -444,6 +471,13 @@
     self.underLine.cm_width = self.config.cm_underLineWidth ?: (self.underLine.cm_width + deltaUnderLineWidth);
     
     self.underLine.cm_centerX += underLineTransformX;
+    
+    }
+    
+    
+    
+    
+    
     
 }
 
