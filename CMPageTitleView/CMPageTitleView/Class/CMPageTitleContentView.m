@@ -279,7 +279,6 @@
     if (_selectedLabel == label) return;
     
     [self setLabelTitleCenter:label];
-     
     
     [self setTitleScaleCenter:label];
     
@@ -287,6 +286,10 @@
    
     [self setUnderLineWithLabel:label];
     
+    _selectedLabel.textColor = self.config.cm_normalColor;
+    label.textColor = self.config.cm_selectedColor;
+    _selectedLabel.cm_progress = 0;
+
     _selectedLabel = (CMDisplayTitleLabel *)label;
     _lastOffsetX = [self.titleLabels indexOfObject:label] * self.cm_width;
 
@@ -298,10 +301,8 @@
     if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Scale)) return;
 
     _selectedLabel.transform = CGAffineTransformIdentity;
-    _selectedLabel.textColor = self.config.cm_normalColor;
     _selectedLabel.cm_fillColor = self.config.cm_selectedColor;
     _selectedLabel.cm_progress = 0;
-    label.textColor = self.config.cm_selectedColor;
     
     label.transform = CGAffineTransformMakeScale(self.config.cm_scale, self.config.cm_scale);
 
@@ -435,17 +436,28 @@
         
         CGFloat deltaOffSet = offsetX -_lastOffsetX;
         
+        
         //小于一半宽度变长
         if (offsetX - floorf(offsetX/self.cm_width)*self.cm_width < 0.5 * self.cm_width) {
             CGFloat width = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (rightLabel.cm_right - leftLabel.cm_right);
             
             CGFloat deltaWidth = deltaOffSet * width / (self.cm_width * 0.5);
-            
+
             CGFloat newWidth = self.underLine.cm_width + deltaWidth;
-            
-//            newWidth = self.config.cm_underLineWidth && newWidth <= self.config.cm_underLineWidth ? self.config.cm_underLineWidth : newWidth;
-            
+
+
+            CGFloat minWidth = self.config.cm_underLineWidth ? : (offsetX ? rightLabel.cm_width : leftLabel.cm_width);
+
+            newWidth = newWidth < minWidth ? minWidth : newWidth;
+
             self.underLine.cm_width = newWidth;
+//
+//            CGFloat originUnderlineWidth = self.config.cm_underLineWidth ?: (deltaOffSet ? leftLabel.cm_width : rightLabel.cm_width) ;
+//            CGFloat newOffSet = (offsetX - [self.titleLabels indexOfObject:self.selectedLabel]*self.cm_width) < self.cm_width ? offsetX - [self.titleLabels indexOfObject:self.selectedLabel]*self.cm_width : 0 ;
+//
+//            CGFloat deltaWidth = newOffSet * width / (self.cm_width * 0.5);
+
+//            self.underLine.cm_width = originUnderlineWidth + deltaWidth;
             
         } else {
             
@@ -455,9 +467,11 @@
             
             CGFloat newWidth = self.underLine.cm_width - deltaWidth;
             
-//            newWidth = self.config.cm_underLineWidth && newWidth <= self.config.cm_underLineWidth ? self.config.cm_underLineWidth : newWidth;
+            CGFloat minWidth = self.config.cm_underLineWidth ? : (offsetX ? rightLabel.cm_width : leftLabel.cm_width);
             
-            self.underLine.cm_fixedRightWidth =  newWidth;
+            newWidth = newWidth < minWidth ? minWidth : newWidth;
+            
+            self.underLine.cm_fixedRightWidth =  newWidth ;
             
         }
         

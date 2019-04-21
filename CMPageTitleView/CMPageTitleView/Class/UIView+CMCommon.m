@@ -168,12 +168,14 @@
 
 - (void)setCm_fixedRightWidth:(CGFloat)cm_fixedRightWidth {
     
-    CGRect frame = self.frame;
-    frame.origin.x -= cm_fixedRightWidth - frame.size.width;
-    frame.size.width = cm_fixedRightWidth;
     
-    self.frame = frame;
-    
+    @synchronized (self) {
+        CGRect frame = self.frame;
+        frame.origin.x -= cm_fixedRightWidth - frame.size.width;
+        frame.size.width = cm_fixedRightWidth;
+        
+        self.frame = frame;
+    }
     
 }
 
@@ -225,6 +227,33 @@
 }
 
 
+- (void)cm_widthWithMaxWidth:(CGFloat)maxWidth CenterX:(CGFloat)centerX FinishCenterX:(CGFloat)finishCenterX{
+    
+    CGFloat originCenterX = self.center.x;
+    
+    if (finishCenterX > originCenterX) {
+        //
+        self.cm_centerX = centerX;
+        
+        if (self.cm_width >= maxWidth) {
+            self.cm_width -=finishCenterX - originCenterX;
+        } else {
+            self.cm_width += finishCenterX - originCenterX;
+
+            
+        }
+        
+    } else {
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+}
 
 - (void)cm_drawDashLineLength:(int)lineLength lineSpacing:(int)lineSpacing lineColor:(UIColor *)lineColor
 {
