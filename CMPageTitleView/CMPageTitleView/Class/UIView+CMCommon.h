@@ -44,8 +44,6 @@
  */
 @property (nonatomic,strong,readonly) UIViewController *cm_currentController;
 
-
-- (void)cm_widthWithMaxWidth:(CGFloat)maxWidth CenterX:(CGFloat)centerX FinishCenterX:(CGFloat)finishCenterX;
 /**
  给view 画虚线
 

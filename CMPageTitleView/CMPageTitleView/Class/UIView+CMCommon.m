@@ -227,34 +227,6 @@
 }
 
 
-- (void)cm_widthWithMaxWidth:(CGFloat)maxWidth CenterX:(CGFloat)centerX FinishCenterX:(CGFloat)finishCenterX{
-    
-    CGFloat originCenterX = self.center.x;
-    
-    if (finishCenterX > originCenterX) {
-        //
-        self.cm_centerX = centerX;
-        
-        if (self.cm_width >= maxWidth) {
-            self.cm_width -=finishCenterX - originCenterX;
-        } else {
-            self.cm_width += finishCenterX - originCenterX;
-
-            
-        }
-        
-    } else {
-        
-        
-        
-        
-    }
-    
-    
-    
-    
-}
-
 - (void)cm_drawDashLineLength:(int)lineLength lineSpacing:(int)lineSpacing lineColor:(UIColor *)lineColor
 {
     CAShapeLayer *shapeLayer   = [[CAShapeLayer alloc] init];
