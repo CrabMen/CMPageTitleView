@@ -133,7 +133,10 @@
         CGFloat progress = scrollView.contentOffset.x / self.cm_width - floor(scrollView.contentOffset.x / self.cm_width);
         NSLog(@"滚动进度%lf",progress);
         
-//        [self.cm_delegate cm_pageContentViewDidScrollProgress:progress];
+        NSUInteger leftIndex = floor(scrollView.contentOffset.x / self.cm_width);
+        NSUInteger rightIndex = leftIndex + 1;
+        
+       [self.cm_delegate cm_pageContentViewDidScrollProgress:progress LeftIndex:<#(NSUInteger)#> RightIndex:<#(NSUInteger)#>];
     }
 
 }
