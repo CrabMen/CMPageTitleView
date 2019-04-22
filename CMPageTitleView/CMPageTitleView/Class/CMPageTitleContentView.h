@@ -49,6 +49,7 @@
 - (void)cm_pageTitleContentViewDidScroll:(UIScrollView *)scrollView;
 
 
+- (void)cm_pageTitleViewDidScrollProgress:(CGFloat)progress OriginalIndex:(NSUInteger)originalIndex TargetIndex:(NSUInteger)targetIndex;
 /**
  根据CMPageContentView对象的滚动情况，
  调整CMPageTitleContentView对象的滚动情况

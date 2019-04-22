@@ -128,6 +128,12 @@
     
     if (self.cm_delegate) {
         [self.cm_delegate cm_pageContentViewDidScroll:scrollView];
+        
+        
+        CGFloat progress = scrollView.contentOffset.x / self.cm_width - floor(scrollView.contentOffset.x / self.cm_width);
+        NSLog(@"滚动进度%lf",progress);
+        
+//        [self.cm_delegate cm_pageContentViewDidScrollProgress:progress];
     }
 
 }

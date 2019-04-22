@@ -37,6 +37,9 @@
  */
 - (void)cm_pageContentViewDidScroll:(UIScrollView *)scrollView;
 
+
+- (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress OriginalIndex:(NSUInteger)originalIndex TargetIndex:(NSUInteger)targetIndex;
+
 @end
 
 

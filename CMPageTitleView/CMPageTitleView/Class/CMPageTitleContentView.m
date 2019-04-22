@@ -193,6 +193,21 @@
 }
 
 
+- (void)cm_pageTitleViewDidScrollProgress:(CGFloat)progress {
+    
+//    CGFloat offSetX = scrollView.contentOffset.x;
+//    NSInteger leftIndex = offSetX / self.cm_width;
+//    CMDisplayTitleLabel *leftLabel = self.titleLabels[leftIndex];
+//    NSInteger rightIndex = leftIndex + 1;
+//    CMDisplayTitleLabel *rightLabel = (rightIndex < self.titleLabels.count) ? self.titleLabels[rightIndex] :nil;
+    
+    
+    
+}
+
+
+
+
 #pragma mark --- 样式视图
 - (void)setUnderLineWithLabel:(UILabel *)label {
     
@@ -432,16 +447,16 @@
  
     if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline) || rightLabel == nil  || _isClickTitle) return;
     
-    if (self.config.cm_underlineStretch && self.config.cm_underLineWidth) {
+    if (self.config.cm_underlineStretch /**&& self.config.cm_underLineWidth*/) {
         
         CGFloat deltaOffSet = offsetX -_lastOffsetX;
         
         
         //小于一半宽度变长
-        if (offsetX - floorf(offsetX/self.cm_width)*self.cm_width <= 0.5 * self.cm_width) { 
+        if (offsetX - floorf(offsetX/self.cm_width)*self.cm_width <= 0.5 * self.cm_width) {
             
             
-            CGFloat width = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (offsetX ? rightLabel.cm_right - leftLabel.cm_right : rightLabel.cm_left - leftLabel.cm_left);
+            CGFloat width = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (offsetX ? rightLabel.cm_right - leftLabel.cm_right  : rightLabel.cm_left - leftLabel.cm_left  );
             
             CGFloat deltaWidth = deltaOffSet * width / (self.cm_width * 0.5);
 
@@ -449,13 +464,13 @@
 
             CGFloat minWidth = self.config.cm_underLineWidth ? : (offsetX ? rightLabel.cm_width : leftLabel.cm_width);
 
-            newWidth = newWidth < minWidth ? minWidth : newWidth;
+            newWidth = newWidth <= minWidth ? minWidth : newWidth;
             
             if (self.config.cm_underLineWidth) {
                 self.underLine.cm_left = self.config.cm_underLineWidth * -0.5 + (offsetX ? leftLabel.cm_centerX : rightLabel.cm_centerX);
             } else {
                 
-                self.underLine.cm_left =  offsetX ? leftLabel.cm_left : rightLabel.cm_left;
+//                self.underLine.cm_left =  offsetX ? leftLabel.cm_left : rightLabel.cm_left;
 
             }
             
@@ -466,7 +481,7 @@
             
         } else {
             
-            CGFloat width = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (offsetX ? rightLabel.cm_right - leftLabel.cm_right : rightLabel.cm_left - leftLabel.cm_left);
+            CGFloat width = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (offsetX ? rightLabel.cm_right - leftLabel.cm_right : rightLabel.cm_left - leftLabel.cm_left  );
 
             CGFloat deltaWidth = deltaOffSet * width / (self.cm_width * 0.5);
             
@@ -478,14 +493,17 @@
             
             if (self.config.cm_underLineWidth) {
                 self.underLine.cm_right = self.config.cm_underLineWidth * 0.5 + (offsetX ? rightLabel.cm_centerX : leftLabel.cm_centerX);
+                self.underLine.cm_fixedRightWidth =  newWidth ;
+
             } else {
                 
                 self.underLine.cm_right =  offsetX ? rightLabel.cm_right : leftLabel.cm_right;
+                self.underLine.cm_width =  newWidth;
+
                 
             }
             
 //            self.underLine.cm_right = (self.config.cm_underLineWidth ? : (offsetX ? rightLabel.cm_width : leftLabel.cm_width)) * 0.5 + (offsetX ? rightLabel.cm_centerX : leftLabel.cm_centerX);
-            self.underLine.cm_fixedRightWidth =  newWidth ;
             
         }
         
@@ -512,5 +530,94 @@
     
 }
 
+
+
+- (void)setUpUnderLineProgress:(CGFloat)progress rightLabel:(UILabel *)rightLabel leftLabel:(UILabel *)leftLabel {
+    
+      if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline) || rightLabel == nil  || _isClickTitle) return;
+    
+    
+    if (self.config.cm_underlineStretch /**&& self.config.cm_underLineWidth*/) {
+//
+//        CGFloat deltaOffSet = offsetX -_lastOffsetX;
+//
+//
+//        //小于一半宽度变长
+//        if (offsetX - floorf(offsetX/self.cm_width)*self.cm_width <= 0.5 * self.cm_width) {
+//
+//
+//            CGFloat width = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (offsetX ? rightLabel.cm_right - leftLabel.cm_right  : rightLabel.cm_left - leftLabel.cm_left  );
+//
+//            CGFloat deltaWidth = deltaOffSet * width / (self.cm_width * 0.5);
+//
+//            CGFloat newWidth = self.underLine.cm_width + deltaWidth;
+//
+//            CGFloat minWidth = self.config.cm_underLineWidth ? : (offsetX ? rightLabel.cm_width : leftLabel.cm_width);
+//
+//            newWidth = newWidth <= minWidth ? minWidth : newWidth;
+//
+//            if (self.config.cm_underLineWidth) {
+//                self.underLine.cm_left = self.config.cm_underLineWidth * -0.5 + (offsetX ? leftLabel.cm_centerX : rightLabel.cm_centerX);
+//            } else {
+//
+//                //                self.underLine.cm_left =  offsetX ? leftLabel.cm_left : rightLabel.cm_left;
+//
+//            }
+//
+//            //            self.underLine.cm_left = (self.config.cm_underLineWidth ? : (offsetX ? leftLabel.cm_width : rightLabel.cm_width)) * -0.5 + (offsetX ? leftLabel.cm_centerX : rightLabel.cm_centerX);
+//
+//            self.underLine.cm_width = newWidth;
+//
+//
+//        } else {
+//
+//            CGFloat width = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (offsetX ? rightLabel.cm_right - leftLabel.cm_right : rightLabel.cm_left - leftLabel.cm_left  );
+//
+//            CGFloat deltaWidth = deltaOffSet * width / (self.cm_width * 0.5);
+//
+//            CGFloat newWidth = self.underLine.cm_width - deltaWidth;
+//
+//            CGFloat minWidth = self.config.cm_underLineWidth ? : (offsetX ? rightLabel.cm_width : leftLabel.cm_width);
+//
+//            newWidth = newWidth < minWidth ? minWidth : newWidth;
+//
+//            if (self.config.cm_underLineWidth) {
+//                self.underLine.cm_right = self.config.cm_underLineWidth * 0.5 + (offsetX ? rightLabel.cm_centerX : leftLabel.cm_centerX);
+//                self.underLine.cm_fixedRightWidth =  newWidth ;
+//
+//            } else {
+//
+//                self.underLine.cm_right =  offsetX ? rightLabel.cm_right : leftLabel.cm_right;
+//                self.underLine.cm_width =  newWidth;
+//
+//
+//            }
+//
+//            //            self.underLine.cm_right = (self.config.cm_underLineWidth ? : (offsetX ? rightLabel.cm_width : leftLabel.cm_width)) * 0.5 + (offsetX ? rightLabel.cm_centerX : leftLabel.cm_centerX);
+//
+//        }
+//
+        
+    } else {
+        
+        CGFloat deltaX = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (rightLabel.cm_x - leftLabel.cm_x);
+        
+        CGFloat deltaWidth = [[self.config.cm_titleWidths objectAtIndex:[self.titleLabels indexOfObject:rightLabel]] floatValue] - [[self.config.cm_titleWidths objectAtIndex:[self.titleLabels indexOfObject:leftLabel]] floatValue];
+        
+//        CGFloat deltaOffSet = offsetX -_lastOffsetX;
+        
+        CGFloat underLineTransformX = progress * deltaX / self.cm_width;
+        
+        CGFloat deltaUnderLineWidth = progress * deltaWidth / self.cm_width;
+        
+        self.underLine.cm_width = self.config.cm_underLineWidth ?: (self.underLine.cm_width + deltaUnderLineWidth);
+        
+        self.underLine.cm_centerX += underLineTransformX;
+        
+    }
+    
+    
+    
+}
 
 @end
