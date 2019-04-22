@@ -21,7 +21,21 @@
 
 -(NSArray *)styleArray {
     if (!_styleArray) {
-        _styleArray = @[@"今日头条",@"网易新闻",@"腾讯视频",@"喜马拉雅"];
+        _styleArray = @[
+                        @"字体放大 - RGB渐变",
+                        @"字体放大 - 填充渐变",
+                        @"下划线 - RGB渐变 - 动态宽度",
+                        @"下划线 - 填充渐变 - 动态宽度",
+                        @"下划线 - RGB渐变 - 固定宽度",
+                        @"下划线 - 填充渐变 - 固定宽度",
+                        @"下划线 - RGB渐变 - 动态宽度 - 拉伸效果",
+                        @"下划线 - 填充渐变 - 动态宽度 - 拉伸效果",
+                        @"下划线 - RGB渐变 - 固定宽度 - 拉伸效果",
+                        @"下划线 - 填充渐变 - 固定宽度 - 拉伸效果",
+                        @"遮罩 - RGB渐变",
+                        @"遮罩 - 填充渐变"
+                        
+                        ];
     }
     
     return _styleArray;
@@ -58,54 +72,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    CMViewController *vc = [CMViewController new];
+    SEL selector = NSSelectorFromString([NSString stringWithFormat:@"style%ld",indexPath.row]);
+    [vc performSelector:selector];
     
-    switch (indexPath.row) {
-        case 0:
-            {
-               CMViewController *vc0 = [CMViewController new];
-                [vc0 style0];
-                vc0.title = self.styleArray[indexPath.row];
-                [self.navigationController pushViewController:vc0 animated:YES];
-            }
-            break;
-            
-        case 1:
-            {
-                CMViewController *vc0 = [CMViewController new];
-                vc0.title = self.styleArray[indexPath.row];
-
-                [vc0 style1];
-                [self.navigationController pushViewController:vc0 animated:YES];
-            }
-            break;
-            
-        case 2:
-            
-            {
-                CMViewController *vc0 = [CMViewController new];
-                vc0.title = self.styleArray[indexPath.row];
-
-                [vc0 style2];
-                [self.navigationController pushViewController:vc0 animated:YES];
-            }
-           
-            break;
-            
-        case 3:
-            {
-                CMViewController *vc0 = [CMViewController new];
-                vc0.title = self.styleArray[indexPath.row];
-
-                [vc0 style3];
-                [self.navigationController pushViewController:vc0 animated:YES];
-            }
-            break;
-            
-        default:
-            break;
-    }
-    
-    
+    [self.navigationController pushViewController:vc animated:YES];
 }
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

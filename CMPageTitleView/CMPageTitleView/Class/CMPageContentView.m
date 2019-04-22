@@ -124,7 +124,8 @@
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (_isAniming || self.config.cm_childControllers.count == 0) return;
-
+    
+    
     if (self.cm_delegate) {
         [self.cm_delegate cm_pageContentViewDidScroll:scrollView];
     }

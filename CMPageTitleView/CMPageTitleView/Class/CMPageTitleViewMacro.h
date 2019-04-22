@@ -50,4 +50,8 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 //16进制颜色+alpha
 #define CM_HEXCOLOR_ALPHA(s,a) [UIColor cm_colorWithHexString:s alpha:a]
 
+//随机色
+#define CM_RANDOM_COLOR [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1.0]
+
+
 #endif /* CMMacro_h */

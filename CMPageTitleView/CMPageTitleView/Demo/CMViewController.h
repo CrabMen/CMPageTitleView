@@ -16,6 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)style1;
 - (void)style2;
 - (void)style3;
+- (void)style4;
+- (void)style5;
+- (void)style6;
+- (void)style7;
+- (void)style8;
+- (void)style9;
+- (void)style10;
+- (void)style11;
 @end
 
 NS_ASSUME_NONNULL_END
