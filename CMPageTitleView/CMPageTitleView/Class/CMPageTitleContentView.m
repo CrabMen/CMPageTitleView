@@ -167,47 +167,6 @@
 }
 
 
-- (void)cm_pageTitleContentViewDidScroll:(UIScrollView *)scrollView {
-    
-        CGFloat offSetX = scrollView.contentOffset.x;
-        NSInteger leftIndex = offSetX / self.cm_width;
-        CMDisplayTitleLabel *leftLabel = self.titleLabels[leftIndex];
-        NSInteger rightIndex = leftIndex + 1;
-        CMDisplayTitleLabel *rightLabel = (rightIndex < self.titleLabels.count) ? self.titleLabels[rightIndex] :nil;
-    
-        [self setUpTitleScaleWithOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
-    
-        [self setUpCoverOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
-    
-        [self setUpTitleColorGradientWithOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
-    
-    //    if (_isDelayScroll == NO) { // 延迟滚动，不需要移动下标
-    
-        [self setUpUnderLineOffset:offSetX rightLabel:rightLabel leftLabel:leftLabel];
-    //    }
-
-    
-        self.lastOffsetX = scrollView.contentOffset.x;
-
-    
-}
-
-
-- (void)cm_pageTitleViewDidScrollProgress:(CGFloat)progress {
-    
-//    CGFloat offSetX = scrollView.contentOffset.x;
-//    NSInteger leftIndex = offSetX / self.cm_width;
-//    CMDisplayTitleLabel *leftLabel = self.titleLabels[leftIndex];
-//    NSInteger rightIndex = leftIndex + 1;
-//    CMDisplayTitleLabel *rightLabel = (rightIndex < self.titleLabels.count) ? self.titleLabels[rightIndex] :nil;
-    
-    
-    
-}
-
-
-
-
 #pragma mark --- 样式视图
 - (void)setUnderLineWithLabel:(UILabel *)label {
     
@@ -244,9 +203,8 @@
    
     CGFloat width = [self.config.cm_titleWidths[index] floatValue];
         
-    CGFloat border = 5;
-    CGFloat coverH = label.font.pointSize + 2 * border;
-    CGFloat coverW = width + 2.8 * border;
+    CGFloat coverH = label.font.pointSize + 2 * self.config.cm_coverVerticalMargin;
+    CGFloat coverW = width + 2 * self.config.cm_coverHorizontalMargin;
     
     self.titleCover.cm_y = (label.cm_height - coverH) * 0.5;
     self.titleCover.cm_height = coverH;
@@ -349,19 +307,19 @@
 
 #pragma mark --- 标题各效果渐变
 
-/**
- 设置标题的颜色渐变
- */
-- (void)setUpTitleColorGradientWithOffset:(CGFloat)offsetX rightLabel:(CMDisplayTitleLabel *)rightLabel leftLabel:(CMDisplayTitleLabel *)leftLabel {
+- (void)modifyColorWithScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
     
-    if (_isClickTitle) return;
+    if (_isClickTitle || rightIndex >= self.titleLabels.count) return;
     
-    CGFloat rightScale = offsetX / self.cm_width - [self.titleLabels indexOfObject:leftLabel];
+    CMDisplayTitleLabel *rightLabel = self.titleLabels[rightIndex];
+    CMDisplayTitleLabel *leftLabel = self.titleLabels[leftIndex];
+    
+    CGFloat rightScale = progress;
     
     CGFloat leftScale = 1 - rightScale;
     
     if (self.config.cm_gradientStyle == CMTitleColorGradientStyle_RGB) {
-       
+        
         NSArray *endRGBA = CMColorGetRGBA(self.config.cm_selectedColor);
         NSArray *startRGBA = CMColorGetRGBA(self.config.cm_normalColor);
         
@@ -369,7 +327,7 @@
         CGFloat deltaG = [endRGBA[1] floatValue] - [startRGBA[1] floatValue];
         CGFloat deltaB = [endRGBA[2] floatValue] - [startRGBA[2] floatValue];
         CGFloat deltaA = [endRGBA[3] floatValue] - [startRGBA[3] floatValue];
-
+        
         
         UIColor *rightColor = [UIColor colorWithRed:[startRGBA[0] floatValue] + rightScale *deltaR green:[startRGBA[1] floatValue] + rightScale *deltaG blue:[startRGBA[2] floatValue] + rightScale *deltaB alpha:[startRGBA[3] floatValue] + rightScale *deltaA];
         
@@ -377,12 +335,12 @@
         
         rightLabel.textColor = rightColor;
         leftLabel.textColor = leftColor;
-    
+        
     }
     
     // 填充渐变
     if (self.config.cm_gradientStyle == CMTitleColorGradientStyle_Fill) {
-    
+        
         rightLabel.textColor = self.config.cm_normalColor;
         rightLabel.cm_fillColor = self.config.cm_selectedColor;
         rightLabel.cm_progress = rightScale;
@@ -390,20 +348,22 @@
         leftLabel.textColor = self.config.cm_selectedColor;
         leftLabel.cm_fillColor = self.config.cm_normalColor;
         leftLabel.cm_progress = rightScale;
-
+        
     }
+    
 }
 
 
-/**
- 标题缩放
- */
-- (void)setUpTitleScaleWithOffset:(CGFloat)offsetX rightLabel:(CMDisplayTitleLabel *)rightLabel leftLabel:(CMDisplayTitleLabel *)leftLabel {
+- (void)modifyTitleScaleWithScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
     
     
     if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Scale) || _isClickTitle) return;
     
-    CGFloat rightScale = offsetX / self.cm_width - [self.titleLabels indexOfObject:leftLabel];
+    CMDisplayTitleLabel *rightLabel = self.titleLabels[rightIndex];
+    CMDisplayTitleLabel *leftLabel = self.titleLabels[leftIndex];
+    
+    
+    CGFloat rightScale = progress;
     
     CGFloat leftScale = 1 - rightScale;
     
@@ -417,27 +377,28 @@
 
 
 
-/**
- 设置遮罩偏移即遮罩的x
- */
-- (void)setUpCoverOffset:(CGFloat)offsetX rightLabel:(CMDisplayTitleLabel *)rightLabel leftLabel:(CMDisplayTitleLabel *)leftLabel {
-    
+
+- (void)modifyCoverWithScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
+
     
     //通过判断isClickTitle的属性来防止二次偏移
-    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Cover) || _isClickTitle || rightLabel == nil) return;
-
+    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Cover) || _isClickTitle || rightIndex >= self.titleLabels.count) return;
+    
+    CMDisplayTitleLabel *rightLabel = self.titleLabels[rightIndex];
+    CMDisplayTitleLabel *leftLabel = self.titleLabels[leftIndex];
+    
+    
     CGFloat deltaX = rightLabel.cm_x - leftLabel.cm_x;
     
-    CGFloat deltaWidth = [[self.config.cm_titleWidths objectAtIndex:[self.titleLabels indexOfObject:rightLabel]] floatValue] - [[self.config.cm_titleWidths objectAtIndex:[self.titleLabels indexOfObject:leftLabel]] floatValue];
+    CGFloat deltaWidth = rightLabel.cm_width - leftLabel.cm_width;
     
-    CGFloat deltaOffSet = offsetX -_lastOffsetX;
     
-    CGFloat coverTransformX = deltaOffSet * deltaX / self.cm_width;
+    CGFloat newCenterX = progress * deltaX + leftLabel.cm_centerX ;
+    CGFloat newWidth = self.config.cm_coverWidth ? : (progress * deltaWidth + leftLabel.cm_width + 2*self.config.cm_coverHorizontalMargin);
+    self.titleCover.cm_centerX = newCenterX;
+    self.titleCover.cm_width = newWidth;
+  
     
-    CGFloat coverWidth = deltaOffSet * deltaWidth / self.cm_width;
-    
-    self.titleCover.cm_width += coverWidth;
-    self.titleCover.cm_x += coverTransformX;
 }
 
 /**
@@ -531,93 +492,74 @@
 }
 
 
-
-- (void)setUpUnderLineProgress:(CGFloat)progress rightLabel:(UILabel *)rightLabel leftLabel:(UILabel *)leftLabel {
-    
-      if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline) || rightLabel == nil  || _isClickTitle) return;
+- (void)modifyUnderlineWithScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
     
     
-    if (self.config.cm_underlineStretch /**&& self.config.cm_underLineWidth*/) {
-//
-//        CGFloat deltaOffSet = offsetX -_lastOffsetX;
-//
-//
-//        //小于一半宽度变长
-//        if (offsetX - floorf(offsetX/self.cm_width)*self.cm_width <= 0.5 * self.cm_width) {
-//
-//
-//            CGFloat width = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (offsetX ? rightLabel.cm_right - leftLabel.cm_right  : rightLabel.cm_left - leftLabel.cm_left  );
-//
-//            CGFloat deltaWidth = deltaOffSet * width / (self.cm_width * 0.5);
-//
-//            CGFloat newWidth = self.underLine.cm_width + deltaWidth;
-//
-//            CGFloat minWidth = self.config.cm_underLineWidth ? : (offsetX ? rightLabel.cm_width : leftLabel.cm_width);
-//
-//            newWidth = newWidth <= minWidth ? minWidth : newWidth;
-//
-//            if (self.config.cm_underLineWidth) {
-//                self.underLine.cm_left = self.config.cm_underLineWidth * -0.5 + (offsetX ? leftLabel.cm_centerX : rightLabel.cm_centerX);
-//            } else {
-//
-//                //                self.underLine.cm_left =  offsetX ? leftLabel.cm_left : rightLabel.cm_left;
-//
-//            }
-//
-//            //            self.underLine.cm_left = (self.config.cm_underLineWidth ? : (offsetX ? leftLabel.cm_width : rightLabel.cm_width)) * -0.5 + (offsetX ? leftLabel.cm_centerX : rightLabel.cm_centerX);
-//
-//            self.underLine.cm_width = newWidth;
-//
-//
-//        } else {
-//
-//            CGFloat width = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (offsetX ? rightLabel.cm_right - leftLabel.cm_right : rightLabel.cm_left - leftLabel.cm_left  );
-//
-//            CGFloat deltaWidth = deltaOffSet * width / (self.cm_width * 0.5);
-//
-//            CGFloat newWidth = self.underLine.cm_width - deltaWidth;
-//
-//            CGFloat minWidth = self.config.cm_underLineWidth ? : (offsetX ? rightLabel.cm_width : leftLabel.cm_width);
-//
-//            newWidth = newWidth < minWidth ? minWidth : newWidth;
-//
-//            if (self.config.cm_underLineWidth) {
-//                self.underLine.cm_right = self.config.cm_underLineWidth * 0.5 + (offsetX ? rightLabel.cm_centerX : leftLabel.cm_centerX);
-//                self.underLine.cm_fixedRightWidth =  newWidth ;
-//
-//            } else {
-//
-//                self.underLine.cm_right =  offsetX ? rightLabel.cm_right : leftLabel.cm_right;
-//                self.underLine.cm_width =  newWidth;
-//
-//
-//            }
-//
-//            //            self.underLine.cm_right = (self.config.cm_underLineWidth ? : (offsetX ? rightLabel.cm_width : leftLabel.cm_width)) * 0.5 + (offsetX ? rightLabel.cm_centerX : leftLabel.cm_centerX);
-//
-//        }
-//
-        
-    } else {
+    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline) || _isClickTitle || rightIndex >= self.titleLabels.count) return;
+    
+    CMDisplayTitleLabel *rightLabel = self.titleLabels[rightIndex];
+    CMDisplayTitleLabel *leftLabel = self.titleLabels[leftIndex];
+    
+    if (!self.config.cm_underlineStretch) {
         
         CGFloat deltaX = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (rightLabel.cm_x - leftLabel.cm_x);
         
-        CGFloat deltaWidth = [[self.config.cm_titleWidths objectAtIndex:[self.titleLabels indexOfObject:rightLabel]] floatValue] - [[self.config.cm_titleWidths objectAtIndex:[self.titleLabels indexOfObject:leftLabel]] floatValue];
+        CGFloat deltaWidth = self.config.cm_underLineWidth ? 0 : rightLabel.cm_width - leftLabel.cm_width;
         
-//        CGFloat deltaOffSet = offsetX -_lastOffsetX;
+        CGFloat newCenterX = progress * deltaX + leftLabel.cm_centerX ;
+        CGFloat newWidth = self.config.cm_underLineWidth ? : (progress * deltaWidth + leftLabel.cm_width);
+        self.underLine.cm_centerX = newCenterX;
+        self.underLine.cm_width = newWidth;
         
-        CGFloat underLineTransformX = progress * deltaX / self.cm_width;
-        
-        CGFloat deltaUnderLineWidth = progress * deltaWidth / self.cm_width;
-        
-        self.underLine.cm_width = self.config.cm_underLineWidth ?: (self.underLine.cm_width + deltaUnderLineWidth);
-        
-        self.underLine.cm_centerX += underLineTransformX;
-        
+    } else {
+        //progress > 0.5
+        if (progress <= 0.5) {
+            CGFloat deltaWidth =  self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : rightLabel.cm_right - leftLabel.cm_right;
+            
+            CGFloat originalWidth = self.config.cm_underLineWidth ?: leftLabel.cm_width;
+            
+            CGFloat newWidth = 2 * progress * deltaWidth + originalWidth;
+            
+            CGFloat originalX = self.config.cm_underLineWidth ? leftLabel.cm_centerX - self.config.cm_underLineWidth * 0.5 : leftLabel.cm_x;
+            
+            self.underLine.cm_width = newWidth;
+            self.underLine.cm_x = originalX;
+            
+            
+        } else {
+            
+            CGFloat deltaWidth = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : rightLabel.cm_left - leftLabel.cm_left;
+            
+            progress = 1- progress;
+            CGFloat newWidth = 2 * progress * deltaWidth + (self.config.cm_underLineWidth ?: rightLabel.cm_width);
+            
+            CGFloat originalX = self.config.cm_underLineWidth ? rightLabel.cm_centerX + self.config.cm_underLineWidth * 0.5 - newWidth : rightLabel.cm_right - newWidth;
+            
+            self.underLine.cm_x = originalX;
+            self.underLine.cm_width = newWidth;
+            
+        }
     }
     
     
     
 }
+
+
+- (void)cm_pageTitleViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
+    
+    [self modifyTitleScaleWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
+    
+    [self modifyColorWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
+    
+    [self modifyUnderlineWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
+    
+    [self modifyCoverWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
+   
+    self.lastOffsetX = leftIndex * self.cm_width + progress * self.cm_width;
+}
+
+
+
 
 @end

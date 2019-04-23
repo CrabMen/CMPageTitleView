@@ -30,15 +30,8 @@
 - (void)cm_pageContentViewDidEndDeceleratingWithIndex:(NSInteger)index;
 
 
-/**
- 滚动时调用该代理方法
-
- @param scrollView 当前滚动视图
- */
-- (void)cm_pageContentViewDidScroll:(UIScrollView *)scrollView;
-
-
 - (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex;
+
 
 @end
 

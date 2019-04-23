@@ -93,9 +93,10 @@
 }
 
 
-- (void)cm_pageContentViewDidScroll:(UIScrollView *)scrollView {
+- (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
     
-    [self.titleView cm_pageTitleContentViewDidScroll:scrollView];
+    
+    [self.titleView cm_pageTitleViewDidScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
     
 }
 

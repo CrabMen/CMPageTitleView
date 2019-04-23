@@ -40,16 +40,9 @@
 - (instancetype)initWithConfig:(CMPageTitleConfig *)config;
 
 
-
-/**
- 根据CMPageContentView对象的滚动情况，
- 操作CMPageTitleContentView对象的界面显示
- @param scrollView CMPageContentView对象
- */
-- (void)cm_pageTitleContentViewDidScroll:(UIScrollView *)scrollView;
-
-
 - (void)cm_pageTitleViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex;
+
+
 /**
  根据CMPageContentView对象的滚动情况，
  调整CMPageTitleContentView对象的滚动情况

@@ -159,6 +159,25 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 @property (nonatomic,assign) CGFloat cm_coverRadius;
 
 
+/**
+ 遮罩固定宽度 未做最大最小限制
+ 请根据实际情况妥善设置
+ */
+@property (nonatomic,assign) CGFloat cm_coverWidth;
+
+/**
+ 遮罩垂直方向边距 未做最大最小限制
+ 请根据实际情况妥善设置
+ */
+@property (nonatomic,assign) CGFloat cm_coverVerticalMargin;
+
+/**
+ 遮罩水平方向边距 未做最大最小限制
+ 请根据实际情况妥善设置
+ */
+@property (nonatomic,assign) CGFloat cm_coverHorizontalMargin;
+
+
 #pragma mark --- 缩放效果
 
 /**

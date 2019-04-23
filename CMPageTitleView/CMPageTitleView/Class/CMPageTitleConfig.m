@@ -42,6 +42,19 @@
     
 }
 
+
+- (CGFloat)cm_coverVerticalMargin {
+    
+    return _cm_coverVerticalMargin ?: 5;
+    
+}
+
+- (CGFloat)cm_coverHorizontalMargin {
+    
+    return _cm_coverHorizontalMargin ?: 10;
+    
+}
+
 - (NSArray *)cm_titles {
     
     NSArray *titles = [self.cm_childControllers valueForKey:@"title"];
