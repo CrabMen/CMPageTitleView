@@ -30,6 +30,13 @@
 - (void)cm_pageContentViewDidEndDeceleratingWithIndex:(NSInteger)index;
 
 
+/**
+ 当滚动时调用
+
+ @param progress 0~1 偏移的比例
+ @param leftIndex 左侧下标
+ @param rightIndex 右侧下标
+ */
 - (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex;
 
 
