@@ -305,6 +305,21 @@
 
 
 
+- (void)cm_pageTitleViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
+    
+    [self modifyTitleScaleWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
+    
+    [self modifyColorWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
+    
+    [self modifyUnderlineWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
+    
+    [self modifyCoverWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
+    
+    self.lastOffsetX = leftIndex * self.cm_width + progress * self.cm_width;
+}
+
+
+
 #pragma mark --- 标题各效果渐变
 
 - (void)modifyColorWithScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
@@ -401,95 +416,6 @@
     
 }
 
-/**
- 设置下标偏移
- */
-- (void)setUpUnderLineOffset:(CGFloat)offsetX rightLabel:(UILabel *)rightLabel leftLabel:(UILabel *)leftLabel {
- 
-    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline) || rightLabel == nil  || _isClickTitle) return;
-    
-    if (self.config.cm_underlineStretch /**&& self.config.cm_underLineWidth*/) {
-        
-        CGFloat deltaOffSet = offsetX -_lastOffsetX;
-        
-        
-        //小于一半宽度变长
-        if (offsetX - floorf(offsetX/self.cm_width)*self.cm_width <= 0.5 * self.cm_width) {
-            
-            
-            CGFloat width = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (offsetX ? rightLabel.cm_right - leftLabel.cm_right  : rightLabel.cm_left - leftLabel.cm_left  );
-            
-            CGFloat deltaWidth = deltaOffSet * width / (self.cm_width * 0.5);
-
-            CGFloat newWidth = self.underLine.cm_width + deltaWidth;
-
-            CGFloat minWidth = self.config.cm_underLineWidth ? : (offsetX ? rightLabel.cm_width : leftLabel.cm_width);
-
-            newWidth = newWidth <= minWidth ? minWidth : newWidth;
-            
-            if (self.config.cm_underLineWidth) {
-                self.underLine.cm_left = self.config.cm_underLineWidth * -0.5 + (offsetX ? leftLabel.cm_centerX : rightLabel.cm_centerX);
-            } else {
-                
-//                self.underLine.cm_left =  offsetX ? leftLabel.cm_left : rightLabel.cm_left;
-
-            }
-            
-//            self.underLine.cm_left = (self.config.cm_underLineWidth ? : (offsetX ? leftLabel.cm_width : rightLabel.cm_width)) * -0.5 + (offsetX ? leftLabel.cm_centerX : rightLabel.cm_centerX);
-
-            self.underLine.cm_width = newWidth;
-
-            
-        } else {
-            
-            CGFloat width = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (offsetX ? rightLabel.cm_right - leftLabel.cm_right : rightLabel.cm_left - leftLabel.cm_left  );
-
-            CGFloat deltaWidth = deltaOffSet * width / (self.cm_width * 0.5);
-            
-            CGFloat newWidth = self.underLine.cm_width - deltaWidth;
-            
-            CGFloat minWidth = self.config.cm_underLineWidth ? : (offsetX ? rightLabel.cm_width : leftLabel.cm_width);
-            
-            newWidth = newWidth < minWidth ? minWidth : newWidth;
-            
-            if (self.config.cm_underLineWidth) {
-                self.underLine.cm_right = self.config.cm_underLineWidth * 0.5 + (offsetX ? rightLabel.cm_centerX : leftLabel.cm_centerX);
-                self.underLine.cm_fixedRightWidth =  newWidth ;
-
-            } else {
-                
-                self.underLine.cm_right =  offsetX ? rightLabel.cm_right : leftLabel.cm_right;
-                self.underLine.cm_width =  newWidth;
-
-                
-            }
-            
-//            self.underLine.cm_right = (self.config.cm_underLineWidth ? : (offsetX ? rightLabel.cm_width : leftLabel.cm_width)) * 0.5 + (offsetX ? rightLabel.cm_centerX : leftLabel.cm_centerX);
-            
-        }
-        
-        
-    } else {
-    
-        CGFloat deltaX = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (rightLabel.cm_x - leftLabel.cm_x);
-        
-        CGFloat deltaWidth = [[self.config.cm_titleWidths objectAtIndex:[self.titleLabels indexOfObject:rightLabel]] floatValue] - [[self.config.cm_titleWidths objectAtIndex:[self.titleLabels indexOfObject:leftLabel]] floatValue];
-        
-        CGFloat deltaOffSet = offsetX -_lastOffsetX;
-        
-        CGFloat underLineTransformX = deltaOffSet * deltaX / self.cm_width;
-        
-        CGFloat deltaUnderLineWidth = deltaOffSet * deltaWidth / self.cm_width;
-        
-        self.underLine.cm_width = self.config.cm_underLineWidth ?: (self.underLine.cm_width + deltaUnderLineWidth);
-        
-        self.underLine.cm_centerX += underLineTransformX;
-    
-    }
-    
-    
-    
-}
 
 
 - (void)modifyUnderlineWithScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
@@ -506,9 +432,9 @@
         
         CGFloat deltaWidth = self.config.cm_underLineWidth ? 0 : rightLabel.cm_width - leftLabel.cm_width;
         
-        CGFloat newCenterX = progress * deltaX + leftLabel.cm_centerX ;
+        CGFloat newOriginalX = self.config.cm_underLineWidth ? progress*deltaX + leftLabel.cm_centerX - self .config.cm_underLineWidth * 0.5: progress * deltaX + leftLabel.cm_x ;
         CGFloat newWidth = self.config.cm_underLineWidth ? : (progress * deltaWidth + leftLabel.cm_width);
-        self.underLine.cm_centerX = newCenterX;
+        self.underLine.cm_x = newOriginalX;
         self.underLine.cm_width = newWidth;
         
     } else {
@@ -528,6 +454,8 @@
             
         } else {
             
+
+            
             CGFloat deltaWidth = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : rightLabel.cm_left - leftLabel.cm_left;
             
             progress = 1- progress;
@@ -538,26 +466,14 @@
             self.underLine.cm_x = originalX;
             self.underLine.cm_width = newWidth;
             
+            
+         
         }
     }
-    
-    
-    
+
 }
 
 
-- (void)cm_pageTitleViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
-    
-    [self modifyTitleScaleWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
-    
-    [self modifyColorWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
-    
-    [self modifyUnderlineWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
-    
-    [self modifyCoverWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
-   
-    self.lastOffsetX = leftIndex * self.cm_width + progress * self.cm_width;
-}
 
 
 
