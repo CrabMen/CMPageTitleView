@@ -204,7 +204,7 @@
     CGFloat width = [self.config.cm_titleWidths[index] floatValue];
         
     CGFloat coverH = label.font.pointSize + 2 * self.config.cm_coverVerticalMargin;
-    CGFloat coverW = width + 2 * self.config.cm_coverHorizontalMargin;
+    CGFloat coverW = self.config.cm_coverWidth ? : width + 2 * self.config.cm_coverHorizontalMargin;
     
     self.titleCover.cm_y = (label.cm_height - coverH) * 0.5;
     self.titleCover.cm_height = coverH;
@@ -403,9 +403,9 @@
     CMDisplayTitleLabel *leftLabel = self.titleLabels[leftIndex];
     
     
-    CGFloat deltaX = rightLabel.cm_x - leftLabel.cm_x;
+    CGFloat deltaX = self.config.cm_coverWidth ? rightLabel.cm_centerX - leftLabel.cm_centerX : rightLabel.cm_x - leftLabel.cm_x;
     
-    CGFloat deltaWidth = rightLabel.cm_width - leftLabel.cm_width;
+    CGFloat deltaWidth = self.config.cm_coverWidth ? 0 : rightLabel.cm_width - leftLabel.cm_width;
     
     
     CGFloat newCenterX = progress * deltaX + leftLabel.cm_centerX ;

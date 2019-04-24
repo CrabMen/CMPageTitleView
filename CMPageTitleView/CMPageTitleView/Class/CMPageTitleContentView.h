@@ -40,6 +40,15 @@
 - (instancetype)initWithConfig:(CMPageTitleConfig *)config;
 
 
+/**
+ 
+ 根据CMPageContentView对象的滚动情况，
+ 调整CMPageTitleContentView对象的滚动情况
+ 
+ @param progress 0~1 推拽比例
+ @param leftIndex 左边的下标
+ @param rightIndex 右边的下标
+ */
 - (void)cm_pageTitleViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex;
 
 

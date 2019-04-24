@@ -36,11 +36,11 @@
         vc0.title = @"推荐";
         vc1.title = @"小视频";
         vc2.title = @"视频";
-        vc3.title = @"热点";
+        vc3.title = @"懂车帝";
         vc4.title = @"北京";
         vc5.title = @"娱乐";
         vc6.title = @"图片";
-        vc7.title = @"懂车帝";
+        vc7.title = @"热点";
         vc8.title = @"体育";
         vc9.title = @"财经";
         vc10.title = @"国际";
@@ -246,7 +246,6 @@
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
-    config.cm_underLineWidth = 10;
     pageView.cm_config = config;
     [self.view addSubview:pageView];
     
@@ -261,14 +260,42 @@
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
-    config.cm_underLineWidth = 10;
+    pageView.cm_config = config;
+    [self.view addSubview:pageView];
+    
+}
+
+- (void)style12 {
+    
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    pageView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    config.cm_childControllers = self.childControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Cover;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    config.cm_coverWidth = 56;
     pageView.cm_config = config;
     [self.view addSubview:pageView];
     
 }
 
 
-- (void)style12 {
+- (void)style13 {
+    
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    pageView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    config.cm_childControllers = self.childControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Cover;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
+    config.cm_coverWidth = 56;
+    pageView.cm_config = config;
+    [self.view addSubview:pageView];
+    
+}
+
+
+- (void)style14 {
     
     CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
     pageView.delegate = self;
@@ -282,7 +309,7 @@
 }
 
 
-- (void)style13 {
+- (void)style15 {
     
     CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
     pageView.delegate = self;
