@@ -57,14 +57,7 @@
         VC.view.frame = CGRectMake(0, 0, self.cm_width, self.cm_height);
     
         [cell.contentView addSubview:VC.view];
-    UILabel *label = [UILabel new];
-    label.text = [self.config.cm_childControllers[indexPath.row] title];
-    [label sizeToFit];
-    label.center = cell.contentView.center;
-    label.textColor = [UIColor blackColor];
 
-    [cell.contentView addSubview:label];
-    
     return cell;
     
     
