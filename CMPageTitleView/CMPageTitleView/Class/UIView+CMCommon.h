@@ -31,9 +31,6 @@
 @property CGFloat cm_bottom;
 @property CGFloat cm_right;
 
-@property (nonatomic, assign) CGFloat cm_fixedRightWidth;
-
-
 /**
  只读属性，可以获得当前视图所在控制器的导航控制器
  */

@@ -166,18 +166,7 @@
     self.frame = newframe;
 }
 
-- (void)setCm_fixedRightWidth:(CGFloat)cm_fixedRightWidth {
-    
-    
-    @synchronized (self) {
-        CGRect frame = self.frame;
-        frame.origin.x -= cm_fixedRightWidth - frame.size.width;
-        frame.size.width = cm_fixedRightWidth;
-        
-        self.frame = frame;
-    }
-    
-}
+
 
 
 #pragma mark --- UIView跳转到UIViewController
