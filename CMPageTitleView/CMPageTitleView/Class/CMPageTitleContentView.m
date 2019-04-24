@@ -51,7 +51,7 @@
     
     if (!_underLine) {
         UIView *underLineView = [UIView new];
-        underLineView.backgroundColor = self.config.cm_underLineColor ?: [UIColor redColor];
+        underLineView.backgroundColor = self.config.cm_underLineColor;
         underLineView.layer.cornerRadius = self.config.cm_underLineBorder ? self.config.cm_underLineHeight * 0.5 : 0;
         underLineView.layer.masksToBounds = YES;
         [self addSubview:underLineView];
@@ -173,11 +173,11 @@
     if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline)) return;
 
     //根据标题的宽度获得下划线的宽度
-    NSUInteger index = [self.titleLabels indexOfObject:label];
-    CGFloat underLineWidth = self.config.cm_underLineWidth ?: [self.config.cm_titleWidths[index] floatValue];
+    CGFloat underLineWidth = self.config.cm_underLineWidth ?: label.cm_width;
     
-        self.underLine.cm_y = label.cm_height - self.config.cm_underLineHeight;
-        self.underLine.cm_height = self.config.cm_underLineHeight;
+    self.underLine.cm_height = self.config.cm_underLineHeight;
+    self.underLine.cm_bottom = self.cm_bottom;
+
     
         if (self.underLine.cm_x == 0) {
             
@@ -372,7 +372,7 @@
 - (void)modifyTitleScaleWithScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
     
     
-    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Scale) || _isClickTitle) return;
+    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Scale) || _isClickTitle || rightIndex >= self.titleLabels.count) return;
     
     CMDisplayTitleLabel *rightLabel = self.titleLabels[rightIndex];
     CMDisplayTitleLabel *leftLabel = self.titleLabels[leftIndex];

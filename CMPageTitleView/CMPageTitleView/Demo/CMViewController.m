@@ -268,6 +268,35 @@
 }
 
 
+- (void)style12 {
+    
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    pageView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    config.cm_childControllers = self.childControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    pageView.cm_config = config;
+    [self.view addSubview:pageView];
+    
+}
+
+
+- (void)style13 {
+    
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    pageView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    config.cm_childControllers = self.childControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
+
+    pageView.cm_config = config;
+    [self.view addSubview:pageView];
+    
+}
+
+
 
 - (void)cm_pageTitleViewClickWithIndex:(NSInteger)index Repeat:(BOOL)repeat {
     
