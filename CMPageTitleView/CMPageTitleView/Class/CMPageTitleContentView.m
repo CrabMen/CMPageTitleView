@@ -243,7 +243,7 @@
 /**
  选中标题Label的设置
  */
-- (void)selectLabel:(UILabel *)label {
+- (void)selectLabel:(CMDisplayTitleLabel *)label {
     
     if (self.cm_delegate) {
         [self.cm_delegate cm_pageTitleContentViewClickWithIndex:[self.titleLabels indexOfObject:label] Repeat:label == self.selectedLabel];
@@ -260,9 +260,12 @@
     [self setUnderLineWithLabel:label];
     
     _selectedLabel.textColor = self.config.cm_normalColor;
-    label.textColor = self.config.cm_selectedColor;
     _selectedLabel.cm_progress = 0;
 
+    label.textColor = self.config.cm_selectedColor;
+    label.cm_fillColor = self.config.cm_selectedColor;
+    label.cm_progress = 0;
+    
     _selectedLabel = (CMDisplayTitleLabel *)label;
     _lastOffsetX = [self.titleLabels indexOfObject:label] * self.cm_width;
 
@@ -270,12 +273,12 @@
 
 
 - (void)setTitleScaleCenter:(UILabel *)label {
-    
+
     if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Scale)) return;
 
     _selectedLabel.transform = CGAffineTransformIdentity;
     _selectedLabel.cm_fillColor = self.config.cm_selectedColor;
-    _selectedLabel.cm_progress = 0;
+    _selectedLabel.cm_progress = 1;
     
     label.transform = CGAffineTransformMakeScale(self.config.cm_scale, self.config.cm_scale);
 
