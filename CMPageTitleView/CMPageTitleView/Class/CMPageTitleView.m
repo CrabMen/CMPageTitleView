@@ -27,6 +27,7 @@
     
     if (!_titleView) {
         _titleView = [[CMPageTitleContentView alloc] initWithConfig:self.cm_config];
+        _titleView.frame = CGRectMake(0, 0, self.cm_width, self.cm_config.cm_titleHeight);
         _titleView.cm_delegate = self;
     }
     return _titleView;
@@ -72,7 +73,7 @@
         [self.delegate cm_pageTitleViewClickWithIndex:index Repeat:repeat];
     }
     //获取子视图控制器 切换
-    if (!repeat)  [self.contentView setContentOffset:CGPointMake(index * CMSCREEN_W, 0)];
+    if (!repeat)  [self.contentView setContentOffset:CGPointMake(index * self.cm_width, 0)];
 
 
 }

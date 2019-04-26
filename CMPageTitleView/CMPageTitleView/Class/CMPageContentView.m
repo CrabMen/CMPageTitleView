@@ -83,22 +83,22 @@
 
     CGFloat offSetX = scrollView.contentOffset.x;
     NSInteger offSetInx = offSetX;
-    NSInteger screenWInt = CMSCREEN_W;
+    NSInteger screenWInt = self.cm_width;
     NSInteger extre = offSetInx % screenWInt;
 
-    if (extre > CMSCREEN_W*0.5) {
+    if (extre > self.cm_width*0.5) {
         //往右边移动
-        offSetX = offSetX + (CMSCREEN_W - extre);
+        offSetX = offSetX + (self.cm_width - extre);
         _isAniming = YES;
         [self setContentOffset:CGPointMake(offSetX, 0) animated:YES];
-    } else if (extre < CMSCREEN_W * 0.5 && extre > 0){
+    } else if (extre < self.cm_width * 0.5 && extre > 0){
         _isAniming = YES;
         offSetX = offSetX - extre;
         [self setContentOffset:CGPointMake(offSetX, 0) animated:YES];
     }
 
     //获取角标
-    NSInteger index = offSetX / CMSCREEN_W;
+    NSInteger index = offSetX / self.cm_width;
     
     //选中标题
     if (self.cm_delegate) {

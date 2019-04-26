@@ -30,15 +30,22 @@
     return _cm_selectedColor ?: [UIColor redColor];
 }
 
-- (UIColor *)cm_underLineColor {
+- (UIColor *)cm_underlineColor {
     
-    return _cm_underLineColor ?: self.cm_selectedColor;
+    return _cm_underlineColor ?: self.cm_selectedColor;
     
 }
 
-- (CGFloat)cm_underLineHeight {
+- (CGFloat)cm_underlineWidthScale {
     
-    return _cm_underLineHeight ?: 2;
+    
+    return fabs(_cm_underlineWidthScale) > 1.3 || _cm_underlineWidthScale == 0 ? 1 :fabs(_cm_underlineWidthScale) ;
+    
+}
+
+- (CGFloat)cm_underlineHeight {
+    
+    return _cm_underlineHeight ?: 2;
     
 }
 
@@ -66,7 +73,7 @@
 
 - (CGFloat)cm_seperateLineHeight {
     
-    return _cm_seperateLineHeight ?: CM_ONE_PX;
+    return _cm_seperateLineHeight ?: 1.0/[UIScreen mainScreen].scale;
 }
 
 -(UIColor *)cm_seperaterLineColor {
@@ -80,8 +87,8 @@
     
     for (NSString *string in self.cm_titles) {
         
-        [mArray addObject:@([string cm_widthWithFont:self.cm_font])];
-        
+        [mArray addObject:@(CMStringWidth(string, self.cm_font))];
+
     }
     
     return [mArray copy];
@@ -96,12 +103,12 @@
 
 - (CGFloat)cm_titleMargin {
     
-    if (self.cm_totalWidth  >= CMSCREEN_W) {
+    if (self.cm_totalWidth  >= [UIScreen mainScreen].bounds.size.width) {
         _cm_titleMargin = _cm_titleMargin ?: 20;
         
     } else {
         
-        CGFloat titleMargin = (CMSCREEN_W - self.cm_totalWidth)/(self.cm_titles.count + 1);
+        CGFloat titleMargin = ([UIScreen mainScreen].bounds.size.width - self.cm_totalWidth)/(self.cm_titles.count + 1);
         
         _cm_titleMargin = titleMargin < 20 ? 20 : titleMargin;
         
@@ -118,6 +125,56 @@
 - (CGFloat)cm_scale {
     
     return _cm_scale ?: 1.05;
+}
+
+
+
+
+
+
+CG_EXTERN NSArray* CMColorGetRGBA(UIColor *color) {
+    
+    CGFloat red = 0.0;
+    CGFloat green = 0.0;
+    CGFloat blue = 0.0;
+    CGFloat alpha = 0.0;
+    [color getRed:&red green:&green blue:&blue alpha:&alpha];
+    return @[@(red), @(green), @(blue), @(alpha)];
+    
+}
+
+CG_EXTERN CGFloat CMColorGetR(UIColor *color) {
+    
+    return  [CMColorGetRGBA(color)[0] floatValue];
+    
+}
+
+CG_EXTERN CGFloat CMColorGetG(UIColor *color) {
+    
+    return  [CMColorGetRGBA(color)[1] floatValue];
+}
+
+CG_EXTERN CGFloat CMColorGetB(UIColor *color) {
+    
+    return  [CMColorGetRGBA(color)[2] floatValue];
+}
+
+CG_EXTERN CGFloat CMColorGetA(UIColor *color) {
+    
+    return  [CMColorGetRGBA(color)[3] floatValue];
+    
+}
+
+CG_EXTERN CGFloat CMStringWidth(NSString *string ,UIFont *font) {
+    
+    if ([string isKindOfClass:[NSNull class]]) {
+        NSException *exception = [NSException exceptionWithName:@"CMStringWidth C Method Exception" reason:@"title为空对象" userInfo:nil];
+        [exception raise];
+    }
+    
+    CGFloat width = [string boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:font} context:nil].size.width ;
+    
+    return ceilf(width);
 }
 
 

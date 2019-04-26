@@ -51,8 +51,8 @@
     
     if (!_underLine) {
         UIView *underLineView = [UIView new];
-        underLineView.backgroundColor = self.config.cm_underLineColor;
-        underLineView.layer.cornerRadius = self.config.cm_underLineBorder ? self.config.cm_underLineHeight * 0.5 : 0;
+        underLineView.backgroundColor = self.config.cm_underlineColor;
+        underLineView.layer.cornerRadius = self.config.cm_underlineBorder ? self.config.cm_underlineHeight * 0.5 : 0;
         underLineView.layer.masksToBounds = YES;
         [self addSubview:underLineView];
         
@@ -114,7 +114,6 @@
 
 - (void)initSubViews {
     
-    self.frame = CGRectMake(0, 0, CMSCREEN_W, self.config.cm_titleHeight);
     self.showsVerticalScrollIndicator = NO;
     self.showsHorizontalScrollIndicator = NO;
     self.contentInset = UIEdgeInsetsMake(0, 0, 0, -self.config.cm_titleMargin);
@@ -173,9 +172,9 @@
     if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline)) return;
 
     //根据标题的宽度获得下划线的宽度
-    CGFloat underLineWidth = self.config.cm_underLineWidth ?: label.cm_width;
+    CGFloat underLineWidth = self.config.cm_underlineWidth ?: label.cm_width * self.config.cm_underlineWidthScale;
     
-    self.underLine.cm_height = self.config.cm_underLineHeight;
+    self.underLine.cm_height = self.config.cm_underlineHeight;
     self.underLine.cm_bottom = self.cm_bottom;
 
     
@@ -290,11 +289,11 @@
 - (void)setLabelTitleCenter:(UILabel *)label {
     
 
-    CGFloat offsetX = label.center.x - CMSCREEN_W * 0.5;
+    CGFloat offsetX = label.center.x - self.cm_width * 0.5;
 
     offsetX = offsetX > 0 ? offsetX : 0;
   
-    CGFloat maxOffsetX = self.contentSize.width - CMSCREEN_W + self.config.cm_titleMargin;
+    CGFloat maxOffsetX = self.contentSize.width - self.cm_width + self.config.cm_titleMargin;
 
     maxOffsetX = maxOffsetX ?:0;
 
@@ -429,27 +428,37 @@
     CMDisplayTitleLabel *rightLabel = self.titleLabels[rightIndex];
     CMDisplayTitleLabel *leftLabel = self.titleLabels[leftIndex];
     
+    
+    CGFloat rightLabelX = rightLabel.cm_x + (1 - self.config.cm_underlineWidthScale)*rightLabel.cm_width*0.5;
+    CGFloat leftLabelX = leftLabel.cm_x + (1 - self.config.cm_underlineWidthScale)*leftLabel.cm_width*0.5;
+    CGFloat rightLabelWidth = rightLabel.cm_width * self.config.cm_underlineWidthScale;
+    CGFloat leftLabelWidth = leftLabel.cm_width * self.config.cm_underlineWidthScale;
+    
     if (!self.config.cm_underlineStretch) {
         
-        CGFloat deltaX = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (rightLabel.cm_x - leftLabel.cm_x);
+        CGFloat deltaX = self.config.cm_underlineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : (rightLabelX - leftLabelX);
         
-        CGFloat deltaWidth = self.config.cm_underLineWidth ? 0 : rightLabel.cm_width - leftLabel.cm_width;
+        CGFloat deltaWidth = self.config.cm_underlineWidth ? 0 : (rightLabelWidth - leftLabelWidth);
         
-        CGFloat newOriginalX = self.config.cm_underLineWidth ? progress*deltaX + leftLabel.cm_centerX - self .config.cm_underLineWidth * 0.5: progress * deltaX + leftLabel.cm_x ;
-        CGFloat newWidth = self.config.cm_underLineWidth ? : (progress * deltaWidth + leftLabel.cm_width);
+        CGFloat newOriginalX = self.config.cm_underlineWidth ? progress*deltaX + leftLabel.cm_centerX - self .config.cm_underlineWidth * 0.5: progress * deltaX + leftLabelX;
+        CGFloat newWidth = self.config.cm_underlineWidth ? : (progress * deltaWidth + leftLabelWidth);
+        
         self.underLine.cm_x = newOriginalX;
         self.underLine.cm_width = newWidth;
         
     } else {
-        //progress > 0.5
+       
+        CGFloat rightLabelRight = rightLabel.cm_right - (rightLabel.cm_width - rightLabelWidth)*0.5;
+        CGFloat leftLabelRight = leftLabel.cm_right - (leftLabel.cm_width - leftLabelWidth)*0.5;
+        
         if (progress <= 0.5) {
-            CGFloat deltaWidth =  self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : rightLabel.cm_right - leftLabel.cm_right;
+            CGFloat deltaWidth =  self.config.cm_underlineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : rightLabelRight - leftLabelRight;
             
-            CGFloat originalWidth = self.config.cm_underLineWidth ?: leftLabel.cm_width;
+            CGFloat originalWidth = self.config.cm_underlineWidth ?: leftLabelWidth;
             
             CGFloat newWidth = 2 * progress * deltaWidth + originalWidth;
             
-            CGFloat originalX = self.config.cm_underLineWidth ? leftLabel.cm_centerX - self.config.cm_underLineWidth * 0.5 : leftLabel.cm_x;
+            CGFloat originalX = self.config.cm_underlineWidth ? leftLabel.cm_centerX - self.config.cm_underlineWidth * 0.5 : leftLabelX;
             
             self.underLine.cm_width = newWidth;
             self.underLine.cm_x = originalX;
@@ -457,27 +466,20 @@
             
         } else {
             
-
-            
-            CGFloat deltaWidth = self.config.cm_underLineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : rightLabel.cm_left - leftLabel.cm_left;
+            CGFloat deltaWidth = self.config.cm_underlineWidth ? (rightLabel.cm_centerX - leftLabel.cm_centerX) : rightLabelX - leftLabelX;
             
             progress = 1- progress;
-            CGFloat newWidth = 2 * progress * deltaWidth + (self.config.cm_underLineWidth ?: rightLabel.cm_width);
+            CGFloat newWidth = 2 * progress * deltaWidth + (self.config.cm_underlineWidth ?: rightLabelWidth);
             
-            CGFloat originalX = self.config.cm_underLineWidth ? rightLabel.cm_centerX + self.config.cm_underLineWidth * 0.5 - newWidth : rightLabel.cm_right - newWidth;
+            CGFloat originalX = self.config.cm_underlineWidth ? rightLabel.cm_centerX + self.config.cm_underlineWidth * 0.5 - newWidth : rightLabelRight - newWidth;
             
             self.underLine.cm_x = originalX;
             self.underLine.cm_width = newWidth;
             
-            
-         
         }
     }
 
 }
-
-
-
 
 
 

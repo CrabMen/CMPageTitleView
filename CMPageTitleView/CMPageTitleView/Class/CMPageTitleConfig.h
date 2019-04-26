@@ -8,9 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "CMPageTitleViewMacro.h"
-#import "UIColor+CMCommon.h"
-#import "NSString+CMCommon.h"
 #import "UIView+CMCommon.h"
 
 
@@ -78,7 +75,6 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 @property (nonatomic,assign) CMPageTitleSwitchModeOptions cm_switchMode;
 
 
-
 /**
  标题之间的间隔
  */
@@ -116,26 +112,33 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
  下划线视图是否圆角
  默认为NO
  */
-@property (nonatomic,assign) BOOL cm_underLineBorder;
+@property (nonatomic,assign) BOOL cm_underlineBorder;
 
 
 /**
  下划线高度
  */
-@property (nonatomic,assign) CGFloat cm_underLineHeight;
+@property (nonatomic,assign) CGFloat cm_underlineHeight;
 
 /**
 下划线宽度
 默认跟随文字宽度
  */
-@property (nonatomic,assign) CGFloat cm_underLineWidth;
+@property (nonatomic,assign) CGFloat cm_underlineWidth;
+
+/**
+ 下划线跟随文字宽度 * 比例
+ 比例范围 0 ~ 1.3
+ 超出 1.3 按 1.0 处理
+ */
+@property (nonatomic,assign) CGFloat cm_underlineWidthScale;
 
 
 /**
  下划线颜色
  默认跟随标题的选中颜色
  */
-@property (nonatomic,strong) UIColor *cm_underLineColor;
+@property (nonatomic,strong) UIColor *cm_underlineColor;
 
 
 
@@ -201,6 +204,63 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
  所有标题的总宽度
  */
 @property (nonatomic,assign,readonly) CGFloat cm_totalWidth;
+
+
+
+
+
+
+
+/**
+ 获得某个颜色的rgba的值
+ 
+ @param color 颜色对象
+ @return 返回rgba颜色值数组
+ */
+CG_EXTERN NSArray* CMColorGetRGBA(UIColor *color);
+
+/**
+ 获得某个颜色的r值
+ 
+ @param color 颜色对象
+ @return 返回r的值
+ */
+CG_EXTERN CGFloat CMColorGetR(UIColor *color);
+
+/**
+ 获得某个颜色的g值
+ 
+ @param color 颜色对象
+ @return 返回g的值
+ */
+CG_EXTERN CGFloat CMColorGetG(UIColor *color);
+
+/**
+ 获得某个颜色的b值
+ 
+ @param color 颜色对象
+ @return 返回b的值
+ */
+CG_EXTERN CGFloat CMColorGetB(UIColor *color);
+
+/**
+ 获得某个颜色的a值
+ 
+ @param color 颜色对象
+ @return 返回a的值
+ */
+CG_EXTERN CGFloat CMColorGetA(UIColor *color);
+
+/**
+ 获得指定font的字符串宽度
+ 
+ @param string 目标字符串
+ @param font 目标字符串对应的font
+ @return 返回该字符串的宽度
+ */
+CG_EXTERN CGFloat CMStringWidth(NSString *string ,UIFont *font);
+
+
 
 
 @end

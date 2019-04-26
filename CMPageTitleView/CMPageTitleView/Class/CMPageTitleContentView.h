@@ -58,4 +58,9 @@
  @param scrollView  CMPageContentView对象
  */
 - (void)cm_pageTitleContentViewAdjustPosition:(UIScrollView *)scrollView;
+
+
+
+
+
 @end

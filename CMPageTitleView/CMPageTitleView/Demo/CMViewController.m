@@ -8,6 +8,35 @@
 
 #import "CMViewController.h"
 #import "CMPageTitleView.h"
+
+//屏幕尺寸
+#define CM_SCREEN_W  [UIScreen mainScreen].bounds.size.width
+#define CM_SCREEN_H  [UIScreen mainScreen].bounds.size.height
+
+
+//是否是刘海屏
+#define CM_NOTCH_SCREEN \
+({BOOL isPhoneX = NO;\
+if (@available(iOS 11.0, *)) {\
+isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom > 0.0;\
+}\
+(isPhoneX);})
+
+//导航栏高度
+#define CM_NAVI_BAR_H (CM_NOTCH_SCREEN ? 88 : 64)
+
+//电池条高度
+#define CM_STATUE_BAR_H (CM_NOTCH_SCREEN ? 44 : 20)
+
+//tabbar高度
+#define CM_TAB_BAR_H (CM_NOTCH_SCREEN ? 83.0f: 49.0)
+
+
+//随机色
+#define CM_RANDOM_COLOR [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1.0]
+
+
+
 @interface CMViewController ()<CMPageTitleViewDelegate>
 
 /**视图控制器数组*/
@@ -82,7 +111,7 @@
 
 - (void)style0 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
@@ -96,7 +125,7 @@
 
 - (void)style1 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
@@ -110,7 +139,7 @@
 
 - (void)style2 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
@@ -125,7 +154,7 @@
 
 - (void)style3 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
@@ -140,13 +169,13 @@
 
 - (void)style4 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
-    config.cm_underLineWidth = 10;
+    config.cm_underlineWidth = 10;
     pageView.cm_config = config;
     [self.view addSubview:pageView];
     
@@ -155,13 +184,13 @@
 
 - (void)style5 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
-    config.cm_underLineWidth = 10;
+    config.cm_underlineWidth = 10;
 
     pageView.cm_config = config;
     [self.view addSubview:pageView];
@@ -176,7 +205,7 @@
 
 - (void)style6 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
@@ -191,7 +220,7 @@
 
 - (void)style7 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
@@ -208,14 +237,14 @@
 
 - (void)style8 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     config.cm_underlineStretch = YES;
-    config.cm_underLineWidth = 10;
+    config.cm_underlineWidth = 10;
     pageView.cm_config = config;
     [self.view addSubview:pageView];
     
@@ -224,14 +253,14 @@
 
 - (void)style9 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     config.cm_underlineStretch = YES;
-    config.cm_underLineWidth = 10;
+    config.cm_underlineWidth = 10;
     pageView.cm_config = config;
     [self.view addSubview:pageView];
     
@@ -240,7 +269,7 @@
 
 - (void)style10 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
@@ -254,7 +283,7 @@
 
 - (void)style11 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
@@ -267,7 +296,7 @@
 
 - (void)style12 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
@@ -282,7 +311,7 @@
 
 - (void)style13 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
@@ -297,7 +326,7 @@
 
 - (void)style14 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
@@ -311,13 +340,44 @@
 
 - (void)style15 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CMSCREEN_W, CMSCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
 
+    pageView.cm_config = config;
+    [self.view addSubview:pageView];
+    
+}
+
+- (void)style16 {
+    
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
+    pageView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    config.cm_childControllers = self.childControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Underline;
+    config.cm_underlineWidthScale = 0.8;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
+//    config.cm_underlineStretch = YES;
+    pageView.cm_config = config;
+    [self.view addSubview:pageView];
+    
+}
+
+
+- (void)style17 {
+    
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
+    pageView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    config.cm_childControllers = self.childControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Underline;
+    config.cm_underlineWidthScale = 1.2;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
+    config.cm_underlineStretch = YES;
     pageView.cm_config = config;
     [self.view addSubview:pageView];
     
