@@ -13,6 +13,11 @@
 
 ## <a id="screenshots"></a>Screenshots 
 
+| 效果说明     |    GIF|
+| :-------- | --------:| 
+| Computer  | 1600 USD | 
+| Phone     |   12 USD | 
+| Pipe      |    1 USD |
 
 ## <a id="installation"></a>Installation 
 
