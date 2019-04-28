@@ -8,6 +8,7 @@
 * [Screenshots](#screenshots)
 * [Installation](#installation)
 * [Pre-knowledge](#pre-knowledge)
+* [Example](#example)
 * [Support](#support)
 
 
@@ -54,6 +55,37 @@ end
 
 
 ## <a id="pre-knowledge"></a>Pre-knowledge 
+
+### <a id="example"></a>Example 
+
+**if cocoaposd:**
+```
+#import <CMPageTitleView/CMPageTitleView.h>
+```
+**if manually:**
+
+```
+#import "CMPageTitleView.h"
+
+```
+
+Then create CMPageTitleView and configure.
+
+```
+ CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:frame];
+    pageView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    config.cm_childControllers = self.childControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Underline;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
+    config.cm_underlineStretch = YES;
+    config.cm_underlineWidth = 10;
+    pageView.cm_config = config;
+    
+    [self.view addSubview:pageView];
+```
+
+Congratulations! You're done. 🎉
 
 
 ## <a id="support"></a>Support this repo
