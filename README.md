@@ -15,7 +15,7 @@
 
 | 效果说明     |    GIF|
 | :-------- | --------:| 
-| 字体放大 - RGB颜色渐变  | https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_00.gif | 
+| 字体放大 - RGB颜色渐变  | https://raw.githubusercontent.com/CrabMen/CMResources/master/CMPageTitleView/CMPageTitleView_00.gif | 
 | 字体放大 - 填充色渐变  | https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_01.gif | 
 | 下划线 - RGB颜色渐变 - 跟随文字宽度| https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_02.gif | 
 | 下划线 - 填充渐变 - 跟随文字宽度| https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_03.gif | 
