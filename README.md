@@ -56,7 +56,9 @@ end
 
 ## <a id="pre-knowledge"></a>Pre-knowledge 
 
-### <a id="example"></a>Example 
+## <a id="example"></a>Example 
+
+Firstly, you need import the .h file.
 
 **if cocoaposd:**
 ```
@@ -69,7 +71,7 @@ end
 
 ```
 
-Then create CMPageTitleView and configure.
+Then create CMPageTitleView and use the CMPageTitleConfig class to configure .
 
 ```
  CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:frame];
