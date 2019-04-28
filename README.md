@@ -15,24 +15,24 @@
 
 | 效果说明     |    GIF|
 | :-------- | --------:| 
-| 字体放大 - RGB颜色渐变  | https://raw.githubusercontent.com/CrabMen/CMResources/master/CMPageTitleView/CMPageTitleView_00.gif | 
-| 字体放大 - 填充色渐变  | https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_01.gif | 
-| 下划线 - RGB颜色渐变 - 跟随文字宽度| https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_02.gif | 
-| 下划线 - 填充渐变 - 跟随文字宽度| https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_03.gif | 
-| 下划线 - RGB渐变 - 固定宽度  | https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_04.gif | 
-| 下划线 - 填充渐变 - 固定宽度  | https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_05.gif | 
-| 下划线 - RGB渐变 - 跟随文字宽度 - 拉伸效果| https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_06.gif | 
-| 下划线 - 填充色渐变 - 跟随文字宽度 - 拉伸效果  | https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_07.gif | 
-| 下划线 - RGB渐变 - 固定宽度 - 拉伸效果  | https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_08.gif | 
-| 下划线 - 填充色渐变 - 固定宽度 - 拉伸效果  | https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_09.gif | 
-| 遮罩 - RGB渐变 - 跟随文字宽度  | https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_10.gif | 
-| 遮罩 - 填充色渐变 - 跟随文字宽度  | https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_11.gif | 
-| 遮罩 - RGB渐变 - 固定宽度  | https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_12.gif | 
-| 遮罩 - 填充色渐变 - 固定宽度 | https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_13.gif | 
-| 混合样式 - 字体放大/下划线 - RGB渐变  | https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_14.gif | 
-| 混合样式 - 字体放大/下划线 - 填充色渐变  | https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_15.gif | 
-| 下划线 - 跟随文字宽度(比例)  | https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_16.gif | 
-| 下划线 - 跟随文字宽度(比例) - 拉伸效果  | https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_17.gif | 
+| 字体放大 - RGB颜色渐变  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_00.gif) | 
+| 字体放大 - 填充色渐变  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_01.gif) | 
+| 下划线 - RGB颜色渐变 - 跟随文字宽度| ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_02.gif) | 
+| 下划线 - 填充渐变 - 跟随文字宽度| ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_03.gif) | 
+| 下划线 - RGB渐变 - 固定宽度  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_04.gif) | 
+| 下划线 - 填充渐变 - 固定宽度  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_05.gif) | 
+| 下划线 - RGB渐变 - 跟随文字宽度 - 拉伸效果| ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_06.gif) | 
+| 下划线 - 填充色渐变 - 跟随文字宽度 - 拉伸效果  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_07.gif) | 
+| 下划线 - RGB渐变 - 固定宽度 - 拉伸效果  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_08.gif) | 
+| 下划线 - 填充色渐变 - 固定宽度 - 拉伸效果  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_09.gif) | 
+| 遮罩 - RGB渐变 - 跟随文字宽度  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_10.gif) | 
+| 遮罩 - 填充色渐变 - 跟随文字宽度  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_11.gif) | 
+| 遮罩 - RGB渐变 - 固定宽度  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_12.gif) | 
+| 遮罩 - 填充色渐变 - 固定宽度 | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_13.gif) | 
+| 混合样式 - 字体放大/下划线 - RGB渐变  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_14.gif) | 
+| 混合样式 - 字体放大/下划线 - 填充色渐变  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_15.gif) | 
+| 下划线 - 跟随文字宽度(比例)  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_16.gif) | 
+| 下划线 - 跟随文字宽度(比例) - 拉伸效果  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_17.gif) | 
 
 
 ## <a id="installation"></a>Installation 
