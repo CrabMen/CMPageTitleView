@@ -92,6 +92,7 @@ Congratulations! You're done. 🎉
 
 ## <a id="support"></a>Support this repo
 * [**★Star**](#) this repo 
+If you find somes bugs or need some new functions,please issue me
 
 ## License
 CMPageTitleView is available under the MIT license. See the LICENSE file for more info.
