@@ -30,7 +30,11 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
     /**rgb颜色渐变*/
     CMTitleColorGradientStyle_RGB = 0,
     /**填充色颜色渐变*/
-    CMTitleColorGradientStyle_Fill = 1
+    CMTitleColorGradientStyle_Fill = 1,
+    /**颜色非渐变*/
+    CMTitleColorGradientStyle_None = 2
+
+    
 };
 
 @interface CMPageTitleConfig : NSObject
