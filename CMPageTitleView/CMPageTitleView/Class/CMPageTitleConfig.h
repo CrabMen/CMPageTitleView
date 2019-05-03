@@ -36,9 +36,14 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 @interface CMPageTitleConfig : NSObject
 
 /**
- 标题字体
+ 标题正常字体
  */
 @property (nonatomic,strong) UIFont *cm_font;
+
+
+/**标题选中字体*/
+@property (nonatomic,strong) UIFont *cm_selectedFont;
+
 
 /**
  标题滚动视图背景颜色
@@ -185,6 +190,7 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 
 /**
  标题的缩放等级
+ （若觉得该属性不方便，可以使用cm_selectedFont配合cm_font属性进行设置）
  */
 @property (nonatomic,assign) CGFloat cm_scale;
 

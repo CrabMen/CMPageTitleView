@@ -20,6 +20,15 @@
     
 }
 
+- (void)setCm_selectedFont:(UIFont *)cm_selectedFont {
+    
+    _cm_selectedFont = cm_selectedFont;
+    
+    self.cm_scale = self.cm_font.pointSize ? cm_selectedFont.pointSize / self.cm_font.pointSize : self.cm_scale;
+    
+    
+}
+
 - (UIColor *)cm_normalColor {
     
     return _cm_normalColor ?:[UIColor blackColor];

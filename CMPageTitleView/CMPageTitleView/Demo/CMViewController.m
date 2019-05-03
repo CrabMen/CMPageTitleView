@@ -8,7 +8,7 @@
 
 #import "CMViewController.h"
 #import "CMPageTitleView.h"
-
+#import "Masonry.h"
 //屏幕尺寸
 #define CM_SCREEN_W  [UIScreen mainScreen].bounds.size.width
 #define CM_SCREEN_H  [UIScreen mainScreen].bounds.size.height
@@ -111,35 +111,62 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style0 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
+    
+    
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
+    
+    
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
-   
+    config.cm_selectedFont = [UIFont systemFontOfSize:18];
     pageView.cm_config = config;
-    [self.view addSubview:pageView];
     
 }
 
 - (void)style1 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
+    config.cm_scale = 1.2;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
     pageView.cm_config = config;
-    [self.view addSubview:pageView];
     
 }
 
 - (void)style2 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
@@ -147,14 +174,22 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
     pageView.cm_config = config;
-    [self.view addSubview:pageView];
+    
     
 }
 
 
 - (void)style3 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
@@ -162,14 +197,22 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
     pageView.cm_config = config;
-    [self.view addSubview:pageView];
+    
     
 }
 
 
 - (void)style4 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
@@ -177,14 +220,22 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     config.cm_underlineWidth = 10;
     pageView.cm_config = config;
-    [self.view addSubview:pageView];
+    
     
 }
 
 
 - (void)style5 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
@@ -193,7 +244,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineWidth = 10;
 
     pageView.cm_config = config;
-    [self.view addSubview:pageView];
+    
     
 }
 
@@ -205,7 +256,15 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style6 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
@@ -213,14 +272,21 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     config.cm_underlineStretch = YES;
     pageView.cm_config = config;
-    [self.view addSubview:pageView];
     
 }
 
 
 - (void)style7 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
@@ -228,7 +294,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     config.cm_underlineStretch = YES;
     pageView.cm_config = config;
-    [self.view addSubview:pageView];
     
 }
 
@@ -237,7 +302,15 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style8 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
@@ -246,14 +319,22 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineStretch = YES;
     config.cm_underlineWidth = 10;
     pageView.cm_config = config;
-    [self.view addSubview:pageView];
+    
     
 }
 
 
 - (void)style9 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
@@ -262,100 +343,146 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineStretch = YES;
     config.cm_underlineWidth = 10;
     pageView.cm_config = config;
-    [self.view addSubview:pageView];
     
 }
 
 
 - (void)style10 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     pageView.cm_config = config;
-    [self.view addSubview:pageView];
+    
     
 }
 
 
 - (void)style11 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     pageView.cm_config = config;
-    [self.view addSubview:pageView];
+    
     
 }
 
 - (void)style12 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
-    pageView.delegate = self;
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];    pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     config.cm_coverWidth = 56;
     pageView.cm_config = config;
-    [self.view addSubview:pageView];
     
 }
 
 
 - (void)style13 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
-    pageView.delegate = self;
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];    pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     config.cm_coverWidth = 56;
     pageView.cm_config = config;
-    [self.view addSubview:pageView];
     
 }
 
 
 - (void)style14 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
-    pageView.delegate = self;
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];    pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     pageView.cm_config = config;
-    [self.view addSubview:pageView];
-    
+ 
 }
 
 
 - (void)style15 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
-    pageView.delegate = self;
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];    pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
 
     pageView.cm_config = config;
-    [self.view addSubview:pageView];
-    
+ 
 }
 
 - (void)style16 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
-    pageView.delegate = self;
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];    pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
@@ -363,15 +490,21 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
 //    config.cm_underlineStretch = YES;
     pageView.cm_config = config;
-    [self.view addSubview:pageView];
-    
+ 
 }
 
 
 - (void)style17 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:CGRectMake(0, CM_NAVI_BAR_H, CM_SCREEN_W, CM_SCREEN_H - CM_NAVI_BAR_H)];
-    pageView.delegate = self;
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];    pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
@@ -379,8 +512,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     config.cm_underlineStretch = YES;
     pageView.cm_config = config;
-    [self.view addSubview:pageView];
-    
+ 
 }
 
 
