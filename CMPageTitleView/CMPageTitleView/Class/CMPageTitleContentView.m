@@ -34,10 +34,31 @@
 @property (nonatomic,assign) CGFloat lastOffsetX;
 
 
+/**分割线视图数组*/
+@property (nonatomic,strong) NSArray *seperateLines;
+
+
+
 @end
 
 
 @implementation CMPageTitleContentView
+
+- (NSArray *)seperateLines {
+    
+    if (!_seperateLines) {
+        NSMutableArray *mArray = [NSMutableArray array];
+        
+        for (NSInteger i = 0 ; i < self.titleLabels.count - 1; i++) {
+            CALayer *layer = [CALayer layer];
+            layer.backgroundColor = self.config.cm_seperateColor.CGColor;
+            layer.bounds = CGRectMake(0, 0, self.config.cm_seperateSize.width, self.config.cm_seperateSize.height);
+            layer.position = CGPointMake([self.titleLabels[i] ], <#CGFloat y#>)
+
+        }
+    }
+    
+}
 
 - (NSMutableArray *)titleLabels {
     

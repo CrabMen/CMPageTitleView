@@ -22,7 +22,11 @@ typedef NS_OPTIONS(NSUInteger,CMPageTitleSwitchModeOptions) {
     CMPageTitleSwitchMode_Underline = 1 << 1,
     
     /**遮罩样式*/
-    CMPageTitleSwitchMode_Cover = 1 << 2
+    CMPageTitleSwitchMode_Cover = 1 << 2,
+    
+    /**分割线*/
+    CMPageTitleSwitchMode_SeperateLine = 1 << 3
+    
 
 };
 
@@ -215,6 +219,14 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
  */
 @property (nonatomic,assign,readonly) CGFloat cm_totalWidth;
 
+
+
+/**分割线颜色*/
+@property (nonatomic,strong) UIColor *cm_seperateColor;
+
+
+/**分割线大小*/
+@property (nonatomic,assign) CGSize cm_seperateSize;
 
 
 
