@@ -50,14 +50,17 @@
         NSMutableArray *mArray = [NSMutableArray array];
         
         for (NSInteger i = 0 ; i < self.titleLabels.count - 1; i++) {
-            CALayer *layer = [CALayer layer];
-            layer.backgroundColor = self.config.cm_seperateColor.CGColor;
-            layer.bounds = CGRectMake(0, 0, self.config.cm_seperateSize.width, self.config.cm_seperateSize.height);
-            layer.position = CGPointMake([self.titleLabels[i] ], <#CGFloat y#>)
-
+            UIView *layer = [UIView new];
+            layer.backgroundColor = self.config.cm_splitterColor;
+            layer.cm_size = CGSizeMake(self.config.cm_splitterSize.width, self.config.cm_splitterSize.height);
+            layer.center = CGPointMake(CGRectGetMaxX([self.titleLabels[i] frame]) + self.config.cm_titleMargin * 0.5, self.config.cm_titleHeight * 0.5);
+            [self addSubview:layer];
+            [mArray addObject:layer];
         }
+        _seperateLines = [mArray copy];
     }
     
+    return _seperateLines;
 }
 
 - (NSMutableArray *)titleLabels {
@@ -139,6 +142,7 @@
     self.showsHorizontalScrollIndicator = NO;
     self.contentInset = UIEdgeInsetsMake(0, 0, 0, -self.config.cm_titleMargin);
     [self initTitleLabels];
+    [self initSepereateLines];
     
 }
 
@@ -174,6 +178,16 @@
     self.contentSize = CGSizeMake(CGRectGetMaxX([self.titleLabels.lastObject frame]), 0);
     
 
+}
+
+- (void)initSepereateLines {
+    
+    if (self.config.cm_switchMode & CMPageTitleSwitchMode_SeperateLine) {
+        [self seperateLines];
+        
+    }
+    
+    
 }
 
 - (void)cm_pageTitleContentViewAdjustPosition:(UIScrollView *)scrollView {

@@ -137,7 +137,17 @@
 }
 
 
+- (CGSize)cm_splitterSize {
+    
+    return CGSizeEqualToSize(_cm_splitterSize,CGSizeZero) ? CGSizeMake(1/[UIScreen mainScreen].scale, self.cm_titleHeight*0.5):_cm_splitterSize;
+    
+}
 
+- (UIColor *)cm_splitterColor {
+    
+    return _cm_splitterColor ?: [UIColor lightGrayColor];
+    
+}
 
 
 

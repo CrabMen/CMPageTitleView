@@ -222,11 +222,11 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 
 
 /**分割线颜色*/
-@property (nonatomic,strong) UIColor *cm_seperateColor;
+@property (nonatomic,strong) UIColor *cm_splitterColor;
 
 
 /**分割线大小*/
-@property (nonatomic,assign) CGSize cm_seperateSize;
+@property (nonatomic,assign) CGSize cm_splitterSize;
 
 
 
