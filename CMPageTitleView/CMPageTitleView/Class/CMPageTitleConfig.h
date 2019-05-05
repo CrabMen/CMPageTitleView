@@ -41,6 +41,15 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
     
 };
 
+typedef NS_ENUM(NSUInteger,CMPageTitleViewContentMode) {
+
+    CMPageTitleViewContentMode_Center,
+    CMPageTitleViewContentMode_Left,
+    CMPageTitleViewContentMode_Right
+    
+    
+};
+
 @interface CMPageTitleConfig : NSObject
 
 /**
@@ -229,6 +238,12 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 @property (nonatomic,assign) CGSize cm_splitterSize;
 
 
+/**对齐方式*/
+@property (nonatomic,assign) CMPageTitleViewContentMode *cm_contentMode;
+
+
+/**内边距*/
+@property (nonatomic,assign) UIEdgeInsets cm_conentInset;
 
 
 
