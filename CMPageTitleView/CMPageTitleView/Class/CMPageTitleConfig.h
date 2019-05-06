@@ -41,14 +41,22 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
     
 };
 
-typedef NS_ENUM(NSUInteger,CMPageTitleViewContentMode) {
+typedef NS_ENUM(NSUInteger,CMPageTitleJustifyContentMode) {
 
-    CMPageTitleViewContentMode_Center,
-    CMPageTitleViewContentMode_Left,
-    CMPageTitleViewContentMode_Right
-    
+    CMPageTitleJustifyContentMode_FlexStart,
+    CMPageTitleJustifyContentMode_FlexEnd,
+    CMPageTitleJustifyContentMode_Center,
+    CMPageTitleJustifyContentMode_SpaceBetween,
+    CMPageTitleJustifyContentMode_SpaceAround
     
 };
+
+
+typedef struct CMEdgeHoriziontalInsets{
+    
+    CGFloat left,right;
+    
+}CMEdgeHoriziontalInsets;
 
 @interface CMPageTitleConfig : NSObject
 
@@ -101,6 +109,13 @@ typedef NS_ENUM(NSUInteger,CMPageTitleViewContentMode) {
  标题之间的间隔
  */
 @property (nonatomic,assign) CGFloat cm_titleMargin;
+
+
+/**最小的标题间距
+ 默认值为 20
+ */
+@property (nonatomic,assign) CGFloat cm_minTitleMargin;
+
 
 /**
  默认选择的index
@@ -238,12 +253,14 @@ typedef NS_ENUM(NSUInteger,CMPageTitleViewContentMode) {
 @property (nonatomic,assign) CGSize cm_splitterSize;
 
 
-/**对齐方式*/
-@property (nonatomic,assign) CMPageTitleViewContentMode *cm_contentMode;
+/**对齐方式
+ 
+ */
+@property (nonatomic,assign) CMPageTitleJustifyContentMode cm_justifyContent;
 
 
 /**内边距*/
-@property (nonatomic,assign) UIEdgeInsets cm_conentInset;
+@property (nonatomic,assign) CMEdgeHoriziontalInsets cm_conentInset;
 
 
 
@@ -298,7 +315,7 @@ CG_EXTERN CGFloat CMColorGetA(UIColor *color);
 CG_EXTERN CGFloat CMStringWidth(NSString *string ,UIFont *font);
 
 
-
+CG_EXTERN CMEdgeHoriziontalInsets CMEdgeHoriziontalInsetsMake(CGFloat left,CGFloat right);
 
 @end
 

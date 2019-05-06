@@ -113,17 +113,25 @@
 - (CGFloat)cm_titleMargin {
     
     if (self.cm_totalWidth  >= [UIScreen mainScreen].bounds.size.width) {
-        _cm_titleMargin = _cm_titleMargin ?: 20;
+        _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
         
     } else {
         
         CGFloat titleMargin = ([UIScreen mainScreen].bounds.size.width - self.cm_totalWidth)/(self.cm_titles.count + 1);
         
-        _cm_titleMargin = titleMargin < 20 ? 20 : titleMargin;
+        _cm_titleMargin = titleMargin < self.cm_minTitleMargin ? self.cm_minTitleMargin : titleMargin;
         
     }
     
     return _cm_titleMargin;
+}
+
+
+- (CGFloat)cm_minTitleMargin {
+    
+    
+    return _cm_minTitleMargin ?: 20;
+    
 }
 
 - (NSInteger)cm_defaultIndex {
@@ -195,6 +203,15 @@ CG_EXTERN CGFloat CMStringWidth(NSString *string ,UIFont *font) {
     
     return ceilf(width);
 }
+
+
+CG_EXTERN CMEdgeHoriziontalInsets CMEdgeHoriziontalInsetsMake(CGFloat left,CGFloat right) {
+    
+    CMEdgeHoriziontalInsets insert = {left,right};
+    
+    return insert;
+}
+
 
 
 @end

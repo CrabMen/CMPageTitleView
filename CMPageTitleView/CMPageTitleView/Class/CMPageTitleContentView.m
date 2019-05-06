@@ -140,7 +140,7 @@
     
     self.showsVerticalScrollIndicator = NO;
     self.showsHorizontalScrollIndicator = NO;
-    self.contentInset = UIEdgeInsetsMake(0, 0, 0, -self.config.cm_titleMargin);
+    self.contentInset = UIEdgeInsetsMake(0, 0, 0, self.config.cm_titleMargin);
     [self initTitleLabels];
     [self initSepereateLines];
     
