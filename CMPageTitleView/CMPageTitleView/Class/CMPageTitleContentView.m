@@ -116,8 +116,11 @@
 - (instancetype)initWithConfig:(CMPageTitleConfig *)config {
     
     if (self = [super init]) {
-        self.backgroundColor = [UIColor whiteColor];
         self.config = config;
+
+        self.backgroundColor = self.config.cm_backgroundColor;
+        self.showsVerticalScrollIndicator = NO;
+        self.showsHorizontalScrollIndicator = NO;
         
         [self initSubViews];
     }
@@ -138,11 +141,41 @@
 
 - (void)initSubViews {
     
-    self.showsVerticalScrollIndicator = NO;
-    self.showsHorizontalScrollIndicator = NO;
     self.contentInset = UIEdgeInsetsMake(0, 0, 0, self.config.cm_titleMargin);
+
     [self initTitleLabels];
     [self initSepereateLines];
+    
+}
+
+- (void)initContentInsets {
+    
+  
+    
+    if (self.config.cm_contentMode == CMPageTitleJustifyContentMode_FlexStart) {
+        //左对齐
+
+        
+        
+    } else if (self.config.cm_contentMode == CMPageTitleJustifyContentMode_FlexEnd) {
+        //右对齐
+        
+        
+        
+    }else if (self.config.cm_contentMode == CMPageTitleJustifyContentMode_Center) {
+        
+        
+        
+    }else if (self.config.cm_contentMode == CMPageTitleJustifyContentMode_SpaceBetween) {
+        
+        
+        
+    }else if (self.config.cm_contentMode == CMPageTitleJustifyContentMode_SpaceAround) {
+        
+        
+        
+    }
+    
     
 }
 

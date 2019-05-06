@@ -239,9 +239,15 @@ typedef struct CMEdgeHoriziontalInsets{
 @property (nonatomic,strong,readonly) NSArray *cm_titleWidths;
 
 /**
+ 标题的总宽度 + 左右边距 + 所有的标题最小间距
+ */
+@property (nonatomic,assign,readonly) CGFloat cm_minTotalWidth;
+
+
+/**
  所有标题的总宽度
  */
-@property (nonatomic,assign,readonly) CGFloat cm_totalWidth;
+@property (nonatomic,assign,readonly) CGFloat cm_totalTitleWidth;
 
 
 
@@ -256,11 +262,11 @@ typedef struct CMEdgeHoriziontalInsets{
 /**对齐方式
  
  */
-@property (nonatomic,assign) CMPageTitleJustifyContentMode cm_justifyContent;
+@property (nonatomic,assign) CMPageTitleJustifyContentMode cm_contentMode;
 
 
 /**内边距*/
-@property (nonatomic,assign) CMEdgeHoriziontalInsets cm_conentInset;
+@property (nonatomic,assign) CMEdgeHoriziontalInsets cm_horiziontalInsets;
 
 
 

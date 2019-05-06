@@ -110,6 +110,9 @@
 
 }
 
+
+
+
 - (CGFloat)cm_titleMargin {
     
     if (self.cm_totalWidth  >= [UIScreen mainScreen].bounds.size.width) {
