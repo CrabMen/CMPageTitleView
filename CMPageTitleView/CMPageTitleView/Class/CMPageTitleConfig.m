@@ -1,5 +1,5 @@
 //
-//  CMPageTitleConfig.m
+//  CMPageTitlem
 //  CMPageTitleView
 //
 //  Created by 智借iOS on 2019/3/25.
@@ -104,23 +104,53 @@
     
 }
 
-- (CGFloat)cm_totalWidth {
+- (CGFloat)cm_titlesWidth {
    
     return [[self.cm_titleWidths valueForKeyPath:@"@sum.floatValue"] floatValue];
 
 }
 
-
+- (CGFloat)cm_minContentWidth {
+    
+    return self.cm_horiziontalInsets.left + self.cm_horiziontalInsets.right + self.cm_titlesWidth + (self.cm_titles.count + 1) * self.cm_minTitleMargin;
+    
+}
 
 
 - (CGFloat)cm_titleMargin {
     
-    if (self.cm_totalWidth  >= [UIScreen mainScreen].bounds.size.width) {
+    
+    if (self.cm_contentMode == CMPageTitleJustifyContentMode_FlexStart) {
+        //左对齐
+        
+        
+        
+    } else if (self.cm_contentMode == CMPageTitleJustifyContentMode_FlexEnd) {
+        //右对齐
+        
+        
+        
+    }else if (self.cm_contentMode == CMPageTitleJustifyContentMode_Center) {
+        
+        
+        
+    }else if (self.cm_contentMode == CMPageTitleJustifyContentMode_SpaceBetween) {
+        
+        
+        
+    }else if (self.cm_contentMode == CMPageTitleJustifyContentMode_SpaceAround) {
+        
+        
+        
+    }
+    
+    
+    if (self.cm_titlesWidth  >= [UIScreen mainScreen].bounds.size.width) {
         _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
         
     } else {
         
-        CGFloat titleMargin = ([UIScreen mainScreen].bounds.size.width - self.cm_totalWidth)/(self.cm_titles.count + 1);
+        CGFloat titleMargin = ([UIScreen mainScreen].bounds.size.width - self.cm_titlesWidth)/(self.cm_titles.count + 1);
         
         _cm_titleMargin = titleMargin < self.cm_minTitleMargin ? self.cm_minTitleMargin : titleMargin;
         
