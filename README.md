@@ -7,7 +7,6 @@
 # Table of contents
 * [Screenshots](#screenshots)
 * [Installation](#installation)
-* [Pre-knowledge](#pre-knowledge)
 * [Example](#example)
 * [Support](#support)
 
@@ -52,9 +51,6 @@ end
 ### Manually:
 * Drag all files under `CMPageTitleView/CMPageTitleView/Class` folder into your project. 
 
-
-
-## <a id="pre-knowledge"></a>Pre-knowledge 
 
 ## <a id="example"></a>Example 
 
