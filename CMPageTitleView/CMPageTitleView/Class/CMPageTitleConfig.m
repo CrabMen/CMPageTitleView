@@ -11,7 +11,7 @@
 @interface CMPageTitleConfig ()
 
 /**视图宽度*/
-@property (nonatomic,assign) CGFloat cm_width;
+@property (nonatomic,strong) NSNumber *cm_pageTitleViewWidth;
 
 
 @end
@@ -21,6 +21,13 @@
 @implementation CMPageTitleConfig
 
 #pragma mark -- setter
+
+- (void)setCm_pageTitleViewWidth:(NSNumber *)cm_pageTitleViewWidth {
+    
+    
+    _cm_pageTitleViewWidth = cm_pageTitleViewWidth;
+    
+}
 
 - (void)setCm_selectedFont:(UIFont *)cm_selectedFont {
     
@@ -36,7 +43,7 @@
     
     _cm_contentMode = cm_contentMode;
     
-    if (self.cm_minContentWidth > [UIScreen mainScreen].bounds.size.width) {
+    if (self.cm_minContentWidth > self.cm_pageTitleViewWidth.floatValue) {
         _cm_contentMode = CMPageTitleJustifyContentMode_Center;
     }
     
@@ -54,6 +61,12 @@
 - (UIFont *)cm_font {
     
     return _cm_font ?[UIFont systemFontOfSize:_cm_font.pointSize]: [UIFont systemFontOfSize:15];
+    
+}
+
+- (UIColor *)cm_backgroundColor {
+    
+    return _cm_backgroundColor?:[UIColor whiteColor];
     
 }
 
@@ -166,12 +179,12 @@
     }
     
     
-    if (self.cm_titlesWidth  >= [UIScreen mainScreen].bounds.size.width) {
+    if (self.cm_titlesWidth  >= self.cm_pageTitleViewWidth.floatValue) {
         _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
         
     } else {
         
-        CGFloat titleMargin = ([UIScreen mainScreen].bounds.size.width - self.cm_titlesWidth)/(self.cm_titles.count + 1);
+        CGFloat titleMargin = (self.cm_pageTitleViewWidth.floatValue - self.cm_titlesWidth)/(self.cm_titles.count + 1);
         
         _cm_titleMargin = titleMargin < self.cm_minTitleMargin ? self.cm_minTitleMargin : titleMargin;
         
