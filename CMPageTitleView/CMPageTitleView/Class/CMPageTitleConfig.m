@@ -7,6 +7,17 @@
 //
 
 #import "CMPageTitleConfig.h"
+
+@interface CMPageTitleConfig ()
+
+/**视图宽度*/
+@property (nonatomic,assign) CGFloat cm_width;
+
+
+@end
+
+
+
 @implementation CMPageTitleConfig
 
 #pragma mark -- setter
@@ -20,7 +31,7 @@
     
 }
 
-- (void)setCm_contentMode:(CMPageTitleJustifyContentMode)cm_contentMode {
+- (void)setCm_contentMode:(CMPageTitleContentMode)cm_contentMode {
     
     
     _cm_contentMode = cm_contentMode;
@@ -138,12 +149,12 @@
 - (CGFloat)cm_titleMargin {
     
     
-    if (self.cm_contentMode == CMPageTitleJustifyContentMode_FlexStart) {
+    if (self.cm_contentMode == CMPageTitleContentMode_Left) {
         //左对齐
         
         
         
-    } else if (self.cm_contentMode == CMPageTitleJustifyContentMode_FlexEnd) {
+    } else if (self.cm_contentMode == CMPageTitleJustifyContentMode_Right) {
         //右对齐
         
         

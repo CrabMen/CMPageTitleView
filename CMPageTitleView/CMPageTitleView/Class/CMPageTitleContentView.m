@@ -151,22 +151,7 @@
 - (void)initContentInsets {
     
   
-    
-    if (self.config.cm_contentMode == CMPageTitleJustifyContentMode_FlexStart) {
-        //左对齐
 
-        
-        
-    } else if (self.config.cm_contentMode == CMPageTitleJustifyContentMode_FlexEnd) {
-        //右对齐
-        
-        
-        
-    }else if (self.config.cm_contentMode == CMPageTitleJustifyContentMode_Center) {
-        
-        
-        
-    }
     
     
 }
