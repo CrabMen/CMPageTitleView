@@ -28,6 +28,7 @@
     if (!_titleView) {
         _titleView = [[CMPageTitleContentView alloc] initWithConfig:self.cm_config];
         _titleView.frame = CGRectMake(0, 0, self.cm_width, self.cm_config.cm_titleHeight);
+        
         _titleView.cm_delegate = self;
     }
     return _titleView;
@@ -61,6 +62,8 @@
     
     [self addSubview:self.titleView];
     [self addSubview:self.contentView];
+    
+    [self.cm_config setValue:@(self.cm_width) forKey:@"cm_pageTitleViewWidth"];
     
     
 }
