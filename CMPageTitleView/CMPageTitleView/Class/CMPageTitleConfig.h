@@ -46,8 +46,8 @@ typedef NS_ENUM(NSUInteger,CMPageTitleJustifyContentMode) {
     CMPageTitleJustifyContentMode_FlexStart,
     CMPageTitleJustifyContentMode_FlexEnd,
     CMPageTitleJustifyContentMode_Center,
-    CMPageTitleJustifyContentMode_SpaceBetween,
-    CMPageTitleJustifyContentMode_SpaceAround
+//    CMPageTitleJustifyContentMode_SpaceBetween,
+//    CMPageTitleJustifyContentMode_SpaceAround
     
 };
 

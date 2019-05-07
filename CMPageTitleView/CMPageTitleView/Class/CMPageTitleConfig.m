@@ -9,6 +9,32 @@
 #import "CMPageTitleConfig.h"
 @implementation CMPageTitleConfig
 
+#pragma mark -- setter
+
+- (void)setCm_selectedFont:(UIFont *)cm_selectedFont {
+    
+    _cm_selectedFont = cm_selectedFont;
+    
+    self.cm_scale = self.cm_font.pointSize ? cm_selectedFont.pointSize / self.cm_font.pointSize : self.cm_scale;
+    
+    
+}
+
+- (void)setCm_contentMode:(CMPageTitleJustifyContentMode)cm_contentMode {
+    
+    
+    _cm_contentMode = cm_contentMode;
+    
+    if (self.cm_minContentWidth > [UIScreen mainScreen].bounds.size.width) {
+        _cm_contentMode = CMPageTitleJustifyContentMode_Center;
+    }
+    
+    
+}
+
+
+#pragma mark -- getter
+
 - (CGFloat)cm_titleHeight {
     
     return _cm_titleHeight ?: 44;
@@ -20,14 +46,6 @@
     
 }
 
-- (void)setCm_selectedFont:(UIFont *)cm_selectedFont {
-    
-    _cm_selectedFont = cm_selectedFont;
-    
-    self.cm_scale = self.cm_font.pointSize ? cm_selectedFont.pointSize / self.cm_font.pointSize : self.cm_scale;
-    
-    
-}
 
 - (UIColor *)cm_normalColor {
     
@@ -131,14 +149,6 @@
         
         
     }else if (self.cm_contentMode == CMPageTitleJustifyContentMode_Center) {
-        
-        
-        
-    }else if (self.cm_contentMode == CMPageTitleJustifyContentMode_SpaceBetween) {
-        
-        
-        
-    }else if (self.cm_contentMode == CMPageTitleJustifyContentMode_SpaceAround) {
         
         
         

@@ -166,14 +166,6 @@
         
         
         
-    }else if (self.config.cm_contentMode == CMPageTitleJustifyContentMode_SpaceBetween) {
-        
-        
-        
-    }else if (self.config.cm_contentMode == CMPageTitleJustifyContentMode_SpaceAround) {
-        
-        
-        
     }
     
     
