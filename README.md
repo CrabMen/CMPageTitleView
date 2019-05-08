@@ -88,7 +88,7 @@ Congratulations! You're done. 🎉
 
 ## <a id="support"></a>Support this repo
 * [**★Star**](#) this repo 
-* If you find somes bugs or need some new functions,please issue me
+* If you find somes bugs or need some new functions,please **[issue](https://github.com/CrabMen/CMPageTitleView/issues)** me
 
 ## License
 CMPageTitleView is available under the MIT license. See the LICENSE file for more info.
