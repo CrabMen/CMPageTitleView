@@ -42,10 +42,20 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 /**视图控制器数组*/
 @property (nonatomic,copy) NSArray *childControllers;
 
+/**个数较少的视图控制器数组*/
+@property (nonatomic,strong) NSArray *lessChildControllers;
+
 
 @end
 
 @implementation CMViewController
+
+- (NSArray *)lessChildControllers {
+    
+    return [self.childControllers subarrayWithRange:NSMakeRange(0, 3)];
+    
+    
+}
 
 - (NSArray *)childControllers {
     
@@ -88,10 +98,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         vc10.view.backgroundColor = CM_RANDOM_COLOR;
         
 
-//        _childControllers =@[vc0,vc1,vc2,vc3,vc4,vc5,vc6,vc7];
-        
-        _childControllers =@[vc0,vc1,vc2];
-
+        _childControllers =@[vc0,vc1,vc2,vc3,vc4,vc5,vc6,vc7];
         
     }
     
@@ -126,14 +133,12 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         
     }];
     
-    
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     config.cm_selectedFont = [UIFont systemFontOfSize:18];
-    config.cm_contentMode = CMPageTitleContentMode_Left;
     
     config.cm_splitterColor = [UIColor blackColor];
     config.cm_splitterSize =CGSizeMake(2, config.cm_titleHeight);
@@ -157,7 +162,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_scale = 1.2;
-    config.cm_contentMode = CMPageTitleJustifyContentMode_Right;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
     pageView.cm_config = config;
@@ -547,6 +551,113 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     pageView.cm_config = config;
     
 }
+
+- (void)style19 {
+    
+    
+    
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
+
+    pageView.delegate = self;
+    
+    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    config.cm_childControllers = self.lessChildControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_SeperateLine;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    config.cm_selectedFont = [UIFont systemFontOfSize:18];
+    config.cm_contentMode = CMPageTitleContentMode_Left;
+    
+    pageView.cm_config = config;
+    
+}
+
+- (void)style20 {
+    
+    
+    
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
+    
+    pageView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    config.cm_childControllers = self.lessChildControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_SeperateLine;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    config.cm_selectedFont = [UIFont systemFontOfSize:18];
+    config.cm_contentMode = CMPageTitleJustifyContentMode_Right;
+
+    pageView.cm_config = config;
+    
+}
+
+- (void)style21 {
+    
+    
+    
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
+    
+    pageView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    config.cm_contentMode = CMPageTitleJustifyContentMode_Center;
+    config.cm_childControllers = self.lessChildControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_SeperateLine;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    config.cm_selectedFont = [UIFont systemFontOfSize:18];
+
+    pageView.cm_config = config;
+    
+}
+
+- (void)style22 {
+    
+    
+    
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
+    
+    pageView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    config.cm_contentMode = CMPageTitleJustifyContentMode_SpaceAround;
+    config.cm_childControllers = self.lessChildControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_SeperateLine;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    config.cm_selectedFont = [UIFont systemFontOfSize:18];
+    
+    pageView.cm_config = config;
+    
+}
+
+
 
 
 

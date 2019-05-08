@@ -141,7 +141,7 @@
 
 - (void)initSubViews {
     
-//   self.contentInset = UIEdgeInsetsMake(0, 0, 0, self.config.cm_titleMargin);
+   self.contentInset = UIEdgeInsetsMake(0, 0, 0, self.config.cm_titleMargin);
 
     [self initTitleLabels];
     [self initSepereateLines];
@@ -187,8 +187,6 @@
                 
             }
             
-           
-            
         } else {
         
             labelX =  self.config.cm_titleMargin + CGRectGetMaxX(lastLabel.frame);
@@ -208,7 +206,7 @@
     
     switch (self.config.cm_contentMode) {
         case CMPageTitleJustifyContentMode_SpaceAround:
-            self.contentSize = CGSizeMake(CGRectGetMaxX([self.titleLabels.lastObject frame]) + self.config.cm_titleMargin * 0.5, 0);
+            self.contentSize = CGSizeMake(CGRectGetMaxX([self.titleLabels.lastObject frame]) - self.config.cm_titleMargin * 0.5, 0);
 
             break;
         case CMPageTitleContentMode_Left:
@@ -220,7 +218,7 @@
 
             break;
         case CMPageTitleJustifyContentMode_Center:
-            self.contentSize = CGSizeMake(CGRectGetMaxX([self.titleLabels.lastObject frame]) + self.config.cm_titleMargin, 0);
+            self.contentSize = CGSizeMake(CGRectGetMaxX([self.titleLabels.lastObject frame]), 0);
 
             break;
             
