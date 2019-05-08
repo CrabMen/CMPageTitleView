@@ -42,10 +42,11 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 };
 
 typedef NS_ENUM(NSUInteger,CMPageTitleContentMode) {
-
+    CMPageTitleJustifyContentMode_SpaceAround,
     CMPageTitleContentMode_Left,
     CMPageTitleJustifyContentMode_Right,
     CMPageTitleJustifyContentMode_Center,
+    
 
     
 };
@@ -262,11 +263,6 @@ typedef struct CMEdgeHoriziontalInsets{
  
  */
 @property (nonatomic,assign) CMPageTitleContentMode cm_contentMode;
-
-
-/**内边距*/
-@property (nonatomic,assign) CMEdgeHoriziontalInsets cm_horiziontalInsets;
-
 
 
 

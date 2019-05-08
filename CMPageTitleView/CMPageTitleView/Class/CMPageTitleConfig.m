@@ -22,12 +22,6 @@
 
 #pragma mark -- setter
 
-- (void)setCm_pageTitleViewWidth:(NSNumber *)cm_pageTitleViewWidth {
-    
-    
-    _cm_pageTitleViewWidth = cm_pageTitleViewWidth;
-    
-}
 
 - (void)setCm_selectedFont:(UIFont *)cm_selectedFont {
     
@@ -38,17 +32,20 @@
     
 }
 
-- (void)setCm_contentMode:(CMPageTitleContentMode)cm_contentMode {
+- (void)setCm_pageTitleViewWidth:(NSNumber *)cm_pageTitleViewWidth {
     
+    _cm_pageTitleViewWidth = cm_pageTitleViewWidth;
     
-    _cm_contentMode = cm_contentMode;
-    
-    if (self.cm_minContentWidth > self.cm_pageTitleViewWidth.floatValue) {
-        _cm_contentMode = CMPageTitleJustifyContentMode_Center;
+    if (self.cm_minContentWidth > _cm_pageTitleViewWidth.floatValue) {
+        //如果理论最小宽度已经大于视图宽度，对齐样式自动变成居中样式
+        if (self.cm_contentMode == CMPageTitleContentMode_Left || self.cm_contentMode == CMPageTitleJustifyContentMode_Right) {
+            self.cm_contentMode = CMPageTitleJustifyContentMode_Center;
+            
+        }
     }
     
-    
 }
+
 
 
 #pragma mark -- getter
@@ -154,7 +151,10 @@
 
 - (CGFloat)cm_minContentWidth {
     
-    return self.cm_horiziontalInsets.left + self.cm_horiziontalInsets.right + self.cm_titlesWidth + (self.cm_titles.count + 1) * self.cm_minTitleMargin;
+    NSUInteger count = self.cm_contentMode == CMPageTitleJustifyContentMode_Center ? self.cm_titles.count + 1 : self.cm_titles.count;
+
+    
+    return  self.cm_titlesWidth + count * self.cm_minTitleMargin;
     
 }
 
@@ -164,32 +164,30 @@
     
     if (self.cm_contentMode == CMPageTitleContentMode_Left) {
         //左对齐
-        
-        
+       
+         _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
         
     } else if (self.cm_contentMode == CMPageTitleJustifyContentMode_Right) {
         //右对齐
         
+         _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
         
-        
-    }else if (self.cm_contentMode == CMPageTitleJustifyContentMode_Center) {
-        
-        
-        
+    }else if (self.cm_contentMode == CMPageTitleJustifyContentMode_Center || self.cm_contentMode == CMPageTitleJustifyContentMode_SpaceAround) {
+       
+        if (self.cm_titlesWidth  >= self.cm_pageTitleViewWidth.floatValue) {
+            _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
+            
+        } else {
+            
+            NSUInteger count = self.cm_contentMode == CMPageTitleJustifyContentMode_Center ? self.cm_titles.count + 1 : self.cm_titles.count;
+            
+            CGFloat titleMargin = (self.cm_pageTitleViewWidth.floatValue - self.cm_titlesWidth )/count;
+            
+            _cm_titleMargin = titleMargin < self.cm_minTitleMargin ? self.cm_minTitleMargin : titleMargin;
+            
+        }
     }
-    
-    
-    if (self.cm_titlesWidth  >= self.cm_pageTitleViewWidth.floatValue) {
-        _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
-        
-    } else {
-        
-        CGFloat titleMargin = (self.cm_pageTitleViewWidth.floatValue - self.cm_titlesWidth)/(self.cm_titles.count + 1);
-        
-        _cm_titleMargin = titleMargin < self.cm_minTitleMargin ? self.cm_minTitleMargin : titleMargin;
-        
-    }
-    
+
     return _cm_titleMargin;
 }
 

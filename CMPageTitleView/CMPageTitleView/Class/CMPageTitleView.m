@@ -60,10 +60,11 @@
    
     self.backgroundColor = self.cm_config.cm_seperaterLineColor;
     
+    [self.cm_config setValue:@(self.cm_width) forKey:@"cm_pageTitleViewWidth"];
+
     [self addSubview:self.titleView];
     [self addSubview:self.contentView];
     
-    [self.cm_config setValue:@(self.cm_width) forKey:@"cm_pageTitleViewWidth"];
     
     
 }

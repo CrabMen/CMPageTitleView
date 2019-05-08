@@ -88,7 +88,10 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         vc10.view.backgroundColor = CM_RANDOM_COLOR;
         
 
-        _childControllers =@[vc0,vc1,vc2,vc3,vc4,vc5,vc6,vc7];
+//        _childControllers =@[vc0,vc1,vc2,vc3,vc4,vc5,vc6,vc7];
+        
+        _childControllers =@[vc0,vc1,vc2];
+
         
     }
     
@@ -130,6 +133,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     config.cm_selectedFont = [UIFont systemFontOfSize:18];
+    config.cm_contentMode = CMPageTitleContentMode_Left;
     
     config.cm_splitterColor = [UIColor blackColor];
     config.cm_splitterSize =CGSizeMake(2, config.cm_titleHeight);
@@ -153,6 +157,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_scale = 1.2;
+    config.cm_contentMode = CMPageTitleJustifyContentMode_Right;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
     pageView.cm_config = config;
