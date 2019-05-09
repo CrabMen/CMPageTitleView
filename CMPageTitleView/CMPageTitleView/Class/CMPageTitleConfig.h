@@ -2,7 +2,10 @@
 //  CMPageTitleConfig.h
 //  CMPageTitleView
 //
-//  Created by 智借iOS on 2019/3/25.
+//  GitHub 下载地址：https://github.com/CrabMen/CMPageTitleView
+//
+
+//  Created by CrabMan on 2019/3/25.
 //  Copyright © 2019 CrabMan. All rights reserved.
 //
 
@@ -33,24 +36,42 @@ typedef NS_OPTIONS(NSUInteger,CMPageTitleSwitchModeOptions) {
 typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
     /**rgb颜色渐变*/
     CMTitleColorGradientStyle_RGB = 0,
+    
     /**填充色颜色渐变*/
     CMTitleColorGradientStyle_Fill = 1,
+    
     /**颜色非渐变*/
     CMTitleColorGradientStyle_None = 2
 
     
 };
 
-typedef NS_ENUM(NSUInteger,CMPageTitleViewContentMode) {
-
-    CMPageTitleViewContentMode_Center,
-    CMPageTitleViewContentMode_Left,
-    CMPageTitleViewContentMode_Right
+typedef NS_ENUM(NSUInteger,CMPageTitleContentMode) {
+    /**左右边距与标题间距一致*/
+    CMPageTitleContentMode_Center,
     
+    /**左右边距等于标题间距的一半*/
+    CMPageTitleContentMode_SpaceAround,
+    
+    /**左对齐*/
+    CMPageTitleContentMode_Left,
+    
+    /**右对齐*/
+    CMPageTitleContentMode_Right
     
 };
 
 @interface CMPageTitleConfig : NSObject
+
+/**子视图控制器数组*/
+@property (nonatomic,copy) NSArray *cm_childControllers;
+
+
+/**标题数组
+ 默认为cm_childControllers 的 title
+ */
+@property (nonatomic,copy) NSArray *cm_titles;
+
 
 /**
  标题正常字体
@@ -85,6 +106,9 @@ typedef NS_ENUM(NSUInteger,CMPageTitleViewContentMode) {
  */
 @property (nonatomic,assign) CGFloat cm_titleHeight;
 
+/**是否支持侧滑*/
+@property (nonatomic,assign) BOOL cm_slideGestureEnable;
+
 
 
 /**颜色渐变样式
@@ -102,6 +126,13 @@ typedef NS_ENUM(NSUInteger,CMPageTitleViewContentMode) {
  */
 @property (nonatomic,assign) CGFloat cm_titleMargin;
 
+
+/**最小的标题间距
+ 默认值为 20
+ */
+@property (nonatomic,assign) CGFloat cm_minTitleMargin;
+
+
 /**
  默认选择的index
  */
@@ -118,13 +149,17 @@ typedef NS_ENUM(NSUInteger,CMPageTitleViewContentMode) {
  */
 @property (nonatomic,assign) CGFloat cm_seperateLineHeight;
 
-/**标题数组
- 默认为cm_childControllers 的 title
- */
-@property (nonatomic,copy) NSArray *cm_titles;
 
-/**子视图控制器数组*/
-@property (nonatomic,copy) NSArray *cm_childControllers;
+/**标题之间的分割线*/
+@property (nonatomic,strong) UIColor *cm_splitterColor;
+
+
+/**标题之间的分割线*/
+@property (nonatomic,assign) CGSize cm_splitterSize;
+
+
+/**对齐方式 */
+@property (nonatomic,assign) CMPageTitleContentMode cm_contentMode;
 
 
 
@@ -224,27 +259,15 @@ typedef NS_ENUM(NSUInteger,CMPageTitleViewContentMode) {
 @property (nonatomic,strong,readonly) NSArray *cm_titleWidths;
 
 /**
+ 标题的总宽度 + 左右边距 + 所有的标题最小间距
+ */
+@property (nonatomic,assign,readonly) CGFloat cm_minContentWidth;
+
+
+/**
  所有标题的总宽度
  */
-@property (nonatomic,assign,readonly) CGFloat cm_totalWidth;
-
-
-
-/**分割线颜色*/
-@property (nonatomic,strong) UIColor *cm_splitterColor;
-
-
-/**分割线大小*/
-@property (nonatomic,assign) CGSize cm_splitterSize;
-
-
-/**对齐方式*/
-@property (nonatomic,assign) CMPageTitleViewContentMode *cm_contentMode;
-
-
-/**内边距*/
-@property (nonatomic,assign) UIEdgeInsets cm_conentInset;
-
+@property (nonatomic,assign,readonly) CGFloat cm_titlesWidth;
 
 
 
@@ -296,7 +319,6 @@ CG_EXTERN CGFloat CMColorGetA(UIColor *color);
  @return 返回该字符串的宽度
  */
 CG_EXTERN CGFloat CMStringWidth(NSString *string ,UIFont *font);
-
 
 
 

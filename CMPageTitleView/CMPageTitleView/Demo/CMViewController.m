@@ -2,7 +2,7 @@
 //  CMViewController.m
 //  CMPageTitleView
 //
-//  Created by 智借iOS on 2019/4/10.
+//  Created by CrabMan on 2019/4/10.
 //  Copyright © 2019 CrabMan. All rights reserved.
 //
 
@@ -42,10 +42,20 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 /**视图控制器数组*/
 @property (nonatomic,copy) NSArray *childControllers;
 
+/**个数较少的视图控制器数组*/
+@property (nonatomic,strong) NSArray *lessChildControllers;
+
 
 @end
 
 @implementation CMViewController
+
+- (NSArray *)lessChildControllers {
+    
+    return [self.childControllers subarrayWithRange:NSMakeRange(0, 3)];
+    
+    
+}
 
 - (NSArray *)childControllers {
     
@@ -123,14 +133,13 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         
     }];
     
-    
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     config.cm_selectedFont = [UIFont systemFontOfSize:18];
-    
+    config.cm_contentMode = CMPageTitleContentMode_Center;
     config.cm_splitterColor = [UIColor blackColor];
     config.cm_splitterSize =CGSizeMake(2, config.cm_titleHeight);
     pageView.cm_config = config;
@@ -543,11 +552,118 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
 }
 
-
-
-- (void)cm_pageTitleViewClickWithIndex:(NSInteger)index Repeat:(BOOL)repeat {
+- (void)style19 {
     
-NSLog(@"第%ld个标题被点击；且%@是重复点击",index,repeat?@"":@"不");
+    
+    
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
+
+    pageView.delegate = self;
+    
+    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    config.cm_childControllers = self.lessChildControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_SeperateLine;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    config.cm_selectedFont = [UIFont systemFontOfSize:18];
+    config.cm_contentMode = CMPageTitleContentMode_Left;
+    
+    pageView.cm_config = config;
+    
+}
+
+- (void)style20 {
+    
+    
+    
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
+    
+    pageView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    config.cm_childControllers = self.lessChildControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_SeperateLine;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    config.cm_selectedFont = [UIFont systemFontOfSize:18];
+    config.cm_contentMode = CMPageTitleContentMode_Right;
+
+    pageView.cm_config = config;
+    
+}
+
+- (void)style21 {
+    
+    
+    
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
+    
+    pageView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    config.cm_contentMode = CMPageTitleContentMode_Center;
+    config.cm_childControllers = self.lessChildControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_SeperateLine;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    config.cm_selectedFont = [UIFont systemFontOfSize:18];
+
+    pageView.cm_config = config;
+    
+}
+
+- (void)style22 {
+    
+    
+    
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+    
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
+    
+    pageView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    config.cm_contentMode = CMPageTitleContentMode_SpaceAround;
+    config.cm_childControllers = self.lessChildControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_SeperateLine;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    config.cm_selectedFont = [UIFont systemFontOfSize:18];
+    config.cm_slideGestureEnable = NO;
+    pageView.cm_config = config;
+    
+}
+
+
+
+
+
+- (void)cm_pageTitleViewSelectedWithIndex:(NSInteger)index Repeat:(BOOL)repeat {
+    
+NSLog(@"第%ld个标题被选中；且%@是重复选中",index,repeat?@"":@"不");
     
 }
 

@@ -2,6 +2,9 @@
 //  CMPageTitleView.m
 //  CMDisplayTitleView
 //
+//  GitHub 下载地址：https://github.com/CrabMen/CMPageTitleView
+//
+
 //  Created by CrabMan on 2018/1/15.
 //  Copyright © 2018年 Mac. All rights reserved.
 //
@@ -9,7 +12,7 @@
 #import "CMPageTitleView.h"
 #import "CMPageTitleContentView.h"
 #import "CMPageContentView.h"
-#import "CMFlowLayout.h"
+#import "CMPageTitleViewMacro.h"
 
 @interface CMPageTitleView() <CMPageTitleContentViewDelegate,CMPageContentViewDelegate>
 
@@ -28,6 +31,7 @@
     if (!_titleView) {
         _titleView = [[CMPageTitleContentView alloc] initWithConfig:self.cm_config];
         _titleView.frame = CGRectMake(0, 0, self.cm_width, self.cm_config.cm_titleHeight);
+        
         _titleView.cm_delegate = self;
     }
     return _titleView;
@@ -57,10 +61,15 @@
 
 - (void)initSubViews {
    
+    CMPageErrorAssert(self.cm_config != nil, @"cm_config属性不能为空");
+
     self.backgroundColor = self.cm_config.cm_seperaterLineColor;
     
+    [self.cm_config setValue:@(self.cm_width) forKey:@"cm_pageTitleViewWidth"];
+
     [self addSubview:self.titleView];
     [self addSubview:self.contentView];
+    
     
     
 }
@@ -70,8 +79,12 @@
 - (void)cm_pageTitleContentViewClickWithIndex:(NSUInteger)index Repeat:(BOOL)repeat {
     
     if (self.delegate) {
-        [self.delegate cm_pageTitleViewClickWithIndex:index Repeat:repeat];
+        [self.delegate cm_pageTitleViewSelectedWithIndex:index Repeat:repeat];
+        [self.delegate cm_pageTitleViewClickWithIndex:index Repeat:YES];
+
     }
+    
+    
     //获取子视图控制器 切换
     if (!repeat)  [self.contentView setContentOffset:CGPointMake(index * self.cm_width, 0)];
 
@@ -90,6 +103,11 @@
 - (void)cm_pageContentViewDidEndDeceleratingWithIndex:(NSInteger)index {
     
     self.titleView.cm_selectedIndex = index;
+    
+    if (self.delegate) {
+        [self.delegate cm_pageTitleViewScrollToIndex:index];
+        
+    }
     
 }
 

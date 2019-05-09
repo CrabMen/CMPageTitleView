@@ -2,7 +2,7 @@
 //  CMMainTableController.m
 //  CMPageTitleView
 //
-//  Created by 智借iOS on 2019/4/10.
+//  Created by CrabMan on 2019/4/10.
 //  Copyright © 2019 CrabMan. All rights reserved.
 //
 
@@ -40,7 +40,11 @@
                         @"混合样式 - 字体放大/下划线 - 填充色渐变",
                         @"下划线 - 动态宽度(比例)",
                         @"下划线 - 动态宽度(比例) - 拉伸效果",
-                        @"分割线"
+                        @"分割线",
+                        @"对齐方式 -- 左对齐",
+                        @"对齐方式 -- 右对齐",
+                        @"对齐方式 -- 居中",
+                        @"对齐方式 -- SpaceBetween",
                         ];
     }
     

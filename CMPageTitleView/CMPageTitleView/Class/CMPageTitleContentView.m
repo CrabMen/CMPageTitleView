@@ -2,12 +2,14 @@
 //  CMPageTitleContentView.m
 //  CMDisplayTitleView
 //
+//  GitHub 下载地址：https://github.com/CrabMen/CMPageTitleView
+//
+
 //  Created by CrabMan on 2018/1/15.
 //  Copyright © 2018年 CrabMan. All rights reserved.
 //
 
 #import "CMPageTitleContentView.h"
-#import "CMDisplayTitleLabel.h"
 
 @interface CMPageTitleContentView ()
 
@@ -116,8 +118,11 @@
 - (instancetype)initWithConfig:(CMPageTitleConfig *)config {
     
     if (self = [super init]) {
-        self.backgroundColor = [UIColor whiteColor];
         self.config = config;
+
+        self.backgroundColor = self.config.cm_backgroundColor;
+        self.showsVerticalScrollIndicator = NO;
+        self.showsHorizontalScrollIndicator = NO;
         
         [self initSubViews];
     }
@@ -138,9 +143,8 @@
 
 - (void)initSubViews {
     
-    self.showsVerticalScrollIndicator = NO;
-    self.showsHorizontalScrollIndicator = NO;
-    self.contentInset = UIEdgeInsetsMake(0, 0, 0, -self.config.cm_titleMargin);
+   self.contentInset = UIEdgeInsetsMake(0, 0, 0, self.config.cm_titleMargin);
+
     [self initTitleLabels];
     [self initSepereateLines];
     
@@ -161,7 +165,26 @@
         label.lineBreakMode = NSLineBreakByWordWrapping;
         
         UILabel *lastLabel = [self.titleLabels lastObject];
-        labelX = self.config.cm_titleMargin + CGRectGetMaxX(lastLabel.frame);
+        if (i == 0 ) {
+            if (self.config.cm_contentMode == CMPageTitleContentMode_Right) {
+                 labelX = [[self.config valueForKey:@"cm_pageTitleViewWidth"] floatValue] - self.config.cm_titleMargin * self.config.cm_titles.count - self.config.cm_titlesWidth;
+            } else if (self.config.cm_contentMode == CMPageTitleContentMode_SpaceAround) {
+                
+                
+                labelX = self.config.cm_titleMargin * 0.5;
+                
+            } else {
+                
+                labelX =  self.config.cm_titleMargin;
+
+                
+            }
+            
+        } else {
+        
+            labelX =  self.config.cm_titleMargin + CGRectGetMaxX(lastLabel.frame);
+            
+        }
         labelW = [self.config.cm_titleWidths[i] floatValue];
         label.frame = CGRectMake(labelX, 0, labelW, self.config.cm_titleHeight);
         label.userInteractionEnabled = YES;
@@ -174,8 +197,29 @@
     }
     
     
+    switch (self.config.cm_contentMode) {
+        case CMPageTitleContentMode_SpaceAround:
+            self.contentSize = CGSizeMake(CGRectGetMaxX([self.titleLabels.lastObject frame]) - self.config.cm_titleMargin * 0.5, 0);
+
+            break;
+        case CMPageTitleContentMode_Left:
+            self.contentSize = self.bounds.size;
+
+            break;
+        case CMPageTitleContentMode_Right:
+            self.contentSize = self.bounds.size;
+
+            break;
+        case CMPageTitleContentMode_Center:
+            self.contentSize = CGSizeMake(CGRectGetMaxX([self.titleLabels.lastObject frame]), 0);
+
+            break;
+            
+        default:
+            break;
+    }
+    
      //设置scrollView的contentSize
-    self.contentSize = CGSizeMake(CGRectGetMaxX([self.titleLabels.lastObject frame]), 0);
     
 
 }
@@ -322,6 +366,9 @@
  让选中的按钮居中显示
  */
 - (void)setLabelTitleCenter:(UILabel *)label {
+    
+    
+    if (self.contentSize.width <= self.cm_width) return;
     
 
     CGFloat offsetX = label.center.x - self.cm_width * 0.5;
@@ -517,5 +564,38 @@
 }
 
 
+
+@end
+
+
+
+@implementation CMDisplayTitleLabel
+
+-(void)drawRect:(CGRect)rect {
+    [super drawRect: rect];
+    
+    [_cm_fillColor set];
+    
+    rect.size.width = rect.size.width *_cm_progress;
+    
+    UIRectFillUsingBlendMode(rect, kCGBlendModeSourceIn);
+    
+}
+
+-(instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame] ) {
+        self.userInteractionEnabled = YES;
+        
+        self.textAlignment = NSTextAlignmentCenter;
+    }
+    return self;
+}
+
+- (void)setCm_progress:(CGFloat)cm_progress {
+    _cm_progress  = cm_progress;
+    
+    [self setNeedsDisplay];
+    
+}
 
 @end

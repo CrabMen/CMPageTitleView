@@ -2,6 +2,9 @@
 //  CMPageTitleContentView.h
 //  CMDisplayTitleView
 //
+//  GitHub 下载地址：https://github.com/CrabMen/CMPageTitleView
+//
+
 //  Created by CrabMan on 2018/1/15.
 //  Copyright © 2018年 CrabMan. All rights reserved.
 //
@@ -62,5 +65,15 @@
 
 
 
+
+@end
+
+
+
+
+@interface CMDisplayTitleLabel : UILabel
+
+@property (nonatomic,assign) CGFloat cm_progress;
+@property (nonatomic,strong) UIColor *cm_fillColor;
 
 @end

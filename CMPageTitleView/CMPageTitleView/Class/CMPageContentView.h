@@ -2,6 +2,9 @@
 //  CMPageContentView.h
 //  CMDisplayTitleView
 //
+//  GitHub 下载地址：https://github.com/CrabMen/CMPageTitleView
+//
+
 //  Created by CrabMan on 2018/1/15.
 //  Copyright © 2018年 Mac. All rights reserved.
 //
@@ -63,3 +66,10 @@
 
 @end
 
+
+
+
+@interface CMFlowLayout : UICollectionViewFlowLayout
+
+
+@end
