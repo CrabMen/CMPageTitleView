@@ -653,7 +653,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     config.cm_selectedFont = [UIFont systemFontOfSize:18];
     config.cm_slideGestureEnable = NO;
-    pageView.cm_config = config;
+//    pageView.cm_config = config;
     
 }
 
@@ -661,9 +661,9 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 
 
-- (void)cm_pageTitleViewClickWithIndex:(NSInteger)index Repeat:(BOOL)repeat {
+- (void)cm_pageTitleViewSelectedWithIndex:(NSInteger)index Repeat:(BOOL)repeat {
     
-NSLog(@"第%ld个标题被点击；且%@是重复点击",index,repeat?@"":@"不");
+NSLog(@"第%ld个标题被选中；且%@是重复选中",index,repeat?@"":@"不");
     
 }
 

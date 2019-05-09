@@ -17,14 +17,26 @@
 @property (nonatomic,strong) NSNumber *cm_pageTitleViewWidth;
 
 
+/**cm_slideGestureEnable对应的nsnumber类型*/
+@property (nonatomic,strong) NSNumber *cm_slideGestureEnableNumber;
+
+
 @end
-
-
 
 @implementation CMPageTitleConfig
 
+@synthesize cm_slideGestureEnable = _cm_slideGestureEnable;
+
+
 #pragma mark -- setter
 
+- (void)setCm_slideGestureEnable:(BOOL)cm_slideGestureEnable {
+    
+    _cm_slideGestureEnable = cm_slideGestureEnable;
+    
+    self.cm_slideGestureEnableNumber = @(cm_slideGestureEnable);
+    
+}
 
 - (void)setCm_selectedFont:(UIFont *)cm_selectedFont {
     
@@ -54,8 +66,17 @@
 #pragma mark -- getter
 
 - (BOOL)cm_slideGestureEnable {
+    [self cm_slideGestureEnableNumber];
     
-    return _cm_slideGestureEnable ?: YES;
+    return _cm_slideGestureEnable;
+}
+
+- (NSNumber *)cm_slideGestureEnableNumber {
+    
+    _cm_slideGestureEnable = _cm_slideGestureEnableNumber ? [_cm_slideGestureEnableNumber boolValue] : YES;
+    
+    return _cm_slideGestureEnableNumber;
+    
 }
 
 - (CGFloat)cm_titleHeight {
@@ -121,7 +142,7 @@
 - (NSArray *)cm_titles {
     
     CMPageErrorAssert(self.cm_childControllers != nil, @"cm_childControllers属性未赋值");
-    CMPageErrorAssert(self.cm_childControllers.count == 0, @"cm_childControllers数组个数不能为空");
+    CMPageErrorAssert(self.cm_childControllers.count != 0, @"cm_childControllers数组个数不能为空");
 
     NSArray *titles = [self.cm_childControllers valueForKey:@"title"];
     

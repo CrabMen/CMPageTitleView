@@ -12,6 +12,7 @@
 #import "CMPageTitleView.h"
 #import "CMPageTitleContentView.h"
 #import "CMPageContentView.h"
+#import "CMPageTitleViewMacro.h"
 
 @interface CMPageTitleView() <CMPageTitleContentViewDelegate,CMPageContentViewDelegate>
 
@@ -60,6 +61,8 @@
 
 - (void)initSubViews {
    
+    CMPageErrorAssert(self.cm_config != nil, @"cm_config属性不能为空");
+
     self.backgroundColor = self.cm_config.cm_seperaterLineColor;
     
     [self.cm_config setValue:@(self.cm_width) forKey:@"cm_pageTitleViewWidth"];
@@ -76,8 +79,12 @@
 - (void)cm_pageTitleContentViewClickWithIndex:(NSUInteger)index Repeat:(BOOL)repeat {
     
     if (self.delegate) {
-        [self.delegate cm_pageTitleViewClickWithIndex:index Repeat:repeat];
+        [self.delegate cm_pageTitleViewSelectedWithIndex:index Repeat:repeat];
+        [self.delegate cm_pageTitleViewClickWithIndex:index Repeat:YES];
+
     }
+    
+    
     //获取子视图控制器 切换
     if (!repeat)  [self.contentView setContentOffset:CGPointMake(index * self.cm_width, 0)];
 
@@ -96,6 +103,11 @@
 - (void)cm_pageContentViewDidEndDeceleratingWithIndex:(NSInteger)index {
     
     self.titleView.cm_selectedIndex = index;
+    
+    if (self.delegate) {
+        [self.delegate cm_pageTitleViewScrollToIndex:index];
+        
+    }
     
 }
 
