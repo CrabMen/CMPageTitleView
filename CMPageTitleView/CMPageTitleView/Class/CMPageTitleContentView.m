@@ -2,12 +2,14 @@
 //  CMPageTitleContentView.m
 //  CMDisplayTitleView
 //
+//  GitHub 下载地址：https://github.com/CrabMen/CMPageTitleView
+//
+
 //  Created by CrabMan on 2018/1/15.
 //  Copyright © 2018年 CrabMan. All rights reserved.
 //
 
 #import "CMPageTitleContentView.h"
-#import "CMDisplayTitleLabel.h"
 
 @interface CMPageTitleContentView ()
 
@@ -148,15 +150,6 @@
     
 }
 
-- (void)initContentInsets {
-    
-  
-
-    
-    
-}
-
-
 - (void)initTitleLabels {
     
     CGFloat labelX = 0;
@@ -173,9 +166,9 @@
         
         UILabel *lastLabel = [self.titleLabels lastObject];
         if (i == 0 ) {
-            if (self.config.cm_contentMode == CMPageTitleJustifyContentMode_Right) {
+            if (self.config.cm_contentMode == CMPageTitleContentMode_Right) {
                  labelX = [[self.config valueForKey:@"cm_pageTitleViewWidth"] floatValue] - self.config.cm_titleMargin * self.config.cm_titles.count - self.config.cm_titlesWidth;
-            } else if (self.config.cm_contentMode == CMPageTitleJustifyContentMode_SpaceAround) {
+            } else if (self.config.cm_contentMode == CMPageTitleContentMode_SpaceAround) {
                 
                 
                 labelX = self.config.cm_titleMargin * 0.5;
@@ -205,7 +198,7 @@
     
     
     switch (self.config.cm_contentMode) {
-        case CMPageTitleJustifyContentMode_SpaceAround:
+        case CMPageTitleContentMode_SpaceAround:
             self.contentSize = CGSizeMake(CGRectGetMaxX([self.titleLabels.lastObject frame]) - self.config.cm_titleMargin * 0.5, 0);
 
             break;
@@ -213,11 +206,11 @@
             self.contentSize = self.bounds.size;
 
             break;
-        case CMPageTitleJustifyContentMode_Right:
+        case CMPageTitleContentMode_Right:
             self.contentSize = self.bounds.size;
 
             break;
-        case CMPageTitleJustifyContentMode_Center:
+        case CMPageTitleContentMode_Center:
             self.contentSize = CGSizeMake(CGRectGetMaxX([self.titleLabels.lastObject frame]), 0);
 
             break;
@@ -571,5 +564,38 @@
 }
 
 
+
+@end
+
+
+
+@implementation CMDisplayTitleLabel
+
+-(void)drawRect:(CGRect)rect {
+    [super drawRect: rect];
+    
+    [_cm_fillColor set];
+    
+    rect.size.width = rect.size.width *_cm_progress;
+    
+    UIRectFillUsingBlendMode(rect, kCGBlendModeSourceIn);
+    
+}
+
+-(instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame] ) {
+        self.userInteractionEnabled = YES;
+        
+        self.textAlignment = NSTextAlignmentCenter;
+    }
+    return self;
+}
+
+- (void)setCm_progress:(CGFloat)cm_progress {
+    _cm_progress  = cm_progress;
+    
+    [self setNeedsDisplay];
+    
+}
 
 @end

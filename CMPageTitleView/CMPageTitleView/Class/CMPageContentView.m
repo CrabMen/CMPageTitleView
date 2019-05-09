@@ -2,6 +2,9 @@
 //  CMPageContentView.m
 //  CMDisplayTitleView
 //
+//  GitHub 下载地址：https://github.com/CrabMen/CMPageTitleView
+//
+
 //  Created by CrabMan on 2018/1/15.
 //  Copyright © 2018年 Mac. All rights reserved.
 //
@@ -31,6 +34,7 @@
         self.showsHorizontalScrollIndicator = NO;
         self.showsVerticalScrollIndicator = NO;
         self.bounces = NO;
+        self.scrollEnabled = self.config.cm_slideGestureEnable;
     }
     return self;
 }
@@ -134,4 +138,24 @@
 }
 
 
+@end
+
+
+
+@implementation CMFlowLayout
+
+-(void)prepareLayout {
+    [super prepareLayout];
+    
+    
+    self.minimumInteritemSpacing = 0;
+    self.minimumLineSpacing = 0;
+    if (self.collectionView.bounds.size.height) {
+        
+        self.itemSize = self.collectionView.bounds.size;
+    }
+    
+    self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    
+}
 @end

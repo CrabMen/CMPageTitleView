@@ -2,7 +2,10 @@
 //  CMPageTitleConfig.h
 //  CMPageTitleView
 //
-//  Created by 智借iOS on 2019/3/25.
+//  GitHub 下载地址：https://github.com/CrabMen/CMPageTitleView
+//
+
+//  Created by CrabMan on 2019/3/25.
 //  Copyright © 2019 CrabMan. All rights reserved.
 //
 
@@ -33,8 +36,10 @@ typedef NS_OPTIONS(NSUInteger,CMPageTitleSwitchModeOptions) {
 typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
     /**rgb颜色渐变*/
     CMTitleColorGradientStyle_RGB = 0,
+    
     /**填充色颜色渐变*/
     CMTitleColorGradientStyle_Fill = 1,
+    
     /**颜色非渐变*/
     CMTitleColorGradientStyle_None = 2
 
@@ -42,23 +47,31 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
 };
 
 typedef NS_ENUM(NSUInteger,CMPageTitleContentMode) {
-    CMPageTitleJustifyContentMode_SpaceAround,
-    CMPageTitleContentMode_Left,
-    CMPageTitleJustifyContentMode_Right,
-    CMPageTitleJustifyContentMode_Center,
+    /**左右边距与标题间距一致*/
+    CMPageTitleContentMode_Center,
     
-
+    /**左右边距等于标题间距的一半*/
+    CMPageTitleContentMode_SpaceAround,
+    
+    /**左对齐*/
+    CMPageTitleContentMode_Left,
+    
+    /**右对齐*/
+    CMPageTitleContentMode_Right
     
 };
 
-
-typedef struct CMEdgeHoriziontalInsets{
-    
-    CGFloat left,right;
-    
-}CMEdgeHoriziontalInsets;
-
 @interface CMPageTitleConfig : NSObject
+
+/**子视图控制器数组*/
+@property (nonatomic,copy) NSArray *cm_childControllers;
+
+
+/**标题数组
+ 默认为cm_childControllers 的 title
+ */
+@property (nonatomic,copy) NSArray *cm_titles;
+
 
 /**
  标题正常字体
@@ -92,6 +105,9 @@ typedef struct CMEdgeHoriziontalInsets{
  默认为44
  */
 @property (nonatomic,assign) CGFloat cm_titleHeight;
+
+/**是否支持侧滑*/
+@property (nonatomic,assign) BOOL cm_slideGestureEnable;
 
 
 
@@ -133,13 +149,17 @@ typedef struct CMEdgeHoriziontalInsets{
  */
 @property (nonatomic,assign) CGFloat cm_seperateLineHeight;
 
-/**标题数组
- 默认为cm_childControllers 的 title
- */
-@property (nonatomic,copy) NSArray *cm_titles;
 
-/**子视图控制器数组*/
-@property (nonatomic,copy) NSArray *cm_childControllers;
+/**标题之间的分割线*/
+@property (nonatomic,strong) UIColor *cm_splitterColor;
+
+
+/**标题之间的分割线*/
+@property (nonatomic,assign) CGSize cm_splitterSize;
+
+
+/**对齐方式 */
+@property (nonatomic,assign) CMPageTitleContentMode cm_contentMode;
 
 
 
@@ -251,21 +271,6 @@ typedef struct CMEdgeHoriziontalInsets{
 
 
 
-/**分割线颜色*/
-@property (nonatomic,strong) UIColor *cm_splitterColor;
-
-
-/**分割线大小*/
-@property (nonatomic,assign) CGSize cm_splitterSize;
-
-
-/**对齐方式
- 
- */
-@property (nonatomic,assign) CMPageTitleContentMode cm_contentMode;
-
-
-
 /**
  获得某个颜色的rgba的值
  
@@ -316,7 +321,6 @@ CG_EXTERN CGFloat CMColorGetA(UIColor *color);
 CG_EXTERN CGFloat CMStringWidth(NSString *string ,UIFont *font);
 
 
-CG_EXTERN CMEdgeHoriziontalInsets CMEdgeHoriziontalInsetsMake(CGFloat left,CGFloat right);
 
 @end
 

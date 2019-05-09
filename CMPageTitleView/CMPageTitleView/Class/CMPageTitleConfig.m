@@ -2,12 +2,15 @@
 //  CMPageTitlem
 //  CMPageTitleView
 //
-//  Created by 智借iOS on 2019/3/25.
+//  GitHub 下载地址：https://github.com/CrabMen/CMPageTitleView
+//
+
+//  Created by CrabMan on 2019/3/25.
 //  Copyright © 2019 CrabMan. All rights reserved.
 //
 
 #import "CMPageTitleConfig.h"
-
+#import "CMPageTitleViewMacro.h"
 @interface CMPageTitleConfig ()
 
 /**视图宽度*/
@@ -38,8 +41,8 @@
     
     if (self.cm_minContentWidth > _cm_pageTitleViewWidth.floatValue) {
         //如果理论最小宽度已经大于视图宽度，对齐样式自动变成居中样式
-        if (self.cm_contentMode == CMPageTitleContentMode_Left || self.cm_contentMode == CMPageTitleJustifyContentMode_Right) {
-            self.cm_contentMode = CMPageTitleJustifyContentMode_Center;
+        if (self.cm_contentMode == CMPageTitleContentMode_Left || self.cm_contentMode == CMPageTitleContentMode_Right) {
+            self.cm_contentMode = CMPageTitleContentMode_Center;
             
         }
     }
@@ -49,6 +52,11 @@
 
 
 #pragma mark -- getter
+
+- (BOOL)cm_slideGestureEnable {
+    
+    return _cm_slideGestureEnable ?: YES;
+}
 
 - (CGFloat)cm_titleHeight {
     
@@ -112,6 +120,9 @@
 
 - (NSArray *)cm_titles {
     
+    CMPageErrorAssert(self.cm_childControllers != nil, @"cm_childControllers属性未赋值");
+    CMPageErrorAssert(self.cm_childControllers.count == 0, @"cm_childControllers数组个数不能为空");
+
     NSArray *titles = [self.cm_childControllers valueForKey:@"title"];
     
     return _cm_titles ?: titles;
@@ -151,7 +162,7 @@
 
 - (CGFloat)cm_minContentWidth {
     
-    NSUInteger count = self.cm_contentMode == CMPageTitleJustifyContentMode_Center ? self.cm_titles.count + 1 : self.cm_titles.count;
+    NSUInteger count = self.cm_contentMode == CMPageTitleContentMode_Center ? self.cm_titles.count + 1 : self.cm_titles.count;
 
     
     return  self.cm_titlesWidth + count * self.cm_minTitleMargin;
@@ -167,19 +178,19 @@
        
          _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
         
-    } else if (self.cm_contentMode == CMPageTitleJustifyContentMode_Right) {
+    } else if (self.cm_contentMode == CMPageTitleContentMode_Right) {
         //右对齐
         
          _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
         
-    }else if (self.cm_contentMode == CMPageTitleJustifyContentMode_Center || self.cm_contentMode == CMPageTitleJustifyContentMode_SpaceAround) {
+    }else if (self.cm_contentMode == CMPageTitleContentMode_Center || self.cm_contentMode == CMPageTitleContentMode_SpaceAround) {
        
         if (self.cm_titlesWidth  >= self.cm_pageTitleViewWidth.floatValue) {
             _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
             
         } else {
             
-            NSUInteger count = self.cm_contentMode == CMPageTitleJustifyContentMode_Center ? self.cm_titles.count + 1 : self.cm_titles.count;
+            NSUInteger count = self.cm_contentMode == CMPageTitleContentMode_Center ? self.cm_titles.count + 1 : self.cm_titles.count;
             
             CGFloat titleMargin = (self.cm_pageTitleViewWidth.floatValue - self.cm_titlesWidth )/count;
             
@@ -259,22 +270,14 @@ CG_EXTERN CGFloat CMColorGetA(UIColor *color) {
 
 CG_EXTERN CGFloat CMStringWidth(NSString *string ,UIFont *font) {
     
-    if ([string isKindOfClass:[NSNull class]]) {
-        NSException *exception = [NSException exceptionWithName:@"CMStringWidth C Method Exception" reason:@"title为空对象" userInfo:nil];
+    if ([string isKindOfClass:[NSNull class]] || string == nil || string.length == 0) {
+        NSException *exception = [NSException exceptionWithName:@"CMStringWidth C Method Exception" reason:@"title的标题不能为空" userInfo:nil];
         [exception raise];
     }
-    
+   
     CGFloat width = [string boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:font} context:nil].size.width ;
     
     return ceilf(width);
-}
-
-
-CG_EXTERN CMEdgeHoriziontalInsets CMEdgeHoriziontalInsetsMake(CGFloat left,CGFloat right) {
-    
-    CMEdgeHoriziontalInsets insert = {left,right};
-    
-    return insert;
 }
 
 

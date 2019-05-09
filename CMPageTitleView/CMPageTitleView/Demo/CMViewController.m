@@ -2,7 +2,7 @@
 //  CMViewController.m
 //  CMPageTitleView
 //
-//  Created by 智借iOS on 2019/4/10.
+//  Created by CrabMan on 2019/4/10.
 //  Copyright © 2019 CrabMan. All rights reserved.
 //
 
@@ -139,7 +139,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     config.cm_selectedFont = [UIFont systemFontOfSize:18];
-    
+    config.cm_contentMode = CMPageTitleContentMode_Center;
     config.cm_splitterColor = [UIColor blackColor];
     config.cm_splitterSize =CGSizeMake(2, config.cm_titleHeight);
     pageView.cm_config = config;
@@ -599,7 +599,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_SeperateLine;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     config.cm_selectedFont = [UIFont systemFontOfSize:18];
-    config.cm_contentMode = CMPageTitleJustifyContentMode_Right;
+    config.cm_contentMode = CMPageTitleContentMode_Right;
 
     pageView.cm_config = config;
     
@@ -621,7 +621,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
-    config.cm_contentMode = CMPageTitleJustifyContentMode_Center;
+    config.cm_contentMode = CMPageTitleContentMode_Center;
     config.cm_childControllers = self.lessChildControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_SeperateLine;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
@@ -647,12 +647,12 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
     pageView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig new];
-    config.cm_contentMode = CMPageTitleJustifyContentMode_SpaceAround;
+    config.cm_contentMode = CMPageTitleContentMode_SpaceAround;
     config.cm_childControllers = self.lessChildControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_SeperateLine;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     config.cm_selectedFont = [UIFont systemFontOfSize:18];
-    
+    config.cm_slideGestureEnable = NO;
     pageView.cm_config = config;
     
 }

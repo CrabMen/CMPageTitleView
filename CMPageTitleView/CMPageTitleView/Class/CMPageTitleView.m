@@ -2,6 +2,9 @@
 //  CMPageTitleView.m
 //  CMDisplayTitleView
 //
+//  GitHub 下载地址：https://github.com/CrabMen/CMPageTitleView
+//
+
 //  Created by CrabMan on 2018/1/15.
 //  Copyright © 2018年 Mac. All rights reserved.
 //
@@ -9,7 +12,6 @@
 #import "CMPageTitleView.h"
 #import "CMPageTitleContentView.h"
 #import "CMPageContentView.h"
-#import "CMFlowLayout.h"
 
 @interface CMPageTitleView() <CMPageTitleContentViewDelegate,CMPageContentViewDelegate>
 
