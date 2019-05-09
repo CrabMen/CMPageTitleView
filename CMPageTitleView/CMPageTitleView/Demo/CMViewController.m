@@ -653,7 +653,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     config.cm_selectedFont = [UIFont systemFontOfSize:18];
     config.cm_slideGestureEnable = NO;
-//    pageView.cm_config = config;
+    pageView.cm_config = config;
     
 }
 
