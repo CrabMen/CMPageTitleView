@@ -84,7 +84,7 @@ Then create CMPageTitleView and use the CMPageTitleConfig class to configure .
 ```
 
 Congratulations! You're done. 🎉
-
+## <div id="version"></div> Version History
 
 ## <a id="support"></a>Support this repo
 * [**★Star**](#) this repo 
