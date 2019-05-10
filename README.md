@@ -8,7 +8,9 @@
 * [Screenshots](#screenshots)
 * [Installation](#installation)
 * [Example](#example)
+* [Version History](#version)
 * [Support](#support)
+* [License](#license)
 
 
 ## <a id="screenshots"></a>Screenshots 
@@ -30,7 +32,7 @@
 | 遮罩 - RGB渐变 - 固定宽度  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_12.gif) | 
 | 遮罩 - 填充色渐变 - 固定宽度 | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_13.gif) | 
 | 混合样式 - 字体放大/下划线 - RGB渐变  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_14.gif) | 
-| 混合样式 - 字体放大/下划线 - 填充色渐变  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_15.gif) | 
+| 混合样式 - 字体放大/下划线 - 填充色渐变  | ![](https://github.com/CrabMen /CMResources/blob/master/CMPageTitleView/CMPageTitleView_15.gif) | 
 | 下划线 - 比例文字宽度  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_16.gif) | 
 | 下划线 - 比例文字宽度 - 拉伸效果  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_17.gif) | 
 
@@ -84,12 +86,19 @@ Then create CMPageTitleView and use the CMPageTitleConfig class to configure .
 ```
 
 Congratulations! You're done. 🎉
-## <div id="version"></div> Version History
+## <a id="version"></a> Version History
+**0.3.0之前的版本不够稳定，建议使用0.3.0 及其以后的版本 **
+* 2018-08-13 初始化项目 
+* 2018-04-26 版本 0.3.0 新增 下划线比例宽度跟随标题文字宽度
+* 2018-05-03 版本 0.3.1 cm_scale可以继续使用，新增cm_selectedFont属性，便于设置选中字体大小；支持**Masonry**
+* 2018-05-09 版本 0.4.0 新增设置标题分割线Size以及Color功能；新增对外暴露的代理方法，便于用户做对应处理；新增断言异常提示；新增设置是否允许侧滑功能
+
+
 
 ## <a id="support"></a>Support this repo
 * [**★Star**](#) this repo 
 * If you find somes bugs or need some new functions,please **[issue](https://github.com/CrabMen/CMPageTitleView/issues)** me
 
-## License
+## <a id="license"></a>License
 CMPageTitleView is available under the MIT license. See the LICENSE file for more info.
 
