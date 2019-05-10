@@ -87,7 +87,7 @@ Then create CMPageTitleView and use the CMPageTitleConfig class to configure .
 
 Congratulations! You're done. 🎉
 ## <a id="version"></a> Version History
-**0.3.0之前的版本不够稳定，建议使用0.3.0 及其以后的版本 **
+**0.3.0之前的版本不够稳定，建议使用0.3.0 及其以后的版本**
 * 2018-08-13 初始化项目 
 * 2018-04-26 版本 0.3.0 新增 下划线比例宽度跟随标题文字宽度
 * 2018-05-03 版本 0.3.1 cm_scale可以继续使用，新增cm_selectedFont属性，便于设置选中字体大小；支持**Masonry**
