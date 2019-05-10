@@ -32,7 +32,7 @@
 | 遮罩 - RGB渐变 - 固定宽度  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_12.gif) | 
 | 遮罩 - 填充色渐变 - 固定宽度 | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_13.gif) | 
 | 混合样式 - 字体放大/下划线 - RGB渐变  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_14.gif) | 
-| 混合样式 - 字体放大/下划线 - 填充色渐变  | ![](https://github.com/CrabMen /CMResources/blob/master/CMPageTitleView/CMPageTitleView_15.gif) | 
+| 混合样式 - 字体放大/下划线 - 填充色渐变  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_15.gif) | 
 | 下划线 - 比例文字宽度  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_16.gif) | 
 | 下划线 - 比例文字宽度 - 拉伸效果  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_17.gif) | 
 
