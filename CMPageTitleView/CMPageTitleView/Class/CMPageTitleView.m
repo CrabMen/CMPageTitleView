@@ -78,12 +78,12 @@
 
 - (void)cm_pageTitleContentViewClickWithIndex:(NSUInteger)index Repeat:(BOOL)repeat {
     
-    if (self.delegate) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(cm_pageTitleViewSelectedWithIndex:Repeat:)])
         [self.delegate cm_pageTitleViewSelectedWithIndex:index Repeat:repeat];
-        [self.delegate cm_pageTitleViewClickWithIndex:index Repeat:YES];
-
-    }
     
+    if (self.delegate && [self.delegate respondsToSelector:@selector(cm_pageTitleViewClickWithIndex:Repeat:)])
+       [self.delegate cm_pageTitleViewClickWithIndex:index Repeat:repeat];
+
     
     //获取子视图控制器 切换
     if (!repeat)  [self.contentView setContentOffset:CGPointMake(index * self.cm_width, 0)];
@@ -95,28 +95,31 @@
 #pragma mark --- CMPageContentViewDelegate
 
 - (void)cm_pageContentViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    
+
     [self.titleView cm_pageTitleContentViewAdjustPosition:scrollView];
-    
+
 }
 
 - (void)cm_pageContentViewDidEndDeceleratingWithIndex:(NSInteger)index {
-    
+
+    if (self.titleView.cm_selectedIndex == index) return;
+
     self.titleView.cm_selectedIndex = index;
-    
-    if (self.delegate) {
+
+    if (self.delegate && [self.delegate respondsToSelector:@selector(cm_pageTitleViewSelectedWithIndex:Repeat:)])
+        [self.delegate cm_pageTitleViewSelectedWithIndex:index Repeat:NO];
+
+    if (self.delegate &&  [self.delegate respondsToSelector:@selector(cm_pageTitleViewScrollToIndex:)])
         [self.delegate cm_pageTitleViewScrollToIndex:index];
-        
-    }
-    
+
 }
 
 
 - (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
-    
-    
+
+
     [self.titleView cm_pageTitleViewDidScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
-    
+
 }
 
 @end

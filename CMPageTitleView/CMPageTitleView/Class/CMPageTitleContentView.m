@@ -311,6 +311,10 @@
     // 获取对应标题label
     CMDisplayTitleLabel *label = tap ? (CMDisplayTitleLabel *)tap.view : self.titleLabels[self.config.cm_selectedIndex];
     
+    if (self.cm_delegate) {
+        [self.cm_delegate cm_pageTitleContentViewClickWithIndex:[self.titleLabels indexOfObject:label] Repeat:label == self.selectedLabel];
+    }
+    
     [self selectLabel:label];
     
     _isClickTitle = NO;
@@ -323,9 +327,7 @@
  */
 - (void)selectLabel:(CMDisplayTitleLabel *)label {
     
-    if (self.cm_delegate) {
-        [self.cm_delegate cm_pageTitleContentViewClickWithIndex:[self.titleLabels indexOfObject:label] Repeat:label == self.selectedLabel];
-    }
+   
     
     if (_selectedLabel == label) return;
     

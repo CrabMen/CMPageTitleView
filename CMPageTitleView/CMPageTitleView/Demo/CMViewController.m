@@ -662,9 +662,25 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 
 - (void)cm_pageTitleViewSelectedWithIndex:(NSInteger)index Repeat:(BOOL)repeat {
-    
-NSLog(@"第%ld个标题被选中；且%@是重复选中",index,repeat?@"":@"不");
-    
+
+    NSLog(@"第%ld个标题被选中；且%@是重复选中",index,repeat?@"":@"不");
+
 }
+
+- (void)cm_pageTitleViewClickWithIndex:(NSInteger)index Repeat:(BOOL)repeat {
+
+
+    NSLog(@"第%ld个标题被点击；且%@是重复点击",index,repeat?@"":@"不");
+
+}
+
+
+- (void)cm_pageTitleViewScrollToIndex:(NSInteger)index {
+
+
+    NSLog(@"当前滚动到第%ld个标题",index);
+
+}
+
 
 @end
