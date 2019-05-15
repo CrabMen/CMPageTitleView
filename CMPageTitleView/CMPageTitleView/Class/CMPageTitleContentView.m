@@ -309,16 +309,31 @@ static NSInteger cm_page_animation_drucaiton = 0;
             
         } else {
             
-//            [UIView animateWithDuration:0.25 animations:^{
+            [UIView animateWithDuration:0.25 animations:^{
+
+                CGFloat rightLabelX = label.cm_x + (1 - self.config.cm_underlineWidthScale)*label.cm_width*0.5;
+                CGFloat leftLabelX = self.selectedLabel.cm_x + (1 - self.config.cm_underlineWidthScale)*self.selectedLabel.cm_width*0.5;
+                CGFloat rightLabelWidth = label.cm_width * self.config.cm_underlineWidthScale;
+                CGFloat leftLabelWidth = self.selectedLabel.cm_width * self.config.cm_underlineWidthScale;
+                if (!self.config.cm_underlineStretch) {
+                    
+                    CGFloat deltaX = self.config.cm_underlineWidth ? (label.cm_centerX - self.selectedLabel.cm_centerX) : (rightLabelX - leftLabelX);
+                    
+                    CGFloat deltaWidth = self.config.cm_underlineWidth ? 0 : (rightLabelWidth - leftLabelWidth);
+                    
+                    CGFloat newOriginalX = self.config.cm_underlineWidth ? deltaX + self.selectedLabel.cm_centerX - self .config.cm_underlineWidth * 0.5:  deltaX + leftLabelX;
+                    CGFloat newWidth = self.config.cm_underlineWidth ? : ( deltaWidth + leftLabelWidth);
+                    
+                    self.underLine.cm_x = newOriginalX;
+                    self.underLine.cm_width = newWidth;
+                    
+                }
+            }];
+//            cm_page_animation_drucaiton = 0;
 //
+//            self.targetLabel = label;
 //
-//                self.underLine.cm_width = underLineWidth;
-//                self.underLine.cm_centerX = label.cm_centerX;
-//            }];
-            
-            self.targetLabel = label;
-            
-            [self displayLink];
+//            [self displayLink];
             
         }
 }
