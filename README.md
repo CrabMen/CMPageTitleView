@@ -84,6 +84,30 @@ end
     [self.view addSubview:pageView];
 ```
 
+同样支持Masonry布局，代码如下：
+
+```
+ CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    [self.view addSubview:pageView];
+
+    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
+    
+    pageView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    config.cm_childControllers = self.childControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Scale;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    config.cm_selectedFont = [UIFont systemFontOfSize:18];
+    config.cm_contentMode = CMPageTitleContentMode_Center;
+    pageView.cm_config = config;
+
+```
+
  按照上方代码，即可完成配置🎉
 ## <a id="version"></a> 版本
 **0.3.0之前的版本不够稳定，建议使用0.3.0 及其以后的版本**
