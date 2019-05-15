@@ -10,7 +10,7 @@
 //
 
 #import "CMPageTitleContentView.h"
-
+#import "CMWeakProxy.h"
 @interface CMPageTitleContentView ()
 
 
@@ -39,12 +39,41 @@
 /**分割线视图数组*/
 @property (nonatomic,strong) NSArray *seperateLines;
 
+/**定时器*/
+@property (nonatomic,strong) CADisplayLink *displayLink;
+
+
+/**目标label*/
+@property (nonatomic,strong) UILabel *targetLabel;
 
 
 @end
 
 
+static NSInteger cm_page_animation_drucaiton = 0;
+
 @implementation CMPageTitleContentView
+
+- (CADisplayLink *)displayLink {
+    
+    if (!_displayLink) {
+        _displayLink = [CADisplayLink displayLinkWithTarget:[CMWeakProxy cm_proxyWithTarget:self] selector:@selector(scrollViewAnimation:)];
+        
+        if (@available(iOS 10.0, *)) {
+            _displayLink.preferredFramesPerSecond = 1.5;
+
+        } else {
+            
+            _displayLink.frameInterval = 1.5;
+        }
+        
+        
+        [_displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+        
+    }
+    return _displayLink;
+    
+}
 
 - (NSArray *)seperateLines {
     
@@ -246,6 +275,22 @@
 
 
 #pragma mark --- 样式视图
+
+- (void)scrollViewAnimation:(CADisplayLink *)displayLink {
+    
+    cm_page_animation_drucaiton += 0.1;
+    
+    
+
+    [self cm_pageTitleViewDidScrollProgress:cm_page_animation_drucaiton LeftIndex:[self.titleLabels indexOfObject:self.selectedLabel] RightIndex:[self.titleLabels indexOfObject:self.targetLabel]];
+    
+    if (cm_page_animation_drucaiton > 1) {
+        [displayLink invalidate];
+    }
+    
+    
+}
+
 - (void)setUnderLineWithLabel:(UILabel *)label {
     
     if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline)) return;
@@ -264,10 +309,17 @@
             
         } else {
             
-            [UIView animateWithDuration:0.25 animations:^{
-                self.underLine.cm_width = underLineWidth;
-                self.underLine.cm_centerX = label.cm_centerX;
-            }];
+//            [UIView animateWithDuration:0.25 animations:^{
+//
+//
+//                self.underLine.cm_width = underLineWidth;
+//                self.underLine.cm_centerX = label.cm_centerX;
+//            }];
+            
+            self.targetLabel = label;
+            
+            [self displayLink];
+            
         }
 }
 
@@ -297,6 +349,9 @@
                 self.titleCover.cm_width = coverW;
                 self.titleCover.cm_centerX = label.cm_centerX;
             }];
+        
+            
+            
         }
 
 }
@@ -338,6 +393,8 @@
     [self setTitleCoverWithLabel:label];
    
     [self setUnderLineWithLabel:label];
+    
+    
     
     _selectedLabel.textColor = self.config.cm_normalColor;
     _selectedLabel.cm_progress = 0;

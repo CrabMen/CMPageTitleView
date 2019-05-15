@@ -479,6 +479,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
+    config.cm_selectedFont = [UIFont systemFontOfSize:18];
 
     pageView.cm_config = config;
  
