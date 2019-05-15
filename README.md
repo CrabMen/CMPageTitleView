@@ -119,7 +119,7 @@ end
 
 
 ## <a id="support"></a>支持
-* 如果觉得该三方库还不错，可以[**★Star**]#支持一下你的[**★Star**]#就是我最大的动力
+* 如果觉得该三方库还不错，可以[**★Star**](#)支持一下你的[**★Star**](#)就是我最大的动力
 * 如果发现bug或想有其他的新功能，可以 **[issue](https://github.com/CrabMen/CMPageTitleView/issues)** 我
 
 ## <a id="license"></a>许可
