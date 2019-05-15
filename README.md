@@ -4,16 +4,15 @@
 ![](https://img.shields.io/cocoapods/p/CMPageTitleView.svg)
 ![](https://img.shields.io/apm/l/vim-mode.svg)
 
-# Table of contents
-* [Screenshots](#screenshots)
-* [Installation](#installation)
-* [Example](#example)
-* [Version](#version)
-* [Support](#support)
-* [License](#license)
+* [效果展示](#screenshots)
+* [安装](#installation)
+* [示例](#example)
+* [版本记录](#version)
+* [支持](#support)
+* [许可](#license)
 
 
-## <a id="screenshots"></a>Screenshots 
+## <a id="screenshots"></a>效果展示
 
 | 效果说明     |    GIF|
 | :-------- | --------:| 
@@ -37,9 +36,9 @@
 | 下划线 - 比例文字宽度 - 拉伸效果  | ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/CMPageTitleView_17.gif) | 
 
 
-## <a id="installation"></a>Installation 
+## <a id="installation"></a>安装 
 
-### CocoaPods:
+### CocoaPods安装:
 
 * For iOS8+: 
 
@@ -50,26 +49,26 @@ target '<Your Target Name>' do
 end
 ```
 
-### Manually:
-* Drag all files under `CMPageTitleView/CMPageTitleView/Class` folder into your project. 
+### 手动安装:
+* 将 `CMPageTitleView/CMPageTitleView/Class` 路径下的所有文件拖拽到你的项目中. 
 
 
-## <a id="example"></a>Example 
+## <a id="example"></a>示例
 
-Firstly, you need import the .h file.
+首先, 先要导入.h头文件.
 
-**if cocoaposd:**
+**如果cocoaposd安装:**
 ```
 #import <CMPageTitleView/CMPageTitleView.h>
 ```
-**if manually:**
+**如果手动安装:**
 
 ```
 #import "CMPageTitleView.h"
 
 ```
 
-Then create CMPageTitleView and use the CMPageTitleConfig class to configure .
+创建CMPageTitleView 后，创建CMPageTitleConfig 对象并设置所需配置：
 
 ```
  CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:frame];
@@ -85,8 +84,8 @@ Then create CMPageTitleView and use the CMPageTitleConfig class to configure .
     [self.view addSubview:pageView];
 ```
 
-Congratulations! You're done. 🎉
-## <a id="version"></a> Version 
+ 按照上方代码，即可完成配置🎉
+## <a id="version"></a> 版本
 **0.3.0之前的版本不够稳定，建议使用0.3.0 及其以后的版本**
 * 2018-08-13 初始化项目 
 * 2018-04-26 版本 0.3.0 新增 下划线比例宽度跟随标题文字宽度
@@ -95,10 +94,10 @@ Congratulations! You're done. 🎉
 
 
 
-## <a id="support"></a>Support this repo
-* [**★Star**](#) this repo 
-* If you find somes bugs or need some new functions,please **[issue](https://github.com/CrabMen/CMPageTitleView/issues)** me
+## <a id="support"></a>支持
+* 如果觉得该三方库还不错，可以[**★Star**]#支持一下你的[**★Star**]#就是我最大的动力
+* 如果发现bug或想有其他的新功能，可以 **[issue](https://github.com/CrabMen/CMPageTitleView/issues)** 我
 
-## <a id="license"></a>License
-CMPageTitleView is available under the MIT license. See the LICENSE file for more info.
+## <a id="license"></a>许可
+CMPageTitleView 基于MIT许可
 
