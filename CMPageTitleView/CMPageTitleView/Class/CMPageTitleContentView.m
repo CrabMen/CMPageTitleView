@@ -261,6 +261,8 @@
             self.underLine.cm_centerX = label.cm_centerX;
            
        }];
+    
+       
 }
 
 /**遮罩样式*/
