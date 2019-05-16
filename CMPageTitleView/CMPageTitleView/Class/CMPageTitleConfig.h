@@ -241,7 +241,7 @@ typedef NS_ENUM(NSUInteger,CMPageTitleContentMode) {
 #pragma mark --- 缩放效果
 
 /**
- 标题的缩放等级
+ 标题的缩放等级 默认为 1.15
  （若觉得该属性不方便，可以使用cm_selectedFont配合cm_font属性进行设置）
  */
 @property (nonatomic,assign) CGFloat cm_scale;

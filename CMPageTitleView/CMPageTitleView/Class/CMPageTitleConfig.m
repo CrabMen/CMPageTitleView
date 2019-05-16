@@ -262,7 +262,7 @@
 
 - (CGFloat)cm_scale {
     
-    return _cm_scale ?: 1.05;
+    return _cm_scale ?: 1.15;
 }
 
 

@@ -161,9 +161,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
-    config.cm_scale = 1.2;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
-    
     pageView.cm_config = config;
     
 }
