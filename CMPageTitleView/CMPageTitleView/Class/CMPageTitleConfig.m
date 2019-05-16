@@ -20,13 +20,17 @@
 /**cm_slideGestureEnable对应的nsnumber类型*/
 @property (nonatomic,strong) NSNumber *cm_slideGestureEnableNumber;
 
+/**cm_seperateLineHeight对应的nsnumber类型*/
+@property (nonatomic,strong) NSNumber *cm_seperateLineHeightNumber;
+
+
 
 @end
 
 @implementation CMPageTitleConfig
 
 @synthesize cm_slideGestureEnable = _cm_slideGestureEnable;
-
+@synthesize cm_seperateLineHeight = _cm_seperateLineHeight;
 
 #pragma mark -- setter
 
@@ -35,6 +39,15 @@
     _cm_slideGestureEnable = cm_slideGestureEnable;
     
     self.cm_slideGestureEnableNumber = @(cm_slideGestureEnable);
+    
+}
+
+- (void)setCm_seperateLineHeight:(CGFloat)cm_seperateLineHeight {
+    
+    _cm_seperateLineHeight = cm_seperateLineHeight;
+    
+    self.cm_seperateLineHeightNumber = @(cm_seperateLineHeight);
+    
     
 }
 
@@ -64,6 +77,21 @@
 
 
 #pragma mark -- getter
+
+- (CGFloat)cm_seperateLineHeight {
+    
+    [self cm_seperateLineHeightNumber];
+    
+    return _cm_seperateLineHeight;
+    
+}
+
+- (NSNumber *)cm_seperateLineHeightNumber {
+    
+    _cm_seperateLineHeight = _cm_seperateLineHeightNumber ? [_cm_seperateLineHeightNumber floatValue] : 1.0/[UIScreen mainScreen].scale;
+    
+    return _cm_seperateLineHeightNumber;
+}
 
 - (BOOL)cm_slideGestureEnable {
     [self cm_slideGestureEnableNumber];
@@ -151,10 +179,6 @@
     
 }
 
-- (CGFloat)cm_seperateLineHeight {
-    
-    return _cm_seperateLineHeight ?: 1.0/[UIScreen mainScreen].scale;
-}
 
 -(UIColor *)cm_seperaterLineColor {
     

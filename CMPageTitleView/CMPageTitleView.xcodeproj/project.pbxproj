@@ -14,7 +14,6 @@
 		B51FABE3225DD2E7004117BD /* CMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B51FABE2225DD2E7004117BD /* CMViewController.m */; };
 		B53D96F7224883C50092BDE3 /* CMPageTitleConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = B53D96F6224883C50092BDE3 /* CMPageTitleConfig.m */; };
 		B5B8ACF62249CA2D00ABF82B /* UIView+CMCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = B5B8ACF52249CA2D00ABF82B /* UIView+CMCommon.m */; };
-		B5BCA1E8228C2EA300551A04 /* CMWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BCA1E6228C2EA300551A04 /* CMWeakProxy.m */; };
 		B5EBC9C821215A72000403B8 /* CMPageTitleContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9B921215A72000403B8 /* CMPageTitleContentView.m */; };
 		B5EBC9C921215A72000403B8 /* CMPageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9BA21215A72000403B8 /* CMPageContentView.m */; };
 		B5EBC9CA21215A72000403B8 /* CMPageTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9BB21215A72000403B8 /* CMPageTitleView.m */; };
@@ -58,8 +57,6 @@
 		B53D96F6224883C50092BDE3 /* CMPageTitleConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMPageTitleConfig.m; sourceTree = "<group>"; };
 		B5B8ACF42249CA2D00ABF82B /* UIView+CMCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CMCommon.h"; sourceTree = "<group>"; };
 		B5B8ACF52249CA2D00ABF82B /* UIView+CMCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CMCommon.m"; sourceTree = "<group>"; };
-		B5BCA1E6228C2EA300551A04 /* CMWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWeakProxy.m; sourceTree = "<group>"; };
-		B5BCA1E7228C2EA300551A04 /* CMWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMWeakProxy.h; sourceTree = "<group>"; };
 		B5EBC97F21215A2F000403B8 /* CMPageTitleView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CMPageTitleView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5EBC99721215A31000403B8 /* CMPageTitleViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CMPageTitleViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5EBC9A221215A31000403B8 /* CMPageTitleViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CMPageTitleViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,8 +173,6 @@
 		B5EBC9B421215A72000403B8 /* Class */ = {
 			isa = PBXGroup;
 			children = (
-				B5BCA1E7228C2EA300551A04 /* CMWeakProxy.h */,
-				B5BCA1E6228C2EA300551A04 /* CMWeakProxy.m */,
 				B5EBC9B821215A72000403B8 /* CMPageTitleView.h */,
 				B5EBC9BB21215A72000403B8 /* CMPageTitleView.m */,
 				B5EE93B922842CE60062F7C5 /* CMPageTitleViewMacro.h */,
@@ -436,7 +431,6 @@
 				B53D96F7224883C50092BDE3 /* CMPageTitleConfig.m in Sources */,
 				B5EBC9CF21215A72000403B8 /* main.m in Sources */,
 				B5EBC9C821215A72000403B8 /* CMPageTitleContentView.m in Sources */,
-				B5BCA1E8228C2EA300551A04 /* CMWeakProxy.m in Sources */,
 				B5EBC9D021215A72000403B8 /* AppDelegate.m in Sources */,
 				B51FABE3225DD2E7004117BD /* CMViewController.m in Sources */,
 				B51FABE0225DD15C004117BD /* CMMainTableController.m in Sources */,

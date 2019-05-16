@@ -10,7 +10,6 @@
 //
 
 #import "CMPageTitleContentView.h"
-#import "CMWeakProxy.h"
 @interface CMPageTitleContentView ()
 
 
@@ -39,41 +38,13 @@
 /**分割线视图数组*/
 @property (nonatomic,strong) NSArray *seperateLines;
 
-/**定时器*/
-@property (nonatomic,strong) CADisplayLink *displayLink;
-
-
-/**目标label*/
-@property (nonatomic,strong) UILabel *targetLabel;
 
 
 @end
 
 
-static NSInteger cm_page_animation_drucaiton = 0;
-
 @implementation CMPageTitleContentView
 
-- (CADisplayLink *)displayLink {
-    
-    if (!_displayLink) {
-        _displayLink = [CADisplayLink displayLinkWithTarget:[CMWeakProxy cm_proxyWithTarget:self] selector:@selector(scrollViewAnimation:)];
-        
-        if (@available(iOS 10.0, *)) {
-            _displayLink.preferredFramesPerSecond = 1.5;
-
-        } else {
-            
-            _displayLink.frameInterval = 1.5;
-        }
-        
-        
-        [_displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
-        
-    }
-    return _displayLink;
-    
-}
 
 - (NSArray *)seperateLines {
     
@@ -98,6 +69,43 @@ static NSInteger cm_page_animation_drucaiton = 0;
     
     if (!_titleLabels) {
         _titleLabels = [NSMutableArray array];
+        
+        
+        CGFloat labelX = 0;
+        CGFloat labelW = 0;
+        
+        for (int i = 0; i < self.config.cm_titles.count; i++) {
+            CMDisplayTitleLabel *label = [CMDisplayTitleLabel new];
+            label.textColor = self.config.cm_normalColor;
+            label.font = self.config.cm_font;
+            label.text = self.config.cm_titles[i];
+            label.lineBreakMode = NSLineBreakByWordWrapping;
+            
+            UILabel *lastLabel = [self.titleLabels lastObject];
+            if (i == 0 ) {
+                if (self.config.cm_contentMode == CMPageTitleContentMode_Right) {
+                    labelX = [[self.config valueForKey:@"cm_pageTitleViewWidth"] floatValue] - self.config.cm_titleMargin * self.config.cm_titles.count - self.config.cm_titlesWidth;
+                } else if (self.config.cm_contentMode == CMPageTitleContentMode_SpaceAround) {
+                    
+                    labelX = self.config.cm_titleMargin * 0.5;
+                } else {
+                    labelX =  self.config.cm_titleMargin;
+                }
+            } else {
+                labelX =  self.config.cm_titleMargin + CGRectGetMaxX(lastLabel.frame);
+            }
+            labelW = [self.config.cm_titleWidths[i] floatValue];
+            label.frame = CGRectMake(labelX, 0, labelW, self.config.cm_titleHeight);
+            label.userInteractionEnabled = YES;
+            
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickLabel:)];
+            [label addGestureRecognizer:tap];
+            
+            [_titleLabels addObject:label];
+            [self addSubview:label];
+        }
+        
+        
     }
     return _titleLabels;
 }
@@ -105,13 +113,22 @@ static NSInteger cm_page_animation_drucaiton = 0;
 - (UIView *)underLine {
     
     if (!_underLine) {
-        UIView *underLineView = [UIView new];
-        underLineView.backgroundColor = self.config.cm_underlineColor;
-        underLineView.layer.cornerRadius = self.config.cm_underlineBorder ? self.config.cm_underlineHeight * 0.5 : 0;
-        underLineView.layer.masksToBounds = YES;
-        [self addSubview:underLineView];
+        UIView *underLine = [UIView new];
+        underLine.backgroundColor = self.config.cm_underlineColor;
+        underLine.layer.cornerRadius = self.config.cm_underlineBorder ? self.config.cm_underlineHeight * 0.5 : 0;
+        underLine.layer.masksToBounds = YES;
         
-        _underLine = underLineView;
+        CGFloat underLineWidth = self.config.cm_underlineWidth ?: [self.titleLabels.firstObject cm_width] * self.config.cm_underlineWidthScale;
+        
+        underLine.cm_height = self.config.cm_underlineHeight;
+        underLine.cm_bottom = self.cm_bottom;
+        underLine.cm_width = underLineWidth;
+        underLine.cm_centerX = [self.titleLabels.firstObject cm_centerX];
+            
+        
+        [self addSubview:underLine];
+        
+        _underLine = underLine;
     }
     
     return _underLine ;
@@ -174,57 +191,16 @@ static NSInteger cm_page_animation_drucaiton = 0;
     
    self.contentInset = UIEdgeInsetsMake(0, 0, 0, self.config.cm_titleMargin);
 
-    [self initTitleLabels];
+    [self initContentSize];
     [self initSepereateLines];
     
 }
 
-- (void)initTitleLabels {
+- (void)initContentSize{
     
-    CGFloat labelX = 0;
-    CGFloat labelW = 0;
+    if (_titleLabels) [_titleLabels removeAllObjects];
     
-    [self.titleLabels removeAllObjects];
-    
-    for (int i = 0; i < self.config.cm_titles.count; i++) {
-        CMDisplayTitleLabel *label = [CMDisplayTitleLabel new];
-        label.textColor = self.config.cm_normalColor;
-        label.font = self.config.cm_font;
-        label.text = self.config.cm_titles[i];
-        label.lineBreakMode = NSLineBreakByWordWrapping;
-        
-        UILabel *lastLabel = [self.titleLabels lastObject];
-        if (i == 0 ) {
-            if (self.config.cm_contentMode == CMPageTitleContentMode_Right) {
-                 labelX = [[self.config valueForKey:@"cm_pageTitleViewWidth"] floatValue] - self.config.cm_titleMargin * self.config.cm_titles.count - self.config.cm_titlesWidth;
-            } else if (self.config.cm_contentMode == CMPageTitleContentMode_SpaceAround) {
-                
-                
-                labelX = self.config.cm_titleMargin * 0.5;
-                
-            } else {
-                
-                labelX =  self.config.cm_titleMargin;
-
-                
-            }
-            
-        } else {
-        
-            labelX =  self.config.cm_titleMargin + CGRectGetMaxX(lastLabel.frame);
-            
-        }
-        labelW = [self.config.cm_titleWidths[i] floatValue];
-        label.frame = CGRectMake(labelX, 0, labelW, self.config.cm_titleHeight);
-        label.userInteractionEnabled = YES;
-        
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickLabel:)];
-        [label addGestureRecognizer:tap];
-        
-        [self.titleLabels addObject:label];
-        [self addSubview:label];
-    }
-    
+    [self titleLabels];
     
     switch (self.config.cm_contentMode) {
         case CMPageTitleContentMode_SpaceAround:
@@ -241,15 +217,11 @@ static NSInteger cm_page_animation_drucaiton = 0;
             break;
         case CMPageTitleContentMode_Center:
             self.contentSize = CGSizeMake(CGRectGetMaxX([self.titleLabels.lastObject frame]), 0);
-
             break;
             
         default:
             break;
     }
-    
-     //设置scrollView的contentSize
-    
 
 }
 
@@ -276,51 +248,19 @@ static NSInteger cm_page_animation_drucaiton = 0;
 
 #pragma mark --- 样式视图
 
-- (void)scrollViewAnimation:(CADisplayLink *)displayLink {
-    
-    cm_page_animation_drucaiton += 0.1;
-    
-    
-
-    [self cm_pageTitleViewDidScrollProgress:cm_page_animation_drucaiton LeftIndex:[self.titleLabels indexOfObject:self.selectedLabel] RightIndex:[self.titleLabels indexOfObject:self.targetLabel]];
-    
-    if (cm_page_animation_drucaiton > 1) {
-        [displayLink invalidate];
-    }
-    
-    
-}
-
 - (void)setUnderLineWithLabel:(UILabel *)label {
     
     if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline)) return;
 
-    //根据标题的宽度获得下划线的宽度
-    CGFloat underLineWidth = self.config.cm_underlineWidth ?: label.cm_width * self.config.cm_underlineWidthScale;
+  
+       [self underLine];
     
-    self.underLine.cm_height = self.config.cm_underlineHeight;
-    self.underLine.cm_bottom = self.cm_bottom;
-
-    
-        if (self.underLine.cm_x == 0) {
-            
+       CGFloat underLineWidth = self.config.cm_underlineWidth ?: label.cm_width * self.config.cm_underlineWidthScale;
+       [UIView animateWithDuration:0.25 animations:^{
             self.underLine.cm_width = underLineWidth;
             self.underLine.cm_centerX = label.cm_centerX;
-            
-        } else {
-            
-//            [UIView animateWithDuration:0.25 animations:^{
-//
-//
-//                self.underLine.cm_width = underLineWidth;
-//                self.underLine.cm_centerX = label.cm_centerX;
-//            }];
-            
-            self.targetLabel = label;
-            
-            [self displayLink];
-            
-        }
+           
+       }];
 }
 
 /**遮罩样式*/
@@ -350,8 +290,6 @@ static NSInteger cm_page_animation_drucaiton = 0;
                 self.titleCover.cm_centerX = label.cm_centerX;
             }];
         
-            
-            
         }
 
 }
@@ -393,7 +331,6 @@ static NSInteger cm_page_animation_drucaiton = 0;
     [self setTitleCoverWithLabel:label];
    
     [self setUnderLineWithLabel:label];
-    
     
     
     _selectedLabel.textColor = self.config.cm_normalColor;
