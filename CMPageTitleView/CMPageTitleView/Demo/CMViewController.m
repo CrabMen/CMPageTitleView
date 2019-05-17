@@ -141,7 +141,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_selectedFont = [UIFont systemFontOfSize:18];
     config.cm_contentMode = CMPageTitleContentMode_Center;
     config.cm_splitterColor = [UIColor blackColor];
-    config.cm_splitterSize =CGSizeMake(2, config.cm_titleHeight);
+    config.cm_splitterSize = CGSizeMake(1, config.cm_titleHeight);
     pageView.cm_config = config;
     
 }

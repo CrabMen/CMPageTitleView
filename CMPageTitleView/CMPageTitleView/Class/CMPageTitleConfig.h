@@ -27,7 +27,7 @@ typedef NS_OPTIONS(NSUInteger,CMPageTitleSwitchModeOptions) {
     /**遮罩样式*/
     CMPageTitleSwitchMode_Cover = 1 << 2,
     
-    /**分割线*/
+    /**标题之间的分割线*/
     CMPageTitleSwitchMode_SeperateLine = 1 << 3
     
 
@@ -75,50 +75,47 @@ typedef NS_ENUM(NSUInteger,CMPageTitleContentMode) {
 
 /**
  标题正常字体
+ 默认字体大小：[UIFont systemFontOfSize:15]
  */
 @property (nonatomic,strong) UIFont *cm_font;
 
 
-/**标题选中字体*/
+/**
+ 标题选中字体
+ 默认选中字体大小：cm_font的1.15倍
+ */
 @property (nonatomic,strong) UIFont *cm_selectedFont;
 
 
 /**
  标题滚动视图背景颜色
+ 默认颜色：[UIColor whiteColor]
  */
 @property (nonatomic,strong) UIColor *cm_backgroundColor;
 
 /**
  标题正常颜色
- 默认为黑色
+ 默认颜色：[UIColor blackColor]
  */
 @property (nonatomic,strong) UIColor *cm_normalColor;
 
 /**
  标题选中颜色
- 默认为红色
+ 默认颜色：[UIColor redColor]
  */
 @property (nonatomic,strong) UIColor *cm_selectedColor;
 
 /**
  标题高度
- 默认为44
+ 默认高度：44
  */
 @property (nonatomic,assign) CGFloat cm_titleHeight;
 
-/**是否支持侧滑*/
-@property (nonatomic,assign) BOOL cm_slideGestureEnable;
-
-
-
-/**颜色渐变样式
- 默认为 CMTitleColorGradientStyle_RGB
+/**
+ 是否支持侧滑
+ 默认值：YES
  */
-@property (nonatomic,assign) CMTitleColorGradientStyle cm_gradientStyle;
-
-
-/**标题切换样式*/
-@property (nonatomic,assign) CMPageTitleSwitchModeOptions cm_switchMode;
+@property (nonatomic,assign) BOOL cm_slideGestureEnable;
 
 
 /**
@@ -127,7 +124,8 @@ typedef NS_ENUM(NSUInteger,CMPageTitleContentMode) {
 @property (nonatomic,assign) CGFloat cm_titleMargin;
 
 
-/**最小的标题间距
+/**
+ 最小的标题间距
  默认值为 20
  */
 @property (nonatomic,assign) CGFloat cm_minTitleMargin;
@@ -141,24 +139,58 @@ typedef NS_ENUM(NSUInteger,CMPageTitleContentMode) {
 
 /**
  标题栏下方分割线的颜色
+ 默认颜色：[UIColor grayColor]
  */
 @property (nonatomic,strong) UIColor *cm_seperaterLineColor;
 
 /**
  标题分割线的高度
+ 默认值：1px
  */
 @property (nonatomic,assign) CGFloat cm_seperateLineHeight;
 
 
-/**标题之间的分割线*/
+/**
+ 标题之间的分割线颜色
+ 默认为：[UIColor lightGrayColor]
+ */
 @property (nonatomic,strong) UIColor *cm_splitterColor;
 
 
-/**标题之间的分割线*/
+/**
+ 标题之间的分割线size
+ 默认宽度：1px
+ 默认高度：标题栏高度的一半
+ */
 @property (nonatomic,assign) CGSize cm_splitterSize;
 
+/**
+ 下划线和遮罩，在点击标题时，动画的时间间隔
+ 默认值为：0.25
+ 取值范围 0.25~0.8
+ (超出范围会使用默认值)
+ */
+@property (nonatomic,assign) CGFloat cm_animationDruction;
 
-/**对齐方式 */
+
+/**
+ 颜色渐变样式
+ 默认为 CMTitleColorGradientStyle_RGB
+ */
+@property (nonatomic,assign) CMTitleColorGradientStyle cm_gradientStyle;
+
+
+/**
+ 标题切换样式
+ 默认为：CMPageTitleSwitchMode_Scale
+ */
+@property (nonatomic,assign) CMPageTitleSwitchModeOptions cm_switchMode;
+
+
+/**
+ 对齐方式
+默认值：CMPageTitleContentMode_Center
+ */
 @property (nonatomic,assign) CMPageTitleContentMode cm_contentMode;
 
 
@@ -167,19 +199,21 @@ typedef NS_ENUM(NSUInteger,CMPageTitleContentMode) {
 
 /**
  下划线视图是否圆角
- 默认为NO
+ 默认值:NO
  */
 @property (nonatomic,assign) BOOL cm_underlineBorder;
 
 
 /**
  下划线高度
+ 默认值：2
  */
 @property (nonatomic,assign) CGFloat cm_underlineHeight;
 
 /**
-下划线宽度
-默认跟随文字宽度
+ 下划线宽度
+ 默认跟随文字宽度
+ 设置该属性后下划线会固定使用该宽度
  */
 @property (nonatomic,assign) CGFloat cm_underlineWidth;
 
@@ -199,7 +233,11 @@ typedef NS_ENUM(NSUInteger,CMPageTitleContentMode) {
 
 
 
-/**是否延长*/
+/**
+ 是否延长
+ 默认值：NO
+ 具体效果可以看github效果展示
+ */
 @property (nonatomic,assign) BOOL cm_underlineStretch;
 
 

@@ -279,6 +279,11 @@
 }
 
 
+- (CGFloat)cm_animationDruction {
+    
+    return (_cm_animationDruction >= 0.25 && _cm_animationDruction <= 0.8) ? _cm_animationDruction : 0.25;
+}
+
 
 CG_EXTERN NSArray* CMColorGetRGBA(UIColor *color) {
     

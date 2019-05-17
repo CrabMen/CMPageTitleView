@@ -256,7 +256,7 @@
        [self underLine];
     
        CGFloat underLineWidth = self.config.cm_underlineWidth ?: label.cm_width * self.config.cm_underlineWidthScale;
-       [UIView animateWithDuration:0.25 animations:^{
+       [UIView animateWithDuration:self.config.cm_animationDruction animations:^{
             self.underLine.cm_width = underLineWidth;
             self.underLine.cm_centerX = label.cm_centerX;
            
@@ -287,7 +287,7 @@
             self.titleCover.cm_width = coverW;
             self.titleCover.cm_centerX = label.cm_centerX;
         } else {
-            [UIView animateWithDuration:0.25 animations:^{
+            [UIView animateWithDuration:self.config.cm_animationDruction animations:^{
                 self.titleCover.cm_width = coverW;
                 self.titleCover.cm_centerX = label.cm_centerX;
             }];
