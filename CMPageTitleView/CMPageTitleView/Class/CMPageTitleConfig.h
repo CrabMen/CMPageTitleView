@@ -61,6 +61,18 @@ typedef NS_ENUM(NSUInteger,CMPageTitleContentMode) {
     
 };
 
+typedef NS_ENUM(NSUInteger,CMPageTitleVerticalContentMode) {
+    /**居中*/
+    CMPageTitleVerticalContentMode_Center,
+    
+    /**上对其*/
+    CMPageTitleVerticalContentMode_Top,
+    
+    /**下对齐*/
+    CMPageTitleVerticalContentMode_Bottom,
+    
+};
+
 @interface CMPageTitleConfig : NSObject
 
 /**子视图控制器数组*/
@@ -88,10 +100,23 @@ typedef NS_ENUM(NSUInteger,CMPageTitleContentMode) {
 
 
 /**
- 标题滚动视图背景颜色
+ 视图的背景色
  默认颜色：[UIColor whiteColor]
  */
 @property (nonatomic,strong) UIColor *cm_backgroundColor;
+
+///**
+// 标题栏视图的背景色
+// 默认颜色：[UIColor clearColor]
+// */
+//@property (nonatomic,strong) UIColor *cm_titleBackgroundColor;
+//
+///**
+// 内容视图的背景色
+// 默认颜色：[UIColor whiteColor]
+// */
+//@property (nonatomic,strong) UIColor *cm_pageBackgroundColor;
+
 
 /**
  标题正常颜色
@@ -192,6 +217,16 @@ typedef NS_ENUM(NSUInteger,CMPageTitleContentMode) {
 默认值：CMPageTitleContentMode_Center
  */
 @property (nonatomic,assign) CMPageTitleContentMode cm_contentMode;
+
+
+
+/**
+ 垂直方向上的对齐方式
+ 只有属性cm_switchMode包含CMPageTitleSwitchMode_Scale下有效果
+ 默认值：CMPageTitleVerticalContentMode_Center
+ */
+@property (nonatomic,assign) CMPageTitleVerticalContentMode cm_verticalContentMode;
+
 
 
 

@@ -137,11 +137,12 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
-    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     config.cm_selectedFont = [UIFont systemFontOfSize:18];
     config.cm_contentMode = CMPageTitleContentMode_Center;
     config.cm_splitterColor = [UIColor blackColor];
     config.cm_splitterSize = CGSizeMake(1, config.cm_titleHeight);
+    
     pageView.cm_config = config;
     
 }
@@ -162,6 +163,9 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
+    config.cm_verticalContentMode = CMPageTitleVerticalContentMode_Bottom;
+    config.cm_scale = 1.3;
+
     pageView.cm_config = config;
     
 }

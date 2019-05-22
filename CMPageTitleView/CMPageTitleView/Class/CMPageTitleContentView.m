@@ -80,7 +80,8 @@
             label.font = self.config.cm_font;
             label.text = self.config.cm_titles[i];
             label.lineBreakMode = NSLineBreakByWordWrapping;
-            
+            label.translatesAutoresizingMaskIntoConstraints = NO;
+
             UILabel *lastLabel = [self.titleLabels lastObject];
             if (i == 0 ) {
                 if (self.config.cm_contentMode == CMPageTitleContentMode_Right) {
@@ -95,14 +96,24 @@
                 labelX =  self.config.cm_titleMargin + CGRectGetMaxX(lastLabel.frame);
             }
             labelW = [self.config.cm_titleWidths[i] floatValue];
-            label.frame = CGRectMake(labelX, 0, labelW, self.config.cm_titleHeight);
-            label.userInteractionEnabled = YES;
             
+            [self addSubview:label];
+
+          NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:label attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.titleLabels.lastObject ?: self attribute:self.titleLabels.lastObject ? NSLayoutAttributeRight : NSLayoutAttributeLeft multiplier:1 constant:labelX];
+            
+            
+         NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint constraintWithItem:label attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem: self attribute: NSLayoutAttributeCenterY multiplier:1 constant:0];
+
+            [NSLayoutConstraint activateConstraints:@[leftConstraint,centerYConstraint]];
+
+
+            
+            label.userInteractionEnabled = YES;
+           
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickLabel:)];
             [label addGestureRecognizer:tap];
             
             [_titleLabels addObject:label];
-            [self addSubview:label];
         }
         
         
@@ -121,7 +132,7 @@
         CGFloat underLineWidth = self.config.cm_underlineWidth ?: [self.titleLabels.firstObject cm_width] * self.config.cm_underlineWidthScale;
         
         underLine.cm_height = self.config.cm_underlineHeight;
-        underLine.cm_bottom = self.cm_bottom;
+        underLine.cm_bottom = self.config.cm_titleHeight;
         underLine.cm_width = underLineWidth;
         underLine.cm_centerX = [self.titleLabels.firstObject cm_centerX];
             
@@ -166,11 +177,12 @@
     if (self = [super init]) {
         self.config = config;
 
-        self.backgroundColor = self.config.cm_backgroundColor;
+        self.backgroundColor = [UIColor clearColor];
         self.showsVerticalScrollIndicator = NO;
         self.showsHorizontalScrollIndicator = NO;
-        
         [self initSubViews];
+
+
     }
     
     return self;
@@ -181,7 +193,7 @@
     [super layoutSubviews];
    
 
-    if (!self.selectedLabel) {
+    if (!self.selectedLabel && self.cm_delegate) {
         [self clickLabel:nil];
     }
     
@@ -189,18 +201,19 @@
 
 - (void)initSubViews {
     
-   self.contentInset = UIEdgeInsetsMake(0, 0, 0, self.config.cm_titleMargin);
 
     [self initContentSize];
     [self initSepereateLines];
     
 }
 
+
 - (void)initContentSize{
     
-    if (_titleLabels) [_titleLabels removeAllObjects];
     
     [self titleLabels];
+    
+    [self layoutIfNeeded];
     
     switch (self.config.cm_contentMode) {
         case CMPageTitleContentMode_SpaceAround:
@@ -231,6 +244,48 @@
         [self seperateLines];
         
     }
+    
+    
+}
+
+- (void)resetLayoutConstraintWithLabel:(UILabel *)label Scale:(CGFloat)scale{
+    
+    if (![self.titleLabels containsObject:label] ||
+        self.config.cm_verticalContentMode == CMPageTitleVerticalContentMode_Center||
+        !(self.config.cm_switchMode & CMPageTitleSwitchMode_Scale)) return;
+    
+    NSInteger index = [self.titleLabels indexOfObject:label];
+    
+    NSInteger selectedIndex = self.selectedLabel ? [self.titleLabels indexOfObject:self.selectedLabel] : -1;
+    
+    NSLayoutConstraint *centerYConstraint = self.constraints[index*2 + 1];
+    NSLayoutConstraint *selectedCenterYConstraint = self.selectedLabel ?  self.constraints[selectedIndex*2 + 1] : nil;
+
+    switch (self.config.cm_verticalContentMode) {
+            
+        case CMPageTitleVerticalContentMode_Bottom:
+
+            centerYConstraint.constant = 0 - label.font.pointSize * 0.5 * (scale - 1);
+            selectedCenterYConstraint.constant = 0;
+
+            break;
+            
+        case CMPageTitleVerticalContentMode_Top:
+            
+            centerYConstraint.constant = label.font.pointSize * 0.5 * (scale - 1);
+            selectedCenterYConstraint.constant = 0;
+           
+            break;
+            
+        default:
+            break;
+    }
+    
+    
+    
+    
+    
+
     
     
 }
@@ -272,20 +327,20 @@
     
     //根据标题的宽度获得下划线的宽度
     NSUInteger index = [self.titleLabels indexOfObject:label];
-   
     CGFloat width = [self.config.cm_titleWidths[index] floatValue];
-        
-    CGFloat coverH = label.font.pointSize + 2 * self.config.cm_coverVerticalMargin;
     CGFloat coverW = self.config.cm_coverWidth ? : width + 2 * self.config.cm_coverHorizontalMargin;
     
-    self.titleCover.cm_y = (label.cm_height - coverH) * 0.5;
-    self.titleCover.cm_height = coverH;
+   
     
-    self.titleCover.layer.cornerRadius = self.config.cm_coverRadius ?: coverH * 0.5;
 
     if (self.titleCover.cm_x == 0) {
+            CGFloat coverH = label.font.pointSize + 2 * self.config.cm_coverVerticalMargin;
+            self.titleCover.layer.cornerRadius = self.config.cm_coverRadius ?: coverH * 0.5;
+            self.titleCover.cm_height = coverH;
             self.titleCover.cm_width = coverW;
             self.titleCover.cm_centerX = label.cm_centerX;
+            self.titleCover.cm_centerY = self.config.cm_titleHeight * 0.5;
+
         } else {
             [UIView animateWithDuration:self.config.cm_animationDruction animations:^{
                 self.titleCover.cm_width = coverW;
@@ -352,11 +407,14 @@
 
     if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Scale)) return;
 
-    _selectedLabel.transform = CGAffineTransformIdentity;
-    _selectedLabel.cm_fillColor = self.config.cm_selectedColor;
-    _selectedLabel.cm_progress = 1;
-    
+    self.selectedLabel.cm_progress = 1;
+    self.selectedLabel.cm_fillColor = self.config.cm_selectedColor;
     label.transform = CGAffineTransformMakeScale(self.config.cm_scale, self.config.cm_scale);
+    self.selectedLabel.transform = CGAffineTransformIdentity;
+
+    [self resetLayoutConstraintWithLabel:label Scale:self.config.cm_scale];
+
+    
 
 }
 
@@ -459,7 +517,6 @@
     CMDisplayTitleLabel *rightLabel = self.titleLabels[rightIndex];
     CMDisplayTitleLabel *leftLabel = self.titleLabels[leftIndex];
     
-    
     CGFloat rightScale = progress;
     
     CGFloat leftScale = 1 - rightScale;
@@ -469,6 +526,18 @@
     scaleTransform -= 1;
     leftLabel.transform = CGAffineTransformMakeScale(leftScale * scaleTransform + 1, leftScale * scaleTransform + 1);
     rightLabel.transform = CGAffineTransformMakeScale(rightScale * scaleTransform + 1, rightScale * scaleTransform +1);
+    
+    if (self.selectedLabel == leftLabel) {
+        
+        [self resetLayoutConstraintWithLabel:rightLabel Scale:round(rightScale * scaleTransform * 100)/100.0 + 1];
+    }
+    
+    if (self.selectedLabel == rightLabel) {
+    
+       [self resetLayoutConstraintWithLabel:leftLabel Scale:round(leftScale * scaleTransform * 100)/100.0 + 1];
+    }
+    
+    
     
 }
 

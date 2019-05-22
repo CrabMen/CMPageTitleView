@@ -22,17 +22,32 @@
 /**内容视图*/
 @property (nonatomic,strong) CMPageContentView *contentView;
 
+/**标题视图和内容视图间的分割线*/
+@property (nonatomic,strong) UIView *seperateLine;
+
+
 @end
 
 @implementation CMPageTitleView
+
+- (UIView *)seperateLine {
+    
+    if (!_seperateLine) {
+        _seperateLine = [[UIView alloc] initWithFrame:CGRectMake(0, self.titleView.cm_bottom, self.cm_width, self.cm_config.cm_seperateLineHeight)];
+        
+        _seperateLine.backgroundColor = self.cm_config.cm_seperaterLineColor;
+    }
+    
+    return _seperateLine;
+}
 
 - (CMPageTitleContentView *)titleView {
     
     if (!_titleView) {
         _titleView = [[CMPageTitleContentView alloc] initWithConfig:self.cm_config];
+        _titleView.cm_delegate = self;
         _titleView.frame = CGRectMake(0, 0, self.cm_width, self.cm_config.cm_titleHeight);
         
-        _titleView.cm_delegate = self;
     }
     return _titleView;
 }
@@ -41,7 +56,7 @@
 - (CMPageContentView *)contentView {
     if (!_contentView) {
         CMFlowLayout *layout = [CMFlowLayout new];
-        CGRect rect = CGRectMake(0, self.cm_config.cm_titleHeight + self.cm_config.cm_seperateLineHeight, self.cm_width, self.cm_height - self.cm_config.cm_titleHeight - self.cm_config.cm_seperateLineHeight);
+        CGRect rect = CGRectMake(0, self.titleView.cm_height + self.seperateLine.cm_height, self.cm_width, self.cm_height - self.titleView.cm_height - self.seperateLine.cm_height);
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         _contentView = [[CMPageContentView alloc] initWithFrame:rect collectionViewLayout:layout Config:self.cm_config];
         _contentView.cm_delegate = self;
@@ -63,11 +78,14 @@
    
     CMPageErrorAssert(self.cm_config != nil, @"cm_config属性不能为空");
 
-    self.backgroundColor = self.cm_config.cm_seperaterLineColor;
+    self.backgroundColor = self.cm_config.cm_backgroundColor;
     
     [self.cm_config setValue:@(self.cm_width) forKey:@"cm_pageTitleViewWidth"];
 
     [self addSubview:self.titleView];
+    
+    [self addSubview:self.seperateLine];
+    
     [self addSubview:self.contentView];
     
     
