@@ -16,6 +16,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
+    
+    /**颜色无渐变*/
+    CMTitleColorGradientStyle_None = 0,
+    /**rgb颜色渐变*/
+    CMTitleColorGradientStyle_RGB = 1,
+    
+    /**填充色颜色渐变*/
+    CMTitleColorGradientStyle_Fill = 2,
+    
+   
+    
+    
+};
+
 typedef NS_OPTIONS(NSUInteger,CMPageTitleSwitchModeOptions) {
     
     /**字体放大*/
@@ -27,22 +42,20 @@ typedef NS_OPTIONS(NSUInteger,CMPageTitleSwitchModeOptions) {
     /**遮罩样式*/
     CMPageTitleSwitchMode_Cover = 1 << 2,
     
-    /**标题之间的分割线*/
-    CMPageTitleSwitchMode_SeperateLine = 1 << 3
+    /**滑动切换时延迟，配合其他样式使用*/
+    CMPageTitleSwitchMode_Delay = 1 << 3
     
 
 };
 
-typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
-    /**rgb颜色渐变*/
-    CMTitleColorGradientStyle_RGB = 0,
+typedef NS_OPTIONS(NSUInteger, CMPageTitleAdditionalModeOptions) {
     
-    /**填充色颜色渐变*/
-    CMTitleColorGradientStyle_Fill = 1,
+    /**标题栏下方的分割线*/
+    CMPageTitleAdditionalMode_Seperateline = 1 << 0,
     
-    /**颜色非渐变*/
-    CMTitleColorGradientStyle_None = 2
-
+    /**标题文字之间的分割线*/
+    CMPageTitleAdditionalMode_Splitter = 1 << 1
+    
     
 };
 
@@ -61,15 +74,15 @@ typedef NS_ENUM(NSUInteger,CMPageTitleContentMode) {
     
 };
 
-typedef NS_ENUM(NSUInteger,CMPageTitleVerticalContentMode) {
+typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
     /**居中*/
-    CMPageTitleVerticalContentMode_Center,
+    CMPageTitleScaleGradientContentMode_Center,
     
     /**上对其*/
-    CMPageTitleVerticalContentMode_Top,
+    CMPageTitleScaleGradientContentMode_Top,
     
     /**下对齐*/
-    CMPageTitleVerticalContentMode_Bottom,
+    CMPageTitleScaleGradientContentMode_Bottom,
     
 };
 
@@ -104,19 +117,6 @@ typedef NS_ENUM(NSUInteger,CMPageTitleVerticalContentMode) {
  默认颜色：[UIColor whiteColor]
  */
 @property (nonatomic,strong) UIColor *cm_backgroundColor;
-
-///**
-// 标题栏视图的背景色
-// 默认颜色：[UIColor clearColor]
-// */
-//@property (nonatomic,strong) UIColor *cm_titleBackgroundColor;
-//
-///**
-// 内容视图的背景色
-// 默认颜色：[UIColor whiteColor]
-// */
-//@property (nonatomic,strong) UIColor *cm_pageBackgroundColor;
-
 
 /**
  标题正常颜色
@@ -207,9 +207,16 @@ typedef NS_ENUM(NSUInteger,CMPageTitleVerticalContentMode) {
 
 /**
  标题切换样式
- 默认为：CMPageTitleSwitchMode_Scale
+ 默认为：0，无任何效果
  */
 @property (nonatomic,assign) CMPageTitleSwitchModeOptions cm_switchMode;
+
+
+/**
+ 标题栏附加样式 
+ 默认为：0 无任何附加效果效果
+ */
+@property (nonatomic,assign) CMPageTitleAdditionalModeOptions cm_additionalMode;
 
 
 /**
@@ -225,7 +232,7 @@ typedef NS_ENUM(NSUInteger,CMPageTitleVerticalContentMode) {
  只有属性cm_switchMode包含CMPageTitleSwitchMode_Scale下有效果
  默认值：CMPageTitleVerticalContentMode_Center
  */
-@property (nonatomic,assign) CMPageTitleVerticalContentMode cm_verticalContentMode;
+@property (nonatomic,assign) CMPageTitleScaleGradientContentMode cm_scaleGradientContentMode;
 
 
 

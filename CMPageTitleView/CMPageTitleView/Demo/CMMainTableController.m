@@ -13,6 +13,9 @@
 /**样式数组*/
 @property (nonatomic,strong) NSArray *styleArray;
 
+/**组合效果*/
+@property (nonatomic,strong) NSArray *mixStyleArray;
+
 
 @end
 
@@ -21,48 +24,112 @@
 
 -(NSArray *)styleArray {
     if (!_styleArray) {
-        _styleArray = @[
+        _styleArray =@[@{
+                           @"title":@"基本样式",
+                           @"array":@[
                         
-                        @"字体不变 - RGB渐变",
-                        @"字体不变 - 填充渐变",
-                        @"字体放大 - RGB渐变",
-                        @"字体放大 - 填充渐变",
+                        @"颜色效果 - RGB渐变",
+                        @"颜色效果 - 填充渐变",
+                        @"颜色效果 - 无渐变",
                         
-                        @"下划线 - RGB渐变 - 动态宽度",
-                        @"下划线 - 填充渐变 - 动态宽度",
-                        @"下划线 - RGB渐变 - 固定宽度",
-                        @"下划线 - 填充渐变 - 固定宽度",
-                        @"下划线 - RGB渐变 - 动态宽度 - 拉伸效果",
-                        @"下划线 - 填充渐变 - 动态宽度 - 拉伸效果",
-                        @"下划线 - RGB渐变 - 固定宽度 - 拉伸效果",
-                        @"下划线 - 填充渐变 - 固定宽度 - 拉伸效果",
-                        @"下划线 - 动态宽度(比例)",
-                        @"下划线 - 动态宽度(比例) - 拉伸效果",
+                        @"切换样式 - 字体放大",
+                        @"切换样式 - 下划线",
+                        @"切换样式 - 遮罩",
+                        @"切换样式 - 字体放大 - 延迟",
+                        @"切换样式 - 下划线 - 延迟",
+                        @"切换样式 - 遮罩 - 延迟",
                         
-                        @"遮罩 - RGB渐变 - 动态宽度",
-                        @"遮罩 - 填充渐变 - 动态宽度",
-                        @"遮罩 - RGB渐变 - 固定宽度",
-                        @"遮罩 - 填充渐变 - 固定宽度",
+                        @"附加效果 - 标题栏下方分割线",
+                        @"附加效果 - 标题文字之间分割线",
                         
-                        @"混合样式 - 字体放大/下划线 - RGB渐变",
-                        @"混合样式 - 字体放大/下划线 - 填充色渐变",
+                        @"对齐方式 -- 左对齐",
+                        @"对齐方式 -- 右对齐",
+                        @"对齐方式 -- 居中",
+                        @"对齐方式 -- SpaceAround",
                         
-                        @"分割线 - 标题栏下方",
-                        @"分割线 - 标题文字之间",
+                        @"字体放大效果时对其方式 -- 居中对齐（默认）",
+                        @"字体放大效果时对其方式 -- 上对齐",
+                        @"字体放大效果时对其方式 -- 下对齐"
                         
-                        @"水平对齐方式 -- 左对齐",
-                        @"水平对齐方式 -- 右对齐",
-                        @"水平对齐方式 -- 居中",
-                        @"水平对齐方式 -- SpaceAround",
-                        
-                        @"垂直对齐方式 -- 居中对齐（默认）",
-                        @"垂直对齐方式 -- 上对齐",
-                        @"垂直对齐方式 -- 下对齐"
-                        ];
+                        ]},
+        
+                       @{
+                          @"title":@"组合样式",
+                          @"array":@[
+                      
+                      @"字体放大 - 颜色RGB渐变",
+                      @"字体放大 - 颜色填充渐变",
+                      @"字体放大 - 颜色无渐变",
+                      @"字体放大(延迟) - 颜色RGB渐变",
+                      @"字体放大(延迟) - 颜色填充渐变",
+                      @"字体放大(延迟) - 颜色无渐变",
+                      
+                      @"下划线 - 颜色RGB渐变",
+                      @"下划线 - 颜色填充渐变",
+                      @"下划线 - 颜色无渐变",
+                      @"下划线(延迟) - 颜色RGB渐变",
+                      @"下划线(延迟) - 颜色填充渐变",
+                      @"下划线(延迟) - 颜色无渐变",
+                   
+                      @"下划线（固定宽度）- 颜色RGB渐变",
+                      @"下划线（固定宽度）- 颜色填充渐变",
+                      @"下划线（固定宽度）- 颜色无渐变",
+                      @"下划线（延迟 && 固定宽度）- 颜色RGB渐变",
+                      @"下划线（延迟 && 固定宽度）- 颜色填充渐变",
+                      @"下划线（延迟 && 固定宽度）- 颜色无渐变",
+                      
+                      @"下划线（比例宽度）- 颜色RGB渐变",
+                      @"下划线（比例宽度）- 颜色填充渐变",
+                      @"下划线（比例宽度）- 颜色无渐变",
+                      @"下划线（延迟 && 比例宽度）- 颜色RGB渐变",
+                      @"下划线（延迟 && 比例宽度）- 颜色填充渐变",
+                      @"下划线（延迟 && 比例宽度）- 颜色无渐变",
+                      
+                      @"下划线（延展）- 颜色RGB渐变",
+                      @"下划线（延展）- 颜色填充渐变",
+                      @"下划线（延展）- 颜色无渐变",
+                      @"下划线（延展 && 固定宽度）- 颜色RGB渐变",
+                      @"下划线（延展 && 固定宽度）- 颜色填充渐变",
+                      @"下划线（延展 && 固定宽度）- 颜色无渐变",
+                      @"下划线（延展 && 比例宽度）- 颜色RGB渐变",
+                      @"下划线（延展 && 比例宽度）- 颜色填充渐变",
+                      @"下划线（延展 && 比例宽度）- 颜色无渐变",
+                      
+                      @"遮罩 - 颜色RGB渐变",
+                      @"遮罩 - 颜色填充渐变",
+                      @"遮罩 - 颜色无渐变",
+                      @"遮罩(延迟) - 颜色RGB渐变",
+                      @"遮罩(延迟) - 颜色填充渐变",
+                      @"遮罩(延迟) - 颜色无渐变",
+                      
+                      @"遮罩（固定宽度）- 颜色RGB渐变",
+                      @"遮罩（固定宽度）- 颜色填充渐变",
+                      @"遮罩（固定宽度）- 颜色无渐变",
+                      @"遮罩（延迟 && 固定宽度）- 颜色RGB渐变",
+                      @"遮罩（延迟 && 固定宽度）- 颜色填充渐变",
+                      @"遮罩（延迟 && 固定宽度）- 颜色无渐变",
+                      
+                      @"字体放大 && 下划线 - 颜色填充渐变",
+                      @"字体放大 && 下划线 && 延迟 - 颜色无渐变",
+                      
+                      @"字体放大 && 下划线（延展）- 颜色填充渐变",
+                      @"字体放大 && 下划线（延展 && 固定宽度 ）- 颜色填充渐变",
+                      @"字体放大 && 下划线（延展 && 比例宽度 ）-颜色填充渐变",
+                      @"字体放大 && 下划线（延展 && 放大时下对齐 ）-颜色填充渐变",
+                      @"字体放大 && 下划线（延展 && 放大时下对齐 && 左对齐）-颜色填充渐变",
+
+                      
+                      ]
+                          }];
+
+
+
+
     }
     
     return _styleArray;
 }
+
 
 
 - (void)viewDidLoad {
@@ -77,26 +144,60 @@
 
 #pragma mark - Table view data source
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    
+    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0,self.view.bounds.size.width, 40)];
+    header.backgroundColor = [UIColor lightGrayColor];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:header.bounds];
+    
+    label.textColor = [UIColor blackColor];
+    
+    label.font = [UIFont boldSystemFontOfSize:18];
+    
+    label.text = self.styleArray[section][@"title"];
+    
+    label.textAlignment = NSTextAlignmentCenter;
+    
+    [header addSubview:label];
+    
+    return header;
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    return 40;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return self.styleArray.count;
+
+}
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    
-    return self.styleArray.count;
+
+    return [self.styleArray[section][@"array"] count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    cell.textLabel.text = self.styleArray[indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"%02ld-%02ld.%@",indexPath.section,indexPath.row,self.styleArray[indexPath.section][@"array"][indexPath.row]];
+    cell.textLabel.numberOfLines = 0;
+    cell.textLabel.font = [UIFont systemFontOfSize:14];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     CMViewController *vc = [CMViewController new];
-    SEL selector = NSSelectorFromString([NSString stringWithFormat:@"style%ld",indexPath.row]);
+    SEL selector = NSSelectorFromString([NSString stringWithFormat:@"style%02ld_%02ld",indexPath.section,indexPath.row]);
     [vc performSelector:selector];
     
     [self.navigationController pushViewController:vc animated:YES];

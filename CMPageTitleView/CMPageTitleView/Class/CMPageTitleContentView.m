@@ -36,7 +36,7 @@
 
 
 /**分割线视图数组*/
-@property (nonatomic,strong) NSArray *seperateLines;
+@property (nonatomic,strong) NSArray *splitters;
 
 
 
@@ -46,23 +46,23 @@
 @implementation CMPageTitleContentView
 
 
-- (NSArray *)seperateLines {
+- (NSArray *)splitters {
     
-    if (!_seperateLines) {
+    if (!_splitters) {
         NSMutableArray *mArray = [NSMutableArray array];
         
         for (NSInteger i = 0 ; i < self.titleLabels.count - 1; i++) {
-            UIView *layer = [UIView new];
-            layer.backgroundColor = self.config.cm_splitterColor;
-            layer.cm_size = CGSizeMake(self.config.cm_splitterSize.width, self.config.cm_splitterSize.height);
-            layer.center = CGPointMake(CGRectGetMaxX([self.titleLabels[i] frame]) + self.config.cm_titleMargin * 0.5, self.config.cm_titleHeight * 0.5);
-            [self addSubview:layer];
-            [mArray addObject:layer];
+            UIView *splitter = [UIView new];
+            splitter.backgroundColor = self.config.cm_splitterColor;
+            splitter.cm_size = CGSizeMake(self.config.cm_splitterSize.width, self.config.cm_splitterSize.height);
+            splitter.center = CGPointMake(CGRectGetMaxX([self.titleLabels[i] frame]) + self.config.cm_titleMargin * 0.5, self.config.cm_titleHeight * 0.5);
+            [self addSubview:splitter];
+            [mArray addObject:splitter];
         }
-        _seperateLines = [mArray copy];
+        _splitters = [mArray copy];
     }
     
-    return _seperateLines;
+    return _splitters;
 }
 
 - (NSMutableArray *)titleLabels {
@@ -201,9 +201,10 @@
 
 - (void)initSubViews {
     
+    
 
     [self initContentSize];
-    [self initSepereateLines];
+    [self initSplitters];
     
 }
 
@@ -238,10 +239,10 @@
 
 }
 
-- (void)initSepereateLines {
+- (void)initSplitters {
     
-    if (self.config.cm_switchMode & CMPageTitleSwitchMode_SeperateLine) {
-        [self seperateLines];
+    if (self.config.cm_additionalMode & CMPageTitleAdditionalMode_Splitter) {
+        [self splitters];
         
     }
     
@@ -251,7 +252,7 @@
 - (void)resetLayoutConstraintWithLabel:(UILabel *)label Scale:(CGFloat)scale{
     
     if (![self.titleLabels containsObject:label] ||
-        self.config.cm_verticalContentMode == CMPageTitleVerticalContentMode_Center||
+        self.config.cm_scaleGradientContentMode == CMPageTitleScaleGradientContentMode_Center ||
         !(self.config.cm_switchMode & CMPageTitleSwitchMode_Scale)) return;
     
     NSInteger index = [self.titleLabels indexOfObject:label];
@@ -261,16 +262,16 @@
     NSLayoutConstraint *centerYConstraint = self.constraints[index*2 + 1];
     NSLayoutConstraint *selectedCenterYConstraint = self.selectedLabel ?  self.constraints[selectedIndex*2 + 1] : nil;
 
-    switch (self.config.cm_verticalContentMode) {
+    switch (self.config.cm_scaleGradientContentMode) {
             
-        case CMPageTitleVerticalContentMode_Bottom:
+        case CMPageTitleScaleGradientContentMode_Bottom:
 
             centerYConstraint.constant = 0 - label.font.pointSize * 0.5 * (scale - 1);
             selectedCenterYConstraint.constant = 0;
 
             break;
             
-        case CMPageTitleVerticalContentMode_Top:
+        case CMPageTitleScaleGradientContentMode_Top:
             
             centerYConstraint.constant = label.font.pointSize * 0.5 * (scale - 1);
             selectedCenterYConstraint.constant = 0;
@@ -280,13 +281,6 @@
         default:
             break;
     }
-    
-    
-    
-    
-    
-
-    
     
 }
 
@@ -365,6 +359,8 @@
         [self.cm_delegate cm_pageTitleContentViewClickWithIndex:[self.titleLabels indexOfObject:label] Repeat:label == self.selectedLabel];
     }
     
+    _cm_selectedIndex = [self.titleLabels indexOfObject:label];
+    
     [self selectLabel:label];
     
     _isClickTitle = NO;
@@ -377,7 +373,6 @@
  */
 - (void)selectLabel:(CMDisplayTitleLabel *)label {
     
-   
     
     if (_selectedLabel == label) return;
     
@@ -512,7 +507,7 @@
 - (void)modifyTitleScaleWithScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
     
     
-    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Scale) || _isClickTitle || rightIndex >= self.titleLabels.count) return;
+    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Scale) || _isClickTitle || rightIndex >= self.titleLabels.count || self.config.cm_switchMode & CMPageTitleSwitchMode_Delay) return;
     
     CMDisplayTitleLabel *rightLabel = self.titleLabels[rightIndex];
     CMDisplayTitleLabel *leftLabel = self.titleLabels[leftIndex];
@@ -548,7 +543,7 @@
 
     
     //通过判断isClickTitle的属性来防止二次偏移
-    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Cover) || _isClickTitle || rightIndex >= self.titleLabels.count) return;
+    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Cover) || _isClickTitle || rightIndex >= self.titleLabels.count|| self.config.cm_switchMode & CMPageTitleSwitchMode_Delay) return;
     
     CMDisplayTitleLabel *rightLabel = self.titleLabels[rightIndex];
     CMDisplayTitleLabel *leftLabel = self.titleLabels[leftIndex];
@@ -572,7 +567,7 @@
 - (void)modifyUnderlineWithScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
     
     
-    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline) || _isClickTitle || rightIndex >= self.titleLabels.count) return;
+    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline) || _isClickTitle || rightIndex >= self.titleLabels.count|| self.config.cm_switchMode & CMPageTitleSwitchMode_Delay) return;
     
     CMDisplayTitleLabel *rightLabel = self.titleLabels[rightIndex];
     CMDisplayTitleLabel *leftLabel = self.titleLabels[leftIndex];

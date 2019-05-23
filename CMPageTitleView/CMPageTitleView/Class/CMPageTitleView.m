@@ -56,7 +56,8 @@
 - (CMPageContentView *)contentView {
     if (!_contentView) {
         CMFlowLayout *layout = [CMFlowLayout new];
-        CGRect rect = CGRectMake(0, self.titleView.cm_height + self.seperateLine.cm_height, self.cm_width, self.cm_height - self.titleView.cm_height - self.seperateLine.cm_height);
+        CGRect rect = CGRectMake(0, self.titleView.cm_height +
+                                 _seperateLine.cm_height, self.cm_width, self.cm_height - self.titleView.cm_height - _seperateLine.cm_height);
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         _contentView = [[CMPageContentView alloc] initWithFrame:rect collectionViewLayout:layout Config:self.cm_config];
         _contentView.cm_delegate = self;
@@ -84,7 +85,10 @@
 
     [self addSubview:self.titleView];
     
-    [self addSubview:self.seperateLine];
+    if (self.cm_config.cm_additionalMode & CMPageTitleAdditionalMode_Seperateline) {
+        [self addSubview:self.seperateLine];
+
+    }
     
     [self addSubview:self.contentView];
     
