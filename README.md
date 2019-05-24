@@ -39,6 +39,10 @@
 
 
 
+
+
+根据上方的基本样式可以进行自由组合，从而达到你想要的效果；因组合样式过多，下方列出了部分
+
 | 组合样式    |    GIF|
 | :-------- | --------:| 
 |01-00.字体放大 - 颜色RGB渐变 |![](https://raw.githubusercontent.com/CrabMen/CMResources/master/CMPageTitleView/CMPageTitleView_01_00.gif)|
@@ -96,8 +100,6 @@
 
 
 
-
-
 ## <a id="installation"></a>安装 
 
 ### CocoaPods安装:
@@ -135,13 +137,9 @@ end
 ```
  CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:frame];
     pageView.delegate = self;
+    
     CMPageTitleConfig *config = [CMPageTitleConfig new];
-    config.cm_childControllers = self.childControllers;
-    config.cm_switchMode = CMPageTitleSwitchMode_Underline;
-    config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
-    config.cm_underlineStretch = YES;
-    config.cm_underlineWidth = 10;
-    pageView.cm_config = config;
+    config.cm_childControllers = self.childControllers; //必传参数
     
     [self.view addSubview:pageView];
 ```
@@ -149,28 +147,28 @@ end
 同样支持Masonry布局，代码如下：
 
 ```
- CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+  CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
     [self.view addSubview:pageView];
-
+    
     [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    
     pageView.delegate = self;
+    
     CMPageTitleConfig *config = [CMPageTitleConfig new];
-    config.cm_childControllers = self.childControllers;
-    config.cm_switchMode = CMPageTitleSwitchMode_Scale;
-    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
-    config.cm_selectedFont = [UIFont systemFontOfSize:18];
-    config.cm_contentMode = CMPageTitleContentMode_Center;
+    config.cm_childControllers = self.childControllers;//必传参数
+    
     pageView.cm_config = config;
 
 ```
 
- 按照上方代码，即可完成配置🎉
+ 按照上方代码，你已经创建了一个最简单的菜单栏🎉
+ 
+ **倘若需要复杂效果，可以通过创建CMPageTitleConfig对象中的 cm_gradientStyle（颜色渐变样式）、cm_switchMode（标题切换样式）、cm_additionalMode（附加效果）、cm_contentMode（对齐方式）、cm_scaleGradientContentMode（放大效果时的对齐样式）等基本样式的组合实现各种复杂效果，可以下载Demo查看具体效果，但是能实现的组合远远不止这些，更多组合可以集成到项目中尝试😊**
+ 
 ## <a id="version"></a> 版本
 **0.3.0之前的版本不够稳定，建议使用0.3.0 及其以后的版本**
 * 2018-08-13 初始化项目 
