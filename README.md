@@ -5,6 +5,8 @@
 ![](https://img.shields.io/apm/l/vim-mode.svg)
 
 * [效果展示](#screenshots)
+* [效果展示 - 基本样式](#screenshots-basic)
+* [效果展示 - 组合](#screenshots-multi)
 * [安装](#installation)
 * [示例](#example)
 * [版本记录](#version)
@@ -13,6 +15,8 @@
 
 
 ## <a id="screenshots"></a>效果展示
+
+### <a id="screenshots-basic"></a>效果展示 - 基本样式
 
 
 | 基本样式    |    GIF|
@@ -38,8 +42,7 @@
 
 
 
-
-
+### <a id="screenshots-multi"></a>效果展示 - 组合样式
 
 根据上方的基本样式可以进行自由组合，从而达到你想要的效果；因组合样式过多，下方列出了部分
 
@@ -114,7 +117,7 @@ end
 ```
 
 ### 手动安装:
-* 将 `CMPageTitleView/CMPageTitleView/Class` 路径下的所有文件拖拽到你的项目中. 
+将 `CMPageTitleView/CMPageTitleView/Class` 路径下的所有文件拖拽到你的项目中. 
 
 
 ## <a id="example"></a>示例
@@ -167,16 +170,16 @@ end
 
  按照上方代码，你已经创建了一个最简单的菜单栏🎉
  
- **倘若需要复杂效果，可以通过创建CMPageTitleConfig对象中的 cm_gradientStyle（颜色渐变样式）、cm_switchMode（标题切换样式）、cm_additionalMode（附加效果）、cm_contentMode（对齐方式）、cm_scaleGradientContentMode（放大效果时的对齐样式）等基本样式的组合实现各种复杂效果，可以下载Demo查看具体效果，但是能实现的组合远远不止这些，更多组合可以集成到项目中尝试😊**
+**注意：**倘若需要复杂效果，可以通过创建CMPageTitleConfig对象中的 cm_gradientStyle（颜色渐变样式）、cm_switchMode（标题切换样式）、cm_additionalMode（附加效果）、cm_contentMode（对齐方式）、cm_scaleGradientContentMode（放大效果时的对齐样式）等基本样式的组合实现各种复杂效果，可以下载Demo查看具体效果，但是能实现的组合远远不止这些，更多组合可以集成到项目中尝试😊**
  
 ## <a id="version"></a> 版本
-**0.3.0之前的版本不够稳定，建议使用0.3.0 及其以后的版本**
 * 2018-08-13 初始化项目 
 * 2018-04-26 版本 0.3.0 新增 下划线比例宽度跟随标题文字宽度
 * 2018-05-03 版本 0.3.1 cm_scale可以继续使用，新增cm_selectedFont属性，便于设置选中字体大小；支持**Masonry**
 * 2018-05-09 版本 0.4.0 新增设置标题分割线Size以及Color功能；新增对外暴露的代理方法，便于用户做对应处理；新增断言异常提示；新增设置是否允许侧滑功能
-
-
+* 2018-05-16 版本 0.4.1 修复cm_seperateLineHeight为0时无效的问题
+* 2018-05-17 版本 0.4.2 新增cm_animationDruction属性，便于用户设置动画时间
+* 2018-05-23 版本 0.5.0 新增cm_verticalContentMode，可以设置标题文字垂直方向的对齐方式；新增cm_additionalMode，便于设置分割线；优化cm_backgroundColor效果；优化相关代码调用时机
 
 ## <a id="support"></a>支持
 * 如果觉得该三方库还不错，可以[**★Star**](#)支持一下你的[**★Star**](#)就是我最大的动力
