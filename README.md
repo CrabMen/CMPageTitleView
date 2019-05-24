@@ -5,8 +5,8 @@
 ![](https://img.shields.io/apm/l/vim-mode.svg)
 
 * [效果展示](#screenshots)
-* * [效果展示 - 基本样式](#screenshots-basic)
-* * [效果展示 - 组合](#screenshots-multi)
+  * [效果展示 - 基本样式](#screenshots-basic)
+  * [效果展示 - 组合](#screenshots-multi)
 * [安装](#installation)
 * [示例](#example)
 * [版本记录](#version)
