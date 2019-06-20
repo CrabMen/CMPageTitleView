@@ -32,6 +32,17 @@
 @synthesize cm_slideGestureEnable = _cm_slideGestureEnable;
 @synthesize cm_seperateLineHeight = _cm_seperateLineHeight;
 
+#warning TODO: the function of reloading config
+/**
+ 1.优化getter方法，调用多次，性能不好；KVO
+ 2.新增defaultConfig初始化方法；优化默认配置
+CMPageTitleContentView和CMPageContentView新增对应reload方法或声明config属性，重写setter
+ 
+ */
+
+
+
+
 #pragma mark -- setter
 
 - (void)setCm_slideGestureEnable:(BOOL)cm_slideGestureEnable {

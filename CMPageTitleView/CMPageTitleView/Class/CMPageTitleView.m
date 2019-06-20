@@ -75,6 +75,16 @@
    
 }
 
+
+- (void)cm_reloadConfig {
+    
+    [self layoutIfNeeded];
+    
+    
+    
+}
+
+
 - (void)initSubViews {
    
     CMPageErrorAssert(self.cm_config != nil, @"cm_config属性不能为空");

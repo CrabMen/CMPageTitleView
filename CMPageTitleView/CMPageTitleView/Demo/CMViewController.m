@@ -48,11 +48,28 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 @property (nonatomic,weak) UIImageView *imageView;
 
+/**default notes*/
+@property (nonatomic,weak) CMPageTitleView *pageTitleView;
+
 
 
 @end
 
 @implementation CMViewController
+
+- (CMPageTitleView *)pageTitleView {
+    if (!_pageTitleView) {
+        CMPageTitleView *pageTitleView = [[CMPageTitleView alloc] init];
+        
+        _pageTitleView = pageTitleView;
+        [self.view addSubview:_pageTitleView];
+        
+    }
+    
+    return _pageTitleView;
+    
+    
+}
 
 - (UIImageView *)imageView {
     
@@ -136,25 +153,40 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
    
 }
 
+- (void)setReloadBarButtonItem {
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"刷新数据" style:UIBarButtonItemStyleDone target:self action:@selector(reloadConfig:)];
+    
+    
+    
+}
+
+- (void)reloadConfig:(UIBarButtonItem *)sender {
+    
+    
+    
+    
+}
+
 
 - (void)style00_00 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
+//    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+//    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
     CMPageTitleConfig *config = [CMPageTitleConfig new];
     config.cm_childControllers = self.childControllers;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
