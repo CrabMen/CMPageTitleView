@@ -85,162 +85,60 @@ CMPageTitleContentView和CMPageContentView新增对应reload方法或声明confi
     
 }
 
-
-
-#pragma mark -- getter
-
-- (CGFloat)cm_seperateLineHeight {
+- (void)setCm_childControllers:(NSArray *)cm_childControllers {
     
-    [self cm_seperateLineHeightNumber];
+    _cm_childControllers = cm_childControllers;
     
-    return _cm_seperateLineHeight;
+    CMPageErrorAssert(cm_childControllers != nil, @"cm_childControllers属性未赋值");
+    CMPageErrorAssert(cm_childControllers.count != 0, @"cm_childControllers数组个数不能为空");
     
-}
-
-- (NSNumber *)cm_seperateLineHeightNumber {
-    
-    _cm_seperateLineHeight = _cm_seperateLineHeightNumber ? [_cm_seperateLineHeightNumber floatValue] : 1.0/[UIScreen mainScreen].scale;
-    
-    return _cm_seperateLineHeightNumber;
-}
-
-- (BOOL)cm_slideGestureEnable {
-    [self cm_slideGestureEnableNumber];
-    
-    return _cm_slideGestureEnable;
-}
-
-- (NSNumber *)cm_slideGestureEnableNumber {
-    
-    _cm_slideGestureEnable = _cm_slideGestureEnableNumber ? [_cm_slideGestureEnableNumber boolValue] : YES;
-    
-    return _cm_slideGestureEnableNumber;
-    
-}
-
-- (CGFloat)cm_titleHeight {
-    
-    return _cm_titleHeight ?: 44;
-}
-
-- (UIFont *)cm_font {
-    
-    return _cm_font ?[UIFont systemFontOfSize:_cm_font.pointSize]: [UIFont systemFontOfSize:15];
-    
-}
-
-- (UIColor *)cm_backgroundColor {
-    
-    return _cm_backgroundColor?:[UIColor whiteColor];
-    
-}
-
-
-- (UIColor *)cm_normalColor {
-    
-    return _cm_normalColor ?:[UIColor blackColor];
-}
-
-- (UIColor *)cm_selectedColor {
-    
-    return _cm_selectedColor ?: [UIColor redColor];
-}
-
-- (UIColor *)cm_underlineColor {
-    
-    return _cm_underlineColor ?: self.cm_selectedColor;
-    
-}
-
-- (CGFloat)cm_underlineWidthScale {
-    
-    
-    return fabs(_cm_underlineWidthScale) > 1.3 || _cm_underlineWidthScale == 0 ? 1 :fabs(_cm_underlineWidthScale) ;
-    
-}
-
-- (CGFloat)cm_underlineHeight {
-    
-    return _cm_underlineHeight ?: 2;
-    
-}
-
-
-- (CGFloat)cm_coverVerticalMargin {
-    
-    return _cm_coverVerticalMargin ?: 5;
-    
-}
-
-- (CGFloat)cm_coverHorizontalMargin {
-    
-    return _cm_coverHorizontalMargin ?: 10;
-    
-}
-
-- (NSArray *)cm_titles {
-    
-    CMPageErrorAssert(self.cm_childControllers != nil, @"cm_childControllers属性未赋值");
-    CMPageErrorAssert(self.cm_childControllers.count != 0, @"cm_childControllers数组个数不能为空");
-
-    NSArray *titles = [self.cm_childControllers valueForKey:@"title"];
-    
-    return _cm_titles ?: titles;
+    self.cm_titles = [cm_childControllers valueForKey:@"title"];
     
     
 }
 
 
--(UIColor *)cm_seperaterLineColor {
-    
-    return _cm_seperaterLineColor ?: [UIColor grayColor];
-}
 
-- (NSArray *)cm_titleWidths {
+- (void)setCm_titles:(NSArray *)cm_titles {
     
+    
+    _cm_titles = cm_titles;
+    
+    CMPageErrorAssert(cm_titles != nil, @"cm_titles属性未赋值");
+    CMPageErrorAssert(cm_titles.count != 0, @"cm_titles数组个数不能为空");
+    
+    
+    
+    //标题宽度数组
     NSMutableArray *mArray = [NSMutableArray array];
     
-    for (NSString *string in self.cm_titles) {
-        
-        [mArray addObject:@(CMStringWidth(string, self.cm_font))];
-
-    }
-    
-    return [mArray copy];
-    
-}
-
-- (CGFloat)cm_titlesWidth {
-   
-    return [[self.cm_titleWidths valueForKeyPath:@"@sum.floatValue"] floatValue];
-
-}
-
-- (CGFloat)cm_minContentWidth {
-    
-    NSUInteger count = self.cm_contentMode == CMPageTitleContentMode_Center ? self.cm_titles.count + 1 : self.cm_titles.count;
-
-    
-    return  self.cm_titlesWidth + count * self.cm_minTitleMargin;
-    
-}
-
-
-- (CGFloat)cm_titleMargin {
-    
-    
-    if (self.cm_contentMode == CMPageTitleContentMode_Left) {
-        //左对齐
+    [cm_titles enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
        
-         _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
+        [mArray addObject: @(CMStringWidth((NSString *)obj, self.cm_font))];
         
-    } else if (self.cm_contentMode == CMPageTitleContentMode_Right) {
+    }];
+    
+    
+    [self setValue:[mArray copy] forKey:@"_cm_titleWidths"];
+    
+    //标题总宽度
+    
+//    [self setValue:[[self.cm_titleWidths valueForKeyPath:@"@sum.floatValue"] floatValue] forKey:@"_cm_titleWidths"];
+    
+}
+
+- (void)setCm_contentMode:(CMPageTitleContentMode)cm_contentMode {
+    
+    _cm_contentMode = cm_contentMode;
+    
+    
+    if (cm_contentMode == CMPageTitleContentMode_Left || cm_contentMode == CMPageTitleContentMode_Right) {
         //右对齐
         
-         _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
+        self.cm_titleMargin = self.cm_minTitleMargin;
         
-    }else if (self.cm_contentMode == CMPageTitleContentMode_Center || self.cm_contentMode == CMPageTitleContentMode_SpaceAround) {
-       
+    }else if (cm_contentMode == CMPageTitleContentMode_Center || cm_contentMode == CMPageTitleContentMode_SpaceAround) {
+        
         if (self.cm_titlesWidth  >= self.cm_pageTitleViewWidth.floatValue) {
             _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
             
@@ -255,44 +153,280 @@ CMPageTitleContentView和CMPageContentView新增对应reload方法或声明confi
         }
     }
 
-    return _cm_titleMargin;
-}
-
-
-- (CGFloat)cm_minTitleMargin {
     
     
-    return _cm_minTitleMargin ?: 20;
     
 }
 
-- (NSInteger)cm_defaultIndex {
+#pragma mark -- getter
+
+
+
+//
+//- (CGFloat)cm_seperateLineHeight {
+//
+//    [self cm_seperateLineHeightNumber];
+//
+//    return _cm_seperateLineHeight;
+//
+//}
+//
+//- (NSNumber *)cm_seperateLineHeightNumber {
+//
+//    _cm_seperateLineHeight = _cm_seperateLineHeightNumber ? [_cm_seperateLineHeightNumber floatValue] : 1.0/[UIScreen mainScreen].scale;
+//
+//    return _cm_seperateLineHeightNumber;
+//}
+//
+//- (BOOL)cm_slideGestureEnable {
+//    [self cm_slideGestureEnableNumber];
+//
+//    return _cm_slideGestureEnable;
+//}
+//
+//- (NSNumber *)cm_slideGestureEnableNumber {
+//
+//    _cm_slideGestureEnable = _cm_slideGestureEnableNumber ? [_cm_slideGestureEnableNumber boolValue] : YES;
+//
+//    return _cm_slideGestureEnableNumber;
+//
+//}
+//
+//- (CGFloat)cm_titleHeight {
+//
+//    return _cm_titleHeight ?: 44;
+//}
+//
+//- (UIFont *)cm_font {
+//
+//    return _cm_font ?[UIFont systemFontOfSize:_cm_font.pointSize]: [UIFont systemFontOfSize:15];
+//
+//}
+//
+//- (UIColor *)cm_backgroundColor {
+//
+//    return _cm_backgroundColor?:[UIColor whiteColor];
+//
+//}
+//
+//
+//- (UIColor *)cm_normalColor {
+//
+//    return _cm_normalColor ?:[UIColor blackColor];
+//}
+//
+//- (UIColor *)cm_selectedColor {
+//
+//    return _cm_selectedColor ?: [UIColor redColor];
+//}
+//
+//- (UIColor *)cm_underlineColor {
+//
+//    return _cm_underlineColor ?: self.cm_selectedColor;
+//
+//}
+//
+//- (CGFloat)cm_underlineWidthScale {
+//
+//
+//    return fabs(_cm_underlineWidthScale) > 1.3 || _cm_underlineWidthScale == 0 ? 1 :fabs(_cm_underlineWidthScale) ;
+//
+//}
+//
+//- (CGFloat)cm_underlineHeight {
+//
+//    return _cm_underlineHeight ?: 2;
+//
+//}
+//
+//
+//- (CGFloat)cm_coverVerticalMargin {
+//
+//    return _cm_coverVerticalMargin ?: 5;
+//
+//}
+//
+//- (CGFloat)cm_coverHorizontalMargin {
+//
+//    return _cm_coverHorizontalMargin ?: 10;
+//
+//}
+
+//- (NSArray *)cm_titles {
+//
+//    CMPageErrorAssert(self.cm_childControllers != nil, @"cm_childControllers属性未赋值");
+//    CMPageErrorAssert(self.cm_childControllers.count != 0, @"cm_childControllers数组个数不能为空");
+//
+//    NSArray *titles = [self.cm_childControllers valueForKey:@"title"];
+//
+//    return _cm_titles ?: titles;
+//
+//
+//}
+
+//
+//-(UIColor *)cm_seperaterLineColor {
+//
+//    return _cm_seperaterLineColor ?: [UIColor grayColor];
+//}
+//
+//- (NSArray *)cm_titleWidths {
+//
+//    NSMutableArray *mArray = [NSMutableArray array];
+//
+//    for (NSString *string in self.cm_titles) {
+//
+//        [mArray addObject:@(CMStringWidth(string, self.cm_font))];
+//
+//    }
+//
+//    return [mArray copy];
+//
+//}
+//
+//- (CGFloat)cm_titlesWidth {
+//
+//    return [[self.cm_titleWidths valueForKeyPath:@"@sum.floatValue"] floatValue];
+//
+//}
+//
+//- (CGFloat)cm_minContentWidth {
+//
+//    NSUInteger count = self.cm_contentMode == CMPageTitleContentMode_Center ? self.cm_titles.count + 1 : self.cm_titles.count;
+//
+//
+//    return  self.cm_titlesWidth + count * self.cm_minTitleMargin;
+//
+//}
+
+//
+//- (CGFloat)cm_titleMargin {
+//
+//
+//    if (self.cm_contentMode == CMPageTitleContentMode_Left) {
+//        //左对齐
+//
+//         _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
+//
+//    } else if (self.cm_contentMode == CMPageTitleContentMode_Right) {
+//        //右对齐
+//
+//         _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
+//
+//    }else if (self.cm_contentMode == CMPageTitleContentMode_Center || self.cm_contentMode == CMPageTitleContentMode_SpaceAround) {
+//
+//        if (self.cm_titlesWidth  >= self.cm_pageTitleViewWidth.floatValue) {
+//            _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
+//
+//        } else {
+//
+//            NSUInteger count = self.cm_contentMode == CMPageTitleContentMode_Center ? self.cm_titles.count + 1 : self.cm_titles.count;
+//
+//            CGFloat titleMargin = (self.cm_pageTitleViewWidth.floatValue - self.cm_titlesWidth )/count;
+//
+//            _cm_titleMargin = titleMargin < self.cm_minTitleMargin ? self.cm_minTitleMargin : titleMargin;
+//
+//        }
+//    }
+//
+//    return _cm_titleMargin;
+//}
+
+
+//- (CGFloat)cm_minTitleMargin {
+//
+//
+//    return _cm_minTitleMargin ?: 20;
+//
+//}
+//
+//- (NSInteger)cm_defaultIndex {
+//
+//    return _cm_defaultIndex < self.cm_titles.count ? _cm_defaultIndex : 0;
+//}
+//
+//- (CGFloat)cm_scale {
+//
+//    return _cm_scale ?: 1.2;
+//}
+//
+//
+//- (CGSize)cm_splitterSize {
+//
+//    return CGSizeEqualToSize(_cm_splitterSize,CGSizeZero) ? CGSizeMake(1/[UIScreen mainScreen].scale, self.cm_titleHeight*0.5):_cm_splitterSize;
+//
+//}
+//
+//- (UIColor *)cm_splitterColor {
+//
+//    return _cm_splitterColor ?: [UIColor lightGrayColor];
+//
+//}
+//
+//
+//- (CGFloat)cm_animationDruction {
+//
+//    return (_cm_animationDruction >= 0.25 && _cm_animationDruction <= 0.8) ? _cm_animationDruction : 0.25;
+//}
+
++ (instancetype)defaultConfig{
     
-    return _cm_defaultIndex < self.cm_titles.count ? _cm_defaultIndex : 0;
+
+    return [[self alloc]initWithDefaultConfig];
+    
 }
 
-- (CGFloat)cm_scale {
+- (instancetype)initWithDefaultConfig {
     
-    return _cm_scale ?: 1.2;
-}
 
+    if (self = [super init]) {
+        
+        self.cm_titleHeight = 44;
+        
+        self.cm_font = [UIFont systemFontOfSize:15];
+        
+        self.cm_backgroundColor = [UIColor whiteColor];
+        
+        self.cm_normalColor = [UIColor blackColor];
+        
+        self.cm_selectedColor = [UIColor redColor];
+        
+        self.cm_defaultIndex = 0;
+        
+        self.cm_minTitleMargin = 20;
+        
+        self.cm_scale = 1.2;
+        
+        self.cm_animationDruction = 0.25;
+        
+        self.cm_contentMode = CMPageTitleContentMode_Center;
+        
+        self.cm_slideGestureEnable = YES;
+        
+        self.cm_underlineStretch = NO;
 
-- (CGSize)cm_splitterSize {
-    
-    return CGSizeEqualToSize(_cm_splitterSize,CGSizeZero) ? CGSizeMake(1/[UIScreen mainScreen].scale, self.cm_titleHeight*0.5):_cm_splitterSize;
-    
-}
+        self.cm_seperateLineHeight = 1.0 / [UIScreen mainScreen].scale;
+        
+        self.cm_seperaterLineColor = [UIColor lightGrayColor];
+        
+        self.cm_underlineColor = self.cm_selectedColor;
+        
+        self.cm_underlineWidthScale = 1;
+        
+        self.cm_underlineHeight = 2;
+        
+        self.cm_coverVerticalMargin = 5;
+        
+        self.cm_coverHorizontalMargin = 10;
 
-- (UIColor *)cm_splitterColor {
+        self.cm_splitterColor = [UIColor lightGrayColor];
+        
+        self.cm_splitterSize = CGSizeMake(1.0 / [UIScreen mainScreen].scale, 22);
     
-    return _cm_splitterColor ?: [UIColor lightGrayColor];
+        
+    }
+    return self;
     
-}
-
-
-- (CGFloat)cm_animationDruction {
-    
-    return (_cm_animationDruction >= 0.25 && _cm_animationDruction <= 0.8) ? _cm_animationDruction : 0.25;
 }
 
 
