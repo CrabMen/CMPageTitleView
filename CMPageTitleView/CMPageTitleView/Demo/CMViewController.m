@@ -144,6 +144,15 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
     self.view.backgroundColor = [UIColor whiteColor];
     
+    [self setReloadBarButtonItem];
+}
+
+- (void)rightBarButtonItemClickAction:(UIBarButtonItem *)sender {
+    
+    
+    
+    
+    
 }
 
 - (void)viewDidLoad {
@@ -163,7 +172,18 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)reloadConfig:(UIBarButtonItem *)sender {
     
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
+    config.cm_childControllers = self.lessChildControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
+    config.cm_underlineStretch = YES;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
+    config.cm_contentMode = CMPageTitleContentMode_Left;
+    config.cm_scaleGradientContentMode = CMPageTitleScaleGradientContentMode_Bottom;
+    config.cm_scale = 1.3;
     
+    self.pageTitleView.cm_config = config;
+    
+    [self.pageTitleView cm_reloadConfig];
     
     
 }
@@ -182,7 +202,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
@@ -193,61 +213,55 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 - (void)style00_01 {
     
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style00_02 {
     
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style00_03 {
     
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     //默认放大倍数是1.2
@@ -258,69 +272,63 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     //    config.cm_font = [UIFont systemFontOfSize:16]
     //    config.cm_scale = 1.3;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style00_04 {
     
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style00_05 {
     
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style00_06 {
     
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Delay ;
     //默认放大倍数是1.2
@@ -331,361 +339,329 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     //    config.cm_font = [UIFont systemFontOfSize:16]
     //    config.cm_scale = 1.3;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style00_07 {
     
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style00_08 {
     
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover | CMPageTitleSwitchMode_Delay;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style00_09 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_additionalMode = CMPageTitleAdditionalMode_Seperateline;
     config.cm_seperateLineHeight = 2;
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style00_10 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_additionalMode = CMPageTitleAdditionalMode_Splitter;
     config.cm_splitterSize = CGSizeMake(1/[UIScreen mainScreen].scale, config.cm_titleHeight * 0.5);
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style00_11 {
     
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
     
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.lessChildControllers;
     config.cm_contentMode = CMPageTitleContentMode_Left;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style00_12 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
     
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.lessChildControllers;
     config.cm_contentMode = CMPageTitleContentMode_Right;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
 }
 
 - (void)style00_13 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
     
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.lessChildControllers;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
 }
 
 - (void)style00_14 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
     
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.lessChildControllers;
     config.cm_contentMode = CMPageTitleContentMode_SpaceAround;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
 }
 
 - (void)style00_15 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
     
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     //    默认
     //    config.cm_scaleGradientContentMode = CMPageTitleScaleGradientContentMode_Center;
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style00_16 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
     
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_scaleGradientContentMode = CMPageTitleScaleGradientContentMode_Top;
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style00_17 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
     
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_scaleGradientContentMode = CMPageTitleScaleGradientContentMode_Bottom;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 
 - (void)style01_00 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_01 {
     
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_02 {
     
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_03 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
 
     
 }
 
 - (void)style01_04 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
 
     
     
@@ -693,45 +669,41 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_05 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_06 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
 
     
     
@@ -739,715 +711,653 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_07 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
 
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_08 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
 }
 
 - (void)style01_09 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_10 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_11 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
     
 }
 
 - (void)style01_12 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineWidth = 10;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_13 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineWidth = 10;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_14 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineWidth = 10;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
 }
 
 - (void)style01_15 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_underlineWidth = 10;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_16 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_underlineWidth = 10;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_17 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_underlineWidth = 10;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_18 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineWidthScale = 0.6;
     
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_19 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineWidthScale = 0.6;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_20 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineWidthScale = 0.6;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_21 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_underlineWidthScale = 0.6;
     
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_22 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_underlineWidthScale = 0.6;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_23 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_underlineWidthScale = 0.6;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_24 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
     
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_25 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_26 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_27 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
     config.cm_underlineWidth = 10;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_28 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
     config.cm_underlineWidth = 10;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_29 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineWidth = 10;
     config.cm_underlineStretch = YES;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_30 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
     config.cm_underlineWidthScale = 1.3;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_31 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
     config.cm_underlineWidthScale = 1.3;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_32 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineWidthScale = 1.3;
     config.cm_underlineStretch = YES;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_33 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_34 {
     
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_35 {
     
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_36 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
     
 }
 
 - (void)style01_37 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
     
     
@@ -1455,141 +1365,129 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_38 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 
 - (void)style01_39 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_coverWidth = 56;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_40 {
     
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_coverWidth = 56;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_41 {
     
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_coverWidth = 56;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_42 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover | CMPageTitleSwitchMode_Delay;
     config.cm_coverWidth = 56;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
     
 }
 
 - (void)style01_43 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover | CMPageTitleSwitchMode_Delay;
     config.cm_coverWidth = 56;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
     
     
@@ -1597,158 +1495,144 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_44 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover | CMPageTitleSwitchMode_Delay;
     config.cm_coverWidth = 56;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 
 - (void)style01_45 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_46 {
     
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_47 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     config.cm_underlineStretch = YES;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_48 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
     config.cm_underlineWidth = 10;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
 
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_49 {
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
     config.cm_underlineWidthScale = 0.6;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
     
 }
 
 - (void)style01_50 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
@@ -1756,24 +1640,22 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_scaleGradientContentMode = CMPageTitleScaleGradientContentMode_Bottom;
     config.cm_scale = 1.3;
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_51 {
     
-    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-    [self.view addSubview:pageView];
     
-    [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
         make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
         
     }];
-    pageView.delegate = self;
+    self.pageTitleView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.lessChildControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
@@ -1783,7 +1665,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_scale = 1.3;
 
     
-    pageView.cm_config = config;
+    self.pageTitleView.cm_config = config;
 
 }
 

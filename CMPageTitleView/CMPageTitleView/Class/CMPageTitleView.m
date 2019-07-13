@@ -78,10 +78,18 @@
 
 - (void)cm_reloadConfig {
     
-    [self layoutIfNeeded];
+    [self.seperateLine removeFromSuperview];
+    [self.titleView removeFromSuperview];
+    [self.contentView removeFromSuperview];
     
     
+    self.seperateLine = nil;
+    self.titleView = nil;
+    self.contentView = nil;
     
+    [self layoutSubviews];
+    
+   
 }
 
 
