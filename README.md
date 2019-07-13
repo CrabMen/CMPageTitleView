@@ -180,6 +180,7 @@ end
 * 2018-05-16 版本 0.4.1 修复cm_seperateLineHeight为0时无效的问题
 * 2018-05-17 版本 0.4.2 新增cm_animationDruction属性，便于用户设置动画时间
 * 2018-05-23 版本 0.5.0 新增cm_verticalContentMode，可以设置标题文字垂直方向的对齐方式；新增cm_additionalMode，便于设置分割线；优化cm_backgroundColor效果；优化相关代码调用时机
+* 2018-07-13 版本 0.5.1 CMPageTitleView中新增-(void)cm_reloadConfig方法，便于用户刷新配置
 
 ## <a id="support"></a>支持
 * 如果觉得该三方库还不错，可以[**★Star**](#)支持一下你的[**★Star**](#)就是我最大的动力
