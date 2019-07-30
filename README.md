@@ -4,6 +4,8 @@
 ![](https://img.shields.io/cocoapods/p/CMPageTitleView.svg)
 ![](https://img.shields.io/apm/l/vim-mode.svg)
 
+##注意：使用的朋友可以安装0.5.0版本，因忙着996，自测力度不够，导致目前0.5.1有使用bug，目前正在抢修，抱歉了。
+
 * [效果展示](#screenshots)
   * [效果展示 - 基本样式](#screenshots-basic)
   * [效果展示 - 组合](#screenshots-multi)
