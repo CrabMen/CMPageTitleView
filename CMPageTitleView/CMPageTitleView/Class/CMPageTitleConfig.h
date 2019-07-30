@@ -288,6 +288,7 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
 #pragma mark --- 遮罩效果
 
 /**
+ 
  遮罩颜色
  */
 @property (nonatomic,strong) UIColor *cm_coverColor;

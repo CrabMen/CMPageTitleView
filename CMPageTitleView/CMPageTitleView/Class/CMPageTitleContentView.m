@@ -206,6 +206,8 @@
     [self initContentSize];
     [self initSplitters];
     
+    self.contentInset = UIEdgeInsetsMake(0, 0, 0, self.config.cm_titleMargin);
+    
 }
 
 
