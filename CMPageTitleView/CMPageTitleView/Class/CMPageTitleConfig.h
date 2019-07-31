@@ -401,7 +401,12 @@ CG_EXTERN CGFloat CMColorGetA(UIColor *color);
  */
 CG_EXTERN CGFloat CMStringWidth(NSString *string ,UIFont *font);
 
-
+//宏定义单利的定义
++ (instancetype)defaultConfig;
++(instancetype) alloc __attribute__((unavailable("please call class method +(instancetype)defaultConfig instead")));
++(instancetype) new __attribute__((unavailable("please call class method +(instancetype)defaultConfig instead")));
+-(instancetype) copy __attribute__((unavailable("please call class method +(instancetype)defaultConfig instead")));
+-(instancetype) mutableCopy __attribute__((unavailable("please call class method +(instancetype)defaultConfig instead")));
 
 @end
 

@@ -74,6 +74,20 @@
     
 }
 
+- (void)setCm_underlineWidthScale:(CGFloat)cm_underlineWidthScale {
+    _cm_underlineWidthScale = cm_underlineWidthScale;
+    
+   _cm_underlineWidthScale = fabs(_cm_underlineWidthScale) > 1.3 || _cm_underlineWidthScale == 0 ? 1 :fabs(_cm_underlineWidthScale) ;
+    
+}
+
+- (void)setCm_defaultIndex:(NSInteger)cm_defaultIndex {
+    _cm_defaultIndex = cm_defaultIndex;
+    
+   _cm_defaultIndex = _cm_defaultIndex < self.cm_titles.count ? _cm_defaultIndex : 0;
+
+    
+}
 
 
 #pragma mark -- getter
@@ -104,66 +118,6 @@
     _cm_slideGestureEnable = _cm_slideGestureEnableNumber ? [_cm_slideGestureEnableNumber boolValue] : YES;
     
     return _cm_slideGestureEnableNumber;
-    
-}
-
-- (CGFloat)cm_titleHeight {
-    
-    return _cm_titleHeight ?: 44;
-}
-
-- (UIFont *)cm_font {
-    
-    return _cm_font ?[UIFont systemFontOfSize:_cm_font.pointSize]: [UIFont systemFontOfSize:15];
-    
-}
-
-- (UIColor *)cm_backgroundColor {
-    
-    return _cm_backgroundColor?:[UIColor whiteColor];
-    
-}
-
-
-- (UIColor *)cm_normalColor {
-    
-    return _cm_normalColor ?:[UIColor blackColor];
-}
-
-- (UIColor *)cm_selectedColor {
-    
-    return _cm_selectedColor ?: [UIColor redColor];
-}
-
-- (UIColor *)cm_underlineColor {
-    
-    return _cm_underlineColor ?: self.cm_selectedColor;
-    
-}
-
-- (CGFloat)cm_underlineWidthScale {
-    
-    
-    return fabs(_cm_underlineWidthScale) > 1.3 || _cm_underlineWidthScale == 0 ? 1 :fabs(_cm_underlineWidthScale) ;
-    
-}
-
-- (CGFloat)cm_underlineHeight {
-    
-    return _cm_underlineHeight ?: 2;
-    
-}
-
-
-- (CGFloat)cm_coverVerticalMargin {
-    
-    return _cm_coverVerticalMargin ?: 5;
-    
-}
-
-- (CGFloat)cm_coverHorizontalMargin {
-    
-    return _cm_coverHorizontalMargin ?: 10;
     
 }
 
@@ -255,10 +209,10 @@
     
 }
 
-- (NSInteger)cm_defaultIndex {
-    
-    return _cm_defaultIndex < self.cm_titles.count ? _cm_defaultIndex : 0;
-}
+//- (NSInteger)cm_defaultIndex {
+//
+//    return _cm_defaultIndex < self.cm_titles.count ? _cm_defaultIndex : 0;
+//}
 
 - (CGFloat)cm_scale {
     
@@ -266,23 +220,89 @@
 }
 
 
-- (CGSize)cm_splitterSize {
-    
-    return CGSizeEqualToSize(_cm_splitterSize,CGSizeZero) ? CGSizeMake(1/[UIScreen mainScreen].scale, self.cm_titleHeight*0.5):_cm_splitterSize;
-    
-}
-
-- (UIColor *)cm_splitterColor {
-    
-    return _cm_splitterColor ?: [UIColor lightGrayColor];
-    
-}
+//- (CGSize)cm_splitterSize {
+//
+//    return CGSizeEqualToSize(_cm_splitterSize,CGSizeZero) ? CGSizeMake(1/[UIScreen mainScreen].scale, self.cm_titleHeight*0.5):_cm_splitterSize;
+//
+//}
+//
+//- (UIColor *)cm_splitterColor {
+//
+//    return _cm_splitterColor ?: [UIColor lightGrayColor];
+//
+//}
 
 
 - (CGFloat)cm_animationDruction {
     
     return (_cm_animationDruction >= 0.25 && _cm_animationDruction <= 0.8) ? _cm_animationDruction : 0.25;
 }
+
+
+
+
++ (instancetype)defaultConfig{
+    
+    
+    return [[super alloc]initWithDefaultConfig];
+    
+}
+
+
+- (instancetype)initWithDefaultConfig {
+    
+    
+    if (self = [super init]) {
+        
+        self.cm_titleHeight = 44;
+        
+        self.cm_font = [UIFont systemFontOfSize:15];
+        
+        self.cm_backgroundColor = [UIColor whiteColor];
+        
+        self.cm_normalColor = [UIColor blackColor];
+        
+        self.cm_selectedColor = [UIColor redColor];
+        
+        _cm_defaultIndex = 0;
+        
+        self.cm_minTitleMargin = 20;
+        
+        self.cm_scale = 1.2;
+        
+        self.cm_animationDruction = 0.25;
+        
+        self.cm_contentMode = CMPageTitleContentMode_Center;
+        
+        self.cm_slideGestureEnable = YES;
+        
+        self.cm_underlineStretch = NO;
+        
+        self.cm_seperateLineHeight = 1.0 / [UIScreen mainScreen].scale;
+        
+        self.cm_seperaterLineColor = [UIColor lightGrayColor];
+        
+        self.cm_underlineColor = self.cm_selectedColor;
+        
+        self.cm_underlineWidthScale = 1;
+        
+        self.cm_underlineHeight = 2;
+        
+        self.cm_coverVerticalMargin = 5;
+        
+        self.cm_coverHorizontalMargin = 10;
+        
+        self.cm_splitterColor = [UIColor lightGrayColor];
+        
+        self.cm_splitterSize = CGSizeMake(1.0 / [UIScreen mainScreen].scale, 22);
+        
+        
+    }
+    return self;
+    
+}
+
+
 
 
 CG_EXTERN NSArray* CMColorGetRGBA(UIColor *color) {

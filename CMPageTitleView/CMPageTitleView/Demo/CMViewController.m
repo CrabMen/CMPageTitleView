@@ -150,7 +150,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
@@ -172,7 +172,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
@@ -194,7 +194,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     
     pageView.cm_config = config;
@@ -215,7 +215,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     //默认放大倍数是1.2
@@ -244,7 +244,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     
@@ -266,7 +266,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     
@@ -288,7 +288,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Delay ;
     //默认放大倍数是1.2
@@ -317,7 +317,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     
@@ -339,7 +339,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover | CMPageTitleSwitchMode_Delay;
     
@@ -360,7 +360,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_additionalMode = CMPageTitleAdditionalMode_Seperateline;
     config.cm_seperateLineHeight = 2;
@@ -381,7 +381,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_additionalMode = CMPageTitleAdditionalMode_Splitter;
     config.cm_splitterSize = CGSizeMake(1/[UIScreen mainScreen].scale, config.cm_titleHeight * 0.5);
@@ -405,7 +405,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.lessChildControllers;
     config.cm_contentMode = CMPageTitleContentMode_Left;
     
@@ -427,7 +427,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.lessChildControllers;
     config.cm_contentMode = CMPageTitleContentMode_Right;
     
@@ -448,7 +448,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.lessChildControllers;
     
     pageView.cm_config = config;
@@ -468,7 +468,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.lessChildControllers;
     config.cm_contentMode = CMPageTitleContentMode_SpaceAround;
     
@@ -489,7 +489,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     //    默认
@@ -512,7 +512,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_scaleGradientContentMode = CMPageTitleScaleGradientContentMode_Top;
@@ -534,7 +534,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_scaleGradientContentMode = CMPageTitleScaleGradientContentMode_Bottom;
@@ -557,7 +557,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
@@ -580,7 +580,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
@@ -603,7 +603,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
@@ -625,7 +625,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
@@ -648,7 +648,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
@@ -672,7 +672,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
@@ -694,7 +694,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
@@ -718,7 +718,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
@@ -740,7 +740,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
@@ -761,7 +761,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
@@ -783,7 +783,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
@@ -805,7 +805,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
@@ -828,7 +828,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineWidth = 10;
@@ -851,7 +851,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineWidth = 10;
@@ -874,7 +874,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineWidth = 10;
@@ -896,7 +896,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_underlineWidth = 10;
@@ -919,7 +919,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_underlineWidth = 10;
@@ -942,7 +942,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_underlineWidth = 10;
@@ -965,7 +965,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineWidthScale = 0.6;
@@ -989,7 +989,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineWidthScale = 0.6;
@@ -1012,7 +1012,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineWidthScale = 0.6;
@@ -1035,7 +1035,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_underlineWidthScale = 0.6;
@@ -1059,7 +1059,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_underlineWidthScale = 0.6;
@@ -1082,7 +1082,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_underlineWidthScale = 0.6;
@@ -1105,7 +1105,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
@@ -1129,7 +1129,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
@@ -1152,7 +1152,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
@@ -1175,7 +1175,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
@@ -1199,7 +1199,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
@@ -1223,7 +1223,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineWidth = 10;
@@ -1247,7 +1247,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
@@ -1271,7 +1271,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
@@ -1295,7 +1295,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineWidthScale = 1.3;
@@ -1319,7 +1319,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
@@ -1342,7 +1342,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
@@ -1365,7 +1365,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
@@ -1387,7 +1387,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
@@ -1410,7 +1410,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
@@ -1434,7 +1434,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
@@ -1457,7 +1457,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_coverWidth = 56;
@@ -1480,7 +1480,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_coverWidth = 56;
@@ -1504,7 +1504,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_coverWidth = 56;
@@ -1527,7 +1527,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover | CMPageTitleSwitchMode_Delay;
     config.cm_coverWidth = 56;
@@ -1551,7 +1551,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover | CMPageTitleSwitchMode_Delay;
     config.cm_coverWidth = 56;
@@ -1576,7 +1576,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover | CMPageTitleSwitchMode_Delay;
     config.cm_coverWidth = 56;
@@ -1600,7 +1600,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
@@ -1623,7 +1623,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
@@ -1645,7 +1645,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
@@ -1668,7 +1668,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
@@ -1691,7 +1691,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
@@ -1716,7 +1716,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
@@ -1741,7 +1741,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.lessChildControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
