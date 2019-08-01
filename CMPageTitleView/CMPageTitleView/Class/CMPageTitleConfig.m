@@ -79,18 +79,17 @@
 - (void)setCm_underlineWidthScale:(CGFloat)cm_underlineWidthScale {
     _cm_underlineWidthScale = cm_underlineWidthScale;
     
-   _cm_underlineWidthScale = fabs(_cm_underlineWidthScale) > 1.3 || _cm_underlineWidthScale == 0 ? 1 :fabs(_cm_underlineWidthScale) ;
+    _cm_underlineWidthScale = fabs(_cm_underlineWidthScale) > 1.3 || _cm_underlineWidthScale == 0 ? 1 :fabs(_cm_underlineWidthScale) ;
     
 }
 
 - (void)setCm_defaultIndex:(NSInteger)cm_defaultIndex {
     _cm_defaultIndex = cm_defaultIndex;
     
-   _cm_defaultIndex = _cm_defaultIndex < self.cm_titles.count ? _cm_defaultIndex : 0;
-
+    _cm_defaultIndex = _cm_defaultIndex < self.cm_titles.count ? _cm_defaultIndex : 0;
+    
     
 }
-
 
 #pragma mark -- getter
 
@@ -127,7 +126,7 @@
     
     CMPageErrorAssert(self.cm_childControllers != nil, @"cm_childControllers属性未赋值");
     CMPageErrorAssert(self.cm_childControllers.count != 0, @"cm_childControllers数组个数不能为空");
-
+    
     NSArray *titles = [self.cm_childControllers valueForKey:@"title"];
     
     return _cm_titles ?: titles;
@@ -148,7 +147,7 @@
     for (NSString *string in self.cm_titles) {
         
         [mArray addObject:@(CMStringWidth(string, self.cm_font))];
-
+        
     }
     
     return [mArray copy];
@@ -156,15 +155,15 @@
 }
 
 - (CGFloat)cm_titlesWidth {
-   
+    
     return [[self.cm_titleWidths valueForKeyPath:@"@sum.floatValue"] floatValue];
-
+    
 }
 
 - (CGFloat)cm_minContentWidth {
     
     NSUInteger count = self.cm_contentMode == CMPageTitleContentMode_Center ? self.cm_titles.count + 1 : self.cm_titles.count;
-
+    
     
     return  self.cm_titlesWidth + count * self.cm_minTitleMargin;
     
@@ -176,16 +175,16 @@
     
     if (self.cm_contentMode == CMPageTitleContentMode_Left) {
         //左对齐
-       
-         _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
+        
+        _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
         
     } else if (self.cm_contentMode == CMPageTitleContentMode_Right) {
         //右对齐
         
-         _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
+        _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
         
     }else if (self.cm_contentMode == CMPageTitleContentMode_Center || self.cm_contentMode == CMPageTitleContentMode_SpaceAround) {
-       
+        
         if (self.cm_titlesWidth  >= self.cm_pageTitleViewWidth.floatValue) {
             _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
             
@@ -199,7 +198,7 @@
             
         }
     }
-
+    
     return _cm_titleMargin;
 }
 
@@ -316,7 +315,7 @@ CG_EXTERN CGFloat CMStringWidth(NSString *string ,UIFont *font) {
         NSException *exception = [NSException exceptionWithName:@"CMStringWidth C Method Exception" reason:@"title的标题不能为空" userInfo:nil];
         [exception raise];
     }
-   
+    
     CGFloat width = [string boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:font} context:nil].size.width ;
     
     return ceilf(width);

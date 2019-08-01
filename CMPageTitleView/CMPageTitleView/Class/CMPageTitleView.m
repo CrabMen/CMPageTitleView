@@ -111,6 +111,9 @@
     
     [self addSubview:self.contentView];
     
+    self.contentView.frame = CGRectMake(0, self.titleView.cm_height +
+                                        _seperateLine.cm_height, self.cm_width, self.cm_height - self.titleView.cm_height - _seperateLine.cm_height);
+    
     
 }
 
