@@ -52,4 +52,8 @@
  */
 @property (nonatomic,strong) CMPageTitleConfig *cm_config;
 
+
+/**重载配置*/
+- (void)cm_reloadConfig;
+
 @end

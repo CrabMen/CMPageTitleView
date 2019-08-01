@@ -8,6 +8,7 @@
 //  Created by CrabMan on 2018/1/15.
 //  Copyright © 2018年 Mac. All rights reserved.
 //
+//#warning TODO：将frame布局优化为layout布局
 
 #import "CMPageTitleView.h"
 #import "CMPageTitleContentView.h"
@@ -75,6 +76,24 @@
    
 }
 
+
+
+- (void)cm_reloadConfig {
+    
+    [self.seperateLine removeFromSuperview];
+    [self.titleView removeFromSuperview];
+    [self.contentView removeFromSuperview];
+    
+    
+    self.seperateLine = nil;
+    self.titleView = nil;
+    self.contentView = nil;
+    
+    [self layoutSubviews];
+    
+    
+}
+
 - (void)initSubViews {
    
     CMPageErrorAssert(self.cm_config != nil, @"cm_config属性不能为空");
@@ -91,7 +110,6 @@
     }
     
     [self addSubview:self.contentView];
-    
     
     
 }
