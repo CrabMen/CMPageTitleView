@@ -4,7 +4,7 @@
 ![](https://img.shields.io/cocoapods/p/CMPageTitleView.svg)
 ![](https://img.shields.io/apm/l/vim-mode.svg)
 
-## 注意：目前0.5.1中布局的问题，已经紧急修复。同时也修复了本人在项目使用过程中，某些情况下CMPageTitleContentView的尺寸不准确的问题Pod版本更新到了0.5.2，建议依旧使用0.5.1版本的朋友，可以更新到0.5.2版本，以免影响用户体验。对您造成的不便，再次表示真诚的歉意!!!
+## 注意：目前0.5.1中布局的问题，已经紧急修复。同时也修复了本人在项目使用过程中，某些情况下CMPageTitleContentView的尺寸不准确的问题。Pod版本更新到了0.5.2，建议依旧使用0.5.1版本的朋友更新到0.5.2版本，以免影响用户体验。对您造成的不便，再次表示真诚的歉意!!!
 
 * [效果展示](#screenshots)
   * [效果展示 - 基本样式](#screenshots-basic)
