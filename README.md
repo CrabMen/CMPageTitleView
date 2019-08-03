@@ -22,7 +22,7 @@
 
 
 | 基本样式    |    GIF|
-| :-------- | --------:| 
+| :--------: | :--------:| 
 |00-00.颜色效果 - RGB渐变 |![](https://raw.githubusercontent.com/CrabMen/CMResources/master/CMPageTitleView/CMPageTitleView_00_00.gif)|
 |00-01.颜色效果 - 填充渐变 |![](https://raw.githubusercontent.com/CrabMen/CMResources/master/CMPageTitleView/CMPageTitleView_00_01.gif)|
 |00-02.颜色效果 - 无渐变 |![](https://raw.githubusercontent.com/CrabMen/CMResources/master/CMPageTitleView/CMPageTitleView_00_02.gif)|
