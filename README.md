@@ -49,7 +49,7 @@
 根据上方的基本样式可以进行自由组合，从而达到你想要的效果；因组合样式过多，下方列出了部分
 
 | 组合样式    |    GIF|
-| :-------- | --------:| 
+| :--------: | :--------:| 
 |01-00.字体放大 - 颜色RGB渐变 |![](https://raw.githubusercontent.com/CrabMen/CMResources/master/CMPageTitleView/CMPageTitleView_01_00.gif)|
 |01-01.字体放大 - 颜色填充渐变 |![](https://raw.githubusercontent.com/CrabMen/CMResources/master/CMPageTitleView/CMPageTitleView_01_01.gif)|
 |01-02.字体放大 - 颜色无渐变 |![](https://raw.githubusercontent.com/CrabMen/CMResources/master/CMPageTitleView/CMPageTitleView_01_02.gif)|
