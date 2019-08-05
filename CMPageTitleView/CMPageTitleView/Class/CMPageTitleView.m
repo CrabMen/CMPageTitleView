@@ -18,13 +18,13 @@
 @interface CMPageTitleView() <CMPageTitleContentViewDelegate,CMPageContentViewDelegate>
 
 /**标题视图*/
-@property (nonatomic,strong) CMPageTitleContentView *titleView;
+@property (nonatomic,weak) CMPageTitleContentView *titleView;
 
 /**内容视图*/
-@property (nonatomic,strong) CMPageContentView *contentView;
+@property (nonatomic,weak) CMPageContentView *contentView;
 
 /**标题视图和内容视图间的分割线*/
-@property (nonatomic,strong) UIView *seperateLine;
+@property (nonatomic,weak) UIView *seperateLine;
 
 
 @end
@@ -34,9 +34,13 @@
 - (UIView *)seperateLine {
     
     if (!_seperateLine) {
-        _seperateLine = [[UIView alloc] initWithFrame:CGRectMake(0, self.titleView.cm_bottom, self.cm_width, self.cm_config.cm_seperateLineHeight)];
+        UIView *seperateLine = [[UIView alloc] initWithFrame:CGRectZero];
         
-        _seperateLine.backgroundColor = self.cm_config.cm_seperaterLineColor;
+        seperateLine.backgroundColor = self.cm_config.cm_seperaterLineColor;
+        
+        _seperateLine = seperateLine;
+        
+        [self addSubview:_seperateLine];
     }
     
     return _seperateLine;
@@ -45,10 +49,11 @@
 - (CMPageTitleContentView *)titleView {
     
     if (!_titleView) {
-        _titleView = [[CMPageTitleContentView alloc] initWithConfig:self.cm_config];
-        _titleView.cm_delegate = self;
-        _titleView.frame = CGRectMake(0, 0, self.cm_width, self.cm_config.cm_titleHeight);
+       CMPageTitleContentView *titleView = [[CMPageTitleContentView alloc] initWithConfig:self.cm_config];
+        titleView.cm_delegate = self;
+        _titleView = titleView;
         
+        [self addSubview:_titleView];
     }
     return _titleView;
 }
@@ -60,20 +65,20 @@
         CGRect rect = CGRectMake(0, self.titleView.cm_height +
                                  _seperateLine.cm_height, self.cm_width, self.cm_height - self.titleView.cm_height - _seperateLine.cm_height);
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        _contentView = [[CMPageContentView alloc] initWithFrame:rect collectionViewLayout:layout Config:self.cm_config];
-        _contentView.cm_delegate = self;
-       
+       CMPageContentView *contentView = [[CMPageContentView alloc] initWithFrame:rect collectionViewLayout:layout Config:self.cm_config];
+        contentView.cm_delegate = self;
+        _contentView = contentView;
+        [self addSubview:_contentView];
+    
     }
     return _contentView;
 }
-
 
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     [self initSubViews];
   
-   
 }
 
 
@@ -113,6 +118,77 @@
     
     self.contentView.frame = CGRectMake(0, self.titleView.cm_height +
                                         _seperateLine.cm_height, self.cm_width, self.cm_height - self.titleView.cm_height - _seperateLine.cm_height);
+    
+
+    [self initVFLContraints];
+}
+
+- (void)initVFLContraints {
+    
+    [self addSubview:self.titleView];
+    [self addSubview:self.seperateLine];
+    [self addSubview:self.contentView];
+
+    self.titleView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.seperateLine.translatesAutoresizingMaskIntoConstraints = NO;
+    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleView}]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[seperateline]|" options:0 metrics:@{}views:@{@"seperateline":self.seperateLine}]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[content]|" options:0 metrics:@{}views:@{@"content":self.contentView}]];
+    
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title(==titleH)][seperateline(==seperateH)][content]|" options:0 metrics:@{@"titleH":@(self.cm_config.cm_titleHeight),@"seperateH":@(self.cm_config.cm_seperateLineHeight)}views:@{@"title":self.titleView,@"seperateline":self.seperateLine,@"content":self.contentView}]];
+
+
+}
+
+- (void)initConstraints {
+    
+    [self addSubview:self.titleView];
+    
+    self.titleView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.seperateLine.translatesAutoresizingMaskIntoConstraints = NO;
+    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    NSLayoutConstraint *leftConstraint0 = [NSLayoutConstraint constraintWithItem:self.titleView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:0];
+    
+     NSLayoutConstraint *topConstraint0 = [NSLayoutConstraint constraintWithItem:self.titleView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:0];
+    
+     NSLayoutConstraint *rightConstraint0 = [NSLayoutConstraint constraintWithItem:self.titleView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1 constant:0];
+    
+    NSLayoutConstraint *heightConstraint0 = [NSLayoutConstraint constraintWithItem:self.titleView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:self.cm_config.cm_titleHeight];
+    
+    
+      [NSLayoutConstraint activateConstraints:@[leftConstraint0,topConstraint0,rightConstraint0,heightConstraint0]];
+    
+    [self addSubview:self.seperateLine];
+
+    NSLayoutConstraint *leftConstraint1 = [NSLayoutConstraint constraintWithItem:self.seperateLine attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:0];
+    
+    NSLayoutConstraint *topConstraint1 = [NSLayoutConstraint constraintWithItem:self.seperateLine attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.titleView attribute:NSLayoutAttributeBottom multiplier:1 constant:0];
+    
+    NSLayoutConstraint *rightConstraint1 = [NSLayoutConstraint constraintWithItem:self.seperateLine attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1 constant:0];
+    
+    NSLayoutConstraint *heightConstraint1 = [NSLayoutConstraint constraintWithItem:self.seperateLine attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:self.cm_config.cm_seperateLineHeight];
+
+    [NSLayoutConstraint activateConstraints:@[leftConstraint1,topConstraint1,rightConstraint1,heightConstraint1]];
+
+    
+    NSLayoutConstraint *leftConstraint2 = [NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:0];
+    
+    NSLayoutConstraint *topConstraint2 = [NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.titleView attribute:NSLayoutAttributeBottom multiplier:1 constant:0];
+    
+    NSLayoutConstraint *rightConstraint2 = [NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1 constant:0];
+    
+    NSLayoutConstraint *heightConstraint2 = [NSLayoutConstraint constraintWithItem:self.contentView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:0];
+    
+    [NSLayoutConstraint activateConstraints:@[leftConstraint2,topConstraint2,rightConstraint2,heightConstraint2]];
+
+    
+    
+    
     
     
 }
