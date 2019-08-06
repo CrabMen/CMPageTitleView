@@ -201,12 +201,14 @@
 
 - (void)initSubViews {
     
-    
-
     [self initContentSize];
     [self initSplitters];
+    [self modifyContentInset];
+}
+
+- (void)modifyContentInset {
     
-    self.contentInset = UIEdgeInsetsMake(0, 0, 0, self.config.cm_titleMargin);
+    self.contentInset = UIEdgeInsetsMake(0, 0, 0, self.config.cm_rightView ? (self.config.cm_titleMargin+self.config.cm_rightView.cm_width) : self.config.cm_titleMargin);
     
 }
 

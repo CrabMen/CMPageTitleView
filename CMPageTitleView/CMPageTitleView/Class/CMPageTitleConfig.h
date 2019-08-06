@@ -232,7 +232,8 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
  */
 @property (nonatomic,assign) CMPageTitleScaleGradientContentMode cm_scaleGradientContentMode;
 
-
+/**右侧视图*/
+@property (nonatomic,strong) UIView *cm_rightView;
 
 
 #pragma mark --- 下划线效果

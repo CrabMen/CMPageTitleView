@@ -82,9 +82,7 @@
 
 - (void)cm_reloadConfig {
     
-    [self.seperateline removeFromSuperview];
-    [self.titleView removeFromSuperview];
-    [self.contentView removeFromSuperview];
+    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     self.seperateline = nil;
     self.titleView = nil;
@@ -129,10 +127,18 @@
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleView}]];
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[seperateline]|" options:0 metrics:@{}views:@{@"seperateline":self.seperateline}]];
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[content]|" options:0 metrics:@{}views:@{@"content":self.contentView}]];
-    
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title(==titleH)][seperateline(==seperateH)][content]|" options:0 metrics:@{@"titleH":@(self.cm_config.cm_titleHeight),@"seperateH":@(self.cm_config.cm_seperateLineHeight)}views:@{@"title":self.titleView,@"seperateline":self.seperateline,@"content":self.contentView}]];
 
+    
+    if (self.cm_config.cm_rightView && (self.titleView.contentSize.width - self.titleView.contentInset.right > self.titleView.cm_width)) {
+#warning TODO：cm_rightView 的容错处理（修改contentInset和是否添加）
+        [self addSubview:self.cm_config.cm_rightView];
+        self.cm_config.cm_rightView.translatesAutoresizingMaskIntoConstraints = NO;
 
+        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[rightView(==width)]|" options:NSLayoutFormatAlignAllRight metrics:@{@"width":@(self.cm_config.cm_rightView.cm_width)}views:@{@"rightView":self.cm_config.cm_rightView}]];
+         [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[rightView(==height)]" options:0 metrics:@{@"height":@(self.cm_config.cm_rightView.cm_height)}views:@{@"rightView":self.cm_config.cm_rightView}]];
+
+    }
 }
 
 

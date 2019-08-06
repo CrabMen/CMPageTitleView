@@ -91,6 +91,15 @@
     
 }
 
+- (void)setCm_rightView:(UIView *)cm_rightView {
+    _cm_rightView = cm_rightView;
+    
+    if (_cm_rightView.cm_height > self.cm_titleHeight) {
+        _cm_rightView.cm_height = self.cm_titleHeight;
+    }
+    
+}
+
 #pragma mark -- getter
 
 - (CGFloat)cm_seperateLineHeight {
