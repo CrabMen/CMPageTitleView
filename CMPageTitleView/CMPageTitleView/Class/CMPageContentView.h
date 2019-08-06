@@ -73,3 +73,11 @@
 
 
 @end
+
+@interface CMPageContentCell : UICollectionViewCell
+
+
+@property (nonatomic,strong) UIView *cm_contentView;
+
+
+@end

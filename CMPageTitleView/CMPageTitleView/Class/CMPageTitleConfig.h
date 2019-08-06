@@ -20,14 +20,12 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
     
     /**颜色无渐变*/
     CMTitleColorGradientStyle_None = 0,
+    
     /**rgb颜色渐变*/
     CMTitleColorGradientStyle_RGB = 1,
     
     /**填充色颜色渐变*/
     CMTitleColorGradientStyle_Fill = 2,
-    
-   
-    
     
 };
 
