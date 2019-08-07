@@ -18,7 +18,7 @@
 
 
 /**
-结束拖拽时，即手指离开屏幕时 会调用该代理方法
+ 结束拖拽时，即手指离开屏幕时 会调用该代理方法
  @param scrollView 当前操作的scrollView
  @param decelerate 是否是减速
  */

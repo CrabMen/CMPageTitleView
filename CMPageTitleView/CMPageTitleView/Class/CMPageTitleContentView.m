@@ -182,7 +182,6 @@
         self.showsHorizontalScrollIndicator = NO;
         [self initSubViews];
 
-
     }
     
     return self;
@@ -208,7 +207,7 @@
 
 - (void)modifyContentInset {
     
-    self.contentInset = UIEdgeInsetsMake(0, 0, 0, self.config.cm_rightView ? (self.config.cm_titleMargin+self.config.cm_rightView.cm_width) : self.config.cm_titleMargin);
+    self.contentInset = UIEdgeInsetsMake(0, 0, 0, (self.config.cm_rightView && self.config.cm_contentMode != CMPageTitleContentMode_Right)? (self.config.cm_titleMargin+self.config.cm_rightView.cm_width) : self.config.cm_titleMargin);
     
 }
 
@@ -272,14 +271,12 @@
 
             centerYConstraint.constant = 0 - label.font.pointSize * 0.5 * (scale - 1);
             selectedCenterYConstraint.constant = 0;
-
             break;
             
         case CMPageTitleScaleGradientContentMode_Top:
             
             centerYConstraint.constant = label.font.pointSize * 0.5 * (scale - 1);
             selectedCenterYConstraint.constant = 0;
-           
             break;
             
         default:
@@ -290,11 +287,9 @@
 
 - (void)cm_pageTitleContentViewAdjustPosition:(UIScrollView *)scrollView {
     
-
     NSInteger centerIndex = floorf(scrollView.contentOffset.x / self.cm_width);
     
     [self setLabelTitleCenter:self.titleLabels[centerIndex]];
-    
     
 }
 
@@ -305,7 +300,6 @@
     
     if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline)) return;
 
-  
        [self underLine];
     
        CGFloat underLineWidth = self.config.cm_underlineWidth ?: label.cm_width * self.config.cm_underlineWidthScale;
@@ -328,9 +322,6 @@
     CGFloat width = [self.config.cm_titleWidths[index] floatValue];
     CGFloat coverW = self.config.cm_coverWidth ? : width + 2 * self.config.cm_coverHorizontalMargin;
     
-   
-    
-
     if (self.titleCover.cm_x == 0) {
             CGFloat coverH = label.font.pointSize + 2 * self.config.cm_coverVerticalMargin;
             self.titleCover.layer.cornerRadius = self.config.cm_coverRadius ?: coverH * 0.5;
@@ -412,8 +403,6 @@
     self.selectedLabel.transform = CGAffineTransformIdentity;
 
     [self resetLayoutConstraintWithLabel:label Scale:self.config.cm_scale];
-
-    
 
 }
 

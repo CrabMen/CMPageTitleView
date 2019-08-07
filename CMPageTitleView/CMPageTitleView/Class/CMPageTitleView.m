@@ -47,7 +47,7 @@
 - (CMPageTitleContentView *)titleView {
     
     if (!_titleView) {
-       CMPageTitleContentView *titleView = [[CMPageTitleContentView alloc] initWithConfig:self.cm_config];
+        CMPageTitleContentView *titleView = [[CMPageTitleContentView alloc] initWithConfig:self.cm_config];
         titleView.cm_delegate = self;
         _titleView = titleView;
         
@@ -100,29 +100,21 @@
     self.backgroundColor = self.cm_config.cm_backgroundColor;
     
     [self.cm_config setValue:@(self.cm_width) forKey:@"cm_pageTitleViewWidth"];
-
-    [self addSubview:self.titleView];
     
     if (self.cm_config.cm_additionalMode & CMPageTitleAdditionalMode_Seperateline) {
-        [self addSubview:self.seperateline];
+//        [self addSubview:self.seperateline];
 
     }
     
-    [self addSubview:self.contentView];
 
     [self initVFLContraints];
 }
 
 - (void)initVFLContraints {
     
-    [self addSubview:self.titleView];
-    [self addSubview:self.seperateline];
-    [self addSubview:self.contentView];
-
     self.titleView.translatesAutoresizingMaskIntoConstraints = NO;
     self.seperateline.translatesAutoresizingMaskIntoConstraints = NO;
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.translatesAutoresizingMaskIntoConstraints = NO;
     
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleView}]];
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[seperateline]|" options:0 metrics:@{}views:@{@"seperateline":self.seperateline}]];
@@ -130,14 +122,13 @@
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title(==titleH)][seperateline(==seperateH)][content]|" options:0 metrics:@{@"titleH":@(self.cm_config.cm_titleHeight),@"seperateH":@(self.cm_config.cm_seperateLineHeight)}views:@{@"title":self.titleView,@"seperateline":self.seperateline,@"content":self.contentView}]];
 
     
-    if (self.cm_config.cm_rightView && (self.titleView.contentSize.width - self.titleView.contentInset.right > self.titleView.cm_width)) {
-#warning TODO：cm_rightView 的容错处理（修改contentInset和是否添加）
+    if (self.cm_config.cm_rightView && self.cm_config.cm_contentMode != CMPageTitleContentMode_Right) {
+
         [self addSubview:self.cm_config.cm_rightView];
         self.cm_config.cm_rightView.translatesAutoresizingMaskIntoConstraints = NO;
 
         [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[rightView(==width)]|" options:NSLayoutFormatAlignAllRight metrics:@{@"width":@(self.cm_config.cm_rightView.cm_width)}views:@{@"rightView":self.cm_config.cm_rightView}]];
          [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[rightView(==height)]" options:0 metrics:@{@"height":@(self.cm_config.cm_rightView.cm_height)}views:@{@"rightView":self.cm_config.cm_rightView}]];
-
     }
 }
 

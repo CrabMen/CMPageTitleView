@@ -136,7 +136,6 @@
     if (self.collectionView.bounds.size.height) {
         self.itemSize = self.collectionView.bounds.size;
     }
-    
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
 }

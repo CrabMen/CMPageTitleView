@@ -63,6 +63,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
     if (!_rightView) {
         _rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+        _rightView.alpha = 0.75;
         _rightView.backgroundColor = UIColor.redColor;
     }
     return _rightView;
@@ -78,7 +79,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }
     
     return _pageTitleView;
-    
     
 }
 - (UIImageView *)imageView {
@@ -209,7 +209,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_childControllers = self.childControllers;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     config.cm_rightView = self.rightView;
-    config.cm_rightView = self.rightView;
+
     self.pageTitleView.cm_config = config;
     
 }

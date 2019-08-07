@@ -18,40 +18,11 @@
 /**视图宽度*/
 @property (nonatomic,strong) NSNumber *cm_pageTitleViewWidth;
 
-
-/**cm_slideGestureEnable对应的nsnumber类型*/
-@property (nonatomic,strong) NSNumber *cm_slideGestureEnableNumber;
-
-/**cm_seperateLineHeight对应的nsnumber类型*/
-@property (nonatomic,strong) NSNumber *cm_seperateLineHeightNumber;
-
-
-
 @end
 
 @implementation CMPageTitleConfig
 
-@synthesize cm_slideGestureEnable = _cm_slideGestureEnable;
-@synthesize cm_seperateLineHeight = _cm_seperateLineHeight;
-
 #pragma mark -- setter
-
-- (void)setCm_slideGestureEnable:(BOOL)cm_slideGestureEnable {
-    
-    _cm_slideGestureEnable = cm_slideGestureEnable;
-    
-    self.cm_slideGestureEnableNumber = @(cm_slideGestureEnable);
-    
-}
-
-- (void)setCm_seperateLineHeight:(CGFloat)cm_seperateLineHeight {
-    
-    _cm_seperateLineHeight = cm_seperateLineHeight;
-    
-    self.cm_seperateLineHeightNumber = @(cm_seperateLineHeight);
-    
-    
-}
 
 - (void)setCm_selectedFont:(UIFont *)cm_selectedFont {
     
@@ -91,6 +62,12 @@
     
 }
 
+- (void)setCm_animationDruction:(CGFloat)cm_animationDruction {
+    
+    _cm_animationDruction = (cm_animationDruction >= 0.25 && cm_animationDruction <= 0.8 ) ? cm_animationDruction : 0.25 ;
+    
+}
+
 - (void)setCm_rightView:(UIView *)cm_rightView {
     _cm_rightView = cm_rightView;
     
@@ -102,35 +79,6 @@
 
 #pragma mark -- getter
 
-- (CGFloat)cm_seperateLineHeight {
-    
-    [self cm_seperateLineHeightNumber];
-    
-    return _cm_seperateLineHeight;
-    
-}
-
-- (NSNumber *)cm_seperateLineHeightNumber {
-    
-    _cm_seperateLineHeight = _cm_seperateLineHeightNumber ? [_cm_seperateLineHeightNumber floatValue] : 1.0/[UIScreen mainScreen].scale;
-    
-    return _cm_seperateLineHeightNumber;
-}
-
-- (BOOL)cm_slideGestureEnable {
-    [self cm_slideGestureEnableNumber];
-    
-    return _cm_slideGestureEnable;
-}
-
-- (NSNumber *)cm_slideGestureEnableNumber {
-    
-    _cm_slideGestureEnable = _cm_slideGestureEnableNumber ? [_cm_slideGestureEnableNumber boolValue] : YES;
-    
-    return _cm_slideGestureEnableNumber;
-    
-}
-
 - (NSArray *)cm_titles {
     
     CMPageErrorAssert(self.cm_childControllers != nil, @"cm_childControllers属性未赋值");
@@ -140,14 +88,8 @@
     
     return _cm_titles ?: titles;
     
-    
 }
 
-
--(UIColor *)cm_seperaterLineColor {
-    
-    return _cm_seperaterLineColor ?: [UIColor grayColor];
-}
 
 - (NSArray *)cm_titleWidths {
     
@@ -210,15 +152,6 @@
     
     return _cm_titleMargin;
 }
-
-
-
-- (CGFloat)cm_animationDruction {
-    
-    return (_cm_animationDruction >= 0.25 && _cm_animationDruction <= 0.8) ? _cm_animationDruction : 0.25;
-}
-
-
 
 
 + (instancetype)defaultConfig{
