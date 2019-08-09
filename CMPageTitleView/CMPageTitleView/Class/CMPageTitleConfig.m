@@ -24,6 +24,26 @@
 
 #pragma mark -- setter
 
+- (void)setCm_childControllers:(NSArray *)cm_childControllers {
+    
+    _cm_childControllers = cm_childControllers;
+    
+    self.cm_titles = [_cm_childControllers valueForKey:@"title"];
+    
+    if (self.cm_titles.count) {
+        
+        NSMutableArray *mArray = [NSMutableArray array];
+        for (NSString *string in self.cm_titles) {
+            [mArray addObject:@(CMStringWidth(string, self.cm_font))];
+        }
+        [self setValue:[mArray copy] forKey:@"cm_titleWidths"];
+        
+//        [self setValue:[[self.cm_titleWidths valueForKeyPath:@"@sum.floatValue"] floatValue] forKey:@"cm_titleWidth"];
+
+    }
+    
+}
+
 - (void)setCm_selectedFont:(UIFont *)cm_selectedFont {
     
     _cm_selectedFont = cm_selectedFont;
@@ -79,16 +99,16 @@
 
 #pragma mark -- getter
 
-- (NSArray *)cm_titles {
-    
-    CMPageErrorAssert(self.cm_childControllers != nil, @"cm_childControllers属性未赋值");
-    CMPageErrorAssert(self.cm_childControllers.count != 0, @"cm_childControllers数组个数不能为空");
-    
-    NSArray *titles = [self.cm_childControllers valueForKey:@"title"];
-    
-    return _cm_titles ?: titles;
-    
-}
+//- (NSArray *)cm_titles {
+//
+//    CMPageErrorAssert(self.cm_childControllers != nil, @"cm_childControllers属性未赋值");
+//    CMPageErrorAssert(self.cm_childControllers.count != 0, @"cm_childControllers数组个数不能为空");
+//
+//    NSArray *titles = [self.cm_childControllers valueForKey:@"title"];
+//
+//    return _cm_titles ?: titles;
+//
+//}
 
 
 - (NSArray *)cm_titleWidths {
