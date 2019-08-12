@@ -8,7 +8,7 @@
 //  Created by CrabMan on 2018/1/15.
 //  Copyright © 2018年 Mac. All rights reserved.
 //
-//#warning TODO：将frame布局优化为layout布局
+
 
 #import "CMPageTitleView.h"
 #import "CMPageTitleContentView.h"
@@ -71,6 +71,17 @@
     return _contentView;
 }
 
+- (void)resetConfig{
+    
+    CMPageErrorAssert((self.cm_config.cm_childControllers != nil || self.cm_config.cm_childControllers.count == 0 ), @"cm_childControllers数组需赋值，且数组个数不为空");
+     CMPageErrorAssert((self.cm_config.cm_titles != nil || self.cm_config.cm_titles.count == 0 ), @"cm_titles数组需赋值，且数组个数不为空");
+    [self.cm_config setValue:@(self.cm_width) forKey:@"cm_pageTitleViewWidth"];
+    self.cm_config.cm_font = self.cm_config.cm_font;
+    self.cm_config.cm_titles = self.cm_config.cm_titles;
+    self.cm_config.cm_titleMargin = self.cm_config.cm_titleMargin;
+    self.cm_config.cm_contentMode = self.cm_config.cm_contentMode;
+    
+}
 
 - (void)layoutSubviews {
     [super layoutSubviews];
@@ -97,17 +108,9 @@
    
     CMPageErrorAssert(self.cm_config != nil, @"cm_config属性不能为空");
 
-    self.backgroundColor = self.cm_config.cm_backgroundColor;
-    
-    [self.cm_config setValue:@(self.cm_width) forKey:@"cm_pageTitleViewWidth"];
-    
-    if (self.cm_config.cm_additionalMode & CMPageTitleAdditionalMode_Seperateline) {
-//        [self addSubview:self.seperateline];
-
-    }
-    
-
+    [self resetConfig];
     [self initVFLContraints];
+    
 }
 
 - (void)initVFLContraints {
@@ -119,7 +122,7 @@
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleView}]];
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[seperateline]|" options:0 metrics:@{}views:@{@"seperateline":self.seperateline}]];
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[content]|" options:0 metrics:@{}views:@{@"content":self.contentView}]];
-    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title(==titleH)][seperateline(==seperateH)][content]|" options:0 metrics:@{@"titleH":@(self.cm_config.cm_titleHeight),@"seperateH":@(self.cm_config.cm_seperateLineHeight)}views:@{@"title":self.titleView,@"seperateline":self.seperateline,@"content":self.contentView}]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title(==titleH)][seperateline(==seperateH)][content]|" options:0 metrics:@{@"titleH":@(self.cm_config.cm_titleHeight),@"seperateH":@((self.cm_config.cm_additionalMode&CMPageTitleAdditionalMode_Seperateline) ? self.cm_config.cm_seperateLineHeight : 0)}views:@{@"title":self.titleView,@"seperateline":self.seperateline,@"content":self.contentView}]];
 
     
     if (self.cm_config.cm_rightView && self.cm_config.cm_contentMode != CMPageTitleContentMode_Right) {

@@ -8,7 +8,6 @@
 //  Created by CrabMan on 2019/3/25.
 //  Copyright © 2019 CrabMan. All rights reserved.
 //
-//#warning TODO：优化getter方法
 
 
 #import "CMPageTitleConfig.h"
@@ -30,16 +29,22 @@
     
     self.cm_titles = [_cm_childControllers valueForKey:@"title"];
     
-    if (self.cm_titles.count) {
-        
+}
+
+- (void)setCm_titles:(NSArray *)cm_titles {
+    
+    _cm_titles = cm_titles;
+    
+    if (_cm_titles.count) {
         NSMutableArray *mArray = [NSMutableArray array];
-        for (NSString *string in self.cm_titles) {
+        for (NSString *string in cm_titles) {
             [mArray addObject:@(CMStringWidth(string, self.cm_font))];
         }
-        [self setValue:[mArray copy] forKey:@"cm_titleWidths"];
+        [self setValue:[mArray copy] forKey:NSStringFromSelector(@selector(cm_titleWidths))];
         
-//        [self setValue:[[self.cm_titleWidths valueForKeyPath:@"@sum.floatValue"] floatValue] forKey:@"cm_titleWidth"];
-
+        NSNumber *cm_titlesWidth = [self.cm_titleWidths valueForKeyPath:@"@sum.floatValue"];
+        
+        [self setValue:cm_titlesWidth forKey:NSStringFromSelector(@selector(cm_titlesWidth))];
     }
     
 }
@@ -88,6 +93,40 @@
     
 }
 
+- (void)setCm_contentMode:(CMPageTitleContentMode)cm_contentMode {
+    _cm_contentMode = cm_contentMode;
+    NSUInteger count = self.cm_contentMode == CMPageTitleContentMode_Center ? self.cm_titles.count + 1 : self.cm_titles.count;
+    [self setValue:@(self.cm_titlesWidth + count * self.cm_minTitleMargin) forKey:NSStringFromSelector(@selector(cm_minContentWidth))];
+    
+    
+    if (cm_contentMode == CMPageTitleContentMode_Left) {
+        //左对齐
+        
+        _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
+        
+    } else if (cm_contentMode == CMPageTitleContentMode_Right) {
+        //右对齐
+        
+        _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
+        
+    }else if (cm_contentMode == CMPageTitleContentMode_Center || cm_contentMode == CMPageTitleContentMode_SpaceAround) {
+        
+        if (self.cm_titlesWidth  >= self.cm_pageTitleViewWidth.floatValue) {
+            _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
+            
+        } else {
+            
+            NSUInteger count = cm_contentMode == CMPageTitleContentMode_Center ? self.cm_titles.count + 1 : self.cm_titles.count;
+            
+            CGFloat titleMargin = (self.cm_pageTitleViewWidth.floatValue - self.cm_titlesWidth )/count;
+            
+            _cm_titleMargin = titleMargin < self.cm_minTitleMargin ? self.cm_minTitleMargin : titleMargin;
+            
+        }
+    }
+    
+}
+
 - (void)setCm_rightView:(UIView *)cm_rightView {
     _cm_rightView = cm_rightView;
     
@@ -97,81 +136,6 @@
     
 }
 
-#pragma mark -- getter
-
-//- (NSArray *)cm_titles {
-//
-//    CMPageErrorAssert(self.cm_childControllers != nil, @"cm_childControllers属性未赋值");
-//    CMPageErrorAssert(self.cm_childControllers.count != 0, @"cm_childControllers数组个数不能为空");
-//
-//    NSArray *titles = [self.cm_childControllers valueForKey:@"title"];
-//
-//    return _cm_titles ?: titles;
-//
-//}
-
-
-- (NSArray *)cm_titleWidths {
-    
-    NSMutableArray *mArray = [NSMutableArray array];
-    
-    for (NSString *string in self.cm_titles) {
-        
-        [mArray addObject:@(CMStringWidth(string, self.cm_font))];
-        
-    }
-    
-    return [mArray copy];
-    
-}
-
-- (CGFloat)cm_titlesWidth {
-    
-    return [[self.cm_titleWidths valueForKeyPath:@"@sum.floatValue"] floatValue];
-    
-}
-
-- (CGFloat)cm_minContentWidth {
-    
-    NSUInteger count = self.cm_contentMode == CMPageTitleContentMode_Center ? self.cm_titles.count + 1 : self.cm_titles.count;
-    
-    
-    return  self.cm_titlesWidth + count * self.cm_minTitleMargin;
-    
-}
-
-
-- (CGFloat)cm_titleMargin {
-    
-    
-    if (self.cm_contentMode == CMPageTitleContentMode_Left) {
-        //左对齐
-        
-        _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
-        
-    } else if (self.cm_contentMode == CMPageTitleContentMode_Right) {
-        //右对齐
-        
-        _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
-        
-    }else if (self.cm_contentMode == CMPageTitleContentMode_Center || self.cm_contentMode == CMPageTitleContentMode_SpaceAround) {
-        
-        if (self.cm_titlesWidth  >= self.cm_pageTitleViewWidth.floatValue) {
-            _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
-            
-        } else {
-            
-            NSUInteger count = self.cm_contentMode == CMPageTitleContentMode_Center ? self.cm_titles.count + 1 : self.cm_titles.count;
-            
-            CGFloat titleMargin = (self.cm_pageTitleViewWidth.floatValue - self.cm_titlesWidth )/count;
-            
-            _cm_titleMargin = titleMargin < self.cm_minTitleMargin ? self.cm_minTitleMargin : titleMargin;
-            
-        }
-    }
-    
-    return _cm_titleMargin;
-}
 
 
 + (instancetype)defaultConfig{

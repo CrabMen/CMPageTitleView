@@ -87,13 +87,13 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
 @interface CMPageTitleConfig : NSObject
 
 /**子视图控制器数组*/
-@property (nonatomic,copy) NSArray *cm_childControllers;
+@property (nonatomic,copy) NSArray <UIViewController *>*cm_childControllers;
 
 
 /**标题数组
  默认为cm_childControllers 的 title
  */
-@property (nonatomic,copy) NSArray *cm_titles;
+@property (nonatomic,copy) NSArray <NSString *>*cm_titles;
 
 
 /**
@@ -336,7 +336,7 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
 /**
  标题宽度
  */
-@property (nonatomic,strong,readonly) NSArray *cm_titleWidths;
+@property (nonatomic,strong,readonly)  NSArray * _Nonnull cm_titleWidths;
 
 /**
  标题的总宽度 + 左右边距 + 所有的标题最小间距
