@@ -71,25 +71,12 @@
     return _contentView;
 }
 
-- (void)resetConfig{
-    
-    CMPageErrorAssert((self.cm_config.cm_childControllers != nil || self.cm_config.cm_childControllers.count == 0 ), @"cm_childControllers数组需赋值，且数组个数不为空");
-     CMPageErrorAssert((self.cm_config.cm_titles != nil || self.cm_config.cm_titles.count == 0 ), @"cm_titles数组需赋值，且数组个数不为空");
-    [self.cm_config setValue:@(self.cm_width) forKey:@"cm_pageTitleViewWidth"];
-    self.cm_config.cm_font = self.cm_config.cm_font;
-    self.cm_config.cm_titles = self.cm_config.cm_titles;
-    self.cm_config.cm_titleMargin = self.cm_config.cm_titleMargin;
-    self.cm_config.cm_contentMode = self.cm_config.cm_contentMode;
-    
-}
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     [self initSubViews];
   
 }
-
-
 
 - (void)cm_reloadConfig {
     
@@ -108,8 +95,20 @@
    
     CMPageErrorAssert(self.cm_config != nil, @"cm_config属性不能为空");
 
-    [self resetConfig];
+    [self reviseConfig];
     [self initVFLContraints];
+    
+}
+
+- (void)reviseConfig{
+    
+    CMPageErrorAssert((self.cm_config.cm_childControllers != nil || self.cm_config.cm_childControllers.count == 0 ), @"cm_childControllers数组需赋值，且数组个数不为空");
+    CMPageErrorAssert((self.cm_config.cm_titles != nil || self.cm_config.cm_titles.count == 0 ), @"cm_titles数组需赋值，且数组个数不为空");
+    [self.cm_config setValue:@(self.cm_width) forKey:@"cm_pageTitleViewWidth"];
+    self.cm_config.cm_font = self.cm_config.cm_font;
+    self.cm_config.cm_titles = self.cm_config.cm_titles;
+    self.cm_config.cm_titleMargin = self.cm_config.cm_titleMargin;
+    self.cm_config.cm_contentMode = self.cm_config.cm_contentMode;
     
 }
 
