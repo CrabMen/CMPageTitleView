@@ -131,7 +131,7 @@
         self.cm_config.cm_rightView.translatesAutoresizingMaskIntoConstraints = NO;
 
         [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[rightView(==width)]|" options:NSLayoutFormatAlignAllRight metrics:@{@"width":@(self.cm_config.cm_rightView.cm_width)}views:@{@"rightView":self.cm_config.cm_rightView}]];
-         [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[rightView(==height)]" options:0 metrics:@{@"height":@(self.cm_config.cm_rightView.cm_height)}views:@{@"rightView":self.cm_config.cm_rightView}]];
+        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[rightView(==height)]" options:0 metrics:@{@"height":@(self.cm_config.cm_rightView.cm_height)}views:@{@"rightView":self.cm_config.cm_rightView}]];
     }
 }
 
