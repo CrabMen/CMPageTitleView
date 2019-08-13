@@ -419,7 +419,7 @@
 
     offsetX = offsetX > 0 ? offsetX : 0;
   
-    CGFloat maxOffsetX = self.contentSize.width - self.cm_width + self.config.cm_titleMargin;
+    CGFloat maxOffsetX = self.contentSize.width - self.cm_width + self.contentInset.right;
 
     maxOffsetX = maxOffsetX ?:0;
 

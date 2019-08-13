@@ -52,19 +52,21 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 @property (nonatomic,weak) CMPageTitleView *pageTitleView;
 
 /**default note*/
-@property (nonatomic,strong) UIView *rightView;
+@property (nonatomic,strong) UIImageView *rightView;
 
 
 @end
 
 @implementation CMViewController
 
-- (UIView *)rightView {
+- (UIImageView *)rightView {
     
     if (!_rightView) {
-        _rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
-        _rightView.alpha = 0.75;
-        _rightView.backgroundColor = UIColor.redColor;
+        _rightView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+//        _rightView.alpha = 0.75;
+        _rightView.backgroundColor = UIColor.lightGrayColor;
+        _rightView.image = [UIImage imageNamed:@"add"];
+        _rightView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _rightView;
 }

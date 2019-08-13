@@ -22,7 +22,6 @@
 		B5EBC9CE21215A72000403B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5EBC9C221215A72000403B8 /* Main.storyboard */; };
 		B5EBC9CF21215A72000403B8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9C421215A72000403B8 /* main.m */; };
 		B5EBC9D021215A72000403B8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EBC9C521215A72000403B8 /* AppDelegate.m */; };
-		D538606B23016D9000101B18 /* UIScrollView+CMGestureConflict.m in Sources */ = {isa = PBXBuildFile; fileRef = D538606A23016D9000101B18 /* UIScrollView+CMGestureConflict.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,8 +75,6 @@
 		B5EBC9C621215A72000403B8 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5EE93B922842CE60062F7C5 /* CMPageTitleViewMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMPageTitleViewMacro.h; sourceTree = "<group>"; };
 		D3EFDB73791EB7362E8D3E81 /* Pods-CMPageTitleViewTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CMPageTitleViewTests.debug.xcconfig"; path = "Target Support Files/Pods-CMPageTitleViewTests/Pods-CMPageTitleViewTests.debug.xcconfig"; sourceTree = "<group>"; };
-		D538606923016D9000101B18 /* UIScrollView+CMGestureConflict.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+CMGestureConflict.h"; sourceTree = "<group>"; };
-		D538606A23016D9000101B18 /* UIScrollView+CMGestureConflict.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+CMGestureConflict.m"; sourceTree = "<group>"; };
 		E71FFC097CA2E6BE0DF86E8A /* Pods-CMPageTitleView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CMPageTitleView.release.xcconfig"; path = "Target Support Files/Pods-CMPageTitleView/Pods-CMPageTitleView.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -187,8 +184,6 @@
 				B5EBC9BA21215A72000403B8 /* CMPageContentView.m */,
 				B5B8ACF42249CA2D00ABF82B /* UIView+CMCommon.h */,
 				B5B8ACF52249CA2D00ABF82B /* UIView+CMCommon.m */,
-				D538606923016D9000101B18 /* UIScrollView+CMGestureConflict.h */,
-				D538606A23016D9000101B18 /* UIScrollView+CMGestureConflict.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -434,7 +429,6 @@
 			files = (
 				B5B8ACF62249CA2D00ABF82B /* UIView+CMCommon.m in Sources */,
 				B53D96F7224883C50092BDE3 /* CMPageTitleConfig.m in Sources */,
-				D538606B23016D9000101B18 /* UIScrollView+CMGestureConflict.m in Sources */,
 				B5EBC9CF21215A72000403B8 /* main.m in Sources */,
 				B5EBC9C821215A72000403B8 /* CMPageTitleContentView.m in Sources */,
 				B5EBC9D021215A72000403B8 /* AppDelegate.m in Sources */,

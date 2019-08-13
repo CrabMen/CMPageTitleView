@@ -116,6 +116,12 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
  */
 @property (nonatomic,strong) UIColor *cm_backgroundColor;
 
+/**标题栏背景色
+ 默认颜色：[UIColor whiteColor]
+ */
+@property (nonatomic,strong) UIColor *cm_titleBgColor;
+
+
 /**
  标题正常颜色
  默认颜色：[UIColor blackColor]
