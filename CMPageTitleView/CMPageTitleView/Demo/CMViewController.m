@@ -204,7 +204,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
-    config.cm_rightView = self.rightView;
 
     self.pageTitleView.cm_config = config;
     
@@ -223,7 +222,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_childControllers = self.childControllers;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -240,7 +238,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -265,7 +262,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     //    config.cm_font = [UIFont systemFontOfSize:16]
     //    config.cm_scale = 1.3;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -283,7 +279,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -301,7 +296,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -326,7 +320,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     //    config.cm_font = [UIFont systemFontOfSize:16]
     //    config.cm_scale = 1.3;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -344,7 +337,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -362,7 +354,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Cover | CMPageTitleSwitchMode_Delay;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -380,7 +371,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_childControllers = self.childControllers;
     config.cm_additionalMode = CMPageTitleAdditionalMode_Seperateline;
     config.cm_seperateLineHeight = 2;
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -399,7 +389,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_additionalMode = CMPageTitleAdditionalMode_Splitter;
     config.cm_splitterSize = CGSizeMake(1/[UIScreen mainScreen].scale, config.cm_titleHeight * 0.5);
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -418,7 +407,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_childControllers = self.lessChildControllers;
     config.cm_contentMode = CMPageTitleContentMode_Left;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -437,7 +425,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_childControllers = self.lessChildControllers;
     config.cm_contentMode = CMPageTitleContentMode_Right;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
 }
 
@@ -454,7 +441,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.lessChildControllers;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
 }
 
@@ -472,7 +458,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_childControllers = self.lessChildControllers;
     config.cm_contentMode = CMPageTitleContentMode_SpaceAround;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
 }
 
@@ -491,7 +476,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     //    默认
     //    config.cm_scaleGradientContentMode = CMPageTitleScaleGradientContentMode_Center;
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -510,7 +494,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_scaleGradientContentMode = CMPageTitleScaleGradientContentMode_Top;
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -530,7 +513,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_scaleGradientContentMode = CMPageTitleScaleGradientContentMode_Bottom;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -550,7 +532,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -569,7 +550,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -588,7 +568,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Scale;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -607,7 +586,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
 
     
@@ -627,7 +605,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
 
     
@@ -648,7 +625,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -667,7 +643,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
 
     
@@ -688,7 +663,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
 
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -707,7 +681,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
 }
 
@@ -725,7 +698,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -744,7 +716,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -763,7 +734,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
     
@@ -784,7 +754,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineWidth = 10;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -804,7 +773,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineWidth = 10;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -824,7 +792,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineWidth = 10;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
 }
 
@@ -843,7 +810,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineWidth = 10;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -863,7 +829,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineWidth = 10;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -883,7 +848,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineWidth = 10;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -904,7 +868,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -924,7 +887,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineWidthScale = 0.6;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -944,7 +906,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineWidthScale = 0.6;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -965,7 +926,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -985,7 +945,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineWidthScale = 0.6;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1005,7 +964,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineWidthScale = 0.6;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1026,7 +984,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1046,7 +1003,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineStretch = YES;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1066,7 +1022,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineStretch = YES;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1087,7 +1042,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineWidth = 10;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1108,7 +1062,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineWidth = 10;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1129,7 +1082,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineStretch = YES;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1150,7 +1102,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineWidthScale = 1.3;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1171,7 +1122,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineWidthScale = 1.3;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1192,7 +1142,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineStretch = YES;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1211,7 +1160,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1230,7 +1178,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1249,7 +1196,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1268,7 +1214,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Cover | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
     
@@ -1288,7 +1233,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Cover | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
     
@@ -1309,7 +1253,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Cover | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1329,7 +1272,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Cover;
     config.cm_coverWidth = 56;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1349,7 +1291,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_coverWidth = 56;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1369,7 +1310,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_coverWidth = 56;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1389,7 +1329,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_coverWidth = 56;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
     
@@ -1410,7 +1349,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_coverWidth = 56;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
     
@@ -1432,7 +1370,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_coverWidth = 56;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1452,7 +1389,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1471,7 +1407,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline | CMPageTitleSwitchMode_Delay;
     config.cm_gradientStyle = CMTitleColorGradientStyle_None;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1491,7 +1426,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     config.cm_underlineStretch = YES;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1512,7 +1446,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineWidth = 10;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
 
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1534,7 +1467,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineWidthScale = 0.6;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
     
@@ -1558,7 +1490,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_scaleGradientContentMode = CMPageTitleScaleGradientContentMode_Bottom;
     config.cm_scale = 1.3;
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
     
 }
@@ -1582,7 +1513,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_scale = 1.3;
 
     
-    config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
 
 }
