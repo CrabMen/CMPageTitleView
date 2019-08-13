@@ -161,8 +161,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-   
 }
 
 
@@ -196,8 +194,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style00_00 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -215,9 +211,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style00_01 {
-    
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -237,9 +230,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style00_02 {
     
-    
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -256,9 +246,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style00_03 {
-    
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -285,9 +272,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style00_04 {
     
-    
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -306,9 +290,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style00_05 {
     
-    
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -326,9 +307,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style00_06 {
-    
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -355,9 +333,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style00_07 {
     
-    
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -375,9 +350,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style00_08 {
-    
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -397,8 +369,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style00_09 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -416,8 +386,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style00_10 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -438,9 +406,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style00_11 {
     
-    
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -460,8 +425,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style00_12 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -480,8 +443,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style00_13 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -498,8 +459,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style00_14 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -518,8 +477,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style00_15 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -541,8 +498,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style00_16 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -561,8 +516,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style00_17 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -585,8 +538,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_00 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -605,9 +556,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_01 {
-    
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -628,9 +576,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_02 {
     
-    
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -649,8 +594,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_03 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -671,8 +614,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_04 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -695,8 +636,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_05 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -715,8 +654,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_06 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -739,8 +676,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_07 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -760,8 +695,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_08 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -779,8 +712,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_09 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -801,8 +732,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_10 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -821,8 +750,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_11 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -844,8 +771,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_12 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -865,8 +790,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_13 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -888,8 +811,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_14 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -908,8 +829,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_15 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -931,8 +850,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_16 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -953,8 +870,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_17 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -974,8 +889,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_18 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -998,8 +911,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_19 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -1020,8 +931,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_20 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -1041,8 +950,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_21 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -1065,8 +972,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_22 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -1087,8 +992,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_23 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -1108,8 +1011,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_24 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -1132,8 +1033,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_25 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -1154,8 +1053,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_26 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -1175,8 +1072,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_27 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -1199,8 +1094,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_28 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -1221,8 +1114,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_29 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -1245,8 +1136,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_30 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -1267,8 +1156,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_31 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -1291,8 +1178,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_32 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -1314,8 +1199,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_33 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -1334,9 +1217,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_34 {
-    
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -1357,9 +1237,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_35 {
     
-    
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -1378,8 +1255,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_36 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -1400,8 +1275,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_37 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -1424,8 +1297,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_38 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -1446,8 +1317,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_39 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -1466,9 +1335,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_40 {
-    
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -1490,9 +1356,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_41 {
     
-    
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -1512,8 +1375,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_42 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -1535,8 +1396,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_43 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -1560,8 +1419,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_44 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -1583,8 +1440,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_45 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -1603,9 +1458,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_46 {
-    
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -1626,8 +1478,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_47 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -1647,8 +1497,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }
 
 - (void)style01_48 {
-    
-   
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -1694,8 +1542,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_50 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -1719,8 +1565,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style01_51 {
     
-   
-    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -1741,6 +1585,55 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
 
+}
+
+- (void)style02_00 {
+
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
+    self.pageTitleView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
+    config.cm_childControllers = self.childControllers;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    config.cm_backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
+    self.pageTitleView.cm_config = config;
+}
+
+- (void)style02_01 {
+    
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
+    self.pageTitleView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
+    config.cm_childControllers = self.childControllers;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    config.cm_backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_image"]];
+    
+    self.pageTitleView.cm_config = config;
+}
+
+- (void)style02_02 {
+    
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
+    self.pageTitleView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
+    config.cm_childControllers = self.childControllers;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    config.cm_rightView = self.rightView;
+    self.pageTitleView.cm_config = config;
 }
 
 

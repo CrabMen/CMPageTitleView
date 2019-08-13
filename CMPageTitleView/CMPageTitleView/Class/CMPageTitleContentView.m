@@ -177,7 +177,7 @@
     if (self = [super init]) {
         self.config = config;
 
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = self.config.cm_backgroundColor;
         self.showsVerticalScrollIndicator = NO;
         self.showsHorizontalScrollIndicator = NO;
         [self initSubViews];
