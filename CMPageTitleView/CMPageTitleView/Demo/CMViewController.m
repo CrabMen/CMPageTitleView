@@ -187,7 +187,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_contentMode = CMPageTitleContentMode_Left;
     config.cm_scaleGradientContentMode = CMPageTitleScaleGradientContentMode_Bottom;
     config.cm_scale = 1.3;
-    
+    config.cm_defaultIndex = 1;
     self.pageTitleView.cm_config = config;
     
     [self.pageTitleView cm_reloadConfig];

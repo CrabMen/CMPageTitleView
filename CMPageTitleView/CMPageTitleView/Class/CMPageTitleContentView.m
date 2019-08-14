@@ -121,18 +121,14 @@
         underLine.backgroundColor = self.config.cm_underlineColor;
         underLine.layer.cornerRadius = self.config.cm_underlineBorder ? self.config.cm_underlineHeight * 0.5 : 0;
         underLine.layer.masksToBounds = YES;
-        
-        CGFloat underLineWidth = self.config.cm_underlineWidth ?: [self.titleLabels.firstObject cm_width] * self.config.cm_underlineWidthScale;
-        
+        CGFloat underLineWidth = self.config.cm_underlineWidth ?: [self.titleLabels[self.config.cm_selectedIndex] cm_width] * self.config.cm_underlineWidthScale;
         underLine.cm_height = self.config.cm_underlineHeight;
         underLine.cm_bottom = self.config.cm_titleHeight;
         underLine.cm_width  = underLineWidth;
-        underLine.cm_centerX = [self.titleLabels.firstObject cm_centerX];
-        
-        
-        [self addSubview:underLine];
-        
+        underLine.cm_centerX = [self.titleLabels[self.config.cm_selectedIndex] cm_centerX];
         _underLine = underLine;
+        [self addSubview:_underLine];
+
     }
     
     return _underLine ;
@@ -146,9 +142,18 @@
         
         UIView *titleCover = [UIView new];
         titleCover.backgroundColor = self.config.cm_coverColor ?: [UIColor colorWithWhite:0 alpha:0.3];
-        [self insertSubview:titleCover atIndex:0
-         ];
+        UILabel *label = self.titleLabels[self.config.cm_selectedIndex];
+        CGFloat width = [self.config.cm_titleWidths[self.config.cm_selectedIndex] floatValue];
+        CGFloat coverW = self.config.cm_coverWidth ? : width + 2 * self.config.cm_coverHorizontalMargin;
+        CGFloat coverH = label.font.pointSize + 2 * self.config.cm_coverVerticalMargin;
+        titleCover.layer.cornerRadius = self.config.cm_coverRadius ?: coverH * 0.5;
+        titleCover.cm_height = coverH;
+        titleCover.cm_width = coverW;
+        titleCover.cm_centerX = label.cm_centerX;
+        titleCover.cm_centerY = self.config.cm_titleHeight * 0.5;
         _titleCover = titleCover;
+        [self insertSubview:_titleCover atIndex:0];
+
     }
     return _titleCover ;
 }
@@ -312,26 +317,16 @@
     
     if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Cover)) return;
     
-    //根据标题的宽度获得下划线的宽度
+    [self titleCover];
+    
     NSUInteger index = [self.titleLabels indexOfObject:label];
     CGFloat width = [self.config.cm_titleWidths[index] floatValue];
     CGFloat coverW = self.config.cm_coverWidth ? : width + 2 * self.config.cm_coverHorizontalMargin;
-    
-    if (self.titleCover.cm_x == 0) {
-        CGFloat coverH = label.font.pointSize + 2 * self.config.cm_coverVerticalMargin;
-        self.titleCover.layer.cornerRadius = self.config.cm_coverRadius ?: coverH * 0.5;
-        self.titleCover.cm_height = coverH;
+    [UIView animateWithDuration:self.config.cm_animationDruction animations:^{
         self.titleCover.cm_width = coverW;
         self.titleCover.cm_centerX = label.cm_centerX;
-        self.titleCover.cm_centerY = self.config.cm_titleHeight * 0.5;
+    }];
         
-    } else {
-        [UIView animateWithDuration:self.config.cm_animationDruction animations:^{
-            self.titleCover.cm_width = coverW;
-            self.titleCover.cm_centerX = label.cm_centerX;
-        }];
-        
-    }
     
 }
 
