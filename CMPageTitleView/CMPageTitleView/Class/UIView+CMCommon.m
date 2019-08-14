@@ -96,22 +96,19 @@
 }
 
 // Query other frame locations
-- (CGPoint) cm_bottomRight
-{
+- (CGPoint) cm_bottomRight{
     CGFloat x = self.frame.origin.x + self.frame.size.width;
     CGFloat y = self.frame.origin.y + self.frame.size.height;
     return CGPointMake(x, y);
 }
 
-- (CGPoint) cm_bottomLeft
-{
+- (CGPoint) cm_bottomLeft{
     CGFloat x = self.frame.origin.x;
     CGFloat y = self.frame.origin.y + self.frame.size.height;
     return CGPointMake(x, y);
 }
 
-- (CGPoint)cm_topRight
-{
+- (CGPoint)cm_topRight{
     CGFloat x = self.frame.origin.x + self.frame.size.width;
     CGFloat y = self.frame.origin.y;
     return CGPointMake(x, y);
@@ -119,49 +116,41 @@
 
 // Retrieve and set top, bottom, left, right
 
-- (CGFloat) cm_top
-{
+- (CGFloat) cm_top{
     return self.frame.origin.y;
 }
 
-- (void) setCm_top:(CGFloat)cm_top
-{
+- (void) setCm_top:(CGFloat)cm_top{
     CGRect newframe = self.frame;
     newframe.origin.y = cm_top;
     self.frame = newframe;
 }
 
-- (CGFloat)cm_left
-{
+- (CGFloat)cm_left{
     return self.frame.origin.x;
 }
 
-- (void)setCm_left:(CGFloat)cm_left
-{
+- (void)setCm_left:(CGFloat)cm_left{
     CGRect newframe = self.frame;
     newframe.origin.x = cm_left;
     self.frame = newframe;
 }
 
-- (CGFloat)cm_bottom
-{
+- (CGFloat)cm_bottom{
     return self.frame.origin.y + self.frame.size.height;
 }
 
-- (void)setCm_bottom:(CGFloat)cm_bottom
-{
+- (void)setCm_bottom:(CGFloat)cm_bottom{
     CGRect newframe = self.frame;
     newframe.origin.y = cm_bottom - self.frame.size.height;
     self.frame = newframe;
 }
 
-- (CGFloat)cm_right
-{
+- (CGFloat)cm_right{
     return self.frame.origin.x + self.frame.size.width;
 }
 
-- (void)setCm_right:(CGFloat)cm_right
-{
+- (void)setCm_right:(CGFloat)cm_right{
     CGFloat delta = cm_right - (self.frame.origin.x + self.frame.size.width);
     CGRect newframe = self.frame;
     newframe.origin.x += delta ;

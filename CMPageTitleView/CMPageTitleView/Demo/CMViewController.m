@@ -63,7 +63,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
     if (!_rightView) {
         _rightView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
-//        _rightView.alpha = 0.75;
+        //        _rightView.alpha = 0.75;
         _rightView.backgroundColor = UIColor.lightGrayColor;
         _rightView.image = [UIImage imageNamed:@"add"];
         _rightView.contentMode = UIViewContentModeScaleAspectFit;
@@ -129,7 +129,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         vc8.title = @"体育";
         vc9.title = @"财经";
         vc10.title = @"国际";
-
+        
         
         vc0.view.backgroundColor = CM_RANDOM_COLOR;
         vc1.view.backgroundColor = CM_RANDOM_COLOR;
@@ -143,7 +143,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         vc9.view.backgroundColor = CM_RANDOM_COLOR;
         vc10.view.backgroundColor = CM_RANDOM_COLOR;
         
-
+        
         _childControllers =@[vc0,vc1,vc2,vc3,vc4,vc5,vc6,vc7];
         
     }
@@ -157,7 +157,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self setReloadBarButtonItem];
-
+    
 }
 
 - (void)viewDidLoad {
@@ -206,7 +206,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
-
+    
     self.pageTitleView.cm_config = config;
     
 }
@@ -589,7 +589,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
     self.pageTitleView.cm_config = config;
-
+    
     
 }
 
@@ -608,7 +608,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
     self.pageTitleView.cm_config = config;
-
+    
     
     
 }
@@ -646,7 +646,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
     self.pageTitleView.cm_config = config;
-
+    
     
     
 }
@@ -664,7 +664,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
-
+    
     self.pageTitleView.cm_config = config;
     
 }
@@ -1447,13 +1447,13 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineStretch = YES;
     config.cm_underlineWidth = 10;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
-
+    
     self.pageTitleView.cm_config = config;
     
 }
 
 - (void)style01_49 {
-   
+    
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -1513,14 +1513,14 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_contentMode = CMPageTitleContentMode_Left;
     config.cm_scaleGradientContentMode = CMPageTitleScaleGradientContentMode_Bottom;
     config.cm_scale = 1.3;
-
+    
     
     self.pageTitleView.cm_config = config;
-
+    
 }
 
 - (void)style02_00 {
-
+    
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
@@ -1570,24 +1570,24 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 
 - (void)cm_pageTitleViewSelectedWithIndex:(NSInteger)index Repeat:(BOOL)repeat {
-
+    
     NSLog(@"第%ld个标题被选中；且%@是重复选中",index,repeat?@"":@"不");
-
+    
 }
 
 - (void)cm_pageTitleViewClickWithIndex:(NSInteger)index Repeat:(BOOL)repeat {
-
-
+    
+    
     NSLog(@"第%ld个标题被点击；且%@是重复点击",index,repeat?@"":@"不");
-
+    
 }
 
 
 - (void)cm_pageTitleViewScrollToIndex:(NSInteger)index {
-
-
+    
+    
     NSLog(@"当前滚动到第%ld个标题",index);
-
+    
 }
 
 
