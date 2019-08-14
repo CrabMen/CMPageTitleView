@@ -92,7 +92,7 @@
 - (void)initSubViews {
     
     CMPageErrorAssert(self.cm_config != nil, @"cm_config属性不能为空");
-    
+    self.userInteractionEnabled = YES;
     [self reviseConfig];
     [self initVFLContraints];
     

@@ -67,6 +67,9 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         _rightView.backgroundColor = UIColor.lightGrayColor;
         _rightView.image = [UIImage imageNamed:@"add"];
         _rightView.contentMode = UIViewContentModeScaleAspectFit;
+        _rightView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
+        [_rightView addGestureRecognizer:tap];
     }
     return _rightView;
 }
@@ -192,6 +195,12 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
 }
 
+- (void)tapGesture:(UITapGestureRecognizer *)gesture {
+    
+    //do something ...
+    NSLog(@"****右侧视图被点击****");
+    
+}
 
 
 - (void)style00_00 {
