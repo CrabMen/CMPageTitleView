@@ -66,16 +66,14 @@
         contentView.cm_delegate = self;
         _contentView = contentView;
         [self addSubview:_contentView];
-    
+        
     }
     return _contentView;
 }
 
-
 - (void)layoutSubviews {
     [super layoutSubviews];
     [self initSubViews];
-  
 }
 
 - (void)cm_reloadConfig {
@@ -92,9 +90,9 @@
 }
 
 - (void)initSubViews {
-   
+    
     CMPageErrorAssert(self.cm_config != nil, @"cm_config属性不能为空");
-
+    
     [self reviseConfig];
     [self initVFLContraints];
     
@@ -122,13 +120,13 @@
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[seperateline]|" options:0 metrics:@{}views:@{@"seperateline":self.seperateline}]];
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[content]|" options:0 metrics:@{}views:@{@"content":self.contentView}]];
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title(==titleH)][seperateline(==seperateH)][content]|" options:0 metrics:@{@"titleH":@(self.cm_config.cm_titleHeight),@"seperateH":@((self.cm_config.cm_additionalMode&CMPageTitleAdditionalMode_Seperateline) ? self.cm_config.cm_seperateLineHeight : 0)}views:@{@"title":self.titleView,@"seperateline":self.seperateline,@"content":self.contentView}]];
-
+    
     
     if (self.cm_config.cm_rightView && self.cm_config.cm_contentMode != CMPageTitleContentMode_Right) {
-
+        
         [self addSubview:self.cm_config.cm_rightView];
         self.cm_config.cm_rightView.translatesAutoresizingMaskIntoConstraints = NO;
-
+        
         [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[rightView(==width)]|" options:NSLayoutFormatAlignAllRight metrics:@{@"width":@(self.cm_config.cm_rightView.cm_width)}views:@{@"rightView":self.cm_config.cm_rightView}]];
         [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[rightView(==height)]" options:0 metrics:@{@"height":@(self.cm_config.cm_rightView.cm_height)}views:@{@"rightView":self.cm_config.cm_rightView}]];
     }
@@ -143,40 +141,39 @@
         [self.delegate cm_pageTitleViewSelectedWithIndex:index Repeat:repeat];
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(cm_pageTitleViewClickWithIndex:Repeat:)])
-       [self.delegate cm_pageTitleViewClickWithIndex:index Repeat:repeat];
-
+        [self.delegate cm_pageTitleViewClickWithIndex:index Repeat:repeat];
+    
     if (!repeat)  [self.contentView setContentOffset:CGPointMake(index * self.cm_width, 0)];
-
+    
 }
 
 
 #pragma mark --- CMPageContentViewDelegate
 
 - (void)cm_pageContentViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-
+    
     [self.titleView cm_pageTitleContentViewAdjustPosition:scrollView];
-
+    
 }
 
 - (void)cm_pageContentViewDidEndDeceleratingWithIndex:(NSInteger)index {
-
+    
     if (self.titleView.cm_selectedIndex == index) return;
-
+    
     self.titleView.cm_selectedIndex = index;
-
     if (self.delegate && [self.delegate respondsToSelector:@selector(cm_pageTitleViewSelectedWithIndex:Repeat:)])
         [self.delegate cm_pageTitleViewSelectedWithIndex:index Repeat:NO];
-
+    
     if (self.delegate &&  [self.delegate respondsToSelector:@selector(cm_pageTitleViewScrollToIndex:)])
         [self.delegate cm_pageTitleViewScrollToIndex:index];
-
+    
 }
 
 
 - (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
-
+    
     [self.titleView cm_pageTitleViewDidScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
-
+    
 }
 
 @end
