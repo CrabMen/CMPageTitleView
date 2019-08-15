@@ -172,13 +172,13 @@ end
 
  按照上方代码，你已经创建了一个最简单的菜单栏🎉
  
-**注意：**倘若需要复杂效果，可以通过创建CMPageTitleConfig对象中的 cm_gradientStyle（颜色渐变样式）、cm_switchMode（标题切换样式）、cm_additionalMode（附加效果）、cm_contentMode（对齐方式）、cm_scaleGradientContentMode（放大效果时的对齐样式）等基本样式的组合实现各种复杂效果，可以下载Demo查看具体效果，但是能实现的组合远远不止这些，更多组合可以集成到项目中尝试😊
+**注意：**倘若需要复杂效果，可以通过创建``CMPageTitleConfig``对象中的 ``cm_gradientStyle``（颜色渐变样式）、``cm_switchMode``（标题切换样式）、``cm_additionalMode``（附加效果）、``cm_contentMode``（对齐方式）、``cm_scaleGradientContentMode``（放大效果时的对齐样式）等基本样式的组合实现各种复杂效果，可以下载Demo查看具体效果，但是能实现的组合远远不止这些，更多组合可以集成到项目中尝试😊
  
 ## <a id="version"></a> 版本
 * 2018-08-13 初始化项目 
 * 2018-04-26 版本 0.3.0 新增 下划线比例宽度跟随标题文字宽度
 * 2018-05-03 版本 0.3.1 
-  * cm_scale可以继续使用，新增cm_selectedFont属性，便于设置选中字体大小；
+  * cm_scale可以继续使用，新增``cm_selectedFont``属性，便于设置选中字体大小；
   * 支持**Masonry**
 * 2018-05-09 版本 0.4.0 
   * 新增设置标题分割线Size以及Color功能
@@ -187,19 +187,20 @@ end
 * 2018-05-16 版本 0.4.1 修复cm_seperateLineHeight为0时无效的问题
 * 2018-05-17 版本 0.4.2 新增cm_animationDruction属性，便于用户设置动画时间
 * 2018-05-23 版本 0.5.0 
-  * 新增cm_verticalContentMode，可以设置标题文字垂直方向的对齐方式
-  * 新增cm_additionalMode，便于设置分割线
-  * 优化cm_backgroundColor效果；优化相关代码调用时机
-* ~~2018-07-13 版本 0.5.1 CMPageTitleView中新增-(void)cm_reloadConfig方法，便于用户刷新配置~~
+  * 新增``cm_verticalContentMode``，可以设置标题文字垂直方向的对齐方式
+  * 新增``cm_additionalMode``，便于设置分割线
+  * 优化``cm_backgroundColor``效果；
+  * 优化相关代码调用时机
+* ~~2018-07-13 版本 0.5.1 ``CMPageTitleView``中新增``-(void)cm_reloadConfig``方法，便于用户刷新配置~~
 * 2018-07-13 版本 0.5.2 
-  * CMPageTitleView中新增-(void)cm_reloadConfig方法，便于用户刷新配置；
-  * 修复0.5.1中的布局bug；修复部分情况下CMPageTitleContentView对象尺寸不准确问题
+  * ``CMPageTitleView``中新增``-(void)cm_reloadConfig``方法，便于用户刷新配置；
+  * 修复0.5.1中的布局bug；修复部分情况下``CMPageTitleContentView``对象尺寸不准确问题
 * 2018-08-14 版本 0.6.0 
   * 新增cm_rightView属性
-  * 使用NSLayoutConstraint优化界面布局
-  * 优化CMPageTitleConfig类的getter方法，大幅提高三方库性能
+  * 使用``NSLayoutConstraint``优化界面布局
+  * 优化``CMPageTitleConfig``类的``getter``方法，大幅提高三方库性能
   * 解决与导航栏侧滑手势冲突的问题
-  * 修复设置cm_defaultIndex为非0时，界面动画闪动问题
+  * 修复设置``cm_defaultIndex``为非0时，界面动画闪动问题
   * 新增示例
 
 ## <a id="support"></a>支持
