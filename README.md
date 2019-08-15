@@ -143,7 +143,7 @@ end
  CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:frame];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers; //必传参数
     
     [self.view addSubview:pageView];
@@ -163,7 +163,7 @@ end
     }];
     pageView.delegate = self;
     
-    CMPageTitleConfig *config = [CMPageTitleConfig new];
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;//必传参数
     
     pageView.cm_config = config;
@@ -184,8 +184,8 @@ end
   * 新增设置标题分割线Size以及Color功能
   * 新增对外暴露的代理方法，便于用户做对应处理
   * 新增断言异常提示；新增设置是否允许侧滑功能
-* 2018-05-16 版本 0.4.1 修复cm_seperateLineHeight为0时无效的问题
-* 2018-05-17 版本 0.4.2 新增cm_animationDruction属性，便于用户设置动画时间
+* 2018-05-16 版本 0.4.1 修复``cm_seperateLineHeight``为0时无效的问题
+* 2018-05-17 版本 0.4.2 新增``cm_animationDruction``属性，便于用户设置动画时间
 * 2018-05-23 版本 0.5.0 
   * 新增``cm_verticalContentMode``，可以设置标题文字垂直方向的对齐方式
   * 新增``cm_additionalMode``，便于设置分割线
