@@ -9,6 +9,8 @@
 * [效果展示](#screenshots)
   * [效果展示 - 基本样式](#screenshots-basic)
   * [效果展示 - 组合](#screenshots-multi)
+  * [效果展示 - 其他样式](#screenshots-others)
+
 * [安装](#installation)
 * [示例](#example)
 * [版本记录](#version)
@@ -104,6 +106,13 @@
 |01-51.字体放大 && 下划线（延展 && 放大时下对齐 && 左对齐）-颜色填充渐变 |![](https://raw.githubusercontent.com/CrabMen/CMResources/master/CMPageTitleView/CMPageTitleView_01_51.gif)|
 
 
+### <a id="screenshots-others"></a>效果展示 - 其他样式
+
+| 其他样式    |    GIF|
+| :-------- | --------:| 
+|02-00.标题栏背景色 |![](https://raw.githubusercontent.com/CrabMen/CMResources/master/CMPageTitleView/CMPageTitleView_02_00.gif)|
+|02-01.标题栏背景图片 |![](https://raw.githubusercontent.com/CrabMen/CMResources/master/CMPageTitleView/CMPageTitleView_02_01.gif)|
+|02-02.rightView |![](https://raw.githubusercontent.com/CrabMen/CMResources/master/CMPageTitleView/CMPageTitleView_02_02.gif)|
 
 ## <a id="installation"></a>安装 
 
@@ -171,6 +180,8 @@ end
 ```
 
  按照上方代码，你已经创建了一个最简单的菜单栏🎉
+ 
+ 
  
 **注意：**倘若需要复杂效果，可以通过创建``CMPageTitleConfig``对象中的 ``cm_gradientStyle``（颜色渐变样式）、``cm_switchMode``（标题切换样式）、``cm_additionalMode``（附加效果）、``cm_contentMode``（对齐方式）、``cm_scaleGradientContentMode``（放大效果时的对齐样式）等基本样式的组合实现各种复杂效果，可以下载Demo查看具体效果，但是能实现的组合远远不止这些，更多组合可以集成到项目中尝试😊
  
