@@ -4,7 +4,7 @@
 ![](https://img.shields.io/cocoapods/p/CMPageTitleView.svg)
 ![](https://img.shields.io/apm/l/vim-mode.svg)
 
-## 注意：目前0.5.1中布局的问题，已经紧急修复。同时也修复了本人在项目使用过程中，某些情况下CMPageTitleContentView的尺寸不准确的问题。Pod版本更新到了0.5.2，建议依旧使用0.5.1版本的朋友更新到0.5.2版本，以免影响用户体验。对您造成的不便，再次表示真诚的歉意!!!
+## 注意：目前0.5.1中布局的问题，已经紧急修复。同时也修复了本人在项目使用过程中，某些情况下CMPageTitleContentView的尺寸不准确的问题。Pod版本更新到了0.5.2，建议依旧使用0.5.1版本的朋友更新到最新版本，以免影响用户体验。对您造成的不便，再次表示真诚的歉意!!!
 
 * [效果展示](#screenshots)
   * [效果展示 - 基本样式](#screenshots-basic)
@@ -177,13 +177,30 @@ end
 ## <a id="version"></a> 版本
 * 2018-08-13 初始化项目 
 * 2018-04-26 版本 0.3.0 新增 下划线比例宽度跟随标题文字宽度
-* 2018-05-03 版本 0.3.1 cm_scale可以继续使用，新增cm_selectedFont属性，便于设置选中字体大小；支持**Masonry**
-* 2018-05-09 版本 0.4.0 新增设置标题分割线Size以及Color功能；新增对外暴露的代理方法，便于用户做对应处理；新增断言异常提示；新增设置是否允许侧滑功能
+* 2018-05-03 版本 0.3.1 
+  * cm_scale可以继续使用，新增cm_selectedFont属性，便于设置选中字体大小；
+  * 支持**Masonry**
+* 2018-05-09 版本 0.4.0 
+  * 新增设置标题分割线Size以及Color功能
+  * 新增对外暴露的代理方法，便于用户做对应处理
+  * 新增断言异常提示；新增设置是否允许侧滑功能
 * 2018-05-16 版本 0.4.1 修复cm_seperateLineHeight为0时无效的问题
 * 2018-05-17 版本 0.4.2 新增cm_animationDruction属性，便于用户设置动画时间
-* 2018-05-23 版本 0.5.0 新增cm_verticalContentMode，可以设置标题文字垂直方向的对齐方式；新增cm_additionalMode，便于设置分割线；优化cm_backgroundColor效果；优化相关代码调用时机
+* 2018-05-23 版本 0.5.0 
+  * 新增cm_verticalContentMode，可以设置标题文字垂直方向的对齐方式
+  * 新增cm_additionalMode，便于设置分割线
+  * 优化cm_backgroundColor效果；优化相关代码调用时机
 * ~~2018-07-13 版本 0.5.1 CMPageTitleView中新增-(void)cm_reloadConfig方法，便于用户刷新配置~~
-* 2018-07-13 版本 0.5.2 CMPageTitleView中新增-(void)cm_reloadConfig方法，便于用户刷新配置；修复0.5.1中的布局bug；修复部分情况下CMPageTitleContentView对象尺寸不准确问题
+* 2018-07-13 版本 0.5.2 
+  * CMPageTitleView中新增-(void)cm_reloadConfig方法，便于用户刷新配置；
+  * 修复0.5.1中的布局bug；修复部分情况下CMPageTitleContentView对象尺寸不准确问题
+* 2018-08-14 版本 0.6.0 
+  * 新增cm_rightView属性
+  * 使用NSLayoutConstraint优化界面布局
+  * 优化CMPageTitleConfig类的getter方法，大幅提高三方库性能
+  * 解决与导航栏侧滑手势冲突的问题
+  * 修复设置cm_defaultIndex为非0时，界面动画闪动问题
+  * 新增示例
 
 ## <a id="support"></a>支持
 * 如果觉得该三方库还不错，可以[**★Star**](#)支持一下你的[**★Star**](#)就是我最大的动力
