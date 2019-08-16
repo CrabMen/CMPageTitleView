@@ -187,26 +187,26 @@ end
  
 ## <a id="version"></a> 版本
 * 2018-08-13 初始化项目 
-* 2018-04-26 版本 0.3.0 新增 下划线比例宽度跟随标题文字宽度
-* 2018-05-03 版本 0.3.1 
+* 2018-04-26 版本 **0.3.0** 新增 下划线比例宽度跟随标题文字宽度
+* 2018-05-03 版本 **0.3.1**
   * cm_scale可以继续使用，新增``cm_selectedFont``属性，便于设置选中字体大小；
   * 支持**Masonry**
-* 2018-05-09 版本 0.4.0 
+* 2018-05-09 版本 **0.4.0**
   * 新增设置标题分割线Size以及Color功能
   * 新增对外暴露的代理方法，便于用户做对应处理
   * 新增断言异常提示；新增设置是否允许侧滑功能
-* 2018-05-16 版本 0.4.1 修复``cm_seperateLineHeight``为0时无效的问题
-* 2018-05-17 版本 0.4.2 新增``cm_animationDruction``属性，便于用户设置动画时间
-* 2018-05-23 版本 0.5.0 
+* 2018-05-16 版本 **0.4.1** 修复``cm_seperateLineHeight``为0时无效的问题
+* 2018-05-17 版本 **0.4.2** 新增``cm_animationDruction``属性，便于用户设置动画时间
+* 2018-05-23 版本 **0.5.0** 
   * 新增``cm_verticalContentMode``，可以设置标题文字垂直方向的对齐方式
   * 新增``cm_additionalMode``，便于设置分割线
   * 优化``cm_backgroundColor``效果；
   * 优化相关代码调用时机
-* ~~2018-07-13 版本 0.5.1 ``CMPageTitleView``中新增``-(void)cm_reloadConfig``方法，便于用户刷新配置~~
-* 2018-07-13 版本 0.5.2 
+* ~~2018-07-13 版本 **0.5.1** ``CMPageTitleView``中新增``-(void)cm_reloadConfig``方法，便于用户刷新配置~~
+* 2018-07-13 版本 **0.5.2** 
   * ``CMPageTitleView``中新增``-(void)cm_reloadConfig``方法，便于用户刷新配置；
-  * 修复0.5.1中的布局bug；修复部分情况下``CMPageTitleContentView``对象尺寸不准确问题
-* 2018-08-14 版本 0.6.0 
+  * 修复**0.5.1**中的布局bug；修复部分情况下``CMPageTitleContentView``对象尺寸不准确问题
+* 2018-08-14 版本 **0.6.0** 
   * 新增cm_rightView属性
   * 使用``NSLayoutConstraint``优化界面布局
   * 优化``CMPageTitleConfig``类的``getter``方法，大幅提高三方库性能
