@@ -16,6 +16,7 @@
 @class CMPageContentView;
 @protocol CMPageContentViewDelegate <NSObject>
 
+- (void)cm_pageContentViewWillBeginFromController:(UIViewController *)fromController TargetController:(UIViewController *)targetController;
 
 /**
 结束拖拽时，即手指离开屏幕时 会调用该代理方法

@@ -8,6 +8,7 @@
 
 #import "CMViewController.h"
 #import "CMPageTitleView.h"
+#import "CMChildController.h"
 #import "Masonry.h"
 //屏幕尺寸
 #define CM_SCREEN_W  [UIScreen mainScreen].bounds.size.width
@@ -94,17 +95,17 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 - (NSArray *)childControllers {
     
     if (!_childControllers) {
-        UIViewController *vc0 = [UIViewController new];
-        UIViewController *vc1 = [UIViewController new];
-        UIViewController *vc2 = [UIViewController new];
-        UIViewController *vc3 = [UIViewController new];
-        UIViewController *vc4 = [UIViewController new];
-        UIViewController *vc5 = [UIViewController new];
-        UIViewController *vc6 = [UIViewController new];
-        UIViewController *vc7 = [UIViewController new];
-        UIViewController *vc8 = [UIViewController new];
-        UIViewController *vc9 = [UIViewController new];
-        UIViewController *vc10 = [UIViewController new];
+        CMChildController *vc0 = [CMChildController new];
+        CMChildController *vc1 = [CMChildController new];
+        CMChildController *vc2 = [CMChildController new];
+        CMChildController *vc3 = [CMChildController new];
+        CMChildController *vc4 = [CMChildController new];
+        CMChildController *vc5 = [CMChildController new];
+        CMChildController *vc6 = [CMChildController new];
+        CMChildController *vc7 = [CMChildController new];
+        CMChildController *vc8 = [CMChildController new];
+        CMChildController *vc9 = [CMChildController new];
+        CMChildController *vc10 = [CMChildController new];
         
         vc0.title = @"推荐";
         vc1.title = @"小视频";
@@ -117,7 +118,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         vc8.title = @"体育";
         vc9.title = @"财经";
         vc10.title = @"国际";
-
+        
         
         vc0.view.backgroundColor = CM_RANDOM_COLOR;
         vc1.view.backgroundColor = CM_RANDOM_COLOR;
@@ -131,7 +132,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         vc9.view.backgroundColor = CM_RANDOM_COLOR;
         vc10.view.backgroundColor = CM_RANDOM_COLOR;
         
-
+        
         _childControllers =@[vc0,vc1,vc2,vc3,vc4,vc5,vc6,vc7];
         
     }
@@ -159,7 +160,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-   
+    
 }
 
 - (void)setReloadBarButtonItem {
@@ -191,8 +192,8 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)style00_00 {
     
-//    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
-//    [self.view addSubview:pageView];
+    //    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    //    [self.view addSubview:pageView];
     
     [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
@@ -641,7 +642,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
     self.pageTitleView.cm_config = config;
-
+    
     
 }
 
@@ -662,7 +663,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
     
     self.pageTitleView.cm_config = config;
-
+    
     
     
 }
@@ -704,7 +705,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
     self.pageTitleView.cm_config = config;
-
+    
     
     
 }
@@ -724,7 +725,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_childControllers = self.childControllers;
     config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
-
+    
     self.pageTitleView.cm_config = config;
     
 }
@@ -1594,7 +1595,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineStretch = YES;
     config.cm_underlineWidth = 10;
     config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
-
+    
     self.pageTitleView.cm_config = config;
     
 }
@@ -1663,32 +1664,32 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_contentMode = CMPageTitleContentMode_Left;
     config.cm_scaleGradientContentMode = CMPageTitleScaleGradientContentMode_Bottom;
     config.cm_scale = 1.3;
-
+    
     
     self.pageTitleView.cm_config = config;
-
+    
 }
 
 
 - (void)cm_pageTitleViewSelectedWithIndex:(NSInteger)index Repeat:(BOOL)repeat {
-
+    
     NSLog(@"第%ld个标题被选中；且%@是重复选中",index,repeat?@"":@"不");
-
+    
 }
 
 - (void)cm_pageTitleViewClickWithIndex:(NSInteger)index Repeat:(BOOL)repeat {
-
-
+    
+    
     NSLog(@"第%ld个标题被点击；且%@是重复点击",index,repeat?@"":@"不");
-
+    
 }
 
 
 - (void)cm_pageTitleViewScrollToIndex:(NSInteger)index {
-
-
+    
+    
     NSLog(@"当前滚动到第%ld个标题",index);
-
+    
 }
 
 

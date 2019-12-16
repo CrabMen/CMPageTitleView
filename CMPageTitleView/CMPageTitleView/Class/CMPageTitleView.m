@@ -13,6 +13,7 @@
 #import "CMPageTitleContentView.h"
 #import "CMPageContentView.h"
 #import "CMPageTitleViewMacro.h"
+#import <objc/runtime.h>
 
 @interface CMPageTitleView() <CMPageTitleContentViewDelegate,CMPageContentViewDelegate>
 
@@ -24,6 +25,9 @@
 
 /**标题视图和内容视图间的分割线*/
 @property (nonatomic,strong) UIView *seperateLine;
+
+@property (nonatomic,strong) UIViewController *parentController;
+
 
 
 @end
@@ -61,18 +65,27 @@
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         _contentView = [[CMPageContentView alloc] initWithFrame:rect collectionViewLayout:layout Config:self.cm_config];
         _contentView.cm_delegate = self;
-       
+        
     }
     return _contentView;
 }
 
-
+- (UIViewController *)parentController {
+    
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
+}
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     [self initSubViews];
-  
-   
+    
+    
 }
 
 
@@ -89,23 +102,24 @@
     
     [self layoutSubviews];
     
-   
+    
 }
 
 
 - (void)initSubViews {
-   
+    
     CMPageErrorAssert(self.cm_config != nil, @"cm_config属性不能为空");
-
+    
     self.backgroundColor = self.cm_config.cm_backgroundColor;
     
     [self.cm_config setValue:@(self.cm_width) forKey:@"cm_pageTitleViewWidth"];
-
+    [self.cm_config setValue:self.parentController forKey:@"cm_parentController"];
+    
     [self addSubview:self.titleView];
     
     if (self.cm_config.cm_additionalMode & CMPageTitleAdditionalMode_Seperateline) {
         [self addSubview:self.seperateLine];
-
+        
     }
     
     [self addSubview:self.contentView];
@@ -114,52 +128,76 @@
     
 }
 
+- (BOOL)shouldAutomaticallyForwardAppearanceMethods {
+    
+    return NO;
+}
+
+
+- (void)transtitonFromController:(UIViewController *)fromController TargetController:(UIViewController *)targetController {
+    
+    if (fromController != targetController) {
+        [fromController beginAppearanceTransition:NO animated:NO];
+        [fromController endAppearanceTransition];
+    }
+    [targetController beginAppearanceTransition:YES animated:NO];
+    [targetController endAppearanceTransition];
+    
+}
+- (void)addMethodForParentController {
+    
+    class_addMethod(self.cm_config.cm_parentController.class,NSSelectorFromString(@"shouldAutomaticallyForwardAppearanceMethods") , method_getImplementation(class_getInstanceMethod(self.class,NSSelectorFromString(@"shouldAutomaticallyForwardAppearanceMethods") )), "v@:");
+    
+}
+
 #pragma mark --- CMPageTitleContentViewDelegate
 
-- (void)cm_pageTitleContentViewClickWithIndex:(NSUInteger)index Repeat:(BOOL)repeat {
+- (void)cm_pageTitleContentViewClickWithLastIndex:(NSUInteger)LastIndex Index:(NSUInteger)index Repeat:(BOOL)repeat {
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(cm_pageTitleViewSelectedWithIndex:Repeat:)])
         [self.delegate cm_pageTitleViewSelectedWithIndex:index Repeat:repeat];
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(cm_pageTitleViewClickWithIndex:Repeat:)])
-       [self.delegate cm_pageTitleViewClickWithIndex:index Repeat:repeat];
-
+        [self.delegate cm_pageTitleViewClickWithIndex:index Repeat:repeat];
+    
     
     //获取子视图控制器 切换
     if (!repeat)  [self.contentView setContentOffset:CGPointMake(index * self.cm_width, 0)];
-
-
+    if (!repeat) [self transtitonFromController:self.cm_config.cm_childControllers[LastIndex] TargetController:self.cm_config.cm_childControllers[index]];
+    
 }
 
 
 #pragma mark --- CMPageContentViewDelegate
-
+- (void)cm_pageContentViewWillBeginFromController:(UIViewController *)fromController TargetController:(UIViewController *)targetController{
+    [self transtitonFromController:fromController TargetController:targetController];
+}
 - (void)cm_pageContentViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-
+    
     [self.titleView cm_pageTitleContentViewAdjustPosition:scrollView];
-
+    
 }
 
 - (void)cm_pageContentViewDidEndDeceleratingWithIndex:(NSInteger)index {
-
+    
     if (self.titleView.cm_selectedIndex == index) return;
-
+    
     self.titleView.cm_selectedIndex = index;
-
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(cm_pageTitleViewSelectedWithIndex:Repeat:)])
         [self.delegate cm_pageTitleViewSelectedWithIndex:index Repeat:NO];
-
+    
     if (self.delegate &&  [self.delegate respondsToSelector:@selector(cm_pageTitleViewScrollToIndex:)])
         [self.delegate cm_pageTitleViewScrollToIndex:index];
-
+    
 }
 
 
 - (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
-
-
+    
+    
     [self.titleView cm_pageTitleViewDidScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
-
+    
 }
 
 @end

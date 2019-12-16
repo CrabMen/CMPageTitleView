@@ -350,6 +350,11 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
 @property (nonatomic,assign,readonly) CGFloat cm_titlesWidth;
 
 
+/**
+ 父视图控制器
+ */
+@property (nonatomic,strong,readonly) UIViewController *cm_parentController;
+
 
 /**
  获得某个颜色的rgba的值

@@ -19,7 +19,7 @@
  @param index 当前点击的标题的index
  @param repeat 是否是重复点击
  */
-- (void)cm_pageTitleContentViewClickWithIndex:(NSUInteger)index Repeat:(BOOL)repeat;
+- (void)cm_pageTitleContentViewClickWithLastIndex:(NSUInteger)LastIndex Index:(NSUInteger)index Repeat:(BOOL)repeat;
 
 @end
 
