@@ -353,7 +353,7 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
 /**
  父视图控制器
  */
-@property (nonatomic,strong,readonly) UIViewController *cm_parentController;
+@property (nonatomic,weak,readonly) UIViewController *cm_parentController;
 
 
 /**

@@ -13,6 +13,8 @@
 #import "CMPageTitleConfig.h"
 
 @protocol CMPageTitleViewDelegate <NSObject>
+
+@optional
 /**
  当标题被点击会或滚动选中后调用该代理方法
  
@@ -37,6 +39,15 @@
 
  */
 - (void)cm_pageTitleViewScrollToIndex:(NSInteger)index;
+
+/**
+标题内容视图滚动会调用
+
+@param fromIndex 当前选中的标题的index
+@param targetIndex 目标标题的index
+@param progress 进度 (0 ~ 1.0)
+*/
+- (void)cm_pageTitleDidScrollFromIndex:(NSInteger)fromIndex TargetIndex:(NSInteger)targetIndex Progress:(CGFloat)progress;
 
 @end
 

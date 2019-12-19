@@ -15,7 +15,7 @@
 
 @class CMPageContentView;
 @protocol CMPageContentViewDelegate <NSObject>
-
+@required
 - (void)cm_pageContentViewWillBeginFromController:(UIViewController *)fromController TargetController:(UIViewController *)targetController;
 
 /**

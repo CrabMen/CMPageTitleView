@@ -28,11 +28,20 @@
 
 @property (nonatomic,strong) UIViewController *parentController;
 
+@property (nonatomic,assign) BOOL fromControllerWillDisappear;
+@property (nonatomic,assign) BOOL targetControllerWillAppear;
+@property (nonatomic,assign) CGFloat lastOffsetX;
 
 
 @end
 
 @implementation CMPageTitleView
+
+void endAppearance(id self, SEL _cmd){
+    
+    [self endApprarance];
+    
+}
 
 - (UIView *)seperateLine {
     
@@ -114,7 +123,7 @@
     
     [self.cm_config setValue:@(self.cm_width) forKey:@"cm_pageTitleViewWidth"];
     [self.cm_config setValue:self.parentController forKey:@"cm_parentController"];
-    
+    [self addMethodForParentController];
     [self addSubview:self.titleView];
     
     if (self.cm_config.cm_additionalMode & CMPageTitleAdditionalMode_Seperateline) {
@@ -128,25 +137,53 @@
     
 }
 
+
+- (void)endApprarance {
+
+    [self endAppraranceFromIndex:self.titleView.cm_selectedIndex TargetIndex:self.titleView.cm_selectedIndex];
+}
+
 - (BOOL)shouldAutomaticallyForwardAppearanceMethods {
     
     return NO;
 }
 
+- (void)endAppraranceFromIndex:(NSInteger)fromIndex TargetIndex:(NSInteger)targetIndex {
 
-- (void)transtitonFromController:(UIViewController *)fromController TargetController:(UIViewController *)targetController {
-    
-    if (fromController != targetController) {
-        [fromController beginAppearanceTransition:NO animated:NO];
-        [fromController endAppearanceTransition];
-    }
-    [targetController beginAppearanceTransition:YES animated:NO];
+    NSInteger maxIndex = self.cm_config.cm_childControllers.count - 1;
+
+    if ((fromIndex == maxIndex && targetIndex > maxIndex)|| (fromIndex == 0 && targetIndex<0)) return;
+
+    UIViewController *fromController = self.cm_config.cm_childControllers[fromIndex];
+    UIViewController *targetController = self.cm_config.cm_childControllers[targetIndex];
+
+    if (fromIndex != targetIndex)  [fromController endAppearanceTransition];
     [targetController endAppearanceTransition];
     
 }
-- (void)addMethodForParentController {
+
+- (void)beginAppearanceFromIndex:(NSInteger)fromIndex TargetIndex:(NSInteger)targetIndex {
+
+    NSInteger maxIndex = self.cm_config.cm_childControllers.count - 1;
+    if ((fromIndex == maxIndex && targetIndex > maxIndex)|| (fromIndex == 0 && targetIndex<0)) return;
+
+    UIViewController *fromController = self.cm_config.cm_childControllers[fromIndex];
+    UIViewController *targetController = self.cm_config.cm_childControllers[targetIndex];
+
+    if (fromIndex != targetIndex) [fromController beginAppearanceTransition:NO animated:NO];
+    [targetController beginAppearanceTransition:YES animated:NO];
     
-    class_addMethod(self.cm_config.cm_parentController.class,NSSelectorFromString(@"shouldAutomaticallyForwardAppearanceMethods") , method_getImplementation(class_getInstanceMethod(self.class,NSSelectorFromString(@"shouldAutomaticallyForwardAppearanceMethods") )), "v@:");
+}
+
+- (void)transtitonFromIndex:(NSInteger)fromIndex TargetIndex:(NSInteger)targetIndex {
+    [self beginAppearanceFromIndex:fromIndex TargetIndex:targetIndex];
+    [self endAppraranceFromIndex:fromIndex TargetIndex:targetIndex];
+}
+- (void)addMethodForParentController {
+    class_addMethod(self.cm_config.cm_parentController.class,NSSelectorFromString(@"shouldAutomaticallyForwardAppearanceMethods") , method_getImplementation(class_getInstanceMethod(self.class,NSSelectorFromString(@"shouldAutomaticallyForwardAppearanceMethods"))), "v@:");
+
+    class_addMethod(self.cm_config.cm_parentController.class,NSSelectorFromString(@"shouldAutomaticallyForwardAppearanceMethods") , method_getImplementation(class_getInstanceMethod(self.class,NSSelectorFromString(@"shouldAutomaticallyForwardAppearanceMethods"))), "v@:");
+
     
 }
 
@@ -160,30 +197,24 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(cm_pageTitleViewClickWithIndex:Repeat:)])
         [self.delegate cm_pageTitleViewClickWithIndex:index Repeat:repeat];
     
-    
     //获取子视图控制器 切换
     if (!repeat)  [self.contentView setContentOffset:CGPointMake(index * self.cm_width, 0)];
-    if (!repeat) [self transtitonFromController:self.cm_config.cm_childControllers[LastIndex] TargetController:self.cm_config.cm_childControllers[index]];
+    if (!repeat) [self transtitonFromIndex:LastIndex TargetIndex:index];
     
 }
 
 
 #pragma mark --- CMPageContentViewDelegate
-- (void)cm_pageContentViewWillBeginFromController:(UIViewController *)fromController TargetController:(UIViewController *)targetController{
-    [self transtitonFromController:fromController TargetController:targetController];
-}
+
 - (void)cm_pageContentViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    
     [self.titleView cm_pageTitleContentViewAdjustPosition:scrollView];
-    
 }
 
 - (void)cm_pageContentViewDidEndDeceleratingWithIndex:(NSInteger)index {
-    
     if (self.titleView.cm_selectedIndex == index) return;
-    
+    [self transtitonFromIndex:self.titleView.cm_selectedIndex TargetIndex:index];
     self.titleView.cm_selectedIndex = index;
-    
+
     if (self.delegate && [self.delegate respondsToSelector:@selector(cm_pageTitleViewSelectedWithIndex:Repeat:)])
         [self.delegate cm_pageTitleViewSelectedWithIndex:index Repeat:NO];
     
@@ -195,9 +226,7 @@
 
 - (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
     
-    
     [self.titleView cm_pageTitleViewDidScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
-    
 }
 
 @end

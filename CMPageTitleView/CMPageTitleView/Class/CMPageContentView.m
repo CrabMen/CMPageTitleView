@@ -115,37 +115,15 @@
 }
 
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    CGPoint velocity = [scrollView.panGestureRecognizer velocityInView:scrollView.superview];
-    NSLog(@"scrollViewWillBeginDragging --- %lf",velocity.x);
-    
-    NSInteger currentIndex = floor(scrollView.contentOffset.x / self.cm_width);
-    
-    UIViewController *fromController = self.config.cm_childControllers[self.config.cm_selectedIndex];
-    UIViewController *targetController = nil;
-    
-    if ((velocity.x > 0 && currentIndex == 0) || (velocity.x < 0 && currentIndex == self.config.cm_childControllers.count - 1)) return;
-    
-    targetController = self.config.cm_childControllers[velocity.x > 0 ? (currentIndex - 1) :(currentIndex + 1)];
-    
-    if (self.cm_delegate && [self.cm_delegate respondsToSelector:@selector(cm_pageContentViewWillBeginFromController:TargetController:)]) {
-        [self.cm_delegate cm_pageContentViewWillBeginFromController:fromController TargetController:targetController];
-        
-    }
-}
-
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     _isAniming = NO;
-    
     
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (_isAniming || self.config.cm_childControllers.count == 0) return;
     
-    
     if (self.cm_delegate) {
-        //    [self.cm_delegate cm_pageContentViewDidScroll:scrollView];
         
         CGFloat progress = scrollView.contentOffset.x / self.cm_width - floor(scrollView.contentOffset.x / self.cm_width);
         NSUInteger leftIndex = floor(scrollView.contentOffset.x / self.cm_width);
