@@ -24,22 +24,26 @@
 
 - (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout Config:(CMPageTitleConfig *)config{
     
-    
     if (self = [super initWithFrame:frame collectionViewLayout:layout]) {
         self.config = config;
         self.delegate = self;
         self.dataSource = self;
-        [self registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell" ];
+        [self registerClass:[CMPageContentCell class] forCellWithReuseIdentifier:NSStringFromClass(CMPageContentCell.class)];
         self.pagingEnabled = YES;
         self.showsHorizontalScrollIndicator = NO;
         self.showsVerticalScrollIndicator = NO;
         self.bounces = NO;
         self.scrollEnabled = self.config.cm_slideGestureEnable;
+        self.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
+        if (self.cm_navigationController && self.config.cm_slideGestureEnable) {
+            [self.panGestureRecognizer requireGestureRecognizerToFail:self.cm_navigationController.interactivePopGestureRecognizer];
+        }
     }
     return self;
 }
 
 #pragma mark --- UICollectionViewDataSource
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     
     return 1;
@@ -51,24 +55,14 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    cell.contentView.backgroundColor = [UIColor whiteColor];
-    //移除之前的子控件
-    [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    // 添加控制器
-    UIViewController *VC = self.config.cm_childControllers[indexPath.row];
-    [self.config.cm_parentController addChildViewController:VC];
-    [VC didMoveToParentViewController:self.config.cm_parentController];
+    CMPageContentCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(CMPageContentCell.class) forIndexPath:indexPath];
     
-    VC.view.frame = CGRectMake(0, 0, self.cm_width, self.cm_height);
-    [cell.contentView addSubview:VC.view];
+    cell.backgroundColor = [UIColor whiteColor];
+    
+    cell.cm_contentView = [self.config.cm_childControllers[indexPath.row] view];
     
     return cell;
-    
-    
-    
-    
 }
 
 
@@ -79,7 +73,6 @@
     if (self.cm_delegate) {
         [self.cm_delegate cm_pageContentViewDidEndDragging:scrollView willDecelerate:decelerate];
     }
-    
 }
 
 /**
@@ -103,23 +96,23 @@
         [self setContentOffset:CGPointMake(offSetX, 0) animated:YES];
     }
     
-    //获取角标
     NSInteger index = offSetX / self.cm_width;
     
-    //选中标题
     if (self.cm_delegate) {
+        
         [self.cm_delegate cm_pageContentViewDidEndDeceleratingWithIndex:index];
         
     }
-    
 }
 
 
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    
     _isAniming = NO;
     
 }
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (_isAniming || self.config.cm_childControllers.count == 0) return;
     
@@ -131,12 +124,10 @@
         [self.cm_delegate cm_pageContentViewDidScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
         
     }
-    
-    
 }
 
-
 @end
+
 
 
 
@@ -144,15 +135,28 @@
 
 -(void)prepareLayout {
     [super prepareLayout];
-    
-    
     self.minimumInteritemSpacing = 0;
     self.minimumLineSpacing = 0;
+    
     if (self.collectionView.bounds.size.height) {
         self.itemSize = self.collectionView.bounds.size;
     }
-    
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
 }
+@end
+
+@implementation CMPageContentCell
+
+- (void)setCm_contentView:(UIView *)cm_contentView {
+    
+    _cm_contentView = cm_contentView;
+    _cm_contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [self.contentView addSubview:_cm_contentView];
+    
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:@{} views:@{@"view":_cm_contentView}]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|" options:0 metrics:@{} views:@{@"view":_cm_contentView}]];
+}
+
 @end

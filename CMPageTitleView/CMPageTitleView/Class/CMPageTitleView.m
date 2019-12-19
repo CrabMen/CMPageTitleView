@@ -9,6 +9,7 @@
 //  Copyright © 2018年 Mac. All rights reserved.
 //
 
+
 #import "CMPageTitleView.h"
 #import "CMPageTitleContentView.h"
 #import "CMPageContentView.h"
@@ -18,13 +19,13 @@
 @interface CMPageTitleView() <CMPageTitleContentViewDelegate,CMPageContentViewDelegate>
 
 /**标题视图*/
-@property (nonatomic,strong) CMPageTitleContentView *titleView;
+@property (nonatomic,weak) CMPageTitleContentView *titleView;
 
 /**内容视图*/
-@property (nonatomic,strong) CMPageContentView *contentView;
+@property (nonatomic,weak) CMPageContentView *contentView;
 
 /**标题视图和内容视图间的分割线*/
-@property (nonatomic,strong) UIView *seperateLine;
+@property (nonatomic,weak) UIView *seperateline;
 
 @property (nonatomic,strong) UIViewController *parentController;
 
@@ -43,24 +44,27 @@ void endAppearance(id self, SEL _cmd){
     
 }
 
-- (UIView *)seperateLine {
+- (UIView *)seperateline {
     
-    if (!_seperateLine) {
-        _seperateLine = [[UIView alloc] initWithFrame:CGRectMake(0, self.titleView.cm_bottom, self.cm_width, self.cm_config.cm_seperateLineHeight)];
+    if (!_seperateline) {
         
-        _seperateLine.backgroundColor = self.cm_config.cm_seperaterLineColor;
+        UIView *seperateline = [[UIView alloc] init];
+        seperateline.backgroundColor = self.cm_config.cm_seperaterLineColor;
+        _seperateline = seperateline;
+        [self addSubview:_seperateline];
     }
     
-    return _seperateLine;
+    return _seperateline;
 }
 
 - (CMPageTitleContentView *)titleView {
     
     if (!_titleView) {
-        _titleView = [[CMPageTitleContentView alloc] initWithConfig:self.cm_config];
-        _titleView.cm_delegate = self;
-        _titleView.frame = CGRectMake(0, 0, self.cm_width, self.cm_config.cm_titleHeight);
+        CMPageTitleContentView *titleView = [[CMPageTitleContentView alloc] initWithConfig:self.cm_config];
+        titleView.cm_delegate = self;
+        _titleView = titleView;
         
+        [self addSubview:_titleView];
     }
     return _titleView;
 }
@@ -68,12 +72,13 @@ void endAppearance(id self, SEL _cmd){
 
 - (CMPageContentView *)contentView {
     if (!_contentView) {
+        
         CMFlowLayout *layout = [CMFlowLayout new];
-        CGRect rect = CGRectMake(0, self.titleView.cm_height +
-                                 _seperateLine.cm_height, self.cm_width, self.cm_height - self.titleView.cm_height - _seperateLine.cm_height);
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        _contentView = [[CMPageContentView alloc] initWithFrame:rect collectionViewLayout:layout Config:self.cm_config];
-        _contentView.cm_delegate = self;
+        CMPageContentView *contentView = [[CMPageContentView alloc] initWithFrame:CGRectZero collectionViewLayout:layout Config:self.cm_config];
+        contentView.cm_delegate = self;
+        _contentView = contentView;
+        [self addSubview:_contentView];
         
     }
     return _contentView;
@@ -93,19 +98,13 @@ void endAppearance(id self, SEL _cmd){
 - (void)layoutSubviews {
     [super layoutSubviews];
     [self initSubViews];
-    
-    
 }
-
 
 - (void)cm_reloadConfig {
     
-    [self.seperateLine removeFromSuperview];
-    [self.titleView removeFromSuperview];
-    [self.contentView removeFromSuperview];
+    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    
-    self.seperateLine = nil;
+    self.seperateline = nil;
     self.titleView = nil;
     self.contentView = nil;
     
@@ -121,20 +120,47 @@ void endAppearance(id self, SEL _cmd){
     
     self.backgroundColor = self.cm_config.cm_backgroundColor;
     
+    CMPageErrorAssert((self.cm_config.cm_childControllers != nil || self.cm_config.cm_childControllers.count == 0 ), @"cm_childControllers数组需赋值，且数组个数不为空");
+    CMPageErrorAssert((self.cm_config.cm_titles != nil || self.cm_config.cm_titles.count == 0 ), @"cm_titles数组需赋值，且数组个数不为空");
     [self.cm_config setValue:@(self.cm_width) forKey:@"cm_pageTitleViewWidth"];
     [self.cm_config setValue:self.parentController forKey:@"cm_parentController"];
     [self addMethodForParentController];
     [self addSubview:self.titleView];
     
     if (self.cm_config.cm_additionalMode & CMPageTitleAdditionalMode_Seperateline) {
-        [self addSubview:self.seperateLine];
+        [self addSubview:self.seperateline];
         
     }
     
-    [self addSubview:self.contentView];
+    [self initVFLContraints];
+    
+    self.cm_config.cm_font = self.cm_config.cm_font;
+    self.cm_config.cm_titles = self.cm_config.cm_titles;
+    self.cm_config.cm_titleMargin = self.cm_config.cm_titleMargin;
+    self.cm_config.cm_contentMode = self.cm_config.cm_contentMode;
+    
+}
+
+- (void)initVFLContraints {
+    
+    self.titleView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.seperateline.translatesAutoresizingMaskIntoConstraints = NO;
+    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleView}]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[seperateline]|" options:0 metrics:@{}views:@{@"seperateline":self.seperateline}]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[content]|" options:0 metrics:@{}views:@{@"content":self.contentView}]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title(==titleH)][seperateline(==seperateH)][content]|" options:0 metrics:@{@"titleH":@(self.cm_config.cm_titleHeight),@"seperateH":@((self.cm_config.cm_additionalMode&CMPageTitleAdditionalMode_Seperateline) ? self.cm_config.cm_seperateLineHeight : 0)}views:@{@"title":self.titleView,@"seperateline":self.seperateline,@"content":self.contentView}]];
     
     
-    
+    if (self.cm_config.cm_rightView && self.cm_config.cm_contentMode != CMPageTitleContentMode_Right) {
+        
+        [self addSubview:self.cm_config.cm_rightView];
+        self.cm_config.cm_rightView.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[rightView(==width)]|" options:NSLayoutFormatAlignAllRight metrics:@{@"width":@(self.cm_config.cm_rightView.cm_width)}views:@{@"rightView":self.cm_config.cm_rightView}]];
+        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[rightView(==height)]" options:0 metrics:@{@"height":@(self.cm_config.cm_rightView.cm_height)}views:@{@"rightView":self.cm_config.cm_rightView}]];
+    }
 }
 
 
@@ -197,7 +223,6 @@ void endAppearance(id self, SEL _cmd){
     if (self.delegate && [self.delegate respondsToSelector:@selector(cm_pageTitleViewClickWithIndex:Repeat:)])
         [self.delegate cm_pageTitleViewClickWithIndex:index Repeat:repeat];
     
-    //获取子视图控制器 切换
     if (!repeat)  [self.contentView setContentOffset:CGPointMake(index * self.cm_width, 0)];
     if (!repeat) [self transtitonFromIndex:LastIndex TargetIndex:index];
     
@@ -214,7 +239,6 @@ void endAppearance(id self, SEL _cmd){
     if (self.titleView.cm_selectedIndex == index) return;
     [self transtitonFromIndex:self.titleView.cm_selectedIndex TargetIndex:index];
     self.titleView.cm_selectedIndex = index;
-
     if (self.delegate && [self.delegate respondsToSelector:@selector(cm_pageTitleViewSelectedWithIndex:Repeat:)])
         [self.delegate cm_pageTitleViewSelectedWithIndex:index Repeat:NO];
     
@@ -227,6 +251,7 @@ void endAppearance(id self, SEL _cmd){
 - (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
     
     [self.titleView cm_pageTitleViewDidScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
+    
 }
 
 @end

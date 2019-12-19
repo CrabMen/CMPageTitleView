@@ -9,6 +9,7 @@
 //  Copyright © 2019 CrabMan. All rights reserved.
 //
 
+
 #import "CMPageTitleConfig.h"
 #import "CMPageTitleViewMacro.h"
 @interface CMPageTitleConfig ()
@@ -16,38 +17,35 @@
 /**视图宽度*/
 @property (nonatomic,strong) NSNumber *cm_pageTitleViewWidth;
 
-
-/**cm_slideGestureEnable对应的nsnumber类型*/
-@property (nonatomic,strong) NSNumber *cm_slideGestureEnableNumber;
-
-/**cm_seperateLineHeight对应的nsnumber类型*/
-@property (nonatomic,strong) NSNumber *cm_seperateLineHeightNumber;
-
-
-
 @end
 
 @implementation CMPageTitleConfig
 
-@synthesize cm_slideGestureEnable = _cm_slideGestureEnable;
-@synthesize cm_seperateLineHeight = _cm_seperateLineHeight;
-
 #pragma mark -- setter
 
-- (void)setCm_slideGestureEnable:(BOOL)cm_slideGestureEnable {
+- (void)setCm_childControllers:(NSArray *)cm_childControllers {
     
-    _cm_slideGestureEnable = cm_slideGestureEnable;
+    _cm_childControllers = cm_childControllers;
     
-    self.cm_slideGestureEnableNumber = @(cm_slideGestureEnable);
+    self.cm_titles = [_cm_childControllers valueForKey:@"title"];
     
 }
 
-- (void)setCm_seperateLineHeight:(CGFloat)cm_seperateLineHeight {
+- (void)setCm_titles:(NSArray *)cm_titles {
     
-    _cm_seperateLineHeight = cm_seperateLineHeight;
+    _cm_titles = cm_titles;
     
-    self.cm_seperateLineHeightNumber = @(cm_seperateLineHeight);
-    
+    if (_cm_titles.count) {
+        NSMutableArray *mArray = [NSMutableArray array];
+        for (NSString *string in cm_titles) {
+            [mArray addObject:@(CMStringWidth(string, self.cm_font))];
+        }
+        [self setValue:[mArray copy] forKey:NSStringFromSelector(@selector(cm_titleWidths))];
+        
+        NSNumber *cm_titlesWidth = [self.cm_titleWidths valueForKeyPath:@"@sum.floatValue"];
+        
+        [self setValue:cm_titlesWidth forKey:NSStringFromSelector(@selector(cm_titlesWidth))];
+    }
     
 }
 
@@ -74,57 +72,43 @@
     
 }
 
-- (void)setCm_childControllers:(NSArray *)cm_childControllers {
+- (void)setCm_underlineWidthScale:(CGFloat)cm_underlineWidthScale {
+    _cm_underlineWidthScale = cm_underlineWidthScale;
     
-    _cm_childControllers = cm_childControllers;
+    _cm_underlineWidthScale = fabs(_cm_underlineWidthScale) > 1.3 || _cm_underlineWidthScale == 0 ? 1 :fabs(_cm_underlineWidthScale) ;
     
-    CMPageErrorAssert(cm_childControllers != nil, @"cm_childControllers属性未赋值");
-    CMPageErrorAssert(cm_childControllers.count != 0, @"cm_childControllers数组个数不能为空");
+}
+
+- (void)setCm_defaultIndex:(NSInteger)cm_defaultIndex {
+    _cm_defaultIndex = cm_defaultIndex;
     
-    self.cm_titles = [cm_childControllers valueForKey:@"title"];
+    _cm_defaultIndex = _cm_defaultIndex < self.cm_titles.count ? _cm_defaultIndex : 0;
     
     
 }
 
-
-
-- (void)setCm_titles:(NSArray *)cm_titles {
+- (void)setCm_animationDruction:(CGFloat)cm_animationDruction {
     
-    
-    _cm_titles = cm_titles;
-    
-    CMPageErrorAssert(cm_titles != nil, @"cm_titles属性未赋值");
-    CMPageErrorAssert(cm_titles.count != 0, @"cm_titles数组个数不能为空");
-    
-    
-    
-    //标题宽度数组
-    NSMutableArray *mArray = [NSMutableArray array];
-    
-    [cm_titles enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-       
-        [mArray addObject: @(CMStringWidth((NSString *)obj, self.cm_font))];
-        
-    }];
-    
-    
-    [self setValue:[mArray copy] forKey:@"_cm_titleWidths"];
-    
-    //标题总宽度
-    
-//    [self setValue:[[self.cm_titleWidths valueForKeyPath:@"@sum.floatValue"] floatValue] forKey:@"_cm_titleWidths"];
+    _cm_animationDruction = (cm_animationDruction >= 0.25 && cm_animationDruction <= 0.8 ) ? cm_animationDruction : 0.25 ;
     
 }
 
 - (void)setCm_contentMode:(CMPageTitleContentMode)cm_contentMode {
+    _cm_contentMode = cm_contentMode;
+    NSUInteger count = self.cm_contentMode == CMPageTitleContentMode_Center ? self.cm_titles.count + 1 : self.cm_titles.count;
+    [self setValue:@(self.cm_titlesWidth + count * self.cm_minTitleMargin) forKey:NSStringFromSelector(@selector(cm_minContentWidth))];
     
     _cm_contentMode = cm_contentMode;
     
-    
-    if (cm_contentMode == CMPageTitleContentMode_Left || cm_contentMode == CMPageTitleContentMode_Right) {
+    if (cm_contentMode == CMPageTitleContentMode_Left) {
+        //左对齐
+        
+        _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
+        
+    } else if (cm_contentMode == CMPageTitleContentMode_Right) {
         //右对齐
         
-        self.cm_titleMargin = self.cm_minTitleMargin;
+        _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
         
     }else if (cm_contentMode == CMPageTitleContentMode_Center || cm_contentMode == CMPageTitleContentMode_SpaceAround) {
         
@@ -133,7 +117,7 @@
             
         } else {
             
-            NSUInteger count = self.cm_contentMode == CMPageTitleContentMode_Center ? self.cm_titles.count + 1 : self.cm_titles.count;
+            NSUInteger count = cm_contentMode == CMPageTitleContentMode_Center ? self.cm_titles.count + 1 : self.cm_titles.count;
             
             CGFloat titleMargin = (self.cm_pageTitleViewWidth.floatValue - self.cm_titlesWidth )/count;
             
@@ -141,9 +125,15 @@
             
         }
     }
+    
+}
 
+- (void)setCm_rightView:(UIView *)cm_rightView {
+    _cm_rightView = cm_rightView;
     
-    
+    if (_cm_rightView.cm_height > self.cm_titleHeight) {
+        _cm_rightView.cm_height = self.cm_titleHeight;
+    }
     
 }
 
@@ -151,15 +141,14 @@
 
 + (instancetype)defaultConfig{
     
-
-    return [[super alloc]initWithDefaultConfig];
     
+    return [[super alloc]initWithDefaultConfig];
 }
 
 
 - (instancetype)initWithDefaultConfig {
     
-
+    
     if (self = [super init]) {
         
         self.cm_titleHeight = 44;
@@ -172,7 +161,7 @@
         
         self.cm_selectedColor = [UIColor redColor];
         
-        self.cm_defaultIndex = 0;
+        _cm_defaultIndex = 0;
         
         self.cm_minTitleMargin = 20;
         
@@ -185,7 +174,7 @@
         self.cm_slideGestureEnable = YES;
         
         self.cm_underlineStretch = NO;
-
+        
         self.cm_seperateLineHeight = 1.0 / [UIScreen mainScreen].scale;
         
         self.cm_seperaterLineColor = [UIColor lightGrayColor];
@@ -199,16 +188,18 @@
         self.cm_coverVerticalMargin = 5;
         
         self.cm_coverHorizontalMargin = 10;
-
+        
         self.cm_splitterColor = [UIColor lightGrayColor];
         
         self.cm_splitterSize = CGSizeMake(1.0 / [UIScreen mainScreen].scale, 22);
-    
+        
         
     }
     return self;
     
 }
+
+
 
 
 CG_EXTERN NSArray* CMColorGetRGBA(UIColor *color) {
@@ -250,7 +241,7 @@ CG_EXTERN CGFloat CMStringWidth(NSString *string ,UIFont *font) {
         NSException *exception = [NSException exceptionWithName:@"CMStringWidth C Method Exception" reason:@"title的标题不能为空" userInfo:nil];
         [exception raise];
     }
-   
+    
     CGFloat width = [string boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:font} context:nil].size.width ;
     
     return ceilf(width);

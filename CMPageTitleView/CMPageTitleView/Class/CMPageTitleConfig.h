@@ -20,14 +20,12 @@ typedef NS_ENUM(NSUInteger,CMTitleColorGradientStyle) {
     
     /**颜色无渐变*/
     CMTitleColorGradientStyle_None = 0,
+    
     /**rgb颜色渐变*/
     CMTitleColorGradientStyle_RGB = 1,
     
     /**填充色颜色渐变*/
     CMTitleColorGradientStyle_Fill = 2,
-    
-   
-    
     
 };
 
@@ -89,13 +87,13 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
 @interface CMPageTitleConfig : NSObject
 
 /**子视图控制器数组*/
-@property (nonatomic,copy) NSArray *cm_childControllers;
+@property (nonatomic,copy) NSArray <UIViewController *>*cm_childControllers;
 
 
 /**标题数组
  默认为cm_childControllers 的 title
  */
-@property (nonatomic,copy) NSArray *cm_titles;
+@property (nonatomic,copy) NSArray <NSString *>*cm_titles;
 
 
 /**
@@ -234,7 +232,8 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
  */
 @property (nonatomic,assign) CMPageTitleScaleGradientContentMode cm_scaleGradientContentMode;
 
-
+/**右侧视图*/
+@property (nonatomic,strong) UIView *cm_rightView;
 
 
 #pragma mark --- 下划线效果
@@ -288,6 +287,7 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
 #pragma mark --- 遮罩效果
 
 /**
+ 
  遮罩颜色
  */
 @property (nonatomic,strong) UIColor *cm_coverColor;
@@ -336,7 +336,7 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
 /**
  标题宽度
  */
-@property (nonatomic,strong,readonly) NSArray *cm_titleWidths;
+@property (nonatomic,strong,readonly)  NSArray * _Nonnull cm_titleWidths;
 
 /**
  标题的总宽度 + 左右边距 + 所有的标题最小间距
@@ -411,7 +411,6 @@ CG_EXTERN CGFloat CMStringWidth(NSString *string ,UIFont *font);
 +(instancetype) new __attribute__((unavailable("please call class method +(instancetype)defaultConfig instead")));
 -(instancetype) copy __attribute__((unavailable("please call class method +(instancetype)defaultConfig instead")));
 -(instancetype) mutableCopy __attribute__((unavailable("please call class method +(instancetype)defaultConfig instead")));
-
 
 @end
 

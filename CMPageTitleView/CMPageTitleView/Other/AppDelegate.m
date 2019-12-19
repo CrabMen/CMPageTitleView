@@ -20,7 +20,10 @@
     
     _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     
-    _window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[CMMainTableController new]];
+    UINavigationController *rootVC = [[UINavigationController alloc] initWithRootViewController:[CMMainTableController new]];
+    rootVC.interactivePopGestureRecognizer.enabled = YES;
+    _window.rootViewController = rootVC;
+
     [_window makeKeyAndVisible];
     return YES;
 }

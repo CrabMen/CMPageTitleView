@@ -34,4 +34,10 @@
 @property CGFloat cm_bottom;
 @property CGFloat cm_right;
 
+/**当前所在的UINavigationConntroller*/
+@property (nonatomic,strong,readonly) UINavigationController *cm_navigationController;
+
+/**当前所在的UIViewController*/
+@property (nonatomic,strong,readonly) UINavigationController *cm_viewController;
+
 @end
