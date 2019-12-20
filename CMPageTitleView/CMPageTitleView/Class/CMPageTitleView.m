@@ -18,31 +18,17 @@
 
 @interface CMPageTitleView() <CMPageTitleContentViewDelegate,CMPageContentViewDelegate>
 
-/**标题视图*/
 @property (nonatomic,weak) CMPageTitleContentView *titleView;
 
-/**内容视图*/
 @property (nonatomic,weak) CMPageContentView *contentView;
 
-/**标题视图和内容视图间的分割线*/
 @property (nonatomic,weak) UIView *seperateline;
 
 @property (nonatomic,strong) UIViewController *parentController;
 
-@property (nonatomic,assign) BOOL fromControllerWillDisappear;
-@property (nonatomic,assign) BOOL targetControllerWillAppear;
-@property (nonatomic,assign) CGFloat lastOffsetX;
-
-
 @end
 
 @implementation CMPageTitleView
-
-void endAppearance(id self, SEL _cmd){
-    
-    [self endApprarance];
-    
-}
 
 - (UIView *)seperateline {
     
@@ -117,28 +103,20 @@ void endAppearance(id self, SEL _cmd){
 - (void)initSubViews {
     
     CMPageErrorAssert(self.cm_config != nil, @"cm_config属性不能为空");
+       self.userInteractionEnabled = YES;
+       [self reviseConfig];
+       [self initVFLContraints];
     
-    self.backgroundColor = self.cm_config.cm_backgroundColor;
+}
+
+- (void)reviseConfig{
     
     CMPageErrorAssert((self.cm_config.cm_childControllers != nil || self.cm_config.cm_childControllers.count == 0 ), @"cm_childControllers数组需赋值，且数组个数不为空");
     CMPageErrorAssert((self.cm_config.cm_titles != nil || self.cm_config.cm_titles.count == 0 ), @"cm_titles数组需赋值，且数组个数不为空");
     [self.cm_config setValue:@(self.cm_width) forKey:@"cm_pageTitleViewWidth"];
     [self.cm_config setValue:self.parentController forKey:@"cm_parentController"];
     [self addMethodForParentController];
-    [self addSubview:self.titleView];
-    
-    if (self.cm_config.cm_additionalMode & CMPageTitleAdditionalMode_Seperateline) {
-        [self addSubview:self.seperateline];
-        
-    }
-    
-    [self initVFLContraints];
-    
-    self.cm_config.cm_font = self.cm_config.cm_font;
-    self.cm_config.cm_titles = self.cm_config.cm_titles;
-    self.cm_config.cm_titleMargin = self.cm_config.cm_titleMargin;
-    self.cm_config.cm_contentMode = self.cm_config.cm_contentMode;
-    
+
 }
 
 - (void)initVFLContraints {
@@ -164,54 +142,7 @@ void endAppearance(id self, SEL _cmd){
 }
 
 
-- (void)endApprarance {
 
-    [self endAppraranceFromIndex:self.titleView.cm_selectedIndex TargetIndex:self.titleView.cm_selectedIndex];
-}
-
-- (BOOL)shouldAutomaticallyForwardAppearanceMethods {
-    
-    return NO;
-}
-
-- (void)endAppraranceFromIndex:(NSInteger)fromIndex TargetIndex:(NSInteger)targetIndex {
-
-    NSInteger maxIndex = self.cm_config.cm_childControllers.count - 1;
-
-    if ((fromIndex == maxIndex && targetIndex > maxIndex)|| (fromIndex == 0 && targetIndex<0)) return;
-
-    UIViewController *fromController = self.cm_config.cm_childControllers[fromIndex];
-    UIViewController *targetController = self.cm_config.cm_childControllers[targetIndex];
-
-    if (fromIndex != targetIndex)  [fromController endAppearanceTransition];
-    [targetController endAppearanceTransition];
-    
-}
-
-- (void)beginAppearanceFromIndex:(NSInteger)fromIndex TargetIndex:(NSInteger)targetIndex {
-
-    NSInteger maxIndex = self.cm_config.cm_childControllers.count - 1;
-    if ((fromIndex == maxIndex && targetIndex > maxIndex)|| (fromIndex == 0 && targetIndex<0)) return;
-
-    UIViewController *fromController = self.cm_config.cm_childControllers[fromIndex];
-    UIViewController *targetController = self.cm_config.cm_childControllers[targetIndex];
-
-    if (fromIndex != targetIndex) [fromController beginAppearanceTransition:NO animated:NO];
-    [targetController beginAppearanceTransition:YES animated:NO];
-    
-}
-
-- (void)transtitonFromIndex:(NSInteger)fromIndex TargetIndex:(NSInteger)targetIndex {
-    [self beginAppearanceFromIndex:fromIndex TargetIndex:targetIndex];
-    [self endAppraranceFromIndex:fromIndex TargetIndex:targetIndex];
-}
-- (void)addMethodForParentController {
-    class_addMethod(self.cm_config.cm_parentController.class,NSSelectorFromString(@"shouldAutomaticallyForwardAppearanceMethods") , method_getImplementation(class_getInstanceMethod(self.class,NSSelectorFromString(@"shouldAutomaticallyForwardAppearanceMethods"))), "v@:");
-
-    class_addMethod(self.cm_config.cm_parentController.class,NSSelectorFromString(@"shouldAutomaticallyForwardAppearanceMethods") , method_getImplementation(class_getInstanceMethod(self.class,NSSelectorFromString(@"shouldAutomaticallyForwardAppearanceMethods"))), "v@:");
-
-    
-}
 
 #pragma mark --- CMPageTitleContentViewDelegate
 
@@ -248,9 +179,64 @@ void endAppearance(id self, SEL _cmd){
 }
 
 
+
 - (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
     
     [self.titleView cm_pageTitleViewDidScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
+    
+}
+
+- (void)cm_pageContentViewDidScroll:(UIScrollView *)scrollView{
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(<#selector#>)]) {
+        <#statements#>
+    }
+    
+}
+
+
+
+
+
+
+- (BOOL)shouldAutomaticallyForwardAppearanceMethods{
+    
+    return NO;
+}
+
+- (void)endAppraranceFromIndex:(NSInteger)fromIndex TargetIndex:(NSInteger)targetIndex {
+    
+    NSInteger maxIndex = self.cm_config.cm_childControllers.count - 1;
+    
+    if ((fromIndex == maxIndex && targetIndex > maxIndex)|| (fromIndex == 0 && targetIndex<0)) return;
+    
+    UIViewController *fromController = self.cm_config.cm_childControllers[fromIndex];
+    UIViewController *targetController = self.cm_config.cm_childControllers[targetIndex];
+    
+    if (fromIndex != targetIndex)  [fromController endAppearanceTransition];
+    [targetController endAppearanceTransition];
+    
+}
+
+- (void)beginAppearanceFromIndex:(NSInteger)fromIndex TargetIndex:(NSInteger)targetIndex {
+    
+    NSInteger maxIndex = self.cm_config.cm_childControllers.count - 1;
+    if ((fromIndex == maxIndex && targetIndex > maxIndex)|| (fromIndex == 0 && targetIndex<0)) return;
+    
+    UIViewController *fromController = self.cm_config.cm_childControllers[fromIndex];
+    UIViewController *targetController = self.cm_config.cm_childControllers[targetIndex];
+    
+    if (fromIndex != targetIndex) [fromController beginAppearanceTransition:NO animated:NO];
+    [targetController beginAppearanceTransition:YES animated:NO];
+    
+}
+
+- (void)transtitonFromIndex:(NSInteger)fromIndex TargetIndex:(NSInteger)targetIndex {
+    [self beginAppearanceFromIndex:fromIndex TargetIndex:targetIndex];
+    [self endAppraranceFromIndex:fromIndex TargetIndex:targetIndex];
+}
+- (void)addMethodForParentController {
+    class_addMethod(self.cm_config.cm_parentController.class,NSSelectorFromString(@"shouldAutomaticallyForwardAppearanceMethods") , method_getImplementation(class_getInstanceMethod(self.class,NSSelectorFromString(@"shouldAutomaticallyForwardAppearanceMethods"))), "v@:");
     
 }
 

@@ -15,8 +15,8 @@
 
 @class CMPageContentView;
 @protocol CMPageContentViewDelegate <NSObject>
+
 @required
-- (void)cm_pageContentViewWillBeginFromController:(UIViewController *)fromController TargetController:(UIViewController *)targetController;
 
 /**
  结束拖拽时，即手指离开屏幕时 会调用该代理方法
@@ -43,6 +43,10 @@
  */
 - (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex;
 
+/**
+ 滚动视图滚动时调用
+ */
+- (void)cm_pageContentViewDidScroll:(UIScrollView *)scrollView;
 
 @end
 

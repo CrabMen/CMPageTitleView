@@ -61,7 +61,8 @@
     cell.backgroundColor = [UIColor whiteColor];
     
     cell.cm_contentView = [self.config.cm_childControllers[indexPath.row] view];
-    
+    [self.config.cm_parentController addChildViewController:self.config.cm_childControllers[indexPath.row]];
+    [self.config.cm_childControllers[indexPath.row] didMoveToParentViewController:self.config.cm_parentController];
     return cell;
 }
 
@@ -122,7 +123,7 @@
         NSUInteger leftIndex = floor(scrollView.contentOffset.x / self.cm_width);
         NSUInteger rightIndex = leftIndex + 1;
         [self.cm_delegate cm_pageContentViewDidScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
-        
+        [self.cm_delegate cm_pageContentViewDidScroll:scrollView];
     }
 }
 
