@@ -189,7 +189,8 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_scaleGradientContentMode = CMPageTitleScaleGradientContentMode_Bottom;
     config.cm_scale = 1.3;
     config.cm_defaultIndex = 1;
-    config.cm_selectedColor = [UIColor blueColor];
+    config.cm_selectedColor = UIColor.blueColor;
+    config.cm_underlineColor = UIColor.blueColor;
     self.pageTitleView.cm_config = config;
     
     [self.pageTitleView cm_reloadConfig];
