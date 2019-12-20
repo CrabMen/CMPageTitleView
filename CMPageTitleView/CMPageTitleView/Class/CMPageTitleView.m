@@ -103,9 +103,9 @@
 - (void)initSubViews {
     
     CMPageErrorAssert(self.cm_config != nil, @"cm_config属性不能为空");
-       self.userInteractionEnabled = YES;
-       [self reviseConfig];
-       [self initVFLContraints];
+    self.userInteractionEnabled = YES;
+    [self reviseConfig];
+    [self initVFLContraints];
     
 }
 
@@ -116,7 +116,7 @@
     [self.cm_config setValue:@(self.cm_width) forKey:@"cm_pageTitleViewWidth"];
     [self.cm_config setValue:self.parentController forKey:@"cm_parentController"];
     [self addMethodForParentController];
-
+    
 }
 
 - (void)initVFLContraints {
@@ -137,7 +137,7 @@
         self.cm_config.cm_rightView.translatesAutoresizingMaskIntoConstraints = NO;
         
         [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[rightView(==width)]|" options:NSLayoutFormatAlignAllRight metrics:@{@"width":@(self.cm_config.cm_rightView.cm_width)}views:@{@"rightView":self.cm_config.cm_rightView}]];
-        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[rightView(==height)]" options:0 metrics:@{@"height":@(self.cm_config.cm_rightView.cm_height)}views:@{@"rightView":self.cm_config.cm_rightView}]];
+        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(==mariginTop)-[rightView(==height)]" options:0 metrics:@{@"mariginTop":@((self.cm_config.cm_titleHeight - self.cm_config.cm_rightView.cm_height)*0.5),@"height":@(self.cm_config.cm_rightView.cm_height)}views:@{@"rightView":self.cm_config.cm_rightView}]];
     }
 }
 
@@ -179,20 +179,12 @@
 }
 
 
-
 - (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
     
     [self.titleView cm_pageTitleViewDidScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
     
 }
 
-- (void)cm_pageContentViewDidScroll:(UIScrollView *)scrollView{
-    
-    if (self.delegate && [self.delegate respondsToSelector:@selector(<#selector#>)]) {
-        <#statements#>
-    }
-    
-}
 
 
 

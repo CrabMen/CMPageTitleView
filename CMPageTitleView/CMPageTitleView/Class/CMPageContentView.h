@@ -43,11 +43,6 @@
  */
 - (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex;
 
-/**
- 滚动视图滚动时调用
- */
-- (void)cm_pageContentViewDidScroll:(UIScrollView *)scrollView;
-
 @end
 
 

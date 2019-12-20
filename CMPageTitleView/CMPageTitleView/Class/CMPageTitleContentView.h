@@ -12,6 +12,7 @@
 #import <UIKit/UIKit.h>
 #import "CMPageTitleConfig.h"
 @protocol CMPageTitleContentViewDelegate <NSObject>
+
 @required
 /**
  当CMPageTitleContentView 中标题被点击会调用该代理方法

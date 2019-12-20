@@ -63,7 +63,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 - (UIImageView *)rightView {
     
     if (!_rightView) {
-        _rightView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+        _rightView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 66)];
         //        _rightView.alpha = 0.75;
         _rightView.backgroundColor = UIColor.lightGrayColor;
         _rightView.image = [UIImage imageNamed:@"add"];
@@ -189,6 +189,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_scaleGradientContentMode = CMPageTitleScaleGradientContentMode_Bottom;
     config.cm_scale = 1.3;
     config.cm_defaultIndex = 1;
+    config.cm_selectedColor = [UIColor blueColor];
     self.pageTitleView.cm_config = config;
     
     [self.pageTitleView cm_reloadConfig];
