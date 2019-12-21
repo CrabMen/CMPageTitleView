@@ -12,6 +12,7 @@
 
 * [安装](#installation)
 * [示例](#example)
+* [支持的配置](#properties)
 * [版本记录](#version)
 * [支持](#support)
 * [许可](#license)
@@ -180,10 +181,10 @@ end
 
  按照上方代码，你已经创建了一个最简单的菜单栏🎉
  
- ## <a id="properties"></a>支持的属性
+ ## <a id="properties"></a>支持的配置
 
 
-| 属性     |     描述 |    
+| 配置     |     描述 |    
 | :-------- | :--------| 
 |  cm_gradientStyle  |  颜色渐变样式<br>``CMTitleColorGradientStyle_None``（ 颜色无渐变）<br>``CMTitleColorGradientStyle_RGB``（R颜色渐变） <br>``CMTitleColorGradientStyle_Fill``（填充色颜色渐变）|  
 |  cm_switchMode  |  标题切换样式<br>``CMPageTitleSwitchMode_Scale``(字体放大)<br>``CMPageTitleSwitchMode_Underline``（下划线样式）<br>``CMPageTitleSwitchMode_Cover`` （遮罩样式）<br>``CMPageTitleSwitchMode_Delay``（滑动切换时延迟，配合其他样式使用）|  
@@ -227,7 +228,7 @@ end
 
 
 
-**注意：**倘若需要复杂效果，可以通过创建``CMPageTitleConfig``对象中的 ``cm_gradientStyle``（颜色渐变样式）、``cm_switchMode``（标题切换样式）、``cm_additionalMode``（附加效果）、``cm_contentMode``（对齐方式）、``cm_scaleGradientContentMode``（放大效果时的对齐样式）等基本样式的组合实现各种复杂效果，可以下载Demo查看具体效果，但是能实现的组合远远不止这些，更多组合可以集成到项目中尝试😊
+**注意：** 倘若需要复杂效果，可以通过创建``CMPageTitleConfig``对象中的 ``cm_gradientStyle``（颜色渐变样式）、``cm_switchMode``（标题切换样式）、``cm_additionalMode``（附加效果）、``cm_contentMode``（对齐方式）、``cm_scaleGradientContentMode``（放大效果时的对齐样式）等基本样式的组合实现各种复杂效果，可以下载Demo查看具体效果，但是能实现的组合远远不止这些，更多组合可以集成到项目中尝试😊
  
 ## <a id="version"></a> 版本
 * 2019-08-13 初始化项目 
@@ -258,12 +259,9 @@ end
   * 修复设置``cm_defaultIndex``为非0时，界面动画闪动问题
   * 新增示例
 * 2019-12-21 版本 **0.6.1** 
-  * 新增cm_rightView属性
-  * 使用``NSLayoutConstraint``优化界面布局
-  * 优化``CMPageTitleConfig``类的``getter``方法，大幅提高三方库性能
-  * 解决与导航栏侧滑手势冲突的问题
-  * 修复设置``cm_defaultIndex``为非0时，界面动画闪动问题
-  * 新增示例
+  * 手动管理childController的生命周期
+  * 优化rightView展示样式
+  * 新增childController中跳转逻辑demo
 
 ## <a id="support"></a>支持
 * 如果觉得该三方库还不错，可以[**★Star**](#)支持一下你的[**★Star**](#)就是我最大的动力
