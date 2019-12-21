@@ -85,6 +85,37 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
 };
 
 @interface CMPageTitleConfig : NSObject
+/**
+ 颜色渐变样式
+ 默认为 CMTitleColorGradientStyle_RGB
+ */
+@property (nonatomic,assign) CMTitleColorGradientStyle cm_gradientStyle;
+
+/**
+ 标题切换样式
+ 默认为：0，无任何效果
+ */
+@property (nonatomic,assign) CMPageTitleSwitchModeOptions cm_switchMode;
+
+/**
+ 标题栏附加样式
+ 默认为：0 无任何附加效果效果
+ */
+@property (nonatomic,assign) CMPageTitleAdditionalModeOptions cm_additionalMode;
+
+/**
+ 对齐方式
+默认值：CMPageTitleContentMode_Center
+ */
+@property (nonatomic,assign) CMPageTitleContentMode cm_contentMode;
+
+/**
+ 垂直方向上的对齐方式
+ 只有属性cm_switchMode包含CMPageTitleSwitchMode_Scale下有效果
+ 默认值：CMPageTitleVerticalContentMode_Center
+ */
+@property (nonatomic,assign) CMPageTitleScaleGradientContentMode cm_scaleGradientContentMode;
+
 
 /**子视图控制器数组*/
 @property (nonatomic,copy) NSArray <UIViewController *>*cm_childControllers;
@@ -95,20 +126,17 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
  */
 @property (nonatomic,copy) NSArray <NSString *>*cm_titles;
 
-
 /**
  标题正常字体
  默认字体大小：[UIFont systemFontOfSize:15]
  */
 @property (nonatomic,strong) UIFont *cm_font;
 
-
 /**
  标题选中字体
  默认选中字体大小：cm_font的1.15倍
  */
 @property (nonatomic,strong) UIFont *cm_selectedFont;
-
 
 /**
  视图的背景色
@@ -140,12 +168,10 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
  */
 @property (nonatomic,assign) BOOL cm_slideGestureEnable;
 
-
 /**
  标题之间的间隔
  */
 @property (nonatomic,assign) CGFloat cm_titleMargin;
-
 
 /**
  最小的标题间距
@@ -153,12 +179,11 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
  */
 @property (nonatomic,assign) CGFloat cm_minTitleMargin;
 
-
 /**
  默认选择的index
+ 默认选择第0个
  */
 @property (nonatomic,assign,getter=cm_selectedIndex) NSInteger cm_defaultIndex;
-
 
 /**
  标题栏下方分割线的颜色
@@ -172,13 +197,11 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
  */
 @property (nonatomic,assign) CGFloat cm_seperateLineHeight;
 
-
 /**
  标题之间的分割线颜色
  默认为：[UIColor lightGrayColor]
  */
 @property (nonatomic,strong) UIColor *cm_splitterColor;
-
 
 /**
  标题之间的分割线size
@@ -196,45 +219,38 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
 @property (nonatomic,assign) CGFloat cm_animationDruction;
 
 
-/**
- 颜色渐变样式
- 默认为 CMTitleColorGradientStyle_RGB
- */
-@property (nonatomic,assign) CMTitleColorGradientStyle cm_gradientStyle;
-
-
-/**
- 标题切换样式
- 默认为：0，无任何效果
- */
-@property (nonatomic,assign) CMPageTitleSwitchModeOptions cm_switchMode;
-
-
-/**
- 标题栏附加样式 
- 默认为：0 无任何附加效果效果
- */
-@property (nonatomic,assign) CMPageTitleAdditionalModeOptions cm_additionalMode;
-
-
-/**
- 对齐方式
-默认值：CMPageTitleContentMode_Center
- */
-@property (nonatomic,assign) CMPageTitleContentMode cm_contentMode;
-
-
-
-/**
- 垂直方向上的对齐方式
- 只有属性cm_switchMode包含CMPageTitleSwitchMode_Scale下有效果
- 默认值：CMPageTitleVerticalContentMode_Center
- */
-@property (nonatomic,assign) CMPageTitleScaleGradientContentMode cm_scaleGradientContentMode;
-
 /**右侧视图*/
 @property (nonatomic,strong) UIView *cm_rightView;
 
+/**
+ 父视图控制器
+ */
+@property (nonatomic,weak,readonly) UIViewController *cm_parentController;
+
+
+#pragma mark --- 缩放效果
+
+/**
+ 标题的缩放等级 默认为 1.15
+ （若觉得该属性不方便，可以使用cm_selectedFont配合cm_font属性进行设置）
+ */
+@property (nonatomic,assign) CGFloat cm_scale;
+
+/**
+ 标题宽度
+ */
+@property (nonatomic,strong,readonly)  NSArray * _Nonnull cm_titleWidths;
+
+/**
+ 标题的总宽度 + 左右边距 + 所有的标题最小间距
+ */
+@property (nonatomic,assign,readonly) CGFloat cm_minContentWidth;
+
+
+/**
+ 所有标题的总宽度
+ */
+@property (nonatomic,assign,readonly) CGFloat cm_titlesWidth;
 
 #pragma mark --- 下划线效果
 
@@ -318,42 +334,6 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
 @property (nonatomic,assign) CGFloat cm_coverHorizontalMargin;
 
 
-#pragma mark --- 缩放效果
-
-/**
- 标题的缩放等级 默认为 1.15
- （若觉得该属性不方便，可以使用cm_selectedFont配合cm_font属性进行设置）
- */
-@property (nonatomic,assign) CGFloat cm_scale;
-
-
-/**
- 标题的偏移量
- */
-@property (nonatomic,assign) CGFloat lastOffsetX;
-
-
-/**
- 标题宽度
- */
-@property (nonatomic,strong,readonly)  NSArray * _Nonnull cm_titleWidths;
-
-/**
- 标题的总宽度 + 左右边距 + 所有的标题最小间距
- */
-@property (nonatomic,assign,readonly) CGFloat cm_minContentWidth;
-
-
-/**
- 所有标题的总宽度
- */
-@property (nonatomic,assign,readonly) CGFloat cm_titlesWidth;
-
-
-/**
- 父视图控制器
- */
-@property (nonatomic,weak,readonly) UIViewController *cm_parentController;
 
 
 /**
