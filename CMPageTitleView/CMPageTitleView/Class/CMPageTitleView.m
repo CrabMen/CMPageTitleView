@@ -116,6 +116,10 @@
     [self.cm_config setValue:@(self.cm_width) forKey:@"cm_pageTitleViewWidth"];
     [self.cm_config setValue:self.parentController forKey:@"cm_parentController"];
     [self addMethodForParentController];
+    self.cm_config.cm_font = self.cm_config.cm_font;
+    self.cm_config.cm_titles = self.cm_config.cm_titles;
+    self.cm_config.cm_titleMargin = self.cm_config.cm_titleMargin;
+    self.cm_config.cm_contentMode = self.cm_config.cm_contentMode;
     
 }
 

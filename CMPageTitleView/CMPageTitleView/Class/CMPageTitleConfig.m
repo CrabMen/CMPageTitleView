@@ -90,7 +90,7 @@
 - (void)setCm_animationDruction:(CGFloat)cm_animationDruction {
     
     _cm_animationDruction = (cm_animationDruction >= 0.25 && cm_animationDruction <= 0.8 ) ? cm_animationDruction : 0.25 ;
-    
+
 }
 
 - (void)setCm_contentMode:(CMPageTitleContentMode)cm_contentMode {
