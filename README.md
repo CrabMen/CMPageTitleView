@@ -231,7 +231,7 @@ end
 **注意：** 倘若需要复杂效果，可以通过创建``CMPageTitleConfig``对象中的 ``cm_gradientStyle``（颜色渐变样式）、``cm_switchMode``（标题切换样式）、``cm_additionalMode``（附加效果）、``cm_contentMode``（对齐方式）、``cm_scaleGradientContentMode``（放大效果时的对齐样式）等基本样式的组合实现各种复杂效果，可以下载Demo查看具体效果，但是能实现的组合远远不止这些，更多组合可以集成到项目中尝试😊
  
 ## <a id="version"></a> 版本
-* 2019-08-13 初始化项目 
+* 2018-08-13 初始化项目 
 * 2019-04-26 版本 **0.3.0** 新增 下划线比例宽度跟随标题文字宽度
 * 2019-05-03 版本 **0.3.1**
   * cm_scale可以继续使用，新增``cm_selectedFont``属性，便于设置选中字体大小；
