@@ -190,7 +190,7 @@ end
 |  cm_switchMode  |  标题切换样式<br>``CMPageTitleSwitchMode_Scale``(字体放大)<br>``CMPageTitleSwitchMode_Underline``（下划线样式）<br>``CMPageTitleSwitchMode_Cover`` （遮罩样式）<br>``CMPageTitleSwitchMode_Delay``（滑动切换时延迟，配合其他样式使用）|  
 |  cm_additionalMode  | 标题栏附加样式<br>``CMPageTitleAdditionalMode_Seperateline``（标题栏下方的分割线）<br>``CMPageTitleAdditionalMode_Splitter``（标题文字之间的分割线）|  
 |  cm_contentMode  |  对齐方式<br>``CMPageTitleContentMode_Center``（左右边距与标题间距一致）<br>``CMPageTitleContentMode_SpaceAround``(左右边距等于标题间距的一半)<br>``CMPageTitleContentMode_Left``（左对齐）<br>``CMPageTitleContentMode_Right``（右对齐） |  
-|  cm_scaleGradientContentMode  | 垂直方向上的对齐方式<br>只有属性``cm_switchMode``包含``CMPageTitleSwitchMode_Scale``下才有效果<br><br>``CMPageTitleScaleGradientContentMode_Center``（居中）<br>``CMPageTitleScaleGradientContentMode_Top``（上对齐）<br>``CMPageTitleScaleGradientContentMode_Bottom``（下对齐）  |  
+|  cm_scaleGradientContentMode  | 垂直方向上的对齐方式<br>``CMPageTitleScaleGradientContentMode_Center``（居中）<br>``CMPageTitleScaleGradientContentMode_Top``（上对齐）<br>``CMPageTitleScaleGradientContentMode_Bottom``（下对齐）<br>``注意：``只有属性``cm_switchMode``包含``CMPageTitleSwitchMode_Scale``下才有效果  |  
 |  cm_childControllers  |  子视图控制器数组 |  
 |  cm_titles  |  标题数组 |  
 |  cm_font  |  标题正常字体<br>默认字体大小：``[UIFont systemFontOfSize:15]`` |  
