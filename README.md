@@ -186,7 +186,7 @@ end
 
 | 配置     |     描述 |    
 | :-------- | :--------| 
-|  cm_gradientStyle  |  颜色渐变样式<br>``CMTitleColorGradientStyle_None``（ 颜色无渐变）<br>``CMTitleColorGradientStyle_RGB``（R颜色渐变） <br>``CMTitleColorGradientStyle_Fill``（填充色颜色渐变）|  
+|  cm_gradientStyle  |  颜色渐变样式<br>``CMTitleColorGradientStyle_None``（ 颜色无渐变）<br>``CMTitleColorGradientStyle_RGB``（RGB颜色渐变） <br>``CMTitleColorGradientStyle_Fill``（填充色颜色渐变）|  
 |  cm_switchMode  |  标题切换样式<br>``CMPageTitleSwitchMode_Scale``(字体放大)<br>``CMPageTitleSwitchMode_Underline``（下划线样式）<br>``CMPageTitleSwitchMode_Cover`` （遮罩样式）<br>``CMPageTitleSwitchMode_Delay``（滑动切换时延迟，配合其他样式使用）|  
 |  cm_additionalMode  | 标题栏附加样式<br>``CMPageTitleAdditionalMode_Seperateline``（标题栏下方的分割线）<br>``CMPageTitleAdditionalMode_Splitter``（标题文字之间的分割线）|  
 |  cm_contentMode  |  对齐方式<br>``CMPageTitleContentMode_Center``（左右边距与标题间距一致）<br>``CMPageTitleContentMode_SpaceAround``(左右边距等于标题间距的一半)<br>``CMPageTitleContentMode_Left``（左对齐）<br>``CMPageTitleContentMode_Right``（右对齐） |  
