@@ -1,9 +1,9 @@
 ![](https://github.com/CrabMen/CMResources/blob/master/CMPageTitleView/logo.png)
 
-![](https://img.shields.io/cocoapods/v/CMPageTitleView.svg)
 ![](https://img.shields.io/cocoapods/p/CMPageTitleView.svg)
-![](https://img.shields.io/apm/l/vim-mode.svg)
+![](https://img.shields.io/cocoapods/v/CMPageTitleView.svg)
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/CrabMen/CMPageTitleView/master)
+![](https://img.shields.io/apm/l/vim-mode.svg)
 
 * [效果展示](#screenshots)
   * [效果展示 - 基本样式](#screenshots-basic)
