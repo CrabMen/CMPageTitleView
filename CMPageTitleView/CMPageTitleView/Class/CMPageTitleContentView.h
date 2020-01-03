@@ -25,7 +25,7 @@
 @end
 
 
-@interface CMPageTitleContentView : UIScrollView
+@interface CMPageTitleContentView : UIView
 
 /**选中的标题*/
 @property (nonatomic,assign) NSInteger cm_selectedIndex;
@@ -76,5 +76,20 @@
 
 @property (nonatomic,assign) CGFloat cm_progress;
 @property (nonatomic,strong) UIColor *cm_fillColor;
+
+@end
+
+
+
+@interface CMPageTitleFlowLayout : UICollectionViewFlowLayout
+
+@end
+
+@interface CMPageTitleCell : UICollectionViewCell
+
+@property(nonatomic,strong) UILabel *titleLabel;
+
+@property(nonatomic,assign) CGSize itemSize;
+
 
 @end
