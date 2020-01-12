@@ -44,6 +44,7 @@
         CMPageTitleFlowLayout *layout = [CMPageTitleFlowLayout new];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         layout.minimumInteritemSpacing = 30;
+        layout.sectionInset = UIEdgeInsetsMake(0, 20, 0, 20);
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.cm_width, self.cm_height) collectionViewLayout:layout];
        [_collectionView registerClass:CMPageTitleCell.class forCellWithReuseIdentifier:NSStringFromClass(CMPageTitleCell.class)];
         _collectionView.backgroundColor = UIColor.whiteColor;
@@ -105,8 +106,40 @@
 }
 
 
+/**
+ 让选中的按钮居中显示
+ */
+- (void)modifyCenterWithIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+    
+    if (self.collectionView.contentSize.width <= self.cm_width) return;
+    
+    
+    CGFloat offsetX = cell.center.x - self.cm_width * 0.5;
+    
+    offsetX = offsetX > 0 ? offsetX : 0;
+    
+    CGFloat maxOffsetX = self.collectionView.contentSize.width - self.cm_width + self.collectionView.contentInset.right;
+    
+    maxOffsetX = maxOffsetX ?:0;
+    
+    offsetX = offsetX > maxOffsetX ? maxOffsetX : offsetX;
+    
+    [self.collectionView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
+    
+}
+
 
 #pragma mark --- UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [self modifyCenterWithIndexPath:indexPath];
+    
+}
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
    CGSize size = [self.config.cm_titles[indexPath.item] boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:self.config.cm_font} context:nil].size;
     return CGSizeMake(size.width, self.config.cm_titleHeight);
@@ -142,6 +175,12 @@
 }
 
 
+//- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//  
+//    
+//    return attribute;
+//}
 
 
 
@@ -203,42 +242,6 @@
 @end
 
 @implementation CMPageTitleFlowLayout
-
-
-
-- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
-    
-    return YES;
-}
-
-- (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity {
-    NSLog(@"偏移量：%@",NSStringFromCGPoint(proposedContentOffset));
-    
-    CGFloat screenCenterX = proposedContentOffset.x + self.collectionView.bounds.size.width * 0.5;
-    
-    
-    CGRect visibleRect = CGRectZero;
-    visibleRect.size = self.collectionView.bounds.size;
-    visibleRect.origin = proposedContentOffset;
-    
-    //获得所有的attribute数组
-    NSArray *itemAttrs = [self layoutAttributesForElementsInRect:visibleRect];
-    
-    CGFloat minMargin = MAXFLOAT;
-    
-    for (UICollectionViewLayoutAttributes *attr in itemAttrs) {
-        CGFloat deltaMargin = attr.center.x - screenCenterX;
-      
-        if (fabs(deltaMargin) < fabs(minMargin)) {
-            minMargin = deltaMargin;
-        }
-        
-    }
-    
-    return CGPointMake(proposedContentOffset.x +minMargin, proposedContentOffset.y);
-
-}
-
 
 @end
 
