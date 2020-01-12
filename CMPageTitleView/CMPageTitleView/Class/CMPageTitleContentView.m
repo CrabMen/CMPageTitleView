@@ -46,11 +46,11 @@
         layout.minimumInteritemSpacing = 30;
         layout.sectionInset = UIEdgeInsetsMake(0, 20, 0, 20);
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.cm_width, self.cm_height) collectionViewLayout:layout];
-       [_collectionView registerClass:CMPageTitleCell.class forCellWithReuseIdentifier:NSStringFromClass(CMPageTitleCell.class)];
+        [_collectionView registerClass:CMPageTitleCell.class forCellWithReuseIdentifier:NSStringFromClass(CMPageTitleCell.class)];
         _collectionView.backgroundColor = UIColor.whiteColor;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
-
+        
     }
     return _collectionView;
 }
@@ -73,7 +73,7 @@
         self.config = config;
         
         self.backgroundColor = self.config.cm_backgroundColor ? : [UIColor whiteColor];
-
+        
         [self initSubViews];
     }
     
@@ -89,11 +89,11 @@
 }
 
 - (void)initSubViews {
-
+    
 }
 
 - (void)modifyContentInset {
- 
+    
 }
 
 
@@ -141,7 +141,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-   CGSize size = [self.config.cm_titles[indexPath.item] boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:self.config.cm_font} context:nil].size;
+    CGSize size = [self.config.cm_titles[indexPath.item] boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:self.config.cm_font} context:nil].size;
     return CGSizeMake(size.width, self.config.cm_titleHeight);
 }
 
@@ -150,7 +150,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     CMPageTitleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(CMPageTitleCell.class) forIndexPath:indexPath];
-
+    
     cell.titleLabel.text = self.config.cm_titles[indexPath.item];
     
     return cell;
@@ -166,7 +166,7 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
     return  self.config.cm_titles.count;
-
+    
 }
 
 
@@ -176,9 +176,9 @@
 
 
 //- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//  
-//    
+//
+//
+//
 //    return attribute;
 //}
 
@@ -187,15 +187,15 @@
 
 - (void)cm_pageTitleViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
     
-//    [self modifyTitleScaleWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
-//
-//    [self modifyColorWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
-//
-//    [self modifyUnderlineWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
-//
-//    [self modifyCoverWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
-//
-//    self.lastOffsetX = leftIndex * self.cm_width + progress * self.cm_width;
+    //    [self modifyTitleScaleWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
+    //
+    //    [self modifyColorWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
+    //
+    //    [self modifyUnderlineWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
+    //
+    //    [self modifyCoverWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
+    //
+    //    self.lastOffsetX = leftIndex * self.cm_width + progress * self.cm_width;
 }
 
 
