@@ -64,6 +64,50 @@
 }
 
 
+- (UIView *)underLine {
+    
+    if (!_underLine) {
+//        UIView *underLine = [UIView new];
+//        underLine.backgroundColor = self.config.cm_underlineColor;
+//        underLine.layer.cornerRadius = self.config.cm_underlineBorder ? self.config.cm_underlineHeight * 0.5 : 0;
+//        underLine.layer.masksToBounds = YES;
+//        CGFloat underLineWidth = self.config.cm_underlineWidth ?: [self.titleLabels[self.config.cm_selectedIndex] cm_width] * self.config.cm_underlineWidthScale;
+//        underLine.cm_height = self.config.cm_underlineHeight;
+//        underLine.cm_bottom = self.config.cm_titleHeight;
+//        underLine.cm_width  = underLineWidth;
+//        underLine.cm_centerX = [self.titleLabels[self.config.cm_selectedIndex] cm_centerX];
+//        _underLine = underLine;
+        [self addSubview:_underLine];
+
+    }
+    
+    return _underLine ;
+    
+}
+
+
+-(UIView *)titleCover {
+    
+    if (!_titleCover) {
+        
+//        UIView *titleCover = [UIView new];
+//        titleCover.backgroundColor = self.config.cm_coverColor ?: [UIColor colorWithWhite:0 alpha:0.3];
+//        UILabel *label = self.titleLabels[self.config.cm_selectedIndex];
+//        CGFloat width = [self.config.cm_titleWidths[self.config.cm_selectedIndex] floatValue];
+//        CGFloat coverW = self.config.cm_coverWidth ? : width + 2 * self.config.cm_coverHorizontalMargin;
+//        CGFloat coverH = label.font.pointSize + 2 * self.config.cm_coverVerticalMargin;
+//        titleCover.layer.cornerRadius = self.config.cm_coverRadius ?: coverH * 0.5;
+//        titleCover.cm_height = coverH;
+//        titleCover.cm_width = coverW;
+//        titleCover.cm_centerX = label.cm_centerX;
+//        titleCover.cm_centerY = self.config.cm_titleHeight * 0.5;
+//        _titleCover = titleCover;
+//        [self insertSubview:_titleCover atIndex:0];
+
+    }
+    return _titleCover ;
+}
+
 
 #pragma mark --- Initial
 
@@ -150,7 +194,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     CMPageTitleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(CMPageTitleCell.class) forIndexPath:indexPath];
-    
+    cell.backgroundColor = [UIColor lightGrayColor];
     cell.titleLabel.text = self.config.cm_titles[indexPath.item];
     
     return cell;
@@ -183,13 +227,97 @@
 //}
 
 
+- (void)modifyColorWithScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
+    
+    if (_isClickTitle || rightIndex >= [self.collectionView numberOfItemsInSection:0]) return;
+    
+    CMPageTitleCell *rightCell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:leftIndex inSection:0]];
+    CMPageTitleCell *leftCell = (CMPageTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:rightIndex inSection:0]];
+    CMDisplayTitleLabel *rightLabel = rightCell.titleLabel;
+    CMDisplayTitleLabel *leftLabel = leftCell.titleLabel;
+
+    CGFloat rightScale = progress;
+    
+    CGFloat leftScale = 1 - rightScale;
+    
+    if (self.config.cm_gradientStyle == CMTitleColorGradientStyle_RGB) {
+        
+        NSArray *endRGBA = CMColorGetRGBA(self.config.cm_selectedColor);
+        NSArray *startRGBA = CMColorGetRGBA(self.config.cm_normalColor);
+        
+        CGFloat deltaR = [endRGBA[0] floatValue] - [startRGBA[0] floatValue];
+        CGFloat deltaG = [endRGBA[1] floatValue] - [startRGBA[1] floatValue];
+        CGFloat deltaB = [endRGBA[2] floatValue] - [startRGBA[2] floatValue];
+        CGFloat deltaA = [endRGBA[3] floatValue] - [startRGBA[3] floatValue];
+        
+        
+        UIColor *rightColor = [UIColor colorWithRed:[startRGBA[0] floatValue] + rightScale *deltaR green:[startRGBA[1] floatValue] + rightScale *deltaG blue:[startRGBA[2] floatValue] + rightScale *deltaB alpha:[startRGBA[3] floatValue] + rightScale *deltaA];
+        
+        UIColor *leftColor = [UIColor colorWithRed:[startRGBA[0] floatValue] + leftScale * deltaR green:[startRGBA[1] floatValue] + leftScale *deltaG blue:[startRGBA[2] floatValue] + leftScale *deltaB alpha:[startRGBA[3] floatValue] + leftScale *deltaA];
+        
+        rightLabel.textColor = rightColor;
+        leftLabel.textColor = leftColor;
+        
+    }
+    
+    // 填充渐变
+    if (self.config.cm_gradientStyle == CMTitleColorGradientStyle_Fill) {
+        
+        rightLabel.textColor    = self.config.cm_normalColor;
+        rightLabel.cm_fillColor = self.config.cm_selectedColor;
+        rightLabel.cm_progress  = rightScale;
+        
+        leftLabel.textColor     = self.config.cm_selectedColor;
+        leftLabel.cm_fillColor  = self.config.cm_normalColor;
+        leftLabel.cm_progress   = rightScale;
+        
+    }
+    
+}
+
+
+- (void)modifyTitleScaleWithScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
+    
+    
+//    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Scale) || _isClickTitle || rightIndex >= [self.collectionView numberOfItemsInSection:0] || self.config.cm_switchMode & CMPageTitleSwitchMode_Delay) return;
+//
+//
+//       CMPageTitleCell *rightCell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:leftIndex inSection:0]];
+//       CMPageTitleCell *leftCell = (CMPageTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:rightIndex inSection:0]];
+//       CMDisplayTitleLabel *rightLabel = rightCell.titleLabel;
+//       CMDisplayTitleLabel *leftLabel = leftCell.titleLabel;
+//
+//    CGFloat rightScale = progress;
+//
+//    CGFloat leftScale = 1 - rightScale;
+//
+//    CGFloat scaleTransform = self.config.cm_scale;
+//
+//    scaleTransform -= 1;
+//    leftLabel.transform = CGAffineTransformMakeScale(leftScale * scaleTransform + 1, leftScale * scaleTransform + 1);
+//    rightLabel.transform = CGAffineTransformMakeScale(rightScale * scaleTransform + 1, rightScale * scaleTransform +1);
+    
+//    if (self.selectedLabel == leftLabel) {
+//
+//        [self resetLayoutConstraintWithLabel:rightLabel Scale:round(rightScale * scaleTransform * 100)/100.0 + 1];
+//    }
+//
+//    if (self.selectedLabel == rightLabel) {
+//
+//        [self resetLayoutConstraintWithLabel:leftLabel Scale:round(leftScale * scaleTransform * 100)/100.0 + 1];
+//    }
+    
+    
+    
+}
+
 
 
 - (void)cm_pageTitleViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
     
     //    [self modifyTitleScaleWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
     //
-    //    [self modifyColorWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
+        [self modifyColorWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
     //
     //    [self modifyUnderlineWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
     //
@@ -243,6 +371,33 @@
 
 @implementation CMPageTitleFlowLayout
 
+
+- (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
+
+    NSArray *attrs = [super layoutAttributesForElementsInRect:rect];
+    
+    NSArray *itemAttrs = [[NSArray alloc]initWithArray:attrs copyItems:YES];
+    
+    CGFloat screenCenterX = self.collectionView.contentOffset.x + self.collectionView.bounds.size.width * 0.5;
+    
+    for (UICollectionViewLayoutAttributes *attribute in itemAttrs) {
+        
+        CGFloat deltaCenterX = fabs(screenCenterX - attribute.center.x);
+        
+        CGFloat scale = fabs(deltaCenterX/self.collectionView.bounds.size.width * 0.5 - 1.2) ;
+        
+        attribute.transform = CGAffineTransformMakeScale(scale, scale);
+    }
+    
+    return itemAttrs;
+
+
+}
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
+    
+    return YES;
+}
+
 @end
 
 
@@ -253,10 +408,10 @@
 
 @implementation CMPageTitleCell
 
-- (UILabel *)titleLabel {
+- (CMDisplayTitleLabel *)titleLabel {
     
     if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
+        _titleLabel = [[CMDisplayTitleLabel alloc] initWithFrame:self.bounds];
         _titleLabel.font = [UIFont systemFontOfSize:14];
         _titleLabel.textColor = UIColor.blackColor;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -271,5 +426,23 @@
     self.itemSize = [self.titleLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:self.titleLabel.font} context:nil].size;
     
 }
+
+
+- (void)setSelected:(BOOL)selected {
+    
+    [super setSelected:selected];
+    
+    if (selected) {
+        NSLog(@"我被选中了");
+    } else {
+        
+        NSLog(@"我没有被选中");
+    }
+    
+    
+    
+    
+}
+
 
 @end

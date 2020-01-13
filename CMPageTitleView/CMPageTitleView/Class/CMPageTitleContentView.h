@@ -87,7 +87,7 @@
 
 @interface CMPageTitleCell : UICollectionViewCell
 
-@property(nonatomic,strong) UILabel *titleLabel;
+@property(nonatomic,strong) CMDisplayTitleLabel *titleLabel;
 
 @property(nonatomic,assign) CGSize itemSize;
 
