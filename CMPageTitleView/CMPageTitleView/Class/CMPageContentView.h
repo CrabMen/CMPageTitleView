@@ -43,6 +43,16 @@
  */
 - (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex;
 
+/**
+ 当滚动时调用
+
+ @param progress -1~1 偏移的比例
+ @param fromIndex 起始下标
+ @param toIndex 目标下标
+ */
+- (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress FromIndex:(NSUInteger)fromIndex ToIndex:(NSUInteger)toIndex;
+
+
 @end
 
 

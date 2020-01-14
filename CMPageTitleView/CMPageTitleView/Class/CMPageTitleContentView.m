@@ -47,6 +47,7 @@
         layout.sectionInset = UIEdgeInsetsMake(0, 20, 0, 20);
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.cm_width, self.cm_height) collectionViewLayout:layout];
         [_collectionView registerClass:CMPageTitleCell.class forCellWithReuseIdentifier:NSStringFromClass(CMPageTitleCell.class)];
+        _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.backgroundColor = UIColor.whiteColor;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
@@ -59,7 +60,8 @@
 - (void)setCm_selectedIndex:(NSInteger)cm_selectedIndex {
     
     _cm_selectedIndex = cm_selectedIndex;
-    
+    [self selectCellIndex:cm_selectedIndex];
+
     
 }
 
@@ -108,7 +110,6 @@
     return _titleCover ;
 }
 
-
 #pragma mark --- Initial
 
 - (instancetype)initWithConfig:(CMPageTitleConfig *)config {
@@ -127,8 +128,8 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
     [self addSubview:self.collectionView];
+    [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:self.config.cm_selectedIndex inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     
 }
 
@@ -149,7 +150,16 @@
     
 }
 
-
+- (void)selectCellIndex:(NSInteger)index{
+    
+  _lastOffsetX = index * self.cm_width;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
+    
+    [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+  
+    [self modifyCenterWithIndexPath:indexPath];
+    
+}
 /**
  让选中的按钮居中显示
  */
@@ -181,6 +191,15 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     [self modifyCenterWithIndexPath:indexPath];
+    CMPageTitleCell *cell = (CMPageTitleCell*)[collectionView cellForItemAtIndexPath:indexPath];
+    NSLog(@"%@", [NSString stringWithFormat:@"选中 -- %02ld -- %@",indexPath.item,cell.titleLabel.text]);
+    
+    
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    CMPageTitleCell *cell = (CMPageTitleCell*)[collectionView cellForItemAtIndexPath:indexPath];
+       NSLog(@"%@", [NSString stringWithFormat:@"反选 -- %02ld -- %@",indexPath.item,cell.titleLabel.text]);
     
 }
 
@@ -189,13 +208,15 @@
     return CGSizeMake(size.width, self.config.cm_titleHeight);
 }
 
+
 #pragma mark --- UICollectionViewDataSource
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     CMPageTitleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(CMPageTitleCell.class) forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor lightGrayColor];
     cell.titleLabel.text = self.config.cm_titles[indexPath.item];
+
+//    cell.titleLabel.cm_fillColor = cell.isSelected ? self.config.cm_selectedColor : self.config.cm_normalColor;
     
     return cell;
     
@@ -215,7 +236,10 @@
 
 
 - (void)cm_pageTitleContentViewAdjustPosition:(UIScrollView *)scrollView {
-    
+    NSInteger centerIndex = floorf(scrollView.contentOffset.x / self.cm_width);
+
+    [self modifyCenterWithIndexPath:[NSIndexPath indexPathForItem:centerIndex inSection:0]];
+
 }
 
 
@@ -254,9 +278,9 @@
         UIColor *rightColor = [UIColor colorWithRed:[startRGBA[0] floatValue] + rightScale *deltaR green:[startRGBA[1] floatValue] + rightScale *deltaG blue:[startRGBA[2] floatValue] + rightScale *deltaB alpha:[startRGBA[3] floatValue] + rightScale *deltaA];
         
         UIColor *leftColor = [UIColor colorWithRed:[startRGBA[0] floatValue] + leftScale * deltaR green:[startRGBA[1] floatValue] + leftScale *deltaG blue:[startRGBA[2] floatValue] + leftScale *deltaB alpha:[startRGBA[3] floatValue] + leftScale *deltaA];
-        
+
         rightLabel.textColor = rightColor;
-        leftLabel.textColor = leftColor;
+        leftLabel.cm_fillColor = leftColor;
         
     }
     
@@ -311,13 +335,19 @@
     
 }
 
-
+- (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress FromIndex:(NSUInteger)fromIndex ToIndex:(NSUInteger)toIndex {
+    
+    
+    
+    
+    
+}
 
 - (void)cm_pageTitleViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
     
-    //    [self modifyTitleScaleWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
-    //
-        [self modifyColorWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
+    [self modifyTitleScaleWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
+    
+    [self modifyColorWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
     //
     //    [self modifyUnderlineWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
     //
@@ -362,6 +392,7 @@
     
 }
 
+
 @end
 
 
@@ -371,32 +402,32 @@
 
 @implementation CMPageTitleFlowLayout
 
-
-- (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
-
-    NSArray *attrs = [super layoutAttributesForElementsInRect:rect];
-    
-    NSArray *itemAttrs = [[NSArray alloc]initWithArray:attrs copyItems:YES];
-    
-    CGFloat screenCenterX = self.collectionView.contentOffset.x + self.collectionView.bounds.size.width * 0.5;
-    
-    for (UICollectionViewLayoutAttributes *attribute in itemAttrs) {
-        
-        CGFloat deltaCenterX = fabs(screenCenterX - attribute.center.x);
-        
-        CGFloat scale = fabs(deltaCenterX/self.collectionView.bounds.size.width * 0.5 - 1.2) ;
-        
-        attribute.transform = CGAffineTransformMakeScale(scale, scale);
-    }
-    
-    return itemAttrs;
-
-
-}
-- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
-    
-    return YES;
-}
+//
+//- (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
+//
+//    NSArray *attrs = [super layoutAttributesForElementsInRect:rect];
+//
+//    NSArray *itemAttrs = [[NSArray alloc]initWithArray:attrs copyItems:YES];
+//
+//    CGFloat screenCenterX = self.collectionView.contentOffset.x + self.collectionView.bounds.size.width * 0.5;
+//
+//    for (UICollectionViewLayoutAttributes *attribute in itemAttrs) {
+//
+//        CGFloat deltaCenterX = fabs(screenCenterX - attribute.center.x);
+//
+//        CGFloat scale = fabs(deltaCenterX/self.collectionView.bounds.size.width * 0.5 - 1.2) ;
+//
+//        attribute.transform = CGAffineTransformMakeScale(scale, scale);
+//    }
+//
+//    return itemAttrs;
+//
+//
+//}
+//- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
+//
+//    return YES;
+//}
 
 @end
 
@@ -427,22 +458,14 @@
     
 }
 
-
 - (void)setSelected:(BOOL)selected {
-    
     [super setSelected:selected];
-    
-    if (selected) {
-        NSLog(@"我被选中了");
-    } else {
-        
-        NSLog(@"我没有被选中");
-    }
-    
-    
-    
+    self.titleLabel.textColor = UIColor.blackColor;
+    self.titleLabel.cm_fillColor =  UIColor.redColor;
+    self.titleLabel.cm_progress = selected ? 1 : 0;
     
 }
+
 
 
 @end

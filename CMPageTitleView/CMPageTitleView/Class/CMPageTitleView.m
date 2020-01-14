@@ -189,7 +189,11 @@
     
 }
 
+- (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress FromIndex:(NSUInteger)fromIndex ToIndex:(NSUInteger)toIndex {
+    
+    [self.titleView cm_pageContentViewDidScrollProgress:progress FromIndex:fromIndex ToIndex:toIndex];
 
+}
 
 
 

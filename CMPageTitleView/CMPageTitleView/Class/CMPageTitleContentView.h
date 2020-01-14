@@ -64,6 +64,7 @@
 - (void)cm_pageTitleContentViewAdjustPosition:(UIScrollView *)scrollView;
 
 
+- (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress FromIndex:(NSUInteger)fromIndex ToIndex:(NSUInteger)toIndex;
 
 
 
