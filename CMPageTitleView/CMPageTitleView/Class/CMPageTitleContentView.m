@@ -151,13 +151,16 @@
 }
 
 - (void)selectCellIndex:(NSInteger)index{
-    
+    _isClickTitle = YES;
   _lastOffsetX = index * self.cm_width;
+    _cm_selectedIndex = index;
+    self.config.cm_defaultIndex = index;
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
     
     [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
   
     [self modifyCenterWithIndexPath:indexPath];
+    _isClickTitle = NO;
     
 }
 /**
@@ -336,7 +339,48 @@
 }
 
 - (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress FromIndex:(NSUInteger)fromIndex ToIndex:(NSUInteger)toIndex {
-    
+    if (_isClickTitle || toIndex >= [self.collectionView numberOfItemsInSection:0]) return;
+       
+       CMPageTitleCell *toCell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:toIndex inSection:0]];
+       CMPageTitleCell *fromCell = (CMPageTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:fromIndex inSection:0]];
+       CMDisplayTitleLabel *toLabel = toCell.titleLabel;
+       CMDisplayTitleLabel *fromLabel = fromCell.titleLabel;
+
+    CGFloat toScale = fabs(progress);
+       
+       if (self.config.cm_gradientStyle == CMTitleColorGradientStyle_RGB) {
+           
+           NSArray *endRGBA = CMColorGetRGBA(self.config.cm_selectedColor);
+           NSArray *startRGBA = CMColorGetRGBA(self.config.cm_normalColor);
+           
+           CGFloat deltaR = [endRGBA[0] floatValue] - [startRGBA[0] floatValue];
+           CGFloat deltaG = [endRGBA[1] floatValue] - [startRGBA[1] floatValue];
+           CGFloat deltaB = [endRGBA[2] floatValue] - [startRGBA[2] floatValue];
+           CGFloat deltaA = [endRGBA[3] floatValue] - [startRGBA[3] floatValue];
+           
+           
+           UIColor *toColor = [UIColor colorWithRed:[startRGBA[0] floatValue] + toScale *deltaR green:[startRGBA[1] floatValue] + toScale *deltaG blue:[startRGBA[2] floatValue] + toScale *deltaB alpha:[startRGBA[3] floatValue] + toScale *deltaA];
+           
+           UIColor *fromColor = [UIColor colorWithRed:[endRGBA[0] floatValue] - toScale * deltaR green:[endRGBA[1] floatValue] - toScale *deltaG blue:[endRGBA[2] floatValue] + toScale *deltaB alpha:[endRGBA[3] floatValue] - toScale *deltaA];
+
+           toLabel.textColor = toColor;
+           fromLabel.textColor = fromColor;
+           
+       }
+       
+       // 填充渐变
+       if (self.config.cm_gradientStyle == CMTitleColorGradientStyle_Fill) {
+           
+           toLabel.textColor    = progress > 0 ? self.config.cm_normalColor : self.config.cm_selectedColor;
+           toLabel.cm_fillColor = progress > 0 ? self.config.cm_selectedColor : self.config.cm_normalColor;
+           toLabel.cm_progress  = progress > 0 ? toScale : 1-toScale;
+
+           fromLabel.textColor     = progress > 0 ? self.config.cm_selectedColor : self.config.cm_normalColor;
+           fromLabel.cm_fillColor  = progress > 0 ? self.config.cm_normalColor : self.config.cm_selectedColor;
+           fromLabel.cm_progress   = progress > 0 ? toScale : 1-toScale;
+           
+       }
+       
     
     
     
@@ -345,9 +389,9 @@
 
 - (void)cm_pageTitleViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
     
-    [self modifyTitleScaleWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
+//    [self modifyTitleScaleWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
     
-    [self modifyColorWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
+//    [self modifyColorWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
     //
     //    [self modifyUnderlineWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
     //
@@ -460,9 +504,9 @@
 
 - (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
-    self.titleLabel.textColor = UIColor.blackColor;
+    self.titleLabel.textColor = selected ? UIColor.redColor : UIColor.blackColor ;
     self.titleLabel.cm_fillColor =  UIColor.redColor;
-    self.titleLabel.cm_progress = selected ? 1 : 0;
+    self.titleLabel.cm_progress =  0;
     
 }
 

@@ -128,7 +128,7 @@
         NSInteger selectedIndex = self.config.cm_selectedIndex;
         CGFloat newProgress = scrollView.contentOffset.x / self.cm_width - selectedIndex;
         
-        [self.cm_delegate cm_pageContentViewDidScrollProgress:newProgress FromIndex:selectedIndex ToIndex:newProgress?selectedIndex+1:selectedIndex-1];
+        [self.cm_delegate cm_pageContentViewDidScrollProgress:newProgress FromIndex:selectedIndex ToIndex:newProgress > 0 ?selectedIndex+1:selectedIndex-1];
 //
 //
         
