@@ -151,24 +151,23 @@
 }
 
 - (void)selectCellIndex:(NSInteger)index{
-    _isClickTitle = YES;
   _lastOffsetX = index * self.cm_width;
     _cm_selectedIndex = index;
-    self.config.cm_defaultIndex = index;
+//    self.config.cm_defaultIndex = index;
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
     
     [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
   
     [self modifyCenterWithIndexPath:indexPath];
-    _isClickTitle = NO;
+ 
     
 }
 /**
  让选中的按钮居中显示
  */
 - (void)modifyCenterWithIndexPath:(NSIndexPath *)indexPath{
-    
-    
+    self.config.cm_defaultIndex = indexPath.item;
+
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
     
     if (self.collectionView.contentSize.width <= self.cm_width) return;
@@ -186,17 +185,28 @@
     
     [self.collectionView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
     
+    
 }
 
 
 #pragma mark --- UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    _isClickTitle = YES;
+
     [self modifyCenterWithIndexPath:indexPath];
     CMPageTitleCell *cell = (CMPageTitleCell*)[collectionView cellForItemAtIndexPath:indexPath];
     NSLog(@"%@", [NSString stringWithFormat:@"选中 -- %02ld -- %@",indexPath.item,cell.titleLabel.text]);
     
+    if (self.cm_delegate) {
+        
+        
+        NSInteger lastIndex =  collectionView.contentOffset.x / self.cm_width;
+        
+        [self.cm_delegate cm_pageTitleContentViewClickWithLastIndex:lastIndex Index:indexPath.item Repeat:lastIndex == indexPath.item];
+    }
+    
+    _isClickTitle = NO;
     
 }
 
@@ -218,8 +228,6 @@
     
     CMPageTitleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(CMPageTitleCell.class) forIndexPath:indexPath];
     cell.titleLabel.text = self.config.cm_titles[indexPath.item];
-
-//    cell.titleLabel.cm_fillColor = cell.isSelected ? self.config.cm_selectedColor : self.config.cm_normalColor;
     
     return cell;
     

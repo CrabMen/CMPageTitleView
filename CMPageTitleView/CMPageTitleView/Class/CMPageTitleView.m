@@ -209,7 +209,6 @@
     NSInteger maxIndex = self.cm_config.cm_childControllers.count - 1;
     
     if ((fromIndex == maxIndex && targetIndex > maxIndex)|| (fromIndex == 0 && targetIndex<0)) return;
-    
     UIViewController *fromController = self.cm_config.cm_childControllers[fromIndex];
     UIViewController *targetController = self.cm_config.cm_childControllers[targetIndex];
     
