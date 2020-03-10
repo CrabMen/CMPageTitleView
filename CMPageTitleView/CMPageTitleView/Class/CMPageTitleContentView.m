@@ -100,6 +100,7 @@
             
             NSLayoutConstraint *leftConstraint = [NSLayoutConstraint constraintWithItem:label attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.titleLabels.lastObject ?: self attribute:self.titleLabels.lastObject ? NSLayoutAttributeRight : NSLayoutAttributeLeft multiplier:1 constant:labelX];
             NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint constraintWithItem:label attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem: self attribute: NSLayoutAttributeCenterY multiplier:1 constant:0];
+            
             [NSLayoutConstraint activateConstraints:@[leftConstraint,centerYConstraint]];
             
             label.userInteractionEnabled = YES;
@@ -190,8 +191,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
-    
+    [self modifyContentInset];
     if (!self.selectedLabel && self.cm_delegate) {
         [self clickLabel:nil];
     }
