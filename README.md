@@ -262,6 +262,8 @@ end
   * 手动管理childController的生命周期
   * 优化rightView展示样式
   * 新增childController中跳转逻辑demo
+* 2019-12-21 版本 **0.6.1** 
+  * 紧急修复iOS 10，标题栏约束问题
 
 ## <a id="support"></a>支持
 * 如果觉得该三方库还不错，可以[**★Star**](#)支持一下你的[**★Star**](#)就是我最大的动力
