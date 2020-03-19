@@ -93,4 +93,7 @@
 @property(nonatomic,assign) CGSize itemSize;
 
 
+- (void)cm_cellSetSelectedCompletion:(void(^)(BOOL selected))completion;
+
+
 @end

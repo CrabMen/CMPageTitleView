@@ -183,13 +183,25 @@
     
     offsetX = offsetX > maxOffsetX ? maxOffsetX : offsetX;
     
-    [self.collectionView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
-    
+//    [self.collectionView ffsetContentOffset:CGPointMake(offsetX, 0) animated:YES];
+    [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     
 }
 
 
 #pragma mark --- UICollectionViewDelegate
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+
+//    NSArray *array =  [self.collectionView indexPathsForVisibleItems];
+//    NSInteger idx = ceil(array.count / 2) ;
+//    [self.collectionView scrollToItemAtIndexPath:array[idx] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+
+}
+
+
+
+
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     _isClickTitle = YES;
@@ -199,7 +211,6 @@
     NSLog(@"%@", [NSString stringWithFormat:@"选中 -- %02ld -- %@",indexPath.item,cell.titleLabel.text]);
     
     if (self.cm_delegate) {
-        
         
         NSInteger lastIndex =  collectionView.contentOffset.x / self.cm_width;
         
@@ -217,7 +228,11 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    CGSize size = [self.config.cm_titles[indexPath.item] boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:self.config.cm_font} context:nil].size;
+    
+    UIFont *font = [UIFont systemFontOfSize:self.config.cm_font.pointSize*self.config.cm_scale];
+    
+    CGSize size = [self.config.cm_titles[indexPath.item] boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:font} context:nil].size;
+    NSLog(@"重新计算宽度");
     return CGSizeMake(size.width, self.config.cm_titleHeight);
 }
 
@@ -228,6 +243,38 @@
     
     CMPageTitleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(CMPageTitleCell.class) forIndexPath:indexPath];
     cell.titleLabel.text = self.config.cm_titles[indexPath.item];
+    cell.titleLabel.font = self.config.cm_font;
+    
+    [cell cm_cellSetSelectedCompletion:^(BOOL selected) {
+       
+        if (self.config.cm_switchMode & CMPageTitleSwitchMode_Scale){
+               
+               CGFloat scale = 1/ self.config.cm_scale ;
+               UIFont *font = [UIFont systemFontOfSize:self.config.cm_font.pointSize*self.config.cm_scale];
+               cell.titleLabel.font = font;
+               cell.transform = CGAffineTransformMakeScale(scale, scale);
+               
+               if (cell.isSelected) {
+                   cell.transform = CGAffineTransformIdentity;
+               }
+               
+           }
+        
+    }];
+    
+    if (self.config.cm_switchMode & CMPageTitleSwitchMode_Scale){
+        
+        CGFloat scale = 1/ self.config.cm_scale ;
+        UIFont *font = [UIFont systemFontOfSize:self.config.cm_font.pointSize*self.config.cm_scale];
+        cell.titleLabel.font = font;
+        cell.transform = CGAffineTransformMakeScale(scale, scale);
+        
+        if (cell.isSelected) {
+            cell.transform = CGAffineTransformIdentity;
+        }
+        
+    }
+    
     
     return cell;
     
@@ -457,6 +504,8 @@
 //
 //- (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
 //
+//
+//
 //    NSArray *attrs = [super layoutAttributesForElementsInRect:rect];
 //
 //    NSArray *itemAttrs = [[NSArray alloc]initWithArray:attrs copyItems:YES];
@@ -467,9 +516,12 @@
 //
 //        CGFloat deltaCenterX = fabs(screenCenterX - attribute.center.x);
 //
-//        CGFloat scale = fabs(deltaCenterX/self.collectionView.bounds.size.width * 0.5 - 1.2) ;
+////        CGFloat scale = fabs(deltaCenterX/self.collectionView.bounds.size.width * 0.5 - 1.2) ;
+////
+//        CGRect frame = attribute.frame;
+//        frame.origin.x += deltaCenterX;
 //
-//        attribute.transform = CGAffineTransformMakeScale(scale, scale);
+//        attribute.frame = frame;
 //    }
 //
 //    return itemAttrs;
@@ -481,13 +533,25 @@
 //    return YES;
 //}
 
+//- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
+//
+//
+//
+//
+//
+//
+//}
+
 @end
 
-
+typedef void(^SelectedBlock)(BOOL selected);
 
 @interface CMPageTitleCell ()
 
+@property(nonatomic,copy) SelectedBlock block;
+
 @end
+
 
 @implementation CMPageTitleCell
 
@@ -495,11 +559,17 @@
     
     if (!_titleLabel) {
         _titleLabel = [[CMDisplayTitleLabel alloc] initWithFrame:self.bounds];
-        _titleLabel.font = [UIFont systemFontOfSize:14];
+//        _titleLabel.font = [UIFont systemFontOfSize:14];
         _titleLabel.textColor = UIColor.blackColor;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _titleLabel;
+}
+
+- (void)cm_cellSetSelectedCompletion:(void (^)(BOOL))completion {
+    
+    self.block = completion;
+    
 }
 
 - (void)layoutSubviews {
@@ -512,6 +582,12 @@
 
 - (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
+    
+    if (self.block) {
+        self.block(selected);
+    }
+    
+    
     self.titleLabel.textColor = selected ? UIColor.redColor : UIColor.blackColor ;
     self.titleLabel.cm_fillColor =  UIColor.redColor;
     self.titleLabel.cm_progress =  0;

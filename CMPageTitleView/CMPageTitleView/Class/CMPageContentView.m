@@ -132,6 +132,8 @@
 //
 //
         
+        
+        
     }
 }
 
@@ -153,6 +155,7 @@
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
 }
+
 @end
 
 @implementation CMPageContentCell
