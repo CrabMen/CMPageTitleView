@@ -40,6 +40,7 @@
 
 - (UICollectionView *)collectionView {
     
+    
     if (!_collectionView) {
         CMPageTitleFlowLayout *layout = [CMPageTitleFlowLayout new];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -275,7 +276,6 @@
         
     }
     
-    
     return cell;
     
     
@@ -309,140 +309,84 @@
 //}
 
 
-- (void)modifyColorWithScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
-    
-    if (_isClickTitle || rightIndex >= [self.collectionView numberOfItemsInSection:0]) return;
-    
-    CMPageTitleCell *rightCell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:leftIndex inSection:0]];
-    CMPageTitleCell *leftCell = (CMPageTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:rightIndex inSection:0]];
-    CMDisplayTitleLabel *rightLabel = rightCell.titleLabel;
-    CMDisplayTitleLabel *leftLabel = leftCell.titleLabel;
+- (void)modifyColorWithScrollProgress:(CGFloat)progress FromIndex:(NSUInteger)fromIndex ToIndex:(NSUInteger)toIndex {
 
-    CGFloat rightScale = progress;
-    
-    CGFloat leftScale = 1 - rightScale;
-    
-    if (self.config.cm_gradientStyle == CMTitleColorGradientStyle_RGB) {
-        
-        NSArray *endRGBA = CMColorGetRGBA(self.config.cm_selectedColor);
-        NSArray *startRGBA = CMColorGetRGBA(self.config.cm_normalColor);
-        
-        CGFloat deltaR = [endRGBA[0] floatValue] - [startRGBA[0] floatValue];
-        CGFloat deltaG = [endRGBA[1] floatValue] - [startRGBA[1] floatValue];
-        CGFloat deltaB = [endRGBA[2] floatValue] - [startRGBA[2] floatValue];
-        CGFloat deltaA = [endRGBA[3] floatValue] - [startRGBA[3] floatValue];
-        
-        
-        UIColor *rightColor = [UIColor colorWithRed:[startRGBA[0] floatValue] + rightScale *deltaR green:[startRGBA[1] floatValue] + rightScale *deltaG blue:[startRGBA[2] floatValue] + rightScale *deltaB alpha:[startRGBA[3] floatValue] + rightScale *deltaA];
-        
-        UIColor *leftColor = [UIColor colorWithRed:[startRGBA[0] floatValue] + leftScale * deltaR green:[startRGBA[1] floatValue] + leftScale *deltaG blue:[startRGBA[2] floatValue] + leftScale *deltaB alpha:[startRGBA[3] floatValue] + leftScale *deltaA];
+    if (_isClickTitle || toIndex >= [self.collectionView numberOfItemsInSection:0]) return;
+          
+          CMPageTitleCell *toCell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:toIndex inSection:0]];
+          CMPageTitleCell *fromCell = (CMPageTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:fromIndex inSection:0]];
+          CMDisplayTitleLabel *toLabel = toCell.titleLabel;
+          CMDisplayTitleLabel *fromLabel = fromCell.titleLabel;
 
-        rightLabel.textColor = rightColor;
-        leftLabel.cm_fillColor = leftColor;
-        
-    }
-    
-    // 填充渐变
-    if (self.config.cm_gradientStyle == CMTitleColorGradientStyle_Fill) {
-        
-        rightLabel.textColor    = self.config.cm_normalColor;
-        rightLabel.cm_fillColor = self.config.cm_selectedColor;
-        rightLabel.cm_progress  = rightScale;
-        
-        leftLabel.textColor     = self.config.cm_selectedColor;
-        leftLabel.cm_fillColor  = self.config.cm_normalColor;
-        leftLabel.cm_progress   = rightScale;
-        
-    }
-    
+          CGFloat toScale = fabs(progress);
+          
+          if (self.config.cm_gradientStyle == CMTitleColorGradientStyle_RGB) {
+              
+              NSArray *endRGBA = CMColorGetRGBA(self.config.cm_selectedColor);
+              NSArray *startRGBA = CMColorGetRGBA(self.config.cm_normalColor);
+              
+              CGFloat deltaR = [endRGBA[0] floatValue] - [startRGBA[0] floatValue];
+              CGFloat deltaG = [endRGBA[1] floatValue] - [startRGBA[1] floatValue];
+              CGFloat deltaB = [endRGBA[2] floatValue] - [startRGBA[2] floatValue];
+              CGFloat deltaA = [endRGBA[3] floatValue] - [startRGBA[3] floatValue];
+              
+              
+              UIColor *toColor = [UIColor colorWithRed:[startRGBA[0] floatValue] + toScale *deltaR green:[startRGBA[1] floatValue] + toScale *deltaG blue:[startRGBA[2] floatValue] + toScale *deltaB alpha:[startRGBA[3] floatValue] + toScale *deltaA];
+              
+              UIColor *fromColor = [UIColor colorWithRed:[endRGBA[0] floatValue] - toScale * deltaR green:[endRGBA[1] floatValue] - toScale *deltaG blue:[endRGBA[2] floatValue] + toScale *deltaB alpha:[endRGBA[3] floatValue] - toScale *deltaA];
+
+              toLabel.textColor = toColor;
+              fromLabel.textColor = fromColor;
+              
+          }
+          
+          // 填充渐变
+          if (self.config.cm_gradientStyle == CMTitleColorGradientStyle_Fill) {
+              
+              toLabel.textColor    = progress > 0 ? self.config.cm_normalColor : self.config.cm_selectedColor;
+              toLabel.cm_fillColor = progress > 0 ? self.config.cm_selectedColor : self.config.cm_normalColor;
+              toLabel.cm_progress  = progress > 0 ? toScale : 1-toScale;
+
+              fromLabel.textColor     = progress > 0 ? self.config.cm_selectedColor : self.config.cm_normalColor;
+              fromLabel.cm_fillColor  = progress > 0 ? self.config.cm_normalColor : self.config.cm_selectedColor;
+              fromLabel.cm_progress   = progress > 0 ? toScale : 1-toScale;
+              
+          }
+          
 }
 
 
-- (void)modifyTitleScaleWithScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
-    
-    
-//    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Scale) || _isClickTitle || rightIndex >= [self.collectionView numberOfItemsInSection:0] || self.config.cm_switchMode & CMPageTitleSwitchMode_Delay) return;
-//
-//
-//       CMPageTitleCell *rightCell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:leftIndex inSection:0]];
-//       CMPageTitleCell *leftCell = (CMPageTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:rightIndex inSection:0]];
-//       CMDisplayTitleLabel *rightLabel = rightCell.titleLabel;
-//       CMDisplayTitleLabel *leftLabel = leftCell.titleLabel;
-//
-//    CGFloat rightScale = progress;
-//
-//    CGFloat leftScale = 1 - rightScale;
-//
-//    CGFloat scaleTransform = self.config.cm_scale;
-//
-//    scaleTransform -= 1;
-//    leftLabel.transform = CGAffineTransformMakeScale(leftScale * scaleTransform + 1, leftScale * scaleTransform + 1);
-//    rightLabel.transform = CGAffineTransformMakeScale(rightScale * scaleTransform + 1, rightScale * scaleTransform +1);
-    
-//    if (self.selectedLabel == leftLabel) {
-//
-//        [self resetLayoutConstraintWithLabel:rightLabel Scale:round(rightScale * scaleTransform * 100)/100.0 + 1];
-//    }
-//
-//    if (self.selectedLabel == rightLabel) {
-//
-//        [self resetLayoutConstraintWithLabel:leftLabel Scale:round(leftScale * scaleTransform * 100)/100.0 + 1];
-//    }
-    
-    
-    
+
+- (void)modifyScaleWithScrollProgress:(CGFloat)progress FromIndex:(NSUInteger)fromIndex ToIndex:(NSUInteger)toIndex {
+    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Scale) || _isClickTitle || toIndex >= [self.collectionView numberOfItemsInSection:0] || self.config.cm_switchMode & CMPageTitleSwitchMode_Delay) return;
+   
+        CMPageTitleCell *fromCell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:fromIndex inSection:0]];
+        CMPageTitleCell *toCell = (CMPageTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:toIndex inSection:0]];
+
+         CGFloat rightScale = progress;
+
+         CGFloat leftScale = 1 - rightScale;
+
+         CGFloat scaleTransform = 1 - 1/self.config.cm_scale;
+
+         
+         fromCell.transform = CGAffineTransformMakeScale(1 - progress * scaleTransform ,1- progress * scaleTransform );
+         toCell.transform = CGAffineTransformMakeScale(1 - leftScale * scaleTransform , 1 -  leftScale * scaleTransform );
 }
 
 - (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress FromIndex:(NSUInteger)fromIndex ToIndex:(NSUInteger)toIndex {
-    if (_isClickTitle || toIndex >= [self.collectionView numberOfItemsInSection:0]) return;
-       
-       CMPageTitleCell *toCell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:toIndex inSection:0]];
-       CMPageTitleCell *fromCell = (CMPageTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:fromIndex inSection:0]];
-       CMDisplayTitleLabel *toLabel = toCell.titleLabel;
-       CMDisplayTitleLabel *fromLabel = fromCell.titleLabel;
-
-    CGFloat toScale = fabs(progress);
-       
-       if (self.config.cm_gradientStyle == CMTitleColorGradientStyle_RGB) {
-           
-           NSArray *endRGBA = CMColorGetRGBA(self.config.cm_selectedColor);
-           NSArray *startRGBA = CMColorGetRGBA(self.config.cm_normalColor);
-           
-           CGFloat deltaR = [endRGBA[0] floatValue] - [startRGBA[0] floatValue];
-           CGFloat deltaG = [endRGBA[1] floatValue] - [startRGBA[1] floatValue];
-           CGFloat deltaB = [endRGBA[2] floatValue] - [startRGBA[2] floatValue];
-           CGFloat deltaA = [endRGBA[3] floatValue] - [startRGBA[3] floatValue];
-           
-           
-           UIColor *toColor = [UIColor colorWithRed:[startRGBA[0] floatValue] + toScale *deltaR green:[startRGBA[1] floatValue] + toScale *deltaG blue:[startRGBA[2] floatValue] + toScale *deltaB alpha:[startRGBA[3] floatValue] + toScale *deltaA];
-           
-           UIColor *fromColor = [UIColor colorWithRed:[endRGBA[0] floatValue] - toScale * deltaR green:[endRGBA[1] floatValue] - toScale *deltaG blue:[endRGBA[2] floatValue] + toScale *deltaB alpha:[endRGBA[3] floatValue] - toScale *deltaA];
-
-           toLabel.textColor = toColor;
-           fromLabel.textColor = fromColor;
-           
-       }
-       
-       // 填充渐变
-       if (self.config.cm_gradientStyle == CMTitleColorGradientStyle_Fill) {
-           
-           toLabel.textColor    = progress > 0 ? self.config.cm_normalColor : self.config.cm_selectedColor;
-           toLabel.cm_fillColor = progress > 0 ? self.config.cm_selectedColor : self.config.cm_normalColor;
-           toLabel.cm_progress  = progress > 0 ? toScale : 1-toScale;
-
-           fromLabel.textColor     = progress > 0 ? self.config.cm_selectedColor : self.config.cm_normalColor;
-           fromLabel.cm_fillColor  = progress > 0 ? self.config.cm_normalColor : self.config.cm_selectedColor;
-           fromLabel.cm_progress   = progress > 0 ? toScale : 1-toScale;
-           
-       }
-       
+   
+    NSLog(@"滚动时的progress ----- %lf",progress);
     
-    
-    
+    [self modifyColorWithScrollProgress:progress FromIndex:fromIndex ToIndex:toIndex];
+    [self modifyScaleWithScrollProgress:progress FromIndex:fromIndex ToIndex:toIndex];
+  
     
 }
 
 - (void)cm_pageTitleViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
+    
+    
     
 //    [self modifyTitleScaleWithScrollProgress:progress LeftIndex:leftIndex RightIndex:rightIndex];
     
