@@ -202,7 +202,7 @@ end
 |  cm_slideGestureEnable  | 是否支持侧滑<br>默认值：``YES``|  
 |  cm_titleMargin  |  标题之间的间隔|  
 |  cm_minTitleMargin  | 最小的标题间距<br>默认值为 20|  
-|  cm_defaultIndex  | 默认选择的index<br>默认选择第0个|  
+|  cm_defaultIndex  | 默认选中的index<br>默认选择第0个|  
 |  cm_seperaterLineColor  | 标题栏下方分割线的颜色<br>默认颜色：```[UIColor grayColor]```|  
 |  cm_seperateLineHeight  | 标题分割线的高度<br>默认值：1px|  
 |  cm_splitterColor  | 标题之间的分割线颜色<br>默认为：```[UIColor lightGrayColor]```|  
