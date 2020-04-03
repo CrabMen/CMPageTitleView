@@ -45,7 +45,7 @@
         CMPageTitleFlowLayout *layout = [CMPageTitleFlowLayout new];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         layout.minimumInteritemSpacing = 30;
-        layout.sectionInset = UIEdgeInsetsMake(0, 20, 0, 20);
+        
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.cm_width, self.cm_height) collectionViewLayout:layout];
         [_collectionView registerClass:CMPageTitleCell.class forCellWithReuseIdentifier:NSStringFromClass(CMPageTitleCell.class)];
         _collectionView.showsHorizontalScrollIndicator = NO;
@@ -70,22 +70,15 @@
 - (UIView *)underLine {
     
     if (!_underLine) {
-//                UIView *underLine = [UIView new];
-//                underLine.backgroundColor = self.config.cm_underlineColor;
-//                underLine.layer.cornerRadius = self.config.cm_underlineBorder ? self.config.cm_underlineHeight * 0.5 : 0;
-//                underLine.layer.masksToBounds = YES;
-//                CGFloat underLineWidth = self.config.cm_underlineWidth ?: [self.titleLabels[self.config.cm_selectedIndex] cm_width] * self.config.cm_underlineWidthScale;
-//                underLine.cm_height = self.config.cm_underlineHeight;
-//                underLine.cm_bottom = self.config.cm_titleHeight;
-//                underLine.cm_width  = underLineWidth;
-//                underLine.cm_centerX = [self.titleLabels[self.config.cm_selectedIndex] cm_centerX];
-//                _underLine = underLine;
+        UIView *underLine = [UIView new];
+        underLine.backgroundColor = self.config.cm_underlineColor;
+        underLine.layer.cornerRadius = self.config.cm_underlineBorder ? self.config.cm_underlineHeight * 0.5 : 0;
+        underLine.layer.masksToBounds = YES;
+        underLine.translatesAutoresizingMaskIntoConstraints = NO;
+        _underLine = underLine;
         [self addSubview:_underLine];
-        
     }
-    
     return _underLine ;
-    
 }
 
 
@@ -131,8 +124,44 @@
     [super layoutSubviews];
     [self addSubview:self.collectionView];
     [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:self.config.cm_selectedIndex inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    [self initVFLContraints];
+}
+
+- (void)initVFLContraints {
+ 
+    self.underLine.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    
+//    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleView}]];
+
+    CMPageTitleCell *cell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathWithIndex:self.cm_selectedIndex]];
+    
+    
+//    [NSLayoutConstraint constraintsWithVisualFormat:<#(nonnull NSString *)#> options:<#(NSLayoutFormatOptions)#> metrics:<#(nullable NSDictionary<NSString *,id> *)#> views:<#(nonnull NSDictionary<NSString *,id> *)#>]
+//
+  NSLayoutConstraint *x =  [NSLayoutConstraint constraintWithItem:self.underLine attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:0];
+    
+  NSLayoutConstraint *y =  [NSLayoutConstraint constraintWithItem:self.underLine attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:0];
+   NSLayoutConstraint *w = [NSLayoutConstraint constraintWithItem:self.underLine attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:10];
+   NSLayoutConstraint *h =  [NSLayoutConstraint constraintWithItem:self.underLine attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:2];
+    
+    NSArray *array = @[x,y,w,h];
+    
+    [self.underLine addConstraint:x];
+    [self.underLine addConstraint:y];
+    [self.underLine addConstraint:w];
+    [self.underLine addConstraint:h];
+
+    
+//    [self.underLine addConstraints:array];
+
+    
+
+    
     
 }
+
+
 
 - (void)initSubViews {
     
@@ -225,13 +254,11 @@
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     CMPageTitleCell *cell = (CMPageTitleCell*)[collectionView cellForItemAtIndexPath:indexPath];
     NSLog(@"%@", [NSString stringWithFormat:@"反选 -- %02ld -- %@",(long)indexPath.item,cell.titleLabel.text]);
-    
 }
-
+//
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    
+
     UIFont *font = [UIFont systemFontOfSize:self.config.cm_font.pointSize*self.config.cm_scale];
-    
     CGSize size = [self.config.cm_titles[indexPath.item] boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:font} context:nil].size;
     NSLog(@"重新计算宽度");
     return CGSizeMake(size.width, self.config.cm_titleHeight);
@@ -254,7 +281,8 @@
             UIFont *font = [UIFont systemFontOfSize:self.config.cm_font.pointSize*self.config.cm_scale];
             cell.titleLabel.font = font;
             cell.transform = CGAffineTransformMakeScale(scale, scale);
-            
+            cell.itemSize = [cell.titleLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:cell.titleLabel.font} context:nil].size;
+          
             if (cell.isSelected) {
                 cell.transform = CGAffineTransformIdentity;
             }
@@ -300,13 +328,6 @@
     
 }
 
-
-//- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
-//
-//
-//
-//    return attribute;
-//}
 
 
 - (void)modifyColorWithScrollProgress:(CGFloat)progress FromIndex:(NSUInteger)fromIndex ToIndex:(NSUInteger)toIndex {
@@ -469,6 +490,7 @@
 //        attribute.frame = frame;
 //    }
 //
+//
 //    return itemAttrs;
 //
 //
@@ -511,6 +533,7 @@ typedef void(^SelectedBlock)(BOOL selected);
     return _titleLabel;
 }
 
+
 - (void)cm_cellSetSelectedCompletion:(void (^)(BOOL))completion {
     
     self.block = completion;
@@ -538,6 +561,20 @@ typedef void(^SelectedBlock)(BOOL selected);
     self.titleLabel.cm_progress =  0;
     
 }
+//
+//- (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes {
+//
+//    UICollectionViewLayoutAttributes *attributes = [super preferredLayoutAttributesFittingAttributes:layoutAttributes];
+//
+//    CGRect rect =[self.titleLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:self.titleLabel.font} context:nil];
+//    rect.size.height = 40;
+//
+//    CGRect frame = attributes.frame;
+//    frame.size  = rect.size;
+//    attributes.frame = frame;
+//    return attributes;
+//
+//}
 
 
 
