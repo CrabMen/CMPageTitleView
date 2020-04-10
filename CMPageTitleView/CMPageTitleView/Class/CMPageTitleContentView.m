@@ -36,12 +36,56 @@
 
 @property (nonatomic,assign) CGFloat underlineW;
 
+@property (nonatomic,strong) NSLayoutConstraint *xConstraint;
+@property (nonatomic,strong) NSLayoutConstraint *yConstraint;
+@property (nonatomic,strong) NSLayoutConstraint *wConstraint;
+@property (nonatomic,strong) NSLayoutConstraint *hConstraint;
+
 
 
 @end
 
 
 @implementation CMPageTitleContentView
+
+- (NSLayoutConstraint *)xConstraint {
+    
+    if (!_xConstraint) {
+        _xConstraint =  [NSLayoutConstraint constraintWithItem:self.underLine attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:self.underlineX];
+    }
+    
+    return _xConstraint;
+    
+}
+
+- (NSLayoutConstraint *)yConstraint {
+    
+    if (!_yConstraint) {
+        _yConstraint =  [NSLayoutConstraint constraintWithItem:self.underLine attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:self.underlineW];
+        
+    }
+    
+    return _yConstraint;
+    
+}
+- (NSLayoutConstraint *)wConstraint {
+    
+    if (!_wConstraint) {
+        _wConstraint = [NSLayoutConstraint constraintWithItem:self.underLine attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:10];
+    }
+    
+    return _wConstraint;
+    
+}
+- (NSLayoutConstraint *)hConstraint {
+    
+    if (!_hConstraint) {
+        _hConstraint =  [NSLayoutConstraint constraintWithItem:self.underLine attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:2];
+    }
+    
+    return _hConstraint;
+    
+}
 
 - (UICollectionView *)collectionView {
     
@@ -81,7 +125,7 @@
         underLine.layer.masksToBounds = YES;
         underLine.translatesAutoresizingMaskIntoConstraints = NO;
         _underLine = underLine;
-        [self addSubview:_underLine];
+        [self insertSubview:_underLine aboveSubview:self.collectionView];
     }
     return _underLine ;
 }
@@ -127,30 +171,34 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [self addSubview:self.collectionView];
+    //    [self addSubview:self.collectionView ];
+    [self insertSubview:self.collectionView atIndex:0];
     [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:self.config.cm_selectedIndex inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    
     [self initVFLContraints];
 }
 
 - (void)initVFLContraints {
- 
+    
+    
+    
     self.underLine.translatesAutoresizingMaskIntoConstraints = NO;
     
-  NSLayoutConstraint *x =  [NSLayoutConstraint constraintWithItem:self.underLine attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:self.underlineX];
-  NSLayoutConstraint *y =  [NSLayoutConstraint constraintWithItem:self.underLine attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:self.underlineW];
-   NSLayoutConstraint *w = [NSLayoutConstraint constraintWithItem:self.underLine attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:10];
-   NSLayoutConstraint *h =  [NSLayoutConstraint constraintWithItem:self.underLine attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:2];
+    //    self.xConstraint =  [NSLayoutConstraint constraintWithItem:self.underLine attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:self.underlineX];
+    //    self.yConstraint =  [NSLayoutConstraint constraintWithItem:self.underLine attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:self.underlineW];
+    //    self.wConstraint = [NSLayoutConstraint constraintWithItem:self.underLine attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:10];
+    //    self.hConstraint =  [NSLayoutConstraint constraintWithItem:self.underLine attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:2];
     
-    [self addConstraint:x];
-    [self addConstraint:y];
-    [self.underLine addConstraint:w];
-    [self.underLine addConstraint:h];
-
+    [self addConstraint:self.xConstraint];
+    [self addConstraint:self.yConstraint];
+    [self.underLine addConstraint:self.wConstraint];
+    [self.underLine addConstraint:self.hConstraint];
     
-//    [self.underLine addConstraints:array];
-
     
-
+    //    [self.underLine addConstraints:array];
+    
+    
+    
     
     
 }
@@ -158,6 +206,7 @@
 
 
 - (void)initSubViews {
+    //    [self initVFLContraints];
     
 }
 
@@ -179,6 +228,8 @@
     _cm_selectedIndex = index;
     //    self.config.cm_defaultIndex = index;
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
+    
+    
     
     [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     
@@ -210,16 +261,57 @@
     //    [self.collectionView ffsetContentOffset:CGPointMake(offsetX, 0) animated:YES];
     [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     
+  
+    
+    
+    
 }
 
 
 #pragma mark --- UICollectionViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+      CMPageTitleCell *cell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.config.cm_selectedIndex inSection:0]];
+       
+    CGRect frame = [self.collectionView convertRect:cell.frame toView:self];
+    
+    
+       if (self.xConstraint) {
+             self.xConstraint.constant = frame.origin.x;
+             [self layoutIfNeeded];
+
+         }
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    
+    CMPageTitleCell *cell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.config.cm_selectedIndex inSection:0]];
+         
+      CGRect frame = [self.collectionView convertRect:cell.frame toView:self];
+      
+      
+         if (self.xConstraint) {
+               self.xConstraint.constant = frame.origin.x;
+               [self layoutIfNeeded];
+
+           }
+    
+}
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     
     //    NSArray *array =  [self.collectionView indexPathsForVisibleItems];
     //    NSInteger idx = ceil(array.count / 2) ;
     //    [self.collectionView scrollToItemAtIndexPath:array[idx] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+//
+//    CMPageTitleCell *cell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.config.cm_selectedIndex inSection:0]];
+//
+//    if (self.xConstraint) {
+//          self.xConstraint.constant = cell.cm_x;
+//          [self layoutIfNeeded];
+//
+//      }
     
 }
 
@@ -251,7 +343,7 @@
 }
 //
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-
+    
     UIFont *font = [UIFont systemFontOfSize:self.config.cm_font.pointSize*self.config.cm_scale];
     CGSize size = [self.config.cm_titles[indexPath.item] boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:font} context:nil].size;
     NSLog(@"重新计算宽度");
@@ -276,7 +368,7 @@
             cell.titleLabel.font = font;
             cell.transform = CGAffineTransformMakeScale(scale, scale);
             cell.itemSize = [cell.titleLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:cell.titleLabel.font} context:nil].size;
-          
+            
             if (cell.isSelected) {
                 cell.transform = CGAffineTransformIdentity;
             }
@@ -389,35 +481,139 @@
     fromCell.transform = CGAffineTransformMakeScale(1 - progress * scaleTransform ,1- progress * scaleTransform );
     toCell.transform = CGAffineTransformMakeScale(1 - leftScale * scaleTransform , 1 -  leftScale * scaleTransform );
 }
+- (void)modifyUnderlineWithScrollProgress:(CGFloat)progress fromCell:(CMPageTitleCell *)fromCell targetCell:(CMPageTitleCell *)targetCell {
+    
+    
+     if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline) || _isClickTitle || fromCell == nil || targetCell == nil || self.config.cm_switchMode & CMPageTitleSwitchMode_Delay) return;
+     
+     
+     CGFloat rightLabelX = targetCell.cm_x + (1 - self.config.cm_underlineWidthScale)*targetCell.cm_width*0.5;
+     CGFloat leftLabelX = fromCell.cm_x + (1 - self.config.cm_underlineWidthScale)*fromCell.cm_width*0.5;
+     CGFloat rightLabelWidth = targetCell.cm_width * self.config.cm_underlineWidthScale;
+     CGFloat leftLabelWidth = fromCell.cm_width * self.config.cm_underlineWidthScale;
+     
+     if (!self.config.cm_underlineStretch) {
+         
+         CGFloat deltaX = self.config.cm_underlineWidth ? (targetCell.cm_centerX - fromCell.cm_centerX) : (rightLabelX - leftLabelX);
+         
+         CGFloat deltaWidth = self.config.cm_underlineWidth ? 0 : (rightLabelWidth - leftLabelWidth);
+         
+         CGFloat newOriginalX = self.config.cm_underlineWidth ? progress*deltaX + fromCell.cm_centerX - self.config.cm_underlineWidth * 0.5: progress * deltaX + leftLabelX;
+         CGFloat newWidth = self.config.cm_underlineWidth ? : (progress * deltaWidth + leftLabelWidth);
+         
+         self.xConstraint.constant= newOriginalX;
+         self.wConstraint.constant = newWidth;
+         [self layoutIfNeeded];
+         [self.underLine layoutIfNeeded];
+         
+         //        NSLog(@"下划线宽度--%lf",newWidth);
+         NSLog(@"下划线x--%lf",newOriginalX);
+         
+         
+     } else {
+         
+         CGFloat rightLabelRight = targetCell.cm_right - (targetCell.cm_width - rightLabelWidth)*0.5;
+         CGFloat leftLabelRight = fromCell.cm_right - (fromCell.cm_width - leftLabelWidth)*0.5;
+         
+         if (progress <= 0.5) {
+             CGFloat deltaWidth =  self.config.cm_underlineWidth ? (targetCell.cm_centerX - fromCell.cm_centerX) : rightLabelRight - leftLabelRight;
+             
+             CGFloat originalWidth = self.config.cm_underlineWidth ?: leftLabelWidth;
+             
+             CGFloat newWidth = 2 * progress * deltaWidth + originalWidth;
+             
+             CGFloat originalX = self.config.cm_underlineWidth ? fromCell.cm_centerX - self.config.cm_underlineWidth * 0.5 : leftLabelX;
+             self.xConstraint.constant= originalX;
+             self.wConstraint.constant = newWidth;
+             [self layoutIfNeeded];
+             [self.underLine layoutIfNeeded];
+             
+         } else {
+             
+             CGFloat deltaWidth = self.config.cm_underlineWidth ? (targetCell.cm_centerX - fromCell.cm_centerX) : rightLabelX - leftLabelX;
+             progress = 1- progress;
+             CGFloat newWidth = 2 * progress * deltaWidth + (self.config.cm_underlineWidth ?: rightLabelWidth);
+             CGFloat originalX = self.config.cm_underlineWidth ? targetCell.cm_centerX + self.config.cm_underlineWidth * 0.5 - newWidth : rightLabelRight - newWidth;
+             self.xConstraint.constant= originalX;
+             self.wConstraint.constant = newWidth;
+             [self layoutIfNeeded];
+             [self.underLine layoutIfNeeded];
+             
+         }
+     }
+     
 
+}
 
 - (void)modifyUnderlineWithScrollProgress:(CGFloat)progress fromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex {
-
+    
     if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline) || _isClickTitle || toIndex >= [self.collectionView numberOfItemsInSection:0]|| self.config.cm_switchMode & CMPageTitleSwitchMode_Delay) return;
-
-
+    
+    
     CMPageTitleCell *fromCell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:fromIndex inSection:0]];
     CMPageTitleCell *toCell = (CMPageTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:toIndex inSection:0]];
     
     
     CGFloat rightLabelX = toCell.cm_x + (1 - self.config.cm_underlineWidthScale)*toCell.cm_width*0.5;
-      CGFloat leftLabelX = fromCell.cm_x + (1 - self.config.cm_underlineWidthScale)*fromCell.cm_width*0.5;
-      CGFloat rightLabelWidth = toCell.cm_width * self.config.cm_underlineWidthScale;
-      CGFloat leftLabelWidth = fromCell.cm_width * self.config.cm_underlineWidthScale;
-      
-      if (!self.config.cm_underlineStretch) {
-          
-          CGFloat deltaX = self.config.cm_underlineWidth ? (toCell.cm_centerX - fromCell.cm_centerX) : (rightLabelX - leftLabelX);
-          
-          CGFloat deltaWidth = self.config.cm_underlineWidth ? 0 : (rightLabelWidth - leftLabelWidth);
-          
-          CGFloat newOriginalX = self.config.cm_underlineWidth ? progress*deltaX + fromCell.cm_centerX - self .config.cm_underlineWidth * 0.5: progress * deltaX + leftLabelX;
-          CGFloat newWidth = self.config.cm_underlineWidth ? : (progress * deltaWidth + leftLabelWidth);
-          
-          self.underLine.cm_x = newOriginalX;
-          self.underLine.cm_width = newWidth;
-          
-      }
+    CGFloat leftLabelX = fromCell.cm_x + (1 - self.config.cm_underlineWidthScale)*fromCell.cm_width*0.5;
+    CGFloat rightLabelWidth = toCell.cm_width * self.config.cm_underlineWidthScale;
+    CGFloat leftLabelWidth = fromCell.cm_width * self.config.cm_underlineWidthScale;
+    
+    if (!self.config.cm_underlineStretch) {
+        
+        CGFloat deltaX = self.config.cm_underlineWidth ? (toCell.cm_centerX - fromCell.cm_centerX) : (rightLabelX - leftLabelX);
+        
+        CGFloat deltaWidth = self.config.cm_underlineWidth ? 0 : (rightLabelWidth - leftLabelWidth);
+        
+        CGFloat newOriginalX = self.config.cm_underlineWidth ? progress*deltaX + fromCell.cm_centerX - self.config.cm_underlineWidth * 0.5: progress * deltaX + leftLabelX;
+        CGFloat newWidth = self.config.cm_underlineWidth ? : (progress * deltaWidth + leftLabelWidth);
+        
+        self.xConstraint.constant= newOriginalX;
+        self.wConstraint.constant = newWidth;
+        [self layoutIfNeeded];
+        [self.underLine layoutIfNeeded];
+        
+        //        NSLog(@"下划线宽度--%lf",newWidth);
+        NSLog(@"下划线x--%lf",newOriginalX);
+        
+        
+    } else {
+        
+        
+        CGFloat rightLabelRight = toCell.cm_right - (toCell.cm_width - rightLabelWidth)*0.5;
+        CGFloat leftLabelRight = fromCell.cm_right - (fromCell.cm_width - leftLabelWidth)*0.5;
+        
+        if (progress <= 0.5) {
+            CGFloat deltaWidth =  self.config.cm_underlineWidth ? (toCell.cm_centerX - fromCell.cm_centerX) : rightLabelRight - leftLabelRight;
+            
+            CGFloat originalWidth = self.config.cm_underlineWidth ?: leftLabelWidth;
+            
+            CGFloat newWidth = 2 * progress * deltaWidth + originalWidth;
+            
+            CGFloat originalX = self.config.cm_underlineWidth ? fromCell.cm_centerX - self.config.cm_underlineWidth * 0.5 : leftLabelX;
+            self.xConstraint.constant= originalX;
+            self.wConstraint.constant = newWidth;
+            [self layoutIfNeeded];
+            [self.underLine layoutIfNeeded];
+            
+        } else {
+            
+            CGFloat deltaWidth = self.config.cm_underlineWidth ? (toCell.cm_centerX - fromCell.cm_centerX) : rightLabelX - leftLabelX;
+            progress = 1- progress;
+            CGFloat newWidth = 2 * progress * deltaWidth + (self.config.cm_underlineWidth ?: rightLabelWidth);
+            CGFloat originalX = self.config.cm_underlineWidth ? toCell.cm_centerX + self.config.cm_underlineWidth * 0.5 - newWidth : rightLabelRight - newWidth;
+            self.xConstraint.constant= originalX;
+            self.wConstraint.constant = newWidth;
+            [self layoutIfNeeded];
+            [self.underLine layoutIfNeeded];
+            
+        }
+        
+        
+        
+        
+        
+    }
     
     
     
@@ -489,10 +685,14 @@
     
     NSLog(@"滚动时的progress ----- %lf",progress);
     
+    CMPageTitleCell *fromCell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:fromIndex inSection:0]];
+      CMPageTitleCell *targetCell = (CMPageTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:toIndex inSection:0]];
+    
     [self modifyColorWithScrollProgress:progress FromIndex:fromIndex ToIndex:toIndex];
     [self modifyScaleWithScrollProgress:progress FromIndex:fromIndex ToIndex:toIndex];
-    [self modifyUnderlineWithScrollProgress:progress fromIndex:fromIndex toIndex:toIndex];
-    
+//    [self modifyUnderlineWithScrollProgress:progress fromIndex:fromIndex toIndex:toIndex];
+    [self modifyUnderlineWithScrollProgress:progress fromCell:fromCell targetCell:targetCell];
+
 }
 
 - (void)cm_pageTitleViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
