@@ -231,9 +231,9 @@
     
     
     
-    [self.collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+//    [self.collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
     
-//    [self modifyCenterWithIndexPath:indexPath];
+    [self modifyCenterWithIndexPath:indexPath];
     
     
 }
@@ -243,24 +243,24 @@
 - (void)modifyCenterWithIndexPath:(NSIndexPath *)indexPath{
     self.config.cm_defaultIndex = indexPath.item;
     
-    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
-    
-    if (self.collectionView.contentSize.width <= self.cm_width) return;
-    
-    
-    CGFloat offsetX = cell.center.x - self.cm_width * 0.5;
-    
-    offsetX = offsetX > 0 ? offsetX : 0;
-    
-    CGFloat maxOffsetX = self.collectionView.contentSize.width - self.cm_width + self.collectionView.contentInset.right;
-    
-    maxOffsetX = maxOffsetX ?:0;
-    
-    offsetX = offsetX > maxOffsetX ? maxOffsetX : offsetX;
+//    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
+//
+//    if (self.collectionView.contentSize.width <= self.cm_width) return;
+//
+//
+//    CGFloat offsetX = cell.center.x - self.cm_width * 0.5;
+//
+//    offsetX = offsetX > 0 ? offsetX : 0;
+//
+//    CGFloat maxOffsetX = self.collectionView.contentSize.width - self.cm_width + self.collectionView.contentInset.right;
+//
+//    maxOffsetX = maxOffsetX ?:0;
+//
+//    offsetX = offsetX > maxOffsetX ? maxOffsetX : offsetX;
     
 //        [self.collectionView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
-    [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-    
+        [self.collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+
   
     
     
@@ -276,52 +276,14 @@
        
     CGRect frame = [self.collectionView convertRect:cell.frame toView:self];
     
-    
        if (self.xConstraint) {
              self.xConstraint.constant = frame.origin.x;
              [self layoutIfNeeded];
 
          }
-}
-
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-    
-    CMPageTitleCell *cell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.config.cm_selectedIndex inSection:0]];
-         
-      CGRect frame = [self.collectionView convertRect:cell.frame toView:self];
-      
-      
-         if (self.xConstraint) {
-               self.xConstraint.constant = frame.origin.x;
-               [self layoutIfNeeded];
-
-           }
     
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    
-    //    NSArray *array =  [self.collectionView indexPathsForVisibleItems];
-    //    NSInteger idx = ceil(array.count / 2) ;
-    //    [self.collectionView scrollToItemAtIndexPath:array[idx] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-//
-//    CMPageTitleCell *cell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.config.cm_selectedIndex inSection:0]];
-//
-//    if (self.xConstraint) {
-//          self.xConstraint.constant = cell.cm_x;
-//          [self layoutIfNeeded];
-//
-//      }
-    
-}
-
-- (void)setUnderlineWithCell:(CMPageTitleCell *)cell {
-    
-    
-    
-    
-    
-}
 
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -418,7 +380,7 @@
     NSInteger centerIndex = floorf(scrollView.contentOffset.x / self.cm_width);
     [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:centerIndex inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
 
-//    [self modifyCenterWithIndexPath:[NSIndexPath indexPathForItem:centerIndex inSection:0]];
+    [self modifyCenterWithIndexPath:[NSIndexPath indexPathForItem:centerIndex inSection:0]];
     
 }
 
