@@ -214,7 +214,6 @@
     
     if (fromIndex != targetIndex)  [fromController endAppearanceTransition];
     [targetController endAppearanceTransition];
-    
 }
 
 - (void)beginAppearanceFromIndex:(NSInteger)fromIndex TargetIndex:(NSInteger)targetIndex {
