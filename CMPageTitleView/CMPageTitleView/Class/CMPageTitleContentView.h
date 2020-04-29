@@ -86,9 +86,34 @@
 
 @end
 
+
+
+typedef NS_ENUM(NSUInteger,CMPageTitleCellContentMode) {
+   
+    CMPageTitleCellContentMode_ImageTop,
+    
+    CMPageTitleCellContentMode_ImageLeft,
+    
+    CMPageTitleCellContentMode_ImageBottom,
+    
+    CMPageTitleCellContentMode_ImageRigth,
+    
+};
+
+
 @interface CMPageTitleCell : UICollectionViewCell
 
-@property(nonatomic,strong) CMDisplayTitleLabel *titleLabel;
+@property(nonatomic,strong) NSString *text;
+
+@property(nonatomic,strong) UIImage *image;
+
+
+
+@property(nonatomic,weak) CMDisplayTitleLabel *titleLabel;
+
+@property(nonatomic,weak) UIImageView *imageView;
+
+
 
 @property(nonatomic,assign) CGSize itemSize;
 

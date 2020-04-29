@@ -186,10 +186,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    CMPageTitleCell *cell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.config.cm_selectedIndex inSection:0]];
-    if (cell) {
-        
-    }
+    
     
 }
 
@@ -209,10 +206,10 @@
     
     if (self.config.cm_switchMode & CMPageTitleSwitchMode_Underline ) {
         self.underLine.translatesAutoresizingMaskIntoConstraints = NO;
-           [self addConstraint:self.xConstraint];
-           [self addConstraint:self.yConstraint];
-           [self.underLine addConstraint:self.wConstraint];
-           [self.underLine addConstraint:self.hConstraint];
+        [self addConstraint:self.xConstraint];
+        [self addConstraint:self.yConstraint];
+        [self.underLine addConstraint:self.wConstraint];
+        [self.underLine addConstraint:self.hConstraint];
     }
     
 }
@@ -567,8 +564,6 @@
         
         
         
-        
-        
     }
     
     
@@ -644,26 +639,49 @@
 
 @implementation CMPageTitleFlowLayout
 
+
+
 @end
 
 typedef void(^SelectedBlock)(BOOL selected);
 
+
+#define Color(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+
+// 随机色
+#define RandomColor Color(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
+
+
 @interface CMPageTitleCell ()
 
 @property(nonatomic,copy) SelectedBlock block;
+
+
 
 @end
 
 
 @implementation CMPageTitleCell
 
+- (UIImageView *)imageView {
+    if (!_imageView) {
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tuijian"]];
+        _imageView = imageView;
+        [self.contentView addSubview:_imageView];
+    }
+    return _imageView;
+}
+
 - (CMDisplayTitleLabel *)titleLabel {
     
     if (!_titleLabel) {
-        _titleLabel = [[CMDisplayTitleLabel alloc] initWithFrame:self.bounds];
-        //        _titleLabel.font = [UIFont systemFontOfSize:14];
-        _titleLabel.textColor = UIColor.blackColor;
-        _titleLabel.textAlignment = NSTextAlignmentCenter;
+        
+        CMDisplayTitleLabel *titleLabel = [CMDisplayTitleLabel new];
+        titleLabel.textColor = UIColor.blackColor;
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        _titleLabel = titleLabel;
+        [self.contentView addSubview:_titleLabel];
+        
     }
     return _titleLabel;
 }
@@ -677,11 +695,55 @@ typedef void(^SelectedBlock)(BOOL selected);
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [self.contentView addSubview:self.titleLabel];
+    
+    [self initSubviewsVFL];
+    
     
     self.itemSize = [self.titleLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:self.titleLabel.font} context:nil].size;
     
 }
+
+- (void)initSubviewsVFL {
+    self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    self.imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    if (self.contentMode == CMPageTitleCellContentMode_ImageTop) {
+        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[image][title]|" options:0 metrics:@{}views:@{@"image":self.imageView,@"title":self.titleLabel}]];
+
+        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[image(==H)][title(==H)]|" options:0 metrics:@{@"H":@22} views:@{@"image":self.imageView,@"title":self.titleLabel}]];
+
+//
+//        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleLabel}]];
+//        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[image(==imageW)]|" options:0 metrics:@{@"imageW":@40}views:@{@"image":self.imageView}]];
+//
+//        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[image(==imageH)][title]|" options:0 metrics:@{@"imageH":@22} views:@{@"title":self.titleLabel,@"image":self.imageView}]];
+        
+    } else if (self.contentMode == CMPageTitleCellContentMode_ImageBottom) {
+        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleLabel}]];
+        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[image]|" options:0 metrics:@{}views:@{@"image":self.imageView}]];
+        
+        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title][image]|" options:0 metrics:@{}views:@{@"title":self.titleLabel,@"image":self.imageView}]];
+        
+    }else if (self.contentMode == CMPageTitleCellContentMode_ImageLeft) {
+        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[image][title]|" options:0 metrics:@{}views:@{@"title":self.titleLabel,@"image":self.imageView}]];
+        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[image]|" options:0 metrics:@{}views:@{@"image":self.imageView}]];
+        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleLabel}]];
+        
+        
+        
+    }else if (self.contentMode == CMPageTitleCellContentMode_ImageRigth) {
+        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[title][image]|" options:0 metrics:@{}views:@{@"title":self.titleLabel,@"image":self.imageView}]];
+        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[image]|" options:0 metrics:@{}views:@{@"image":self.imageView}]];
+        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleLabel}]];
+        
+    }
+    
+    
+    
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleLabel}]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleLabel}]];
+}
+
+
 
 - (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
@@ -690,6 +752,7 @@ typedef void(^SelectedBlock)(BOOL selected);
         self.block(selected);
     }
     
+    self.titleLabel.backgroundColor = RandomColor;
     
     self.titleLabel.textColor = selected ? UIColor.redColor : UIColor.blackColor ;
     self.titleLabel.cm_fillColor =  UIColor.redColor;
