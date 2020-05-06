@@ -80,9 +80,15 @@
 
 @end
 
+@protocol CMPageTitleDelegateFlowLayout <UICollectionViewDelegateFlowLayout>
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemImageViewAtIndexPath:(NSIndexPath *)indexPath;
+
+
+@end
 
 @interface CMPageTitleFlowLayout : UICollectionViewFlowLayout
+
 
 @end
 
@@ -114,8 +120,9 @@ typedef NS_ENUM(NSUInteger,CMPageTitleCellContentMode) {
 @property(nonatomic,weak) UIImageView *imageView;
 
 
+@property(nonatomic,assign) CGSize imgViewSize;
 
-@property(nonatomic,assign) CGSize itemSize;
+@property(nonatomic,assign) CMPageTitleContentMode cm_contentMode;
 
 
 - (void)cm_cellSetSelectedCompletion:(void(^)(BOOL selected))completion;
