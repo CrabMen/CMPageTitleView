@@ -41,6 +41,9 @@
 @property (nonatomic,strong) NSLayoutConstraint *wConstraint;
 @property (nonatomic,strong) NSLayoutConstraint *hConstraint;
 
+@property (nonatomic,weak) UICollectionView *backgroundCollection;
+
+
 @property (nonatomic,weak) id <CMPageTitleDelegateFlowLayout> delegate;
 
 @end
@@ -112,6 +115,7 @@
         collectionView.backgroundColor = UIColor.whiteColor;
         collectionView.delegate = self;
         collectionView.dataSource = self;
+        collectionView.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
         
         _collectionView = collectionView;
         
@@ -120,6 +124,29 @@
     }
     return _collectionView;
 }
+
+- (UICollectionView *)backgroundCollection {
+    
+    if (!_backgroundCollection) {
+        UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        
+        UICollectionView *backgroundCollection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+        [backgroundCollection registerClass:CMPageTitleBgCell.class forCellWithReuseIdentifier:NSStringFromClass(CMPageTitleBgCell.class)];
+        backgroundCollection.showsHorizontalScrollIndicator = NO;
+        backgroundCollection.backgroundColor = UIColor.whiteColor;
+        backgroundCollection.delegate = self;
+        backgroundCollection.dataSource = self;
+        backgroundCollection.pagingEnabled = YES;
+        
+        _backgroundCollection = backgroundCollection;
+        
+        [self insertSubview:_backgroundCollection atIndex:0];
+        
+    }
+    return _backgroundCollection;
+}
+
 
 
 - (void)setCm_selectedIndex:(NSInteger)cm_selectedIndex {
@@ -194,6 +221,13 @@
     
     
     self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.backgroundCollection.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundCollection attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundCollection attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundCollection attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1 constant:0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundCollection attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
+    [self.backgroundCollection reloadData];
     
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.collectionView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.collectionView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
@@ -254,6 +288,8 @@
 
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (collectionView == self.backgroundCollection) return;
+
     _isClickTitle = YES;
     
     [self.collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
@@ -294,16 +330,25 @@
 
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (collectionView == self.backgroundCollection) return;
+    
     CMPageTitleCell *cell = (CMPageTitleCell*)[collectionView cellForItemAtIndexPath:indexPath];
     NSLog(@"%@", [NSString stringWithFormat:@"反选 -- %02ld -- %@",(long)indexPath.item,cell.titleLabel.text]);
 }
 //
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    UIFont *font = [UIFont systemFontOfSize:self.config.cm_font.pointSize*self.config.cm_scale];
-    CGSize size = [self.config.cm_titles[indexPath.item] boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:font} context:nil].size;
-    NSLog(@"重新计算宽度");
-    return CGSizeMake(size.width, self.config.cm_titleHeight);
+    if (self.collectionView == self.backgroundCollection) {
+        return self.backgroundCollection.bounds.size;
+    } else {
+        UIFont *font = [UIFont systemFontOfSize:self.config.cm_font.pointSize*self.config.cm_scale];
+          CGSize size = [self.config.cm_titles[indexPath.item] boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:font} context:nil].size;
+          NSLog(@"重新计算宽度");
+          return CGSizeMake(size.width, self.config.cm_titleHeight);
+        
+    }
+  
 }
 
 
@@ -312,42 +357,60 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    CMPageTitleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(CMPageTitleCell.class) forIndexPath:indexPath];
-    cell.titleLabel.text = self.config.cm_titles[indexPath.item];
-    cell.titleLabel.font = self.config.cm_font;
-    cell.imgViewSize = CGSizeMake(10, 10);
-
-    [cell cm_cellSetSelectedCompletion:^(BOOL selected) {
-        
-        if (self.config.cm_switchMode & CMPageTitleSwitchMode_Scale){
-            
-            CGFloat scale = 1/ self.config.cm_scale ;
-            UIFont *font = [UIFont systemFontOfSize:self.config.cm_font.pointSize*self.config.cm_scale];
-            cell.titleLabel.font = font;
-            cell.transform = CGAffineTransformMakeScale(scale, scale);
-//            cell.itemSize = [cell.titleLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:cell.titleLabel.font} context:nil].size;
-            if (cell.isSelected) {
-                cell.transform = CGAffineTransformIdentity;
-            }
-            
-        }
-        
-    }];
-    
-    if (self.config.cm_switchMode & CMPageTitleSwitchMode_Scale){
-        
-        CGFloat scale = 1/ self.config.cm_scale ;
-        UIFont *font = [UIFont systemFontOfSize:self.config.cm_font.pointSize*self.config.cm_scale];
-        cell.titleLabel.font = font;
-        cell.transform = CGAffineTransformMakeScale(scale, scale);
-        
-        if (cell.isSelected) {
-            cell.transform = CGAffineTransformIdentity;
-        }
-        
+    if (collectionView  == self.backgroundCollection) {
+      return [self backgroundCollection:collectionView cellForItemAtIndexPath:indexPath];
+    } else {
+       return [self titleCollection:collectionView cellForItemAtIndexPath:indexPath];
     }
+}
+
+
+- (UICollectionViewCell *)titleCollection:(UICollectionView *)titleCollection cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+
+  CMPageTitleCell *cell = [titleCollection dequeueReusableCellWithReuseIdentifier:NSStringFromClass(CMPageTitleCell.class) forIndexPath:indexPath];
+  cell.titleLabel.text = self.config.cm_titles[indexPath.item];
+  cell.titleLabel.font = self.config.cm_font;
+  cell.imgViewSize = CGSizeMake(10, 10);
+  
+  [cell cm_cellSetSelectedCompletion:^(BOOL selected) {
+      
+      if (self.config.cm_switchMode & CMPageTitleSwitchMode_Scale){
+          
+          CGFloat scale = 1/ self.config.cm_scale ;
+          UIFont *font = [UIFont systemFontOfSize:self.config.cm_font.pointSize*self.config.cm_scale];
+          cell.titleLabel.font = font;
+          cell.transform = CGAffineTransformMakeScale(scale, scale);
+          //            cell.itemSize = [cell.titleLabel.text boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:cell.titleLabel.font} context:nil].size;
+          if (cell.isSelected) {
+              cell.transform = CGAffineTransformIdentity;
+          }
+          
+      }
+      
+  }];
+  
+  if (self.config.cm_switchMode & CMPageTitleSwitchMode_Scale){
+      
+      CGFloat scale = 1/ self.config.cm_scale ;
+      UIFont *font = [UIFont systemFontOfSize:self.config.cm_font.pointSize*self.config.cm_scale];
+      cell.titleLabel.font = font;
+      cell.transform = CGAffineTransformMakeScale(scale, scale);
+      
+      if (cell.isSelected) {
+          cell.transform = CGAffineTransformIdentity;
+      }
+      
+  }
+  
+  return cell;
+  
+}
+
+
+- (UICollectionViewCell *)backgroundCollection:(UICollectionView *)backgroundCollection cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+CMPageTitleBgCell *cell = (CMPageTitleBgCell *)[backgroundCollection dequeueReusableCellWithReuseIdentifier:NSStringFromClass(CMPageTitleBgCell.class) forIndexPath:indexPath];
     
-    return cell;
+    return  cell;
     
     
 }
@@ -564,7 +627,6 @@
         }
         
         
-        
     }
     
     
@@ -643,9 +705,9 @@
 - (void)prepareLayout {
     [super prepareLayout];
     if (!self.collectionView) return;
-
-    if ([self.collectionView.superview respondsToSelector:@selector(collectionView:layout:sizeForItemImageViewAtIndexPath:)]) {
     
+    if ([self.collectionView.superview respondsToSelector:@selector(collectionView:layout:sizeForItemImageViewAtIndexPath:)]) {
+        
     }
     
 }
@@ -658,6 +720,44 @@ typedef void(^SelectedBlock)(BOOL selected);
 
 // 随机色
 #define RandomColor Color(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
+
+
+
+
+@interface CMPageTitleBgCell ()
+
+
+
+@end
+
+@implementation CMPageTitleBgCell
+
+- (UIImageView *)imageView {
+    if (!_imageView) {
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background_image"]];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        _imageView = imageView;
+        [self.contentView addSubview:_imageView];
+    }
+    return _imageView;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    [self initSubviewsVFL];
+    
+    
+}
+
+- (void)initSubviewsVFL {
+    self.imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[image]|" options:0 metrics:@{} views:@{@"image":self.imageView}]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[image]|" options:0 metrics:@{} views:@{@"image":self.imageView}]];
+
+}
+@end
+
 
 
 @interface CMPageTitleCell ()
@@ -673,7 +773,7 @@ typedef void(^SelectedBlock)(BOOL selected);
 
 - (UIImageView *)imageView {
     if (!_imageView) {
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tuijian"]];
+        UIImageView *imageView = [[UIImageView alloc] init];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         _imageView = imageView;
         [self.contentView addSubview:_imageView];
@@ -715,11 +815,12 @@ typedef void(^SelectedBlock)(BOOL selected);
     self.imageView.translatesAutoresizingMaskIntoConstraints = NO;
     if (self.cm_contentMode == CMPageTitleCellContentMode_ImageTop) {
         [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleLabel}]];
-        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image(10)]" options:NSLayoutFormatAlignAllCenterX metrics:@{}views:@{@"image":self.imageView}]];
+        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title]|" options:0 metrics:@{@"H":@(10)} views:@{@"image":self.imageView,@"title":self.titleLabel}]];
+        //        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image(10)]" options:NSLayoutFormatAlignAllCenterX metrics:@{}views:@{@"image":self.imageView}]];
         [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[image(10)][title(==H)]|" options:0 metrics:@{@"H":@(10)} views:@{@"image":self.imageView,@"title":self.titleLabel}]];
-
+        
         //水平居中
-        [NSLayoutConstraint activateConstraints:@[[NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.titleLabel attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]]];
+        //        [NSLayoutConstraint activateConstraints:@[[NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.titleLabel attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]]];
         
         
     } else if (self.cm_contentMode == CMPageTitleCellContentMode_ImageBottom) {
@@ -743,9 +844,9 @@ typedef void(^SelectedBlock)(BOOL selected);
     }
     
     
-//
-//    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleLabel}]];
-//    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleLabel}]];
+    //
+    //    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleLabel}]];
+    //    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleLabel}]];
 }
 
 
@@ -757,7 +858,7 @@ typedef void(^SelectedBlock)(BOOL selected);
         self.block(selected);
     }
     
-//    self.titleLabel.backgroundColor = RandomColor;
+    //    self.titleLabel.backgroundColor = RandomColor;
     
     self.titleLabel.textColor = selected ? UIColor.redColor : UIColor.blackColor ;
     self.titleLabel.cm_fillColor =  UIColor.redColor;

@@ -107,6 +107,12 @@ typedef NS_ENUM(NSUInteger,CMPageTitleCellContentMode) {
 };
 
 
+@interface CMPageTitleBgCell : UICollectionViewCell
+
+@property(nonatomic,weak) UIImageView *imageView;
+
+@end
+
 @interface CMPageTitleCell : UICollectionViewCell
 
 @property(nonatomic,strong) NSString *text;
