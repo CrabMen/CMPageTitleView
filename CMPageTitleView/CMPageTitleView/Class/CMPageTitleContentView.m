@@ -103,7 +103,6 @@
 
 - (UICollectionView *)collectionView {
     
-    
     if (!_collectionView) {
         CMPageTitleFlowLayout *layout = [CMPageTitleFlowLayout new];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -116,7 +115,7 @@
         collectionView.delegate = self;
         collectionView.dataSource = self;
         collectionView.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
-        
+        collectionView.hidden = YES;
         _collectionView = collectionView;
         
         [self insertSubview:_collectionView atIndex:0];
@@ -130,7 +129,9 @@
     if (!_backgroundCollection) {
         UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        
+        layout.minimumLineSpacing = 0;
+        layout.minimumInteritemSpacing = 0;
+        layout.itemSize = self.bounds.size;
         UICollectionView *backgroundCollection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
         [backgroundCollection registerClass:CMPageTitleBgCell.class forCellWithReuseIdentifier:NSStringFromClass(CMPageTitleBgCell.class)];
         backgroundCollection.showsHorizontalScrollIndicator = NO;
@@ -138,6 +139,7 @@
         backgroundCollection.delegate = self;
         backgroundCollection.dataSource = self;
         backgroundCollection.pagingEnabled = YES;
+        
         
         _backgroundCollection = backgroundCollection;
         
@@ -336,10 +338,13 @@
     CMPageTitleCell *cell = (CMPageTitleCell*)[collectionView cellForItemAtIndexPath:indexPath];
     NSLog(@"%@", [NSString stringWithFormat:@"反选 -- %02ld -- %@",(long)indexPath.item,cell.titleLabel.text]);
 }
+
+
 //
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (self.collectionView == self.backgroundCollection) {
+    if (collectionView == self.backgroundCollection) {
+        
         return self.backgroundCollection.bounds.size;
     } else {
         UIFont *font = [UIFont systemFontOfSize:self.config.cm_font.pointSize*self.config.cm_scale];

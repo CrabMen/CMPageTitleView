@@ -42,6 +42,14 @@
 
 @end
 
+@protocol CMPageTitleViewDataSource <NSObject>
+
+
+@end
+
+
+
+
 @interface CMPageTitleView : UIView
 
 /**
