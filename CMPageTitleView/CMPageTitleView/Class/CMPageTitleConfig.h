@@ -227,6 +227,11 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
  */
 @property (nonatomic,weak,readonly) UIViewController *cm_parentController;
 
+/**
+ 全屏
+ */
+@property (nonatomic,assign,getter=cm_isFullScreen) BOOL cm_fullScreen;
+
 
 #pragma mark --- 缩放效果
 
