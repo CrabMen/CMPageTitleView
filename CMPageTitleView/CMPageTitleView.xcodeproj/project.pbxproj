@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0401ED6B2488D66100A4129D /* CMChildTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0401ED692488D66000A4129D /* CMChildTableController.m */; };
 		20598ED47AE57CA3A7346B2E /* Pods_CMPageTitleViewTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3D90BC7D0E023236111CFB8 /* Pods_CMPageTitleViewTests.framework */; };
-		232E6FE623A639A900EF01C7 /* CMChildController.m in Sources */ = {isa = PBXBuildFile; fileRef = 232E6FE423A639A900EF01C7 /* CMChildController.m */; };
 		3D58563707075CC0ECF6EB1C /* Pods_CMPageTitleView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8348F37DD152646043507B7D /* Pods_CMPageTitleView.framework */; };
 		84EFD8C7E88418373356859D /* Pods_CMPageTitleViewUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A2648515C1D6D8734A20D40 /* Pods_CMPageTitleViewUITests.framework */; };
 		B51FABE0225DD15C004117BD /* CMMainTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = B51FABDF225DD15C004117BD /* CMMainTableController.m */; };
@@ -43,9 +43,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0401ED692488D66000A4129D /* CMChildTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMChildTableController.m; sourceTree = "<group>"; };
+		0401ED6A2488D66100A4129D /* CMChildTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMChildTableController.h; sourceTree = "<group>"; };
 		1A2648515C1D6D8734A20D40 /* Pods_CMPageTitleViewUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CMPageTitleViewUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		232E6FE423A639A900EF01C7 /* CMChildController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMChildController.m; sourceTree = "<group>"; };
-		232E6FE523A639A900EF01C7 /* CMChildController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMChildController.h; sourceTree = "<group>"; };
 		6FB0CEAE97F306B2DE1A62A3 /* Pods-CMPageTitleViewUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CMPageTitleViewUITests.release.xcconfig"; path = "Target Support Files/Pods-CMPageTitleViewUITests/Pods-CMPageTitleViewUITests.release.xcconfig"; sourceTree = "<group>"; };
 		789334BA070C5D2F074F49C9 /* Pods-CMPageTitleViewUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CMPageTitleViewUITests.debug.xcconfig"; path = "Target Support Files/Pods-CMPageTitleViewUITests/Pods-CMPageTitleViewUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7A7BA8CFD14D0A58CCF66114 /* Pods-CMPageTitleViewTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CMPageTitleViewTests.release.xcconfig"; path = "Target Support Files/Pods-CMPageTitleViewTests/Pods-CMPageTitleViewTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -135,12 +135,12 @@
 		B51FABDD225DD0E1004117BD /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				0401ED6A2488D66100A4129D /* CMChildTableController.h */,
+				0401ED692488D66000A4129D /* CMChildTableController.m */,
 				B51FABDE225DD15C004117BD /* CMMainTableController.h */,
 				B51FABDF225DD15C004117BD /* CMMainTableController.m */,
 				B51FABE1225DD2E7004117BD /* CMViewController.h */,
 				B51FABE2225DD2E7004117BD /* CMViewController.m */,
-				232E6FE523A639A900EF01C7 /* CMChildController.h */,
-				232E6FE423A639A900EF01C7 /* CMChildController.m */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -432,12 +432,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				232E6FE623A639A900EF01C7 /* CMChildController.m in Sources */,
 				B5B8ACF62249CA2D00ABF82B /* UIView+CMCommon.m in Sources */,
 				B53D96F7224883C50092BDE3 /* CMPageTitleConfig.m in Sources */,
 				B5EBC9CF21215A72000403B8 /* main.m in Sources */,
 				B5EBC9C821215A72000403B8 /* CMPageTitleContentView.m in Sources */,
 				B5EBC9D021215A72000403B8 /* AppDelegate.m in Sources */,
+				0401ED6B2488D66100A4129D /* CMChildTableController.m in Sources */,
 				B51FABE3225DD2E7004117BD /* CMViewController.m in Sources */,
 				B51FABE0225DD15C004117BD /* CMMainTableController.m in Sources */,
 				B5EBC9CA21215A72000403B8 /* CMPageTitleView.m in Sources */,

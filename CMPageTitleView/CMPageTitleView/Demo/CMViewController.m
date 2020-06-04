@@ -8,7 +8,7 @@
 
 #import "CMViewController.h"
 #import "CMPageTitleView.h"
-#import "CMChildController.h"
+#import "CMChildTableController.h"
 #import "Masonry.h"
 //屏幕尺寸
 #define CM_SCREEN_W  [UIScreen mainScreen].bounds.size.width
@@ -110,17 +110,17 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 - (NSArray *)childControllers {
     
     if (!_childControllers) {
-        CMChildController *vc0 = [CMChildController new];
-        CMChildController *vc1 = [CMChildController new];
-        CMChildController *vc2 = [CMChildController new];
-        CMChildController *vc3 = [CMChildController new];
-        CMChildController *vc4 = [CMChildController new];
-        CMChildController *vc5 = [CMChildController new];
-        CMChildController *vc6 = [CMChildController new];
-        CMChildController *vc7 = [CMChildController new];
-        CMChildController *vc8 = [CMChildController new];
-        CMChildController *vc9 = [CMChildController new];
-        CMChildController *vc10 = [CMChildController new];
+        CMChildTableController *vc0 = [CMChildTableController new];
+        CMChildTableController *vc1 = [CMChildTableController new];
+        CMChildTableController *vc2 = [CMChildTableController new];
+        CMChildTableController *vc3 = [CMChildTableController new];
+        CMChildTableController *vc4 = [CMChildTableController new];
+        CMChildTableController *vc5 = [CMChildTableController new];
+        CMChildTableController *vc6 = [CMChildTableController new];
+        CMChildTableController *vc7 = [CMChildTableController new];
+        CMChildTableController *vc8 = [CMChildTableController new];
+        CMChildTableController *vc9 = [CMChildTableController new];
+        CMChildTableController *vc10 = [CMChildTableController new];
         
         vc0.title = @"推荐";
         vc1.title = @"小视频";
@@ -146,7 +146,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         vc8.view.backgroundColor = CM_RANDOM_COLOR;
         vc9.view.backgroundColor = CM_RANDOM_COLOR;
         vc10.view.backgroundColor = CM_RANDOM_COLOR;
-        
         
         _childControllers =@[vc0,vc1,vc2,vc3,vc4,vc5,vc6,vc7];
         
@@ -193,6 +192,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_underlineColor = UIColor.blueColor;
     self.pageTitleView.cm_config = config;
     
+    [self.lessChildControllers setValue:@(0) forKey:@"topInset"];
     [self.pageTitleView cm_reloadConfig];
     
     
@@ -1669,6 +1669,38 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     self.pageTitleView.cm_config = config;
 }
 
+
+- (void)style02_03 {
+    
+
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
+    self.pageTitleView.delegate = self;
+
+   CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
+    config.cm_childControllers = self.childControllers;
+
+    config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
+    config.cm_underlineStretch = YES;
+    config.cm_fullScreen = YES;
+    config.cm_underlineWidthScale = 0.6;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
+    config.cm_scale = 1.3;
+    config.cm_additionalMode = CMPageTitleAdditionalMode_Seperateline;
+    config.cm_seperateLineHeight = 2;
+    config.cm_seperaterLineColor = [UIColor.lightGrayColor colorWithAlphaComponent:0.7];
+    config.cm_backgroundColor = [UIColor.whiteColor colorWithAlphaComponent:0.7];
+    
+    [self.childControllers setValue:@(config.cm_seperateLineHeight+config.cm_titleHeight) forKey:@"topInset"];
+
+    
+    self.pageTitleView.cm_config = config;
+    
+}
 
 - (void)cm_pageTitleViewSelectedWithIndex:(NSInteger)index Repeat:(BOOL)repeat {
     
