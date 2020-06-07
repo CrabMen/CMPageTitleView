@@ -10,7 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CMChildController : UIViewController
+@interface CMChildTableController : UITableViewController
+
+@property (nonatomic,assign) CGFloat topInset;
+
 
 @end
 

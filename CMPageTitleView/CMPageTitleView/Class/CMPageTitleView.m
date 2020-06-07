@@ -125,14 +125,22 @@
 
 - (void)initVFLContraints {
     
+    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
     self.titleView.translatesAutoresizingMaskIntoConstraints = NO;
     self.seperateline.translatesAutoresizingMaskIntoConstraints = NO;
-    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleView}]];
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[seperateline]|" options:0 metrics:@{}views:@{@"seperateline":self.seperateline}]];
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[content]|" options:0 metrics:@{}views:@{@"content":self.contentView}]];
-    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title(==titleH)][seperateline(==seperateH)][content]|" options:0 metrics:@{@"titleH":@(self.cm_config.cm_titleHeight),@"seperateH":@((self.cm_config.cm_additionalMode&CMPageTitleAdditionalMode_Seperateline) ? self.cm_config.cm_seperateLineHeight : 0)}views:@{@"title":self.titleView,@"seperateline":self.seperateline,@"content":self.contentView}]];
+    
+    
+    NSString *vf = self.cm_config.cm_fullScreen ? @"V:|[content]|" : @"V:|[title(==titleH)][seperateline(==seperateH)][content]|";
+    
+    if (self.cm_config.cm_isFullScreen)
+        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title(==titleH)][seperateline(==seperateH)]" options:0 metrics:@{@"titleH":@(self.cm_config.cm_titleHeight),@"seperateH":@((self.cm_config.cm_additionalMode&CMPageTitleAdditionalMode_Seperateline) ? self.cm_config.cm_seperateLineHeight : 0)}views:@{@"title":self.titleView,@"seperateline":self.seperateline}]];
+    
+    
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:vf options:0 metrics:@{@"titleH":@(self.cm_config.cm_titleHeight),@"seperateH":@((self.cm_config.cm_additionalMode&CMPageTitleAdditionalMode_Seperateline) ? self.cm_config.cm_seperateLineHeight : 0)}views:@{@"title":self.titleView,@"seperateline":self.seperateline,@"content":self.contentView}]];
     
     
     if (self.cm_config.cm_rightView && self.cm_config.cm_contentMode != CMPageTitleContentMode_Right) {
