@@ -61,24 +61,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"viewDidLoad --- %@",self.title);
-    //    [self.button mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.width.mas_equalTo(100);
-    //        make.height.mas_equalTo(40);
-    //        make.center.equalTo(self.view);
-    //    }];
-    
-    [self.tableView registerClass:UITableViewCell.class forCellReuseIdentifier:NSStringFromClass(self.class)];
-    
-    
-    
-    
-    
+  
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     NSLog(@"viewWillAppear --- %@",self.title);
+  
     
+      if (self.topInset) {
+             self.tableView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0);
+             if (@available(iOS 11.0, *)) {
+                 self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+             } else {
+                 self.automaticallyAdjustsScrollViewInsets = NO;
+             }
+         } else {
+             self.tableView.contentInset = UIEdgeInsetsZero;
+         }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -90,7 +90,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     NSLog(@"viewDidAppear --- %@",self.title);
-    
+  
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -110,7 +110,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(self.class) forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass(self.class)];
+    
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass(self.class)];
+    }
     
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass(self.class)];
     cell.textLabel.text = [NSString stringWithFormat:@"-------> %@ -- 第%ld行 <------- ",self.title,indexPath.row];

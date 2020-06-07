@@ -161,6 +161,14 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
     [self setReloadBarButtonItem];
     
+    
+    if (@available(iOS 11.0, *)) {
+        self.automaticallyAdjustsScrollViewInsets = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        // Fallback on earlier versions
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+    
 }
 
 - (void)viewDidLoad {
