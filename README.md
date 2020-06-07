@@ -113,6 +113,7 @@
 |02-00.标题栏背景色 |![](https://raw.githubusercontent.com/CrabMen/CMResources/master/CMPageTitleView/CMPageTitleView_02_00.gif)|
 |02-01.标题栏背景图片 |![](https://raw.githubusercontent.com/CrabMen/CMResources/master/CMPageTitleView/CMPageTitleView_02_01.gif)|
 |02-02.rightView |![](https://raw.githubusercontent.com/CrabMen/CMResources/master/CMPageTitleView/CMPageTitleView_02_02.gif)|
+|02-03.全屏穿透样式 |![](https://raw.githubusercontent.com/CrabMen/CMResources/master/CMPageTitleView/CMPageTitleView_02_03.gif)|
 
 ## <a id="installation"></a>安装 
 
