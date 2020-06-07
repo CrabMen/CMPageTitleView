@@ -211,6 +211,7 @@ end
 |  cm_animationDruction  | 下划线和遮罩，在点击标题时，动画的时间间隔 <br>默认值为：0.25 <br>``注意：``取值范围 0.25~0.8(超出范围会使用默认值)|  
 |  cm_rightView  | 垂直方向上的对齐方式<br>默认值：``CMPageTitleVerticalContentMode_Center``<br>``注意：``只有属性``cm_switchMode``包含``CMPageTitleSwitchMode_Scale``下有效果|  
 |  cm_parentController  |   父视图控制器 |  
+|  cm_fullScreen (getter=cm_isFullScreen)  | 是否全屏显示 <br>默认值：``NO`` |  
 |  cm_scale  |  标题的缩放等级 默认为 1.15<br>``注意：``不建议依赖该属性，后期可能会废弃，可以使用``cm_selectedFont``配合``cm_font``属性进行设置）|  
 |  cm_titleWidths  |   标题宽度数组<br>``注意：readonly`` |  
 |  cm_minContentWidth  |  标题的总宽度 + 左右边距 + 所有的标题最小间距<br>``注意：readonly``|  
