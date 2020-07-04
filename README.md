@@ -155,7 +155,8 @@ end
     
     CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers; //必传参数
-    
+    pageView.cm_config = config;
+
     [self.view addSubview:pageView];
 ```
 
