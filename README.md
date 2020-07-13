@@ -150,7 +150,7 @@ end
 创建CMPageTitleView 后，创建CMPageTitleConfig 对象并设置所需配置：
 
 ```
- CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:frame];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:frame];
     pageView.delegate = self;
     
     CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
@@ -163,7 +163,7 @@ end
 同样支持Masonry布局，代码如下：
 
 ```
-  CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
     [self.view addSubview:pageView];
     
     [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
