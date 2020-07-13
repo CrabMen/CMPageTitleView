@@ -8,6 +8,7 @@
 
 #import "CMChildTableController.h"
 #import <Masonry.h>
+#import "MJRefresh.h"
 @interface CMChildTableController ()
 
 @property(nonatomic,weak) UIButton *button;
@@ -61,24 +62,44 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"viewDidLoad --- %@",self.title);
-  
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     NSLog(@"viewWillAppear --- %@",self.title);
-  
     
-      if (self.topInset) {
-             self.tableView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0);
-             if (@available(iOS 11.0, *)) {
-                 self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-             } else {
-                 self.automaticallyAdjustsScrollViewInsets = NO;
-             }
-         } else {
-             self.tableView.contentInset = UIEdgeInsetsZero;
-         }
+    
+    if (self.topInset) {
+        self.tableView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0);
+        self.tableView.mj_header = nil;
+    } else {
+        self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+                   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                       [self.tableView.mj_header endRefreshing];
+                       
+                   });
+               } ];
+        self.tableView.contentInset = UIEdgeInsetsZero;
+    }
+    
+    if (self.tableView.mj_header) {
+        [self.tableView.mj_header beginRefreshing];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.tableView.mj_header endRefreshing];
+            
+        });
+    }
+    
+#warning --- scrollview下沉问题,请添加以下代码
+    
+    if (@available(iOS 11.0, *)) {
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -90,7 +111,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     NSLog(@"viewDidAppear --- %@",self.title);
-  
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
