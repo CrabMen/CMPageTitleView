@@ -8,6 +8,7 @@ target 'CMPageTitleView' do
   # Pods for CMPageTitleView
 
   pod 'Masonry'
+  pod 'MJRefresh'
   
 target 'CMPageTitleViewTests' do
     inherit! :search_paths

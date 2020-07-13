@@ -1712,7 +1712,8 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 - (void)cm_pageTitleViewSelectedWithIndex:(NSInteger)index Repeat:(BOOL)repeat {
     
-    NSLog(@"第%ld个标题被选中；且%@是重复选中",index,repeat?@"":@"不");
+    NSLog(@"第%ld个标题被选中；且%@是重复选中\n当前视图的高度:%lf",index,repeat?@"":@"不",self.pageTitleView.cm_config.cm_childControllers[index].view.cm_y);
+    
     
 }
 
