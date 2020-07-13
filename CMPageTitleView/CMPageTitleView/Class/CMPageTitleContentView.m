@@ -115,7 +115,7 @@
         collectionView.delegate = self;
         collectionView.dataSource = self;
         collectionView.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
-        collectionView.hidden = YES;
+//        collectionView.hidden = YES;
         _collectionView = collectionView;
         
         [self insertSubview:_collectionView atIndex:0];
@@ -651,12 +651,17 @@ CMPageTitleBgCell *cell = (CMPageTitleBgCell *)[backgroundCollection dequeueReus
     
     [self modifyColorWithScrollProgress:progress FromIndex:fromIndex ToIndex:toIndex];
     [self modifyScaleWithScrollProgress:progress FromIndex:fromIndex ToIndex:toIndex];
-    //    [self modifyUnderlineWithScrollProgress:progress fromIndex:fromIndex toIndex:toIndex];
     [self modifyUnderlineWithScrollProgress:progress fromCell:fromCell targetCell:targetCell];
+    
+    self.backgroundCollection.contentOffset = CGPointMake(0, 0);
+    
     
 }
 
 - (void)cm_pageTitleViewDidScrollProgress:(CGFloat)progress LeftIndex:(NSUInteger)leftIndex RightIndex:(NSUInteger)rightIndex {
+    if (self.config.cm_switchMode & CMPageTitleSwitchMode_Delay) return;
+    
+    
     
     
 }
