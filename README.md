@@ -150,7 +150,7 @@ end
 创建CMPageTitleView 后，创建CMPageTitleConfig 对象并设置所需配置：
 
 ```
- CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:frame];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] initWithFrame:frame];
     pageView.delegate = self;
     
     CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
@@ -163,7 +163,7 @@ end
 同样支持Masonry布局，代码如下：
 
 ```
-  CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
+    CMPageTitleView *pageView = [[CMPageTitleView alloc] init];
     [self.view addSubview:pageView];
     
     [pageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -269,6 +269,22 @@ end
   * 紧急修复iOS10机型标题栏的NSLayoutConstraint偏移问题
 * 2020-06-07 版本 **0.7.0** 
   * 新增全屏穿透样式
+  
+## 注意
+**1. UIScrollView、UITableView、UICollectionView 在标题栏切换时，下沉问题**
+在``UIScrollView``、``UITableView``、``UICollectionView``视图所在的Controller中添加如下代码，（具体可以参考Demo中``CMChildTableController.m``的第95行）
+
+```
+  if (@available(iOS 11.0, *)) {
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+```
+**2. 0.7.0版本中新增的全屏穿透样式**
+全屏穿透样式在使用**MJRefresh**作为视图的下拉刷新时，透过标题栏是可以看到下拉刷新的布局的，请合理使用。
+目前暂未想到良好的解决方案，如果你有好的方案，可以提PR
+
 
 ## <a id="support"></a>支持
 * 如果觉得该三方库还不错，可以[**★Star**](#)支持一下你的[**★Star**](#)就是我最大的动力
