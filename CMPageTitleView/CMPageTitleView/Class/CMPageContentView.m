@@ -38,6 +38,10 @@
         if (self.cm_navigationController && self.config.cm_slideGestureEnable) {
             [self.panGestureRecognizer requireGestureRecognizerToFail:self.cm_navigationController.interactivePopGestureRecognizer];
         }
+        
+        if (@available(iOS 11.0, *)) {
+            self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
     }
     return self;
 }
@@ -63,6 +67,9 @@
     cell.cm_contentView = [self.config.cm_childControllers[indexPath.row] view];
     [self.config.cm_parentController addChildViewController:self.config.cm_childControllers[indexPath.row]];
     [self.config.cm_childControllers[indexPath.row] didMoveToParentViewController:self.config.cm_parentController];
+    
+    NSLog(@"-----cell的高度%lf----",cell.cm_y);
+    
     return cell;
 }
 
