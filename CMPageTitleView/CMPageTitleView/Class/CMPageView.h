@@ -1,5 +1,5 @@
 //
-//  CMPageContentView.h
+//  CMPageView.h
 //  CMDisplayTitleView
 //
 //  GitHub 下载地址：https://github.com/CrabMen/CMPageTitleView
@@ -13,8 +13,8 @@
 #import "CMPageTitleConfig.h"
 
 
-@class CMPageContentView;
-@protocol CMPageContentViewDelegate <NSObject>
+@class CMPageView;
+@protocol CMPageViewDelegate <NSObject>
 
 @required
 
@@ -56,10 +56,10 @@
 @end
 
 
-@interface CMPageContentView : UICollectionView
+@interface CMPageView : UICollectionView
 
 /**delegate*/
-@property (nonatomic,weak) id <CMPageContentViewDelegate> cm_delegate;
+@property (nonatomic,weak) id <CMPageViewDelegate> cm_delegate;
 
 
 
@@ -69,7 +69,7 @@
  @param frame frame
  @param layout layout
  @param config config 用于配置视图
- @return CMPageContentView对象
+ @return CMPageView对象
  */
 - (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout Config:(CMPageTitleConfig *)config;
 

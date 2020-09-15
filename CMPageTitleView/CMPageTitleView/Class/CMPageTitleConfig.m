@@ -167,6 +167,8 @@
         
         self.cm_scale = 1.2;
         
+        self.cm_selectedFont = [UIFont systemFontOfSize:self.cm_scale *self.cm_font.pointSize];
+        
         self.cm_animationDruction = 0.25;
         
         self.cm_contentMode = CMPageTitleContentMode_Center;

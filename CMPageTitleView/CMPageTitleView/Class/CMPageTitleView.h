@@ -11,6 +11,8 @@
 
 #import <UIKit/UIKit.h>
 #import "CMPageTitleConfig.h"
+#import "CMTitleView.h"
+#import "CMPageView.h"
 
 @protocol CMPageTitleViewDelegate <NSObject>
 
@@ -44,6 +46,7 @@
 
 @protocol CMPageTitleViewDataSource <NSObject>
 
+- (void)cm_titleCell:(CMTitleCell *)titleCell cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
@@ -61,6 +64,12 @@
  配置
  */
 @property (nonatomic,strong) CMPageTitleConfig *cm_config;
+/**标题容器 */
+@property (nonatomic,strong,readonly) CMTitleView *cm_titleContentView;
+/**内容容器 */
+@property (nonatomic,strong,readonly) CMPageView *cm_contentView;
+
+- (instancetype)initWithConfig:(CMPageTitleConfig *)config;
 
 
 /**重载配置*/

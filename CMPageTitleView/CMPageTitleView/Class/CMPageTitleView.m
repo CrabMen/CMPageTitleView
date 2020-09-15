@@ -11,16 +11,17 @@
 
 
 #import "CMPageTitleView.h"
-#import "CMPageTitleContentView.h"
-#import "CMPageContentView.h"
+#import "CMTitleView.h"
+#import "CMPageView.h"
 #import "CMPageTitleViewMacro.h"
 #import <objc/runtime.h>
 
-@interface CMPageTitleView() <CMPageTitleContentViewDelegate,CMPageContentViewDelegate>
+@interface CMPageTitleView() <CMTitleViewDelegate,CMPageViewDelegate>
 
-@property (nonatomic,weak) CMPageTitleContentView *titleView;
 
-@property (nonatomic,weak) CMPageContentView *contentView;
+@property (nonatomic,weak) CMTitleView *titleView;
+
+@property (nonatomic,weak) CMPageView *pageView;
 
 @property (nonatomic,weak) UIView *seperateline;
 
@@ -33,7 +34,6 @@
 - (UIView *)seperateline {
     
     if (!_seperateline) {
-        
         UIView *seperateline = [[UIView alloc] init];
         seperateline.backgroundColor = self.cm_config.cm_seperaterLineColor;
         _seperateline = seperateline;
@@ -43,10 +43,10 @@
     return _seperateline;
 }
 
-- (CMPageTitleContentView *)titleView {
+- (CMTitleView *)titleView {
     
     if (!_titleView) {
-        CMPageTitleContentView *titleView = [[CMPageTitleContentView alloc] initWithConfig:self.cm_config];
+        CMTitleView *titleView = [[CMTitleView alloc] initWithConfig:self.cm_config];
         titleView.cm_delegate = self;
         _titleView = titleView;
         
@@ -56,18 +56,17 @@
 }
 
 
-- (CMPageContentView *)contentView {
-    if (!_contentView) {
-        
+- (CMPageView *)pageView {
+    if (!_pageView) {
         CMFlowLayout *layout = [CMFlowLayout new];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        CMPageContentView *contentView = [[CMPageContentView alloc] initWithFrame:CGRectZero collectionViewLayout:layout Config:self.cm_config];
-        contentView.cm_delegate = self;
-        _contentView = contentView;
-        [self addSubview:_contentView];
+        CMPageView *pageView = [[CMPageView alloc] initWithFrame:CGRectZero collectionViewLayout:layout Config:self.cm_config];
+        pageView.cm_delegate = self;
+        _pageView = pageView;
+        [self addSubview:_pageView];
         
     }
-    return _contentView;
+    return _pageView;
 }
 
 - (UIViewController *)parentController {
@@ -86,13 +85,24 @@
     [self initSubViews];
 }
 
+
+- (instancetype)initWithConfig:(CMPageTitleConfig *)config {
+    
+    if (self = [super init]) {
+        _cm_config = config;
+        _cm_titleContentView = self.titleView;
+        _cm_contentView = self.pageView;
+    }
+    return self;
+}
+
 - (void)cm_reloadConfig {
     
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     self.seperateline = nil;
     self.titleView = nil;
-    self.contentView = nil;
+    self.pageView = nil;
     
     [self layoutSubviews];
     
@@ -127,12 +137,12 @@
     
     self.titleView.translatesAutoresizingMaskIntoConstraints = NO;
     self.seperateline.translatesAutoresizingMaskIntoConstraints = NO;
-    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.pageView.translatesAutoresizingMaskIntoConstraints = NO;
     
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleView}]];
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[seperateline]|" options:0 metrics:@{}views:@{@"seperateline":self.seperateline}]];
-    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[content]|" options:0 metrics:@{}views:@{@"content":self.contentView}]];
-    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title(==titleH)][seperateline(==seperateH)][content]|" options:0 metrics:@{@"titleH":@(self.cm_config.cm_titleHeight),@"seperateH":@((self.cm_config.cm_additionalMode&CMPageTitleAdditionalMode_Seperateline) ? self.cm_config.cm_seperateLineHeight : 0)}views:@{@"title":self.titleView,@"seperateline":self.seperateline,@"content":self.contentView}]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[content]|" options:0 metrics:@{}views:@{@"content":self.pageView}]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title(==titleH)][seperateline(==seperateH)][content]|" options:0 metrics:@{@"titleH":@(self.cm_config.cm_titleHeight),@"seperateH":@((self.cm_config.cm_additionalMode&CMPageTitleAdditionalMode_Seperateline) ? self.cm_config.cm_seperateLineHeight : 0)}views:@{@"title":self.titleView,@"seperateline":self.seperateline,@"content":self.pageView}]];
     
     
     if (self.cm_config.cm_rightView && self.cm_config.cm_contentMode != CMPageTitleContentMode_Right) {
@@ -148,7 +158,7 @@
 
 
 
-#pragma mark --- CMPageTitleContentViewDelegate
+#pragma mark --- CMTitleViewDelegate
 
 - (void)cm_pageTitleContentViewClickWithLastIndex:(NSUInteger)LastIndex Index:(NSUInteger)index Repeat:(BOOL)repeat {
     
@@ -158,13 +168,13 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(cm_pageTitleViewClickWithIndex:Repeat:)])
         [self.delegate cm_pageTitleViewClickWithIndex:index Repeat:repeat];
     
-    if (!repeat)  [self.contentView setContentOffset:CGPointMake(index * self.cm_width, 0)];
+    if (!repeat)  [self.pageView setContentOffset:CGPointMake(index * self.cm_width, 0)];
     if (!repeat) [self transtitonFromIndex:LastIndex TargetIndex:index];
     
 }
 
 
-#pragma mark --- CMPageContentViewDelegate
+#pragma mark --- CMPageViewDelegate
 
 - (void)cm_pageContentViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     [self.titleView cm_pageTitleContentViewAdjustPosition:scrollView];
@@ -192,7 +202,7 @@
 - (void)cm_pageContentViewDidScrollProgress:(CGFloat)progress FromIndex:(NSUInteger)fromIndex ToIndex:(NSUInteger)toIndex {
     
     [self.titleView cm_pageContentViewDidScrollProgress:progress FromIndex:fromIndex ToIndex:toIndex];
-
+    
 }
 
 

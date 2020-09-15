@@ -217,6 +217,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     self.pageTitleView.delegate = self;
     CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
+    config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     
     self.pageTitleView.cm_config = config;

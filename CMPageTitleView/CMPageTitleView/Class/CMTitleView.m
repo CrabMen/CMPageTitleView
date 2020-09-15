@@ -1,5 +1,5 @@
 //
-//  CMPageTitleContentView.m
+//  CMTitleView.m
 //  CMDisplayTitleView
 //
 //  GitHub 下载地址：https://github.com/CrabMen/CMPageTitleView
@@ -9,13 +9,12 @@
 //  Copyright © 2018年 CrabMan. All rights reserved.
 //
 
-#import "CMPageTitleContentView.h"
-@interface CMPageTitleContentView ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,CMPageTitleDelegateFlowLayout>
+#import "CMTitleView.h"
+@interface CMTitleView ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,CMPageTitleDelegateFlowLayout>
 
 
 /**配置*/
 @property (nonatomic,strong) CMPageTitleConfig *config;
-
 
 /**是否点击了标题*/
 @property (nonatomic,assign) BOOL isClickTitle;
@@ -49,7 +48,7 @@
 @end
 
 
-@implementation CMPageTitleContentView
+@implementation CMTitleView
 
 - (NSLayoutConstraint *)xConstraint {
     
@@ -107,11 +106,15 @@
         CMPageTitleFlowLayout *layout = [CMPageTitleFlowLayout new];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         layout.minimumInteritemSpacing = 30;
+        layout.minimumLineSpacing = 30;
+
+        layout.estimatedItemSize = CGSizeMake(0, self.config.cm_titleHeight);
         
         UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
-        [collectionView registerClass:CMPageTitleCell.class forCellWithReuseIdentifier:NSStringFromClass(CMPageTitleCell.class)];
+        collectionView.translatesAutoresizingMaskIntoConstraints = NO;
+        [collectionView registerClass:CMTitleCell.class forCellWithReuseIdentifier:NSStringFromClass(CMTitleCell.class)];
         collectionView.showsHorizontalScrollIndicator = NO;
-        collectionView.backgroundColor = UIColor.whiteColor;
+        collectionView.backgroundColor = UIColor.clearColor;
         collectionView.delegate = self;
         collectionView.dataSource = self;
         collectionView.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
@@ -131,11 +134,12 @@
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         layout.minimumLineSpacing = 0;
         layout.minimumInteritemSpacing = 0;
-        layout.itemSize = self.bounds.size;
+        layout.itemSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, self.config.cm_titleHeight);
         UICollectionView *backgroundCollection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+        backgroundCollection.translatesAutoresizingMaskIntoConstraints = NO;
         [backgroundCollection registerClass:CMPageTitleBgCell.class forCellWithReuseIdentifier:NSStringFromClass(CMPageTitleBgCell.class)];
         backgroundCollection.showsHorizontalScrollIndicator = NO;
-        backgroundCollection.backgroundColor = UIColor.whiteColor;
+        backgroundCollection.backgroundColor = UIColor.clearColor;
         backgroundCollection.delegate = self;
         backgroundCollection.dataSource = self;
         backgroundCollection.pagingEnabled = YES;
@@ -143,7 +147,7 @@
         
         _backgroundCollection = backgroundCollection;
         
-        [self insertSubview:_backgroundCollection atIndex:0];
+        [self insertSubview:_backgroundCollection belowSubview:self.collectionView];
         
     }
     return _backgroundCollection;
@@ -170,6 +174,7 @@
         underLine.translatesAutoresizingMaskIntoConstraints = NO;
         _underLine = underLine;
         [self insertSubview:_underLine aboveSubview:self.collectionView];
+        
     }
     return _underLine ;
 }
@@ -207,6 +212,8 @@
         self.backgroundColor = self.config.cm_backgroundColor ? : [UIColor whiteColor];
         self.delegate = self;
         [self initSubViews];
+        
+        
     }
     
     return self;
@@ -216,14 +223,12 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    
 }
 
 - (void)initVFLContraints {
     
     
-    self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.backgroundCollection.translatesAutoresizingMaskIntoConstraints = NO;
+  
     
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundCollection attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:0]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.backgroundCollection attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
@@ -247,6 +252,11 @@
         [self.underLine addConstraint:self.wConstraint];
         [self.underLine addConstraint:self.hConstraint];
     }
+    
+    
+    
+    
+    [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:self.config.cm_selectedIndex inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
     
 }
 
@@ -275,7 +285,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-    CMPageTitleCell *cell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.config.cm_selectedIndex inSection:0]];
+    CMTitleCell *cell = (CMTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.config.cm_selectedIndex inSection:0]];
     
     CGRect frame = [self.collectionView convertRect:cell.frame toView:self];
     
@@ -295,7 +305,7 @@
     _isClickTitle = YES;
     
     [self.collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
-    CMPageTitleCell *cell = (CMPageTitleCell*)[collectionView cellForItemAtIndexPath:indexPath];
+    CMTitleCell *cell = (CMTitleCell*)[collectionView cellForItemAtIndexPath:indexPath];
     NSLog(@"%@", [NSString stringWithFormat:@"选中 -- %02ld -- %@",(long)indexPath.item,cell.titleLabel.text]);
     
     if (self.cm_delegate) {
@@ -316,7 +326,7 @@
 }
 
 
-- (void)animateUnderlineWithCell:(CMPageTitleCell *)cell {
+- (void)animateUnderlineWithCell:(CMTitleCell *)cell {
     
     if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline)) return;
     
@@ -335,30 +345,15 @@
     
     if (collectionView == self.backgroundCollection) return;
     
-    CMPageTitleCell *cell = (CMPageTitleCell*)[collectionView cellForItemAtIndexPath:indexPath];
+    CMTitleCell *cell = (CMTitleCell*)[collectionView cellForItemAtIndexPath:indexPath];
     NSLog(@"%@", [NSString stringWithFormat:@"反选 -- %02ld -- %@",(long)indexPath.item,cell.titleLabel.text]);
 }
 
 
-//
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    
-    if (collectionView == self.backgroundCollection) {
-        
-        return self.backgroundCollection.bounds.size;
-    } else {
-        UIFont *font = [UIFont systemFontOfSize:self.config.cm_font.pointSize*self.config.cm_scale];
-          CGSize size = [self.config.cm_titles[indexPath.item] boundingRectWithSize:CGSizeMake(MAXFLOAT, 0) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading |  NSStringDrawingTruncatesLastVisibleLine attributes:@{NSFontAttributeName:font} context:nil].size;
-          NSLog(@"重新计算宽度");
-          return CGSizeMake(size.width, self.config.cm_titleHeight);
-        
-    }
-  
-}
-
 
 
 #pragma mark --- UICollectionViewDataSource
+
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -372,10 +367,11 @@
 
 - (UICollectionViewCell *)titleCollection:(UICollectionView *)titleCollection cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 
-  CMPageTitleCell *cell = [titleCollection dequeueReusableCellWithReuseIdentifier:NSStringFromClass(CMPageTitleCell.class) forIndexPath:indexPath];
+  CMTitleCell *cell = [titleCollection dequeueReusableCellWithReuseIdentifier:NSStringFromClass(CMTitleCell.class) forIndexPath:indexPath];
   cell.titleLabel.text = self.config.cm_titles[indexPath.item];
   cell.titleLabel.font = self.config.cm_font;
-  cell.imgViewSize = CGSizeMake(10, 10);
+  cell.cm_contentMode = indexPath.item % 4;
+  cell.spacing = 6;
   
   [cell cm_cellSetSelectedCompletion:^(BOOL selected) {
       
@@ -393,7 +389,6 @@
       }
       
   }];
-  
   if (self.config.cm_switchMode & CMPageTitleSwitchMode_Scale){
       
       CGFloat scale = 1/ self.config.cm_scale ;
@@ -406,14 +401,39 @@
       }
       
   }
-  
+
+    
+    
+    
+    if (indexPath.row == self.config.cm_selectedIndex) {
+        [self initUnderlineConstraintsWithCell:cell indexPath:indexPath];
+    }
+    
+
+    
+    
   return cell;
   
 }
 
 
+
+- (void)initUnderlineConstraintsWithCell:(UICollectionViewCell*)cell indexPath:(NSIndexPath *)indexPath{
+    
+    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline)) return;
+    
+        
+    UICollectionViewLayoutAttributes *attr = [cell preferredLayoutAttributesFittingAttributes:[UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath]];
+    
+    self.xConstraint.constant = attr.center.x ;
+    self.wConstraint.constant = attr.size.width;
+    
+    
+}
+
+
 - (UICollectionViewCell *)backgroundCollection:(UICollectionView *)backgroundCollection cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-CMPageTitleBgCell *cell = (CMPageTitleBgCell *)[backgroundCollection dequeueReusableCellWithReuseIdentifier:NSStringFromClass(CMPageTitleBgCell.class) forIndexPath:indexPath];
+   CMPageTitleBgCell *cell = (CMPageTitleBgCell *)[backgroundCollection dequeueReusableCellWithReuseIdentifier:NSStringFromClass(CMPageTitleBgCell.class) forIndexPath:indexPath];
     
     return  cell;
     
@@ -443,8 +463,8 @@ CMPageTitleBgCell *cell = (CMPageTitleBgCell *)[backgroundCollection dequeueReus
     
     if (_isClickTitle || toIndex >= [self.collectionView numberOfItemsInSection:0]) return;
     
-    CMPageTitleCell *toCell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:toIndex inSection:0]];
-    CMPageTitleCell *fromCell = (CMPageTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:fromIndex inSection:0]];
+    CMTitleCell *toCell = (CMTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:toIndex inSection:0]];
+    CMTitleCell *fromCell = (CMTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:fromIndex inSection:0]];
     CMDisplayTitleLabel *toLabel = toCell.titleLabel;
     CMDisplayTitleLabel *fromLabel = fromCell.titleLabel;
     
@@ -491,8 +511,8 @@ CMPageTitleBgCell *cell = (CMPageTitleBgCell *)[backgroundCollection dequeueReus
 - (void)modifyScaleWithScrollProgress:(CGFloat)progress FromIndex:(NSUInteger)fromIndex ToIndex:(NSUInteger)toIndex {
     if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Scale) || _isClickTitle || toIndex >= [self.collectionView numberOfItemsInSection:0] || self.config.cm_switchMode & CMPageTitleSwitchMode_Delay) return;
     
-    CMPageTitleCell *fromCell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:fromIndex inSection:0]];
-    CMPageTitleCell *toCell = (CMPageTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:toIndex inSection:0]];
+    CMTitleCell *fromCell = (CMTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:fromIndex inSection:0]];
+    CMTitleCell *toCell = (CMTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:toIndex inSection:0]];
     
     CGFloat rightScale = progress;
     
@@ -504,7 +524,7 @@ CMPageTitleBgCell *cell = (CMPageTitleBgCell *)[backgroundCollection dequeueReus
     fromCell.transform = CGAffineTransformMakeScale(1 - progress * scaleTransform ,1- progress * scaleTransform );
     toCell.transform = CGAffineTransformMakeScale(1 - leftScale * scaleTransform , 1 -  leftScale * scaleTransform );
 }
-- (void)modifyUnderlineWithScrollProgress:(CGFloat)progress fromCell:(CMPageTitleCell *)fromCell targetCell:(CMPageTitleCell *)targetCell {
+- (void)modifyUnderlineWithScrollProgress:(CGFloat)progress fromCell:(CMTitleCell *)fromCell targetCell:(CMTitleCell *)targetCell {
     
     
     if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline) || _isClickTitle || fromCell == nil || targetCell == nil || self.config.cm_switchMode & CMPageTitleSwitchMode_Delay) return;
@@ -574,8 +594,8 @@ CMPageTitleBgCell *cell = (CMPageTitleBgCell *)[backgroundCollection dequeueReus
     if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline) || _isClickTitle || toIndex >= [self.collectionView numberOfItemsInSection:0]|| self.config.cm_switchMode & CMPageTitleSwitchMode_Delay) return;
     
     
-    CMPageTitleCell *fromCell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:fromIndex inSection:0]];
-    CMPageTitleCell *toCell = (CMPageTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:toIndex inSection:0]];
+    CMTitleCell *fromCell = (CMTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:fromIndex inSection:0]];
+    CMTitleCell *toCell = (CMTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:toIndex inSection:0]];
     
     
     CGFloat rightLabelX = toCell.cm_x + (1 - self.config.cm_underlineWidthScale)*toCell.cm_width*0.5;
@@ -646,8 +666,8 @@ CMPageTitleBgCell *cell = (CMPageTitleBgCell *)[backgroundCollection dequeueReus
     
     NSLog(@"滚动时的progress ----- %lf",progress);
     
-    CMPageTitleCell *fromCell = (CMPageTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:fromIndex inSection:0]];
-    CMPageTitleCell *targetCell = (CMPageTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:toIndex inSection:0]];
+    CMTitleCell *fromCell = (CMTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:fromIndex inSection:0]];
+    CMTitleCell *targetCell = (CMTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:toIndex inSection:0]];
     
     [self modifyColorWithScrollProgress:progress FromIndex:fromIndex ToIndex:toIndex];
     [self modifyScaleWithScrollProgress:progress FromIndex:fromIndex ToIndex:toIndex];
@@ -715,11 +735,7 @@ CMPageTitleBgCell *cell = (CMPageTitleBgCell *)[backgroundCollection dequeueReus
 - (void)prepareLayout {
     [super prepareLayout];
     if (!self.collectionView) return;
-    
-    if ([self.collectionView.superview respondsToSelector:@selector(collectionView:layout:sizeForItemImageViewAtIndexPath:)]) {
-        
-    }
-    
+
 }
 @end
 
@@ -745,7 +761,8 @@ typedef void(^SelectedBlock)(BOOL selected);
 - (UIImageView *)imageView {
     if (!_imageView) {
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background_image"]];
-        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        
         _imageView = imageView;
         [self.contentView addSubview:_imageView];
     }
@@ -770,7 +787,7 @@ typedef void(^SelectedBlock)(BOOL selected);
 
 
 
-@interface CMPageTitleCell ()
+@interface CMTitleCell ()
 
 @property(nonatomic,copy) SelectedBlock block;
 
@@ -779,12 +796,28 @@ typedef void(^SelectedBlock)(BOOL selected);
 @end
 
 
-@implementation CMPageTitleCell
+@implementation CMTitleCell
+
+- (UIStackView *)container {
+    if (!_container) {
+        UIStackView *container = [[UIStackView alloc] initWithArrangedSubviews:@[self.titleLabel,self.imageView]];
+        container.translatesAutoresizingMaskIntoConstraints = NO;
+        container.axis = UILayoutConstraintAxisHorizontal;
+        container.alignment = UIStackViewAlignmentFill;
+        container.distribution= UIStackViewDistributionFill;
+        _container = container;
+        [self.contentView addSubview:_container];
+    }
+    return _container;
+    
+}
 
 - (UIImageView *)imageView {
     if (!_imageView) {
         UIImageView *imageView = [[UIImageView alloc] init];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
+        imageView.translatesAutoresizingMaskIntoConstraints = NO;
+        imageView.image = [UIImage imageNamed:@"home_message"];
         _imageView = imageView;
         [self.contentView addSubview:_imageView];
     }
@@ -794,8 +827,8 @@ typedef void(^SelectedBlock)(BOOL selected);
 - (CMDisplayTitleLabel *)titleLabel {
     
     if (!_titleLabel) {
-        
         CMDisplayTitleLabel *titleLabel = [CMDisplayTitleLabel new];
+        titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         titleLabel.textColor = UIColor.blackColor;
         titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel = titleLabel;
@@ -812,51 +845,54 @@ typedef void(^SelectedBlock)(BOOL selected);
     
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
+- (instancetype)initWithFrame:(CGRect)frame {
     
-    [self initSubviewsVFL];
+    if (self = [super initWithFrame:frame]) {
+         [self initSubviewsVFL];
+        self.cm_contentMode = CMTitleCellContentMode_ImageTop;
+    }
+    return self;
+}
+
+- (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes {
     
+    UICollectionViewLayoutAttributes *attr = [super preferredLayoutAttributesFittingAttributes:layoutAttributes];
+    CGSize size = [self.contentView systemLayoutSizeFittingSize:attr.size];
+    CGRect frame = layoutAttributes.frame;
+    frame.size = size;
+    attr.frame = frame;
+    NSLog(@"自适应大小");
+    return  attr;
     
 }
 
-- (void)initSubviewsVFL {
-    self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.imageView.translatesAutoresizingMaskIntoConstraints = NO;
-    if (self.cm_contentMode == CMPageTitleCellContentMode_ImageTop) {
-        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleLabel}]];
-        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title]|" options:0 metrics:@{@"H":@(10)} views:@{@"image":self.imageView,@"title":self.titleLabel}]];
-        //        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image(10)]" options:NSLayoutFormatAlignAllCenterX metrics:@{}views:@{@"image":self.imageView}]];
-        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[image(10)][title(==H)]|" options:0 metrics:@{@"H":@(10)} views:@{@"image":self.imageView,@"title":self.titleLabel}]];
-        
-        //水平居中
-        //        [NSLayoutConstraint activateConstraints:@[[NSLayoutConstraint constraintWithItem:self.imageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.titleLabel attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]]];
-        
-        
-    } else if (self.cm_contentMode == CMPageTitleCellContentMode_ImageBottom) {
-        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleLabel}]];
-        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[image]|" options:0 metrics:@{}views:@{@"image":self.imageView}]];
-        
-        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title][image]|" options:0 metrics:@{}views:@{@"title":self.titleLabel,@"image":self.imageView}]];
-        
-    }else if (self.cm_contentMode == CMPageTitleCellContentMode_ImageLeft) {
-        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[image][title]|" options:0 metrics:@{}views:@{@"title":self.titleLabel,@"image":self.imageView}]];
-        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[image]|" options:0 metrics:@{}views:@{@"image":self.imageView}]];
-        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleLabel}]];
-        
-        
-        
-    }else if (self.cm_contentMode == CMPageTitleCellContentMode_ImageRigth) {
-        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[title][image]|" options:0 metrics:@{}views:@{@"title":self.titleLabel,@"image":self.imageView}]];
-        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[image]|" options:0 metrics:@{}views:@{@"image":self.imageView}]];
-        [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleLabel}]];
-        
+
+- (void)setCm_contentMode:(CMPageTitleContentMode)cm_contentMode {
+    
+     _cm_contentMode = cm_contentMode;
+    self.container.axis = (cm_contentMode == CMTitleCellContentMode_ImageLeft || cm_contentMode == CMTitleCellContentMode_ImageRigth) ? UILayoutConstraintAxisHorizontal : UILayoutConstraintAxisVertical;
+
+    if (cm_contentMode == CMTitleCellContentMode_ImageTop || cm_contentMode == CMTitleCellContentMode_ImageLeft) {
+       NSArray *subviews = [[self.container.arrangedSubviews reverseObjectEnumerator] allObjects];
+       [self.container setValue:subviews forKey:@"arrangedSubviews"];
     }
     
+      
+}
+
+
+
+- (void)setSpacing:(CGFloat)spacing {
+    _spacing = spacing;
+    self.container.spacing = spacing;
+}
+
+- (void)initSubviewsVFL {
     
-    //
-    //    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleLabel}]];
-    //    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[title]|" options:0 metrics:@{}views:@{@"title":self.titleLabel}]];
+//    self.contentView.backgroundColor = RandomColor;
+    
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[container]|" options:0 metrics:@{}views:@{@"container":self.container}]];
+    [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[container]|" options:0 metrics:@{}views:@{@"container":self.container}]];
 }
 
 

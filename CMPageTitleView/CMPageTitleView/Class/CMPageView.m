@@ -1,5 +1,5 @@
 //
-//  CMPageContentView.m
+//  CMPageView.m
 //  CMDisplayTitleView
 //
 //  GitHub 下载地址：https://github.com/CrabMen/CMPageTitleView
@@ -9,8 +9,8 @@
 //  Copyright © 2018年 Mac. All rights reserved.
 //
 
-#import "CMPageContentView.h"
-@interface CMPageContentView ()<UICollectionViewDelegate,UICollectionViewDataSource>
+#import "CMPageView.h"
+@interface CMPageView ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 /**是否动画*/
 @property (nonatomic,assign) BOOL isAniming;
@@ -19,7 +19,7 @@
 
 @end
 
-@implementation CMPageContentView
+@implementation CMPageView
 
 
 - (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout Config:(CMPageTitleConfig *)config{

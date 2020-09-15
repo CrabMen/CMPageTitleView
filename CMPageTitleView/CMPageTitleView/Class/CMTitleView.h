@@ -1,5 +1,5 @@
 //
-//  CMPageTitleContentView.h
+//  CMTitleView.h
 //  CMDisplayTitleView
 //
 //  GitHub 下载地址：https://github.com/CrabMen/CMPageTitleView
@@ -11,11 +11,11 @@
 
 #import <UIKit/UIKit.h>
 #import "CMPageTitleConfig.h"
-@protocol CMPageTitleContentViewDelegate <NSObject>
+@protocol CMTitleViewDelegate <NSObject>
 
 @required
 /**
- 当CMPageTitleContentView 中标题被点击会调用该代理方法
+ 当CMTitleView 中标题被点击会调用该代理方法
 
  @param index 当前点击的标题的index
  @param repeat 是否是重复点击
@@ -25,29 +25,29 @@
 @end
 
 
-@interface CMPageTitleContentView : UIView
+@interface CMTitleView : UIView
 
 /**选中的标题*/
 @property (nonatomic,assign) NSInteger cm_selectedIndex;
 
 
 /**点击daili*/
-@property (nonatomic,weak) id <CMPageTitleContentViewDelegate> cm_delegate;
+@property (nonatomic,weak) id <CMTitleViewDelegate> cm_delegate;
 
 
 /**
  初始化方法
 
  @param config 配置对象
- @return CMPageTitleContentView对象
+ @return CMTitleView对象
  */
 - (instancetype)initWithConfig:(CMPageTitleConfig *)config;
 
 
 /**
  
- 根据CMPageContentView对象的滚动情况，
- 调整CMPageTitleContentView对象的滚动情况
+ 根据CMPageView对象的滚动情况，
+ 调整CMTitleView对象的滚动情况
  
  @param progress 0~1 推拽比例
  @param leftIndex 左边的下标
@@ -57,9 +57,9 @@
 
 
 /**
- 根据CMPageContentView对象的滚动情况，
- 调整CMPageTitleContentView对象的滚动情况
- @param scrollView  CMPageContentView对象
+ 根据CMPageView对象的滚动情况，
+ 调整CMTitleView对象的滚动情况
+ @param scrollView  CMPageView对象
  */
 - (void)cm_pageTitleContentViewAdjustPosition:(UIScrollView *)scrollView;
 
@@ -94,15 +94,15 @@
 
 
 
-typedef NS_ENUM(NSUInteger,CMPageTitleCellContentMode) {
+typedef NS_ENUM(NSUInteger,CMTitleCellContentMode) {
    
-    CMPageTitleCellContentMode_ImageTop,
+    CMTitleCellContentMode_ImageTop,
     
-    CMPageTitleCellContentMode_ImageLeft,
+    CMTitleCellContentMode_ImageLeft,
     
-    CMPageTitleCellContentMode_ImageBottom,
+    CMTitleCellContentMode_ImageBottom,
     
-    CMPageTitleCellContentMode_ImageRigth,
+    CMTitleCellContentMode_ImageRigth,
     
 };
 
@@ -113,18 +113,19 @@ typedef NS_ENUM(NSUInteger,CMPageTitleCellContentMode) {
 
 @end
 
-@interface CMPageTitleCell : UICollectionViewCell
+@interface CMTitleCell : UICollectionViewCell
 
 @property(nonatomic,strong) NSString *text;
 
 @property(nonatomic,strong) UIImage *image;
 
-
+@property(nonatomic,weak) UIStackView *container;
 
 @property(nonatomic,weak) CMDisplayTitleLabel *titleLabel;
 
 @property(nonatomic,weak) UIImageView *imageView;
 
+@property (nonatomic,assign) CGFloat spacing;
 
 @property(nonatomic,assign) CGSize imgViewSize;
 
