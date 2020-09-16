@@ -51,7 +51,6 @@
 @implementation CMTitleView
 
 - (NSLayoutConstraint *)xConstraint {
-    
     if (!_xConstraint) {
         //        _xConstraint =  [NSLayoutConstraint constraintWithItem:self.underLine attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:self.underlineX];
         UIFont *font = [UIFont systemFontOfSize:self.config.cm_font.pointSize*self.config.cm_scale];
@@ -69,8 +68,8 @@
 - (NSLayoutConstraint *)yConstraint {
     
     if (!_yConstraint) {
-        _yConstraint =  [NSLayoutConstraint constraintWithItem:self.underLine attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:self.underlineW];
-        
+        self.config.cm_underlineSpacing = -4;
+        _yConstraint =  [NSLayoutConstraint constraintWithItem:self.underLine attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:self.config.cm_underlineSpacing];
     }
     
     return _yConstraint;
@@ -372,7 +371,7 @@
   cell.titleLabel.font = self.config.cm_font;
   cell.cm_contentMode = indexPath.item % 4;
   cell.spacing = 6;
-  
+  cell.imageView.hidden = cell.cm_contentMode == CMTitleCellContentMode_ImageTop;
   [cell cm_cellSetSelectedCompletion:^(BOOL selected) {
       
       if (self.config.cm_switchMode & CMPageTitleSwitchMode_Scale){
@@ -442,12 +441,12 @@
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     
-    return 1;
+    return self.config.cm_titles.count;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return  self.config.cm_titles.count;
+    return  1;
     
 }
 
@@ -456,7 +455,6 @@
     
     
 }
-
 
 
 - (void)modifyColorWithScrollProgress:(CGFloat)progress FromIndex:(NSUInteger)fromIndex ToIndex:(NSUInteger)toIndex {
@@ -791,12 +789,49 @@ typedef void(^SelectedBlock)(BOOL selected);
 
 @property(nonatomic,copy) SelectedBlock block;
 
+/**角标 */
+@property (nonatomic,weak) UILabel *badgeLabel;
 
+@property (nonatomic,strong) NSLayoutConstraint *badgeRightConstraint;
+@property (nonatomic,strong) NSLayoutConstraint *badgeTopConstraint;
+@property (nonatomic,strong) NSLayoutConstraint *badgeWidthConstraint;
+@property (nonatomic,strong) NSLayoutConstraint *badgeHightConstraint;
 
 @end
 
 
 @implementation CMTitleCell
+
+- (NSLayoutConstraint *)badgeRightConstraint {
+    if (!_badgeRightConstraint) {
+       _badgeRightConstraint = [NSLayoutConstraint constraintWithItem:self.cm_badgeLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.container attribute:NSLayoutAttributeRight multiplier:1.0 constant:0];
+    }
+    return _badgeRightConstraint;
+}
+
+- (NSLayoutConstraint *)badgeTopConstraint {
+    if (!_badgeTopConstraint) {
+       _badgeTopConstraint = [NSLayoutConstraint constraintWithItem:self.cm_badgeLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.container attribute:NSLayoutAttributeTop multiplier:1.0 constant:0];
+    }
+    return _badgeTopConstraint;
+}
+
+
+- (NSLayoutConstraint *)badgeWidthConstraint {
+    if (!_badgeWidthConstraint) {
+       _badgeWidthConstraint = [NSLayoutConstraint constraintWithItem:self.cm_badgeLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:5];
+    }
+    return _badgeWidthConstraint;
+}
+
+
+- (NSLayoutConstraint *)badgeHightConstraint {
+    if (!_badgeHightConstraint) {
+       _badgeHightConstraint = [NSLayoutConstraint constraintWithItem:self.cm_badgeLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:5];
+    }
+    return _badgeHightConstraint;
+}
+
 
 - (UIStackView *)container {
     if (!_container) {
@@ -838,6 +873,20 @@ typedef void(^SelectedBlock)(BOOL selected);
     return _titleLabel;
 }
 
+- (UILabel *)badgeLabel {
+    
+    if (!_badgeLabel) {
+        UILabel *badgeLabel = [UILabel new];
+        badgeLabel.translatesAutoresizingMaskIntoConstraints = NO;
+        badgeLabel.layer.cornerRadius = 2.5;
+        badgeLabel.layer.masksToBounds = YES;
+        badgeLabel.backgroundColor = UIColor.redColor;
+        _badgeLabel = badgeLabel;
+        [self.contentView addSubview:_badgeLabel];
+    }
+    return _badgeLabel;
+}
+
 
 - (void)cm_cellSetSelectedCompletion:(void (^)(BOOL))completion {
     
@@ -848,8 +897,9 @@ typedef void(^SelectedBlock)(BOOL selected);
 - (instancetype)initWithFrame:(CGRect)frame {
     
     if (self = [super initWithFrame:frame]) {
-         [self initSubviewsVFL];
-        self.cm_contentMode = CMTitleCellContentMode_ImageTop;
+         self.cm_contentMode = CMTitleCellContentMode_ImageTop;
+        _cm_badgeLabel = self.badgeLabel;
+        [self initSubviewsVFL];
     }
     return self;
 }
@@ -880,7 +930,15 @@ typedef void(^SelectedBlock)(BOOL selected);
       
 }
 
-
+- (void)setBadgeOffset:(CGPoint)badgeOffset {
+    
+    _badgeOffset = badgeOffset;
+    
+    self.badgeTopConstraint.constant = badgeOffset.y;
+    self.badgeRightConstraint.constant = badgeOffset.x;
+    
+    
+}
 
 - (void)setSpacing:(CGFloat)spacing {
     _spacing = spacing;
@@ -889,10 +947,11 @@ typedef void(^SelectedBlock)(BOOL selected);
 
 - (void)initSubviewsVFL {
     
-//    self.contentView.backgroundColor = RandomColor;
-    
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[container]|" options:0 metrics:@{}views:@{@"container":self.container}]];
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[container]|" options:0 metrics:@{}views:@{@"container":self.container}]];
+ 
+    [self.contentView addConstraints:@[self.badgeRightConstraint,self.badgeTopConstraint,self.badgeWidthConstraint,self.badgeHightConstraint]];
+    
 }
 
 
@@ -904,8 +963,6 @@ typedef void(^SelectedBlock)(BOOL selected);
         self.block(selected);
     }
     
-    //    self.titleLabel.backgroundColor = RandomColor;
-    
     self.titleLabel.textColor = selected ? UIColor.redColor : UIColor.blackColor ;
     self.titleLabel.cm_fillColor =  UIColor.redColor;
     self.titleLabel.cm_progress =  0;
@@ -914,5 +971,103 @@ typedef void(^SelectedBlock)(BOOL selected);
 
 
 
+
+@end
+
+
+
+#pragma mark --- Class CMTitleSplitterCell
+
+@interface CMTitleSplitterCell ()
+
+/**尺寸 */
+@property (nonatomic,weak) UIImageView *splitter;
+
+
+@property (nonatomic,strong) NSLayoutConstraint *centerXConstraint;
+@property (nonatomic,strong) NSLayoutConstraint *centerYConstraint;
+@property (nonatomic,strong) NSLayoutConstraint *widthConstraint;
+@property (nonatomic,strong) NSLayoutConstraint *heightConstraint;
+
+
+@end
+
+
+@implementation CMTitleSplitterCell
+
+
+- (NSLayoutConstraint *)centerXConstraint {
+    if (!_centerXConstraint) {
+       _centerXConstraint = [NSLayoutConstraint constraintWithItem:self.splitter attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1.0 constant:0];
+    }
+    return _centerXConstraint;
+}
+
+- (NSLayoutConstraint *)centerYConstraint {
+    if (!_centerYConstraint) {
+       _centerYConstraint = [NSLayoutConstraint constraintWithItem:self.splitter attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0];
+    }
+    return _centerYConstraint;
+}
+
+
+- (NSLayoutConstraint *)widthConstraint {
+    if (!_widthConstraint) {
+       _widthConstraint = [NSLayoutConstraint constraintWithItem:self.splitter attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:5];
+    }
+    return _widthConstraint;
+}
+
+
+- (NSLayoutConstraint *)heightConstraint {
+    if (!_heightConstraint) {
+       _heightConstraint = [NSLayoutConstraint constraintWithItem:self.splitter attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:5];
+    }
+    return _heightConstraint;
+}
+
+
+- (UIImageView *)splitter {
+    if (!_splitter) {
+        UIImageView *splitter = [UIImageView new];
+        splitter.backgroundColor = UIColor.lightGrayColor;
+        _splitter = splitter;
+        [self.contentView addSubview:_splitter];
+    }
+    return _splitter;
+    
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self initSubviewsConstraint];
+    }
+    
+    return self;
+}
+
+
+-(void)setCm_size:(CGSize)cm_size {
+    _cm_size = cm_size;
+    
+    self.widthConstraint.constant = cm_size.width;
+    self.heightConstraint.constant = cm_size.height;
+    
+    
+}
+
+- (void)setCm_color:(UIColor *)cm_color {
+    _cm_color = cm_color;
+    
+    self.splitter.backgroundColor = cm_color;
+}
+
+
+
+- (void)initSubviewsConstraint {
+    
+    [self.contentView addConstraints:@[self.centerXConstraint,self.centerYConstraint,self.widthConstraint,self.heightConstraint]];
+    
+}
 
 @end

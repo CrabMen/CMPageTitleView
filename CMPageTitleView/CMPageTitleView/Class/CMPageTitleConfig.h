@@ -37,11 +37,12 @@ typedef NS_OPTIONS(NSUInteger,CMPageTitleSwitchModeOptions) {
     /**下划线样式*/
     CMPageTitleSwitchMode_Underline = 1 << 1,
     
+    
     /**遮罩样式*/
     CMPageTitleSwitchMode_Cover = 1 << 2,
     
     /**滑动切换时延迟，配合其他样式使用*/
-    CMPageTitleSwitchMode_Delay = 1 << 3
+    CMPageTitleSwitchMode_Delay = 1 << 3,
     
 
 };
@@ -273,6 +274,12 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
  设置该属性后下划线会固定使用该宽度
  */
 @property (nonatomic,assign) CGFloat cm_underlineWidth;
+
+@property (nonatomic,assign) CGSize cm_underlineSize;
+
+@property (nonatomic,assign) CGFloat cm_underlineSpacing;
+
+
 
 /**
  下划线跟随文字宽度 * 比例

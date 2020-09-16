@@ -71,8 +71,9 @@
 
 - (instancetype)initWithConfig:(CMPageTitleConfig *)config;
 
-
 /**重载配置*/
 - (void)cm_reloadConfig;
+
+- (void)cm_selectIndex:(NSInteger)index animated:(BOOL)animated;
 
 @end

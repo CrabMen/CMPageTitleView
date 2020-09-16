@@ -16,7 +16,7 @@
 @required
 /**
  当CMTitleView 中标题被点击会调用该代理方法
-
+ 
  @param index 当前点击的标题的index
  @param repeat 是否是重复点击
  */
@@ -37,7 +37,7 @@
 
 /**
  初始化方法
-
+ 
  @param config 配置对象
  @return CMTitleView对象
  */
@@ -95,7 +95,7 @@
 
 
 typedef NS_ENUM(NSUInteger,CMTitleCellContentMode) {
-   
+    
     CMTitleCellContentMode_ImageTop,
     
     CMTitleCellContentMode_ImageLeft,
@@ -129,6 +129,10 @@ typedef NS_ENUM(NSUInteger,CMTitleCellContentMode) {
 
 @property(nonatomic,assign) CGSize imgViewSize;
 
+@property(nonatomic,weak,readonly) UILabel *cm_badgeLabel;
+
+@property(nonatomic,assign) CGPoint badgeOffset;
+
 @property(nonatomic,assign) CMPageTitleContentMode cm_contentMode;
 
 
@@ -136,3 +140,15 @@ typedef NS_ENUM(NSUInteger,CMTitleCellContentMode) {
 
 
 @end
+
+
+@interface CMTitleSplitterCell : UICollectionViewCell
+
+/**尺寸 */
+@property (nonatomic,assign) CGSize cm_size;
+
+@property (nonatomic,strong) UIColor *cm_color;
+
+@end
+
+
