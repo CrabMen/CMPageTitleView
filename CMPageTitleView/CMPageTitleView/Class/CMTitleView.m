@@ -104,11 +104,10 @@
     if (!_collectionView) {
         CMPageTitleFlowLayout *layout = [CMPageTitleFlowLayout new];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        layout.minimumInteritemSpacing = 30;
-        layout.minimumLineSpacing = 30;
-
-        layout.estimatedItemSize = CGSizeMake(0, self.config.cm_titleHeight);
-        
+        layout.minimumInteritemSpacing = 0;
+        layout.minimumLineSpacing = 0;
+//        layout.estimatedItemSize = CGSizeMake(0, self.config.cm_titleHeight);
+        layout.itemSize = CGSizeMake(100, 40);
         UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
         collectionView.translatesAutoresizingMaskIntoConstraints = NO;
         [collectionView registerClass:CMTitleCell.class forCellWithReuseIdentifier:NSStringFromClass(CMTitleCell.class)];
@@ -117,6 +116,7 @@
         collectionView.delegate = self;
         collectionView.dataSource = self;
         collectionView.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
+        [collectionView registerClass:UICollectionReusableView.class forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
 //        collectionView.hidden = YES;
         _collectionView = collectionView;
         
@@ -353,6 +353,27 @@
 
 #pragma mark --- UICollectionViewDataSource
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
+    if (collectionView == self.backgroundCollection) return CGSizeZero;
+    return CGSizeMake(30, 44);
+    
+}
+
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    
+    if (collectionView == self.backgroundCollection) return nil;
+    if (indexPath.section == self.config.cm_titles.count - 1) return nil;
+    
+    if (kind == UICollectionElementKindSectionHeader) {
+        UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer" forIndexPath:indexPath];
+        header.bounds = CGRectMake(0, 0, 30, 44);
+        header.backgroundColor = UIColor.lightGrayColor;
+        return header;
+    }
+        return nil;
+}
+
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -440,11 +461,24 @@
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+//    return 1;
     
-    return self.config.cm_titles.count;
+    if (collectionView == self.collectionView) {
+         return self.config.cm_titles.count;
+    } else {
+        return self.config.cm_titles.count;
+    }
+    
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+//     return self.config.cm_titles.count;
+    
+    if (collectionView == self.collectionView) {
+            return 1;
+       } else {
+           return 1;
+       }
     
     return  1;
     
