@@ -10,10 +10,6 @@
 #import "CMPageTitleView.h"
 #import "CMChildTableController.h"
 #import "Masonry.h"
-//屏幕尺寸
-#define CM_SCREEN_W  [UIScreen mainScreen].bounds.size.width
-#define CM_SCREEN_H  [UIScreen mainScreen].bounds.size.height
-
 
 //是否是刘海屏
 #define CM_NOTCH_SCREEN \
@@ -25,8 +21,13 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 
 #define CM_Interface_Portrait UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)
 
+//屏幕尺寸
+#define CM_SCREEN_W   [UIScreen mainScreen].bounds.size.width
+#define CM_SCREEN_H  [UIScreen mainScreen].bounds.size.height
+
+
 //导航栏高度
-#define CM_NAVI_BAR_H (CM_Interface_Portrait ? (CM_NOTCH_SCREEN ? 88 : 64) : (CM_NOTCH_SCREEN ? 44 : 32))
+#define CM_NAVI_BAR_H (CM_Interface_Portrait ? (CM_NOTCH_SCREEN ? 88 : 64) : (CM_NOTCH_SCREEN ? 44 : 44))
 
 //电池条高度
 #define CM_STATUE_BAR_H (CM_Interface_Portrait ? (CM_NOTCH_SCREEN ? 44 : 20):0)
@@ -171,6 +172,14 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
+    
+    [self.pageTitleView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
+    
 }
 
 - (void)viewDidLayoutSubviews {
@@ -192,16 +201,15 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientatonChanged:) name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientatonChanged:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
 }
 
 - (void)orientatonChanged:(NSNotification *)noti {
 
+//    NSLog(@"当前屏幕是%@,%@是刘海屏;导航栏高度是:%d",CM_Interface_Portrait ? @"竖屏" : @"横屏",CM_NOTCH_SCREEN ? @"" : @"不",CM_NAVI_BAR_H);
     [self.pageTitleView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.mas_equalTo(0);
+        make.left.right.bottom.mas_equalTo(0);
         make.top.mas_equalTo(CM_NAVI_BAR_H);
-        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
-        
     }];
 }
 
