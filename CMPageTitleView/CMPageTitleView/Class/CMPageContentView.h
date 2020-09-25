@@ -64,6 +64,16 @@
 - (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout Config:(CMPageTitleConfig *)config;
 
 
+/// 更新layout(不调用scrollViewDidScroll方法)
+/// @param layout collectionview 的layout布局
+/// @param animated 是否动画
+- (void)cm_setCollectionViewLayout:(UICollectionViewLayout *)layout animated:(BOOL)animated;
+
+
+/// 设置contentOffset(不调用scrollViewDidScroll方法)
+/// @param offset 偏移量
+- (void)cm_setContentOffset:(CGPoint)offset;
+
 @end
 
 

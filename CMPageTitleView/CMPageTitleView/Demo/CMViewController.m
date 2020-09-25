@@ -23,11 +23,13 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }\
 (isPhoneX);})
 
+#define CM_Interface_Portrait UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)
+
 //导航栏高度
-#define CM_NAVI_BAR_H (CM_NOTCH_SCREEN ? 88 : 64)
+#define CM_NAVI_BAR_H (CM_Interface_Portrait ? (CM_NOTCH_SCREEN ? 88 : 64) : (CM_NOTCH_SCREEN ? 44 : 32))
 
 //电池条高度
-#define CM_STATUE_BAR_H (CM_NOTCH_SCREEN ? 44 : 20)
+#define CM_STATUE_BAR_H (CM_Interface_Portrait ? (CM_NOTCH_SCREEN ? 44 : 20):0)
 
 //tabbar高度
 #define CM_TAB_BAR_H (CM_NOTCH_SCREEN ? 83.0f: 49.0)
@@ -171,11 +173,37 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+//    BOOL portrait = UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation);
+//     //demo未做 刘海屏适配;
+//     CGFloat height = portrait ? 32 : CM_NAVI_BAR_H;
+//
+//     [self.pageTitleView mas_remakeConstraints:^(MASConstraintMaker *make) {
+//         make.left.right.mas_equalTo(0);
+//         make.top.mas_equalTo(height);
+//         make.height.mas_equalTo(CM_SCREEN_H - height);
+//     }];
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientatonChanged:) name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
 }
 
+- (void)orientatonChanged:(NSNotification *)noti {
+
+    [self.pageTitleView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
+}
 
 - (void)setReloadBarButtonItem {
     

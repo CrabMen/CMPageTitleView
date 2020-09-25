@@ -81,9 +81,35 @@
     return nil;
 }
 
+- (instancetype)init {
+    
+    if (self = [super init]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChangedNoti:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+    }
+    return self;
+}
+
+- (void)orientationChangedNoti:(NSNotification *)noti {
+    [self layoutSubviews];
+    CMFlowLayout *layout = [CMFlowLayout new];
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    __weak typeof(self) weakSelf = self;
+//    [self.contentView setCollectionViewLayout:layout animated:YES completion:^(BOOL finished) {
+//
+//    }];
+    
+    [self.contentView cm_setCollectionViewLayout:layout animated:YES];
+    
+//    [self.contentView setContentOffset:CGPointMake(self.titleView.cm_selectedIndex * self.contentView.cm_width, 0)];
+    [self.contentView cm_setContentOffset:CGPointMake(self.titleView.cm_selectedIndex * self.contentView.cm_width, 0) ];
+    
+}
+
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     [self initSubViews];
+    
 }
 
 - (void)cm_reloadConfig {

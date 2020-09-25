@@ -17,6 +17,8 @@
 /**配置*/
 @property (nonatomic,strong) CMPageTitleConfig *config;
 
+@property (nonatomic,assign) BOOL scroll;
+
 @end
 
 @implementation CMPageContentView
@@ -44,6 +46,31 @@
         }
     }
     return self;
+}
+
+
+- (void)cm_setCollectionViewLayout:(UICollectionViewLayout *)layout animated:(BOOL)animated {
+    
+    __weak typeof(self) weakSelf = self;
+    weakSelf.isAniming = YES;
+    [UIView animateWithDuration:0.1 animations:^{
+        [self setCollectionViewLayout:layout animated:animated completion:nil];
+    } completion:^(BOOL finished) {
+        weakSelf.isAniming = NO;
+    }];
+    
+    
+}
+- (void)cm_setContentOffset:(CGPoint)offset {
+
+    __weak typeof(self) weakSelf = self;
+    weakSelf.isAniming = YES;
+    [UIView animateWithDuration:0.1 animations:^{
+        [weakSelf setContentOffset:offset];
+    } completion:^(BOOL finished) {
+        weakSelf.isAniming = NO;
+    }];
+    
 }
 
 #pragma mark --- UICollectionViewDataSource
