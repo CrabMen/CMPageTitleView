@@ -95,8 +95,6 @@
     [self.config.cm_parentController addChildViewController:self.config.cm_childControllers[indexPath.row]];
     [self.config.cm_childControllers[indexPath.row] didMoveToParentViewController:self.config.cm_parentController];
     
-    NSLog(@"-----cell的高度%lf----",cell.cm_y);
-    
     return cell;
 }
 
@@ -176,7 +174,6 @@
         self.itemSize = self.collectionView.bounds.size;
     }
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    
 }
 @end
 
