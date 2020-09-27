@@ -89,7 +89,12 @@
     return self;
 }
 
-
+- (void)layoutSubviews {
+    
+    [super layoutSubviews];
+    [self initSubViews];
+    
+}
 
 - (void)orientationChangedNoti:(NSNotification *)noti {
     [self layoutSubviews];
