@@ -104,8 +104,9 @@
     if (!_collectionView) {
         CMPageTitleFlowLayout *layout = [CMPageTitleFlowLayout new];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        layout.minimumInteritemSpacing = 0;
-        layout.minimumLineSpacing = 0;
+//        layout.minimumInteritemSpacing = 20;
+//        layout.minimumLineSpacing = 20;
+//        layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 20);
 //        layout.estimatedItemSize = CGSizeMake(0, self.config.cm_titleHeight);
         layout.itemSize = CGSizeMake(100, 40);
         UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
@@ -241,7 +242,7 @@
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.collectionView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
     [self.collectionView reloadData];
     
-    [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:self.config.cm_selectedIndex inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+    [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:self.config.cm_selectedIndex] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
     
     
     if (self.config.cm_switchMode & CMPageTitleSwitchMode_Underline ) {
@@ -255,7 +256,7 @@
     
     
     
-    [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:self.config.cm_selectedIndex inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+    [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:self.config.cm_selectedIndex] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
     
 }
 
@@ -273,7 +274,7 @@
     _lastOffsetX = index * self.cm_width;
     _cm_selectedIndex = index;
     self.config.cm_defaultIndex = index;
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:index];
     
     [self.collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
     
@@ -284,7 +285,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-    CMTitleCell *cell = (CMTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.config.cm_selectedIndex inSection:0]];
+    CMTitleCell *cell = (CMTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:self.config.cm_selectedIndex]];
     
     CGRect frame = [self.collectionView convertRect:cell.frame toView:self];
     
@@ -305,16 +306,16 @@
     
     [self.collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
     CMTitleCell *cell = (CMTitleCell*)[collectionView cellForItemAtIndexPath:indexPath];
-    NSLog(@"%@", [NSString stringWithFormat:@"选中 -- %02ld -- %@",(long)indexPath.item,cell.titleLabel.text]);
+    NSLog(@"%@", [NSString stringWithFormat:@"选中 -- %02ld -- %@",(long)indexPath.section,cell.titleLabel.text]);
     
     if (self.cm_delegate) {
         
         NSInteger lastIndex =  collectionView.contentOffset.x / self.cm_width;
         lastIndex = self.config.cm_selectedIndex;
-        self.cm_selectedIndex = indexPath.item;
-        [self.cm_delegate cm_pageTitleContentViewClickWithLastIndex:lastIndex Index:indexPath.item Repeat:lastIndex == indexPath.item];
+        self.cm_selectedIndex = indexPath.section;
+        [self.cm_delegate cm_pageTitleContentViewClickWithLastIndex:lastIndex Index:indexPath.section Repeat:lastIndex == indexPath.section];
         
-        self.config.cm_defaultIndex = indexPath.item;
+        self.config.cm_defaultIndex = indexPath.section;
         [self animateUnderlineWithCell:cell];
         
     }
@@ -345,7 +346,7 @@
     if (collectionView == self.backgroundCollection) return;
     
     CMTitleCell *cell = (CMTitleCell*)[collectionView cellForItemAtIndexPath:indexPath];
-    NSLog(@"%@", [NSString stringWithFormat:@"反选 -- %02ld -- %@",(long)indexPath.item,cell.titleLabel.text]);
+    NSLog(@"%@", [NSString stringWithFormat:@"反选 -- %02ld -- %@",(long)indexPath.section,cell.titleLabel.text]);
 }
 
 
@@ -355,7 +356,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
     if (collectionView == self.backgroundCollection) return CGSizeZero;
-    return CGSizeMake(30, 44);
+    return CGSizeMake(1, 20);
     
 }
 
@@ -363,13 +364,15 @@
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     
     if (collectionView == self.backgroundCollection) return nil;
-    if (indexPath.section == self.config.cm_titles.count - 1) return nil;
     
-    if (kind == UICollectionElementKindSectionHeader) {
-        UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer" forIndexPath:indexPath];
-        header.bounds = CGRectMake(0, 0, 30, 44);
-        header.backgroundColor = UIColor.lightGrayColor;
-        return header;
+    if (kind == UICollectionElementKindSectionFooter) {
+        UICollectionReusableView *footer = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer" forIndexPath:indexPath];
+//        footer.bounds = CGRectMake(0, 0, self.config.cm_splitterSize.width,  self.config.cm_splitterSize.height);
+        footer.bounds = CGRectMake(0, 0, 1,  20);
+
+        footer.backgroundColor = UIColor.lightGrayColor;
+        
+        return footer;
     }
         return nil;
 }
@@ -388,9 +391,9 @@
 - (UICollectionViewCell *)titleCollection:(UICollectionView *)titleCollection cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 
   CMTitleCell *cell = [titleCollection dequeueReusableCellWithReuseIdentifier:NSStringFromClass(CMTitleCell.class) forIndexPath:indexPath];
-  cell.titleLabel.text = self.config.cm_titles[indexPath.item];
+  cell.titleLabel.text = self.config.cm_titles[indexPath.section];
   cell.titleLabel.font = self.config.cm_font;
-  cell.cm_contentMode = indexPath.item % 4;
+//  cell.cm_contentMode = indexPath.section % 4;
   cell.spacing = 6;
   cell.imageView.hidden = cell.cm_contentMode == CMTitleCellContentMode_ImageTop;
   [cell cm_cellSetSelectedCompletion:^(BOOL selected) {
@@ -460,6 +463,8 @@
     
 }
 
+//numberOfSections
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
 //    return 1;
     
@@ -493,10 +498,10 @@
 
 - (void)modifyColorWithScrollProgress:(CGFloat)progress FromIndex:(NSUInteger)fromIndex ToIndex:(NSUInteger)toIndex {
     
-    if (_isClickTitle || toIndex >= [self.collectionView numberOfItemsInSection:0]) return;
+    if (_isClickTitle || toIndex >= [self.collectionView numberOfSections]) return;
     
-    CMTitleCell *toCell = (CMTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:toIndex inSection:0]];
-    CMTitleCell *fromCell = (CMTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:fromIndex inSection:0]];
+    CMTitleCell *toCell = (CMTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:toIndex]];
+    CMTitleCell *fromCell = (CMTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:fromIndex]];
     CMDisplayTitleLabel *toLabel = toCell.titleLabel;
     CMDisplayTitleLabel *fromLabel = fromCell.titleLabel;
     
@@ -541,10 +546,10 @@
 
 
 - (void)modifyScaleWithScrollProgress:(CGFloat)progress FromIndex:(NSUInteger)fromIndex ToIndex:(NSUInteger)toIndex {
-    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Scale) || _isClickTitle || toIndex >= [self.collectionView numberOfItemsInSection:0] || self.config.cm_switchMode & CMPageTitleSwitchMode_Delay) return;
+    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Scale) || _isClickTitle || toIndex >= [self.collectionView numberOfSections] || self.config.cm_switchMode & CMPageTitleSwitchMode_Delay) return;
     
-    CMTitleCell *fromCell = (CMTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:fromIndex inSection:0]];
-    CMTitleCell *toCell = (CMTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:toIndex inSection:0]];
+    CMTitleCell *fromCell = (CMTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:fromIndex]];
+    CMTitleCell *toCell = (CMTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:toIndex]];
     
     CGFloat rightScale = progress;
     
@@ -623,11 +628,11 @@
 
 - (void)modifyUnderlineWithScrollProgress:(CGFloat)progress fromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex {
     
-    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline) || _isClickTitle || toIndex >= [self.collectionView numberOfItemsInSection:0]|| self.config.cm_switchMode & CMPageTitleSwitchMode_Delay) return;
+    if (!(self.config.cm_switchMode & CMPageTitleSwitchMode_Underline) || _isClickTitle || toIndex >= [self.collectionView numberOfSections]|| self.config.cm_switchMode & CMPageTitleSwitchMode_Delay) return;
     
     
-    CMTitleCell *fromCell = (CMTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:fromIndex inSection:0]];
-    CMTitleCell *toCell = (CMTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:toIndex inSection:0]];
+    CMTitleCell *fromCell = (CMTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:fromIndex]];
+    CMTitleCell *toCell = (CMTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:toIndex]];
     
     
     CGFloat rightLabelX = toCell.cm_x + (1 - self.config.cm_underlineWidthScale)*toCell.cm_width*0.5;
@@ -698,8 +703,8 @@
     
     NSLog(@"滚动时的progress ----- %lf",progress);
     
-    CMTitleCell *fromCell = (CMTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:fromIndex inSection:0]];
-    CMTitleCell *targetCell = (CMTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:toIndex inSection:0]];
+    CMTitleCell *fromCell = (CMTitleCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:fromIndex]];
+    CMTitleCell *targetCell = (CMTitleCell *) [self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:toIndex]];
     
     [self modifyColorWithScrollProgress:progress FromIndex:fromIndex ToIndex:toIndex];
     [self modifyScaleWithScrollProgress:progress FromIndex:fromIndex ToIndex:toIndex];
