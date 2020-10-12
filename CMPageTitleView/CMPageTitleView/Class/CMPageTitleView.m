@@ -81,30 +81,19 @@
     return nil;
 }
 
-- (instancetype)init {
-    
-    if (self = [super init]) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChangedNoti:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
-    }
-    return self;
-}
 
 - (void)layoutSubviews {
     
     [super layoutSubviews];
     [self initSubViews];
     
-}
-
-- (void)orientationChangedNoti:(NSNotification *)noti {
-    [self layoutSubviews];
     CMFlowLayout *layout = [CMFlowLayout new];
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     [self.contentView.collectionViewLayout invalidateLayout];
     [self.contentView cm_setContentOffset:CGPointMake(self.titleView.cm_selectedIndex * self.contentView.cm_width, 0) ];
+    [self.titleView cm_pageTitleContentViewAdjustPosition:self.contentView];
+
 }
-
-
 
 - (void)cm_reloadConfig {
     
@@ -264,9 +253,5 @@
     
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-}
 
 @end
