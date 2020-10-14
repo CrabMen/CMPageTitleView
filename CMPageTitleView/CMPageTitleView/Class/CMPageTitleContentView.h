@@ -64,8 +64,7 @@
 - (void)cm_pageTitleContentViewAdjustPosition:(UIScrollView *)scrollView;
 
 
-
-
+- (void)cm_remodifyTitlePositionWithIndex:(NSInteger)idx;
 
 @end
 

@@ -12,12 +12,12 @@
 #import "CMPageContentView.h"
 @interface CMPageContentView ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
-/**是否动画*/
-@property (nonatomic,assign) BOOL isAniming;
 /**配置*/
 @property (nonatomic,strong) CMPageTitleConfig *config;
 
 @property (nonatomic,assign) BOOL scroll;
+
+@property (nonatomic,assign) BOOL isLandscape;
 
 @end
 
@@ -61,16 +61,9 @@
     
     
 }
-- (void)cm_setContentOffset:(CGPoint)offset {
 
-    __weak typeof(self) weakSelf = self;
-    weakSelf.isAniming = YES;
-    [UIView animateWithDuration:0.1 animations:^{
-        [weakSelf setContentOffset:offset];
-    } completion:^(BOOL finished) {
-        weakSelf.isAniming = NO;
-    }];
-    
+- (void)cm_setContentOffset:(CGPoint)offset {
+    self.bounds = CGRectMake(offset.x, offset.y, self.bounds.size.width, self.bounds.size.height);
 }
 
 #pragma mark --- UICollectionViewDataSource
@@ -149,8 +142,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (_isAniming || self.config.cm_childControllers.count == 0) return;
     
-    if (self.cm_delegate) {
-        
+    if (self.cm_delegate&&(scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating)) {
         CGFloat progress = scrollView.contentOffset.x / self.cm_width - floor(scrollView.contentOffset.x / self.cm_width);
         NSUInteger leftIndex = floor(scrollView.contentOffset.x / self.cm_width);
         NSUInteger rightIndex = leftIndex + 1;

@@ -352,6 +352,33 @@
     
 }
 
+- (void)cm_remodifyTitlePositionWithIndex:(NSInteger)idx{
+
+//    [self layoutSubviews];
+    NSLog(@"------选中的标题:%@",self.selectedLabel.text);
+//    [self modifyTitlePosition:self.titleLabels[idx]];
+//    [self modifyTitlePosition:self.selectedLabel];
+//    [self setLabelTitleCenter:self.selectedLabel];
+    
+//    if ((self.config.cm_switchMode & CMPageTitleSwitchMode_Scale)) {
+//        self.selectedLabel.cm_progress = 0;
+//        self.selectedLabel.cm_fillColor = self.config.cm_selectedColor;
+//        self.selectedLabel.transform = CGAffineTransformIdentity;
+//    }
+    [self setTitleCoverWithLabel:self.selectedLabel];
+    [self setUnderLineWithLabel:self.selectedLabel];
+
+    
+
+}
+- (void)modifyTitlePosition:(CMDisplayTitleLabel *)label {
+    
+    [self setLabelTitleCenter:label];
+    [self setTitleScaleCenter:label];
+    [self setTitleCoverWithLabel:label];
+    [self setUnderLineWithLabel:label];
+    
+}
 
 /**
  选中标题Label的设置
@@ -359,20 +386,17 @@
 - (void)selectLabel:(CMDisplayTitleLabel *)label {
     
     
-    if (_selectedLabel == label) return;
+//    if (_selectedLabel == label) return;
     
-    [self setLabelTitleCenter:label];
-    [self setTitleScaleCenter:label];
-    [self setTitleCoverWithLabel:label];
-    [self setUnderLineWithLabel:label];
+    [self modifyTitlePosition:label];
     
     _selectedLabel.textColor = self.config.cm_normalColor;
     _selectedLabel.cm_progress = 0;
-    
+
     label.textColor = self.config.cm_selectedColor;
     label.cm_fillColor = self.config.cm_selectedColor;
     label.cm_progress = 0;
-    
+//
     _selectedLabel = (CMDisplayTitleLabel *)label;
     _lastOffsetX = [self.titleLabels indexOfObject:label] * self.cm_width;
     

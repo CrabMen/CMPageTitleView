@@ -51,7 +51,8 @@
 /**delegate*/
 @property (nonatomic,weak) id <CMPageContentViewDelegate> cm_delegate;
 
-
+/**是否动画*/
+@property (nonatomic,assign) BOOL isAniming;
 
 /**
  初始化方法

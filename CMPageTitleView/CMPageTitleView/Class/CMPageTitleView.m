@@ -86,13 +86,19 @@
     
     [super layoutSubviews];
     [self initSubViews];
-    
+    [self landScape];
+
+}
+
+- (void)landScape {
+  
     CMFlowLayout *layout = [CMFlowLayout new];
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     [self.contentView.collectionViewLayout invalidateLayout];
     [self.contentView cm_setContentOffset:CGPointMake(self.titleView.cm_selectedIndex * self.contentView.cm_width, 0) ];
-    [self.titleView cm_pageTitleContentViewAdjustPosition:self.contentView];
-
+    [self.titleView cm_remodifyTitlePositionWithIndex:self.titleView.cm_selectedIndex];
+    
+    
 }
 
 - (void)cm_reloadConfig {
