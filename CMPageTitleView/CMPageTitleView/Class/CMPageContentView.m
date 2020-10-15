@@ -167,6 +167,11 @@
     }
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
 }
+
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
+    return  YES;
+}
+
 @end
 
 @implementation CMPageContentCell
