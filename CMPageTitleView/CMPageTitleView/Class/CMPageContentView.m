@@ -12,10 +12,12 @@
 #import "CMPageContentView.h"
 @interface CMPageContentView ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
-/**是否动画*/
-@property (nonatomic,assign) BOOL isAniming;
 /**配置*/
 @property (nonatomic,strong) CMPageTitleConfig *config;
+
+@property (nonatomic,assign) BOOL scroll;
+
+@property (nonatomic,assign) BOOL isLandscape;
 
 @end
 
@@ -46,6 +48,24 @@
     return self;
 }
 
+
+- (void)cm_setCollectionViewLayout:(UICollectionViewLayout *)layout animated:(BOOL)animated {
+    
+    __weak typeof(self) weakSelf = self;
+    weakSelf.isAniming = YES;
+    [UIView animateWithDuration:0.1 animations:^{
+        [self setCollectionViewLayout:layout animated:animated completion:nil];
+    } completion:^(BOOL finished) {
+        weakSelf.isAniming = NO;
+    }];
+    
+    
+}
+
+- (void)cm_setContentOffset:(CGPoint)offset {
+    self.bounds = CGRectMake(offset.x, offset.y, self.bounds.size.width, self.bounds.size.height);
+}
+
 #pragma mark --- UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -67,8 +87,6 @@
     cell.cm_contentView = [self.config.cm_childControllers[indexPath.row] view];
     [self.config.cm_parentController addChildViewController:self.config.cm_childControllers[indexPath.row]];
     [self.config.cm_childControllers[indexPath.row] didMoveToParentViewController:self.config.cm_parentController];
-    
-    NSLog(@"-----cell的高度%lf----",cell.cm_y);
     
     return cell;
 }
@@ -124,8 +142,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (_isAniming || self.config.cm_childControllers.count == 0) return;
     
-    if (self.cm_delegate) {
-        
+    if (self.cm_delegate&&(scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating)) {
         CGFloat progress = scrollView.contentOffset.x / self.cm_width - floor(scrollView.contentOffset.x / self.cm_width);
         NSUInteger leftIndex = floor(scrollView.contentOffset.x / self.cm_width);
         NSUInteger rightIndex = leftIndex + 1;
@@ -149,8 +166,12 @@
         self.itemSize = self.collectionView.bounds.size;
     }
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    
 }
+
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
+    return  YES;
+}
+
 @end
 
 @implementation CMPageContentCell

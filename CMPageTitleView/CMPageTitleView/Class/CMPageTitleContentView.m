@@ -289,7 +289,7 @@
     
     NSInteger centerIndex = floorf(scrollView.contentOffset.x / self.cm_width);
     
-    [self setLabelTitleCenter:self.titleLabels[centerIndex]];
+    [self setLabelTitleCenter:self.titleLabels[centerIndex] animated:YES];
     
 }
 
@@ -352,6 +352,20 @@
     
 }
 
+- (void)cm_remodifyTitlePosition{
+
+    [self setLabelTitleCenter:self.selectedLabel animated:NO];
+    [self setUnderLineWithLabel:self.selectedLabel];
+
+}
+- (void)modifyTitlePosition:(CMDisplayTitleLabel *)label {
+    
+    [self setLabelTitleCenter:label animated:YES];
+    [self setTitleScaleCenter:label];
+    [self setTitleCoverWithLabel:label];
+    [self setUnderLineWithLabel:label];
+    
+}
 
 /**
  选中标题Label的设置
@@ -361,18 +375,15 @@
     
     if (_selectedLabel == label) return;
     
-    [self setLabelTitleCenter:label];
-    [self setTitleScaleCenter:label];
-    [self setTitleCoverWithLabel:label];
-    [self setUnderLineWithLabel:label];
+    [self modifyTitlePosition:label];
     
     _selectedLabel.textColor = self.config.cm_normalColor;
     _selectedLabel.cm_progress = 0;
-    
+
     label.textColor = self.config.cm_selectedColor;
     label.cm_fillColor = self.config.cm_selectedColor;
     label.cm_progress = 0;
-    
+//
     _selectedLabel = (CMDisplayTitleLabel *)label;
     _lastOffsetX = [self.titleLabels indexOfObject:label] * self.cm_width;
     
@@ -395,7 +406,7 @@
 /**
  让选中的按钮居中显示
  */
-- (void)setLabelTitleCenter:(UILabel *)label {
+- (void)setLabelTitleCenter:(UILabel *)label animated:(BOOL)animated {
     
     
     if (self.contentSize.width <= self.cm_width) return;
@@ -411,7 +422,7 @@
     
     offsetX = offsetX > maxOffsetX ? maxOffsetX : offsetX;
     
-    [self setContentOffset:CGPointMake(offsetX, 0) animated:YES];
+    [self setContentOffset:CGPointMake(offsetX, 0) animated:animated];
     
     
 }

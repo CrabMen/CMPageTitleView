@@ -10,10 +10,6 @@
 #import "CMPageTitleView.h"
 #import "CMChildTableController.h"
 #import "Masonry.h"
-//屏幕尺寸
-#define CM_SCREEN_W  [UIScreen mainScreen].bounds.size.width
-#define CM_SCREEN_H  [UIScreen mainScreen].bounds.size.height
-
 
 //是否是刘海屏
 #define CM_NOTCH_SCREEN \
@@ -23,11 +19,18 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 }\
 (isPhoneX);})
 
+#define CM_Interface_Portrait UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)
+
+//屏幕尺寸
+#define CM_SCREEN_W   [UIScreen mainScreen].bounds.size.width
+#define CM_SCREEN_H  [UIScreen mainScreen].bounds.size.height
+
+
 //导航栏高度
-#define CM_NAVI_BAR_H (CM_NOTCH_SCREEN ? 88 : 64)
+#define CM_NAVI_BAR_H (CM_Interface_Portrait ? (CM_NOTCH_SCREEN ? 88 : 64) : (CM_NOTCH_SCREEN ? 44 : 44))
 
 //电池条高度
-#define CM_STATUE_BAR_H (CM_NOTCH_SCREEN ? 44 : 20)
+#define CM_STATUE_BAR_H (CM_Interface_Portrait ? (CM_NOTCH_SCREEN ? 44 : 20):0)
 
 //tabbar高度
 #define CM_TAB_BAR_H (CM_NOTCH_SCREEN ? 83.0f: 49.0)
@@ -169,13 +172,33 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
+    
+    [self.pageTitleView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+        
+    }];
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
 }
 
+
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    CGFloat naviH = (size.height > size.width ? (CM_NOTCH_SCREEN ? 88 : 64) : (CM_NOTCH_SCREEN ? 44 : 44));
+    [self.pageTitleView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.mas_equalTo(0);
+        make.top.mas_equalTo(naviH);
+    }];
+}
 
 - (void)setReloadBarButtonItem {
     

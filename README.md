@@ -272,6 +272,8 @@ end
 * 2020-07-15 版本 **0.7.1** 
   * 紧急修复iOS11 在滑动内容视图时,Cell向上偏移的问题
   * 适配MJRefresh
+* 2020-10-15 版本 **0.7.2** 
+  * 适配横竖屏切换
   
 ## 注意
 **1. UIScrollView、UITableView、UICollectionView 在标题栏切换时，下沉问题**

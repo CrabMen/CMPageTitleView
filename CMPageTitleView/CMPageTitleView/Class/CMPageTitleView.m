@@ -81,9 +81,18 @@
     return nil;
 }
 
+
 - (void)layoutSubviews {
+    
     [super layoutSubviews];
     [self initSubViews];
+    [self orientation];
+
+}
+
+- (void)orientation {
+    [self.contentView cm_setContentOffset:CGPointMake(self.titleView.cm_selectedIndex * self.contentView.cm_width, 0) ];
+    [self.titleView cm_remodifyTitlePosition];
 }
 
 - (void)cm_reloadConfig {
@@ -243,5 +252,6 @@
     class_addMethod(self.cm_config.cm_parentController.class,NSSelectorFromString(@"shouldAutomaticallyForwardAppearanceMethods") , method_getImplementation(class_getInstanceMethod(self.class,NSSelectorFromString(@"shouldAutomaticallyForwardAppearanceMethods"))), "v@:");
     
 }
+
 
 @end
