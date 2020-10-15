@@ -352,10 +352,9 @@
     
 }
 
-- (void)cm_remodifyTitlePositionWithIndex:(NSInteger)idx{
+- (void)cm_remodifyTitlePosition{
 
     [self setLabelTitleCenter:self.selectedLabel animated:NO];
-    [self setTitleCoverWithLabel:self.selectedLabel];
     [self setUnderLineWithLabel:self.selectedLabel];
 
 }

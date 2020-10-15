@@ -92,7 +92,7 @@
 
 - (void)orientation {
     [self.contentView cm_setContentOffset:CGPointMake(self.titleView.cm_selectedIndex * self.contentView.cm_width, 0) ];
-    [self.titleView cm_remodifyTitlePositionWithIndex:self.titleView.cm_selectedIndex];
+    [self.titleView cm_remodifyTitlePosition];
 }
 
 - (void)cm_reloadConfig {
