@@ -201,6 +201,7 @@ end
 |  cm_normalColor  |  标题正常颜色<br>默认颜色：``[UIColor blackColor]`` |  
 |  cm_selectedColor  | 标题选中颜色<br>默认颜色：``[UIColor redColor]``|  
 |  cm_titleHeight  |  标题高度<br>默认高度：44|  
+|  cm_titleTop   |  标题视图距离上方的偏移量<br>默认高度：0|  
 |  cm_slideGestureEnable  | 是否支持侧滑<br>默认值：``YES``|  
 |  cm_titleMargin  |  标题之间的间隔|  
 |  cm_minTitleMargin  | 最小的标题间距<br>默认值为 20|  
@@ -274,7 +275,8 @@ end
   * 适配MJRefresh
 * 2020-10-15 版本 **0.7.2** 
   * 适配横竖屏切换
-  
+* 2020-10-29 版本 **0.7.3** 
+    * 新增 ``cm_titleTop``属性
 ## 注意
 **1. UIScrollView、UITableView、UICollectionView 在标题栏切换时，下沉问题**
 在``UIScrollView``、``UITableView``、``UICollectionView``视图所在的Controller中添加如下代码，（具体可以参考Demo中``CMChildTableController.m``的第95行）

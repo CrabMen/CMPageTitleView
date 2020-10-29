@@ -212,11 +212,12 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     
     CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.lessChildControllers;
-    config.cm_switchMode = CMPageTitleSwitchMode_Scale | CMPageTitleSwitchMode_Underline;
+    config.cm_switchMode = CMPageTitleSwitchMode_Underline;
     config.cm_underlineStretch = YES;
-    config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
     config.cm_contentMode = CMPageTitleContentMode_Left;
-    config.cm_scaleGradientContentMode = CMPageTitleScaleGradientContentMode_Bottom;
+    config.cm_additionalMode = CMPageTitleAdditionalMode_Seperateline;
+//    config.cm_scaleGradientContentMode = CMPageTitleScaleGradientContentMode_Bottom;
     config.cm_scale = 1.3;
     config.cm_defaultIndex = 1;
     config.cm_selectedColor = UIColor.blueColor;
@@ -1732,6 +1733,27 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     self.pageTitleView.cm_config = config;
     
 }
+
+
+- (void)style02_04 {
+    
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+    }];
+    self.pageTitleView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
+    config.cm_childControllers = self.childControllers;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
+    config.cm_backgroundColor = UIColor.clearColor;
+    config.cm_titleTop = 40;
+    config.cm_fullScreen = YES;
+    self.pageTitleView.cm_config = config;
+    
+}
+
+
 
 - (void)cm_pageTitleViewSelectedWithIndex:(NSInteger)index Repeat:(BOOL)repeat {
     

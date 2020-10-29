@@ -163,6 +163,13 @@ typedef NS_ENUM(NSUInteger,CMPageTitleScaleGradientContentMode) {
 @property (nonatomic,assign) CGFloat cm_titleHeight;
 
 /**
+ titileview在Y方向的位置
+ 默认：0
+ */
+@property (nonatomic,assign) CGFloat cm_titleTop;
+
+
+/**
  是否支持侧滑
  默认值：YES
  */

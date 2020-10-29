@@ -7,9 +7,8 @@ DEPENDENCIES:
   - MJRefresh
 
 SPEC REPOS:
-  https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
-    - Masonry
   trunk:
+    - Masonry
     - MJRefresh
 
 SPEC CHECKSUMS:
