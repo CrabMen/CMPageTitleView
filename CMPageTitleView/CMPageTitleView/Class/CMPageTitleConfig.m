@@ -110,20 +110,36 @@
         
         _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
         
-    }else if (cm_contentMode == CMPageTitleContentMode_Center || cm_contentMode == CMPageTitleContentMode_SpaceAround) {
+    }else if (cm_contentMode == CMPageTitleContentMode_Center ) {
         
         if (self.cm_titlesWidth  >= self.cm_pageTitleViewWidth.floatValue) {
             _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
             
         } else {
             
-            NSUInteger count = cm_contentMode == CMPageTitleContentMode_Center ? self.cm_titles.count + 1 : self.cm_titles.count;
+            NSUInteger count =  self.cm_titles.count + 1 ;
             
             CGFloat titleMargin = (self.cm_pageTitleViewWidth.floatValue - self.cm_titlesWidth )/count;
             
             _cm_titleMargin = titleMargin < self.cm_minTitleMargin ? self.cm_minTitleMargin : titleMargin;
             
         }
+    } else if (cm_contentMode == CMPageTitleContentMode_SpaceAround) {
+        
+        
+        if (self.cm_titlesWidth  >= self.cm_pageTitleViewWidth.floatValue) {
+            _cm_titleMargin = _cm_titleMargin ?: self.cm_minTitleMargin;
+            
+        }else {
+            
+            NSUInteger count =  self.cm_titles.count;
+            
+            CGFloat titleMargin = (self.cm_pageTitleViewWidth.floatValue - self.cm_titlesWidth )/count;
+            
+            _cm_titleMargin = titleMargin;
+            
+        }
+        
     }
     
 }

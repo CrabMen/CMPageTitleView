@@ -86,7 +86,6 @@
                 if (self.config.cm_contentMode == CMPageTitleContentMode_Right) {
                     labelX = [[self.config valueForKey:@"cm_pageTitleViewWidth"] floatValue] - self.config.cm_titleMargin * self.config.cm_titles.count - self.config.cm_titlesWidth;
                 } else if (self.config.cm_contentMode == CMPageTitleContentMode_SpaceAround) {
-                    
                     labelX = self.config.cm_titleMargin * 0.5;
                 } else {
                     labelX =  self.config.cm_titleMargin;

@@ -49,6 +49,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 /**个数较少的视图控制器数组*/
 @property (nonatomic,strong) NSArray *lessChildControllers;
 
+@property (nonatomic,strong) NSArray *twoControllers;
 
 @property (nonatomic,weak) UIImageView *imageView;
 
@@ -106,6 +107,14 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
 - (NSArray *)lessChildControllers {
     
     return [self.childControllers subarrayWithRange:NSMakeRange(0, 3)];
+    
+    
+}
+
+
+- (NSArray *)twoControllers {
+    
+    return [self.childControllers subarrayWithRange:NSMakeRange(0, 2)];
     
     
 }
@@ -1697,6 +1706,7 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
     config.cm_childControllers = self.childControllers;
     config.cm_gradientStyle = CMTitleColorGradientStyle_RGB;
+    config.cm_titleTop = 20;
     config.cm_rightView = self.rightView;
     self.pageTitleView.cm_config = config;
 }
@@ -1749,6 +1759,26 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     config.cm_backgroundColor = UIColor.clearColor;
     config.cm_titleTop = 40;
     config.cm_fullScreen = YES;
+    self.pageTitleView.cm_config = config;
+    
+}
+
+
+
+- (void)style02_05 {
+    
+    [self.pageTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(CM_NAVI_BAR_H);
+        make.height.mas_equalTo(CM_SCREEN_H - CM_NAVI_BAR_H);
+    }];
+    self.pageTitleView.delegate = self;
+    CMPageTitleConfig *config = [CMPageTitleConfig defaultConfig];
+    config.cm_childControllers = self.twoControllers;
+    config.cm_gradientStyle = CMTitleColorGradientStyle_Fill;
+    config.cm_switchMode = CMPageTitleSwitchMode_Underline;
+    config.cm_contentMode = CMPageTitleContentMode_SpaceAround;
+    config.cm_underlineWidth = CM_SCREEN_W * 0.5;
     self.pageTitleView.cm_config = config;
     
 }
