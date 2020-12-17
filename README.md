@@ -277,6 +277,8 @@ end
   * 适配横竖屏切换
 * 2020-10-29 版本 **0.7.3** 
     * 新增 ``cm_titleTop``属性
+* 2020-12-17 版本 **0.7.4** 
+        * 修复设置 ``cm_titleTop``时,rightview偏移问题
 ## 注意
 **1. UIScrollView、UITableView、UICollectionView 在标题栏切换时，下沉问题**
 在``UIScrollView``、``UITableView``、``UICollectionView``视图所在的Controller中添加如下代码，（具体可以参考Demo中``CMChildTableController.m``的第95行）

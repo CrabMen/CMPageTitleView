@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = 'CMPageTitleView'
-    s.version      = '0.7.3'
+    s.version      = '0.7.4'
     s.summary      = 'An easy way to use title bar'
     s.homepage     = 'https://github.com/CrabMen/CMPageTitleView'
     s.license      = 'MIT'
